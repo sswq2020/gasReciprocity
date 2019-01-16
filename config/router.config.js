@@ -9,30 +9,27 @@ export default [
       { path: '/account/login', component: './Account/Login' },
     ],
   },
+  // app
   {
     path: '/',
-    component: '../layouts/BasicLayout',
-  },
-  {
-    path: '/gas',
     component: '../layouts/BasicLayout',
     // Routes: ['src/pages/Authorized'],
     // authority: ['admin', 'user'],
     routes: [
-      { path: '/gas', redirect: '/gas/demo' },
+      // { path: '/', redirect: '/machine' },
       {
-        path: '/gas/demo',
-        name: 'demo',
-        title: 'demo',
+        path: '/gasSys',
+        name: 'gasSys',
+        title: '加油站管理',
         icon: 'safety-certificate',
         // hideChildrenInMenu: true,
         routes: [
-          { path: '/gas/demo', redirect: '/gas/demo/list' },
+          { path: '/gasSys', redirect: '/gasSys/gasList' },
           {
-            path: '/gas/demo/list',
-            name: 'demoLit',
-            title: 'demoLit',
-            component: './Demo/List',
+            path: '/gasSys/gasList',
+            name: 'gasSysGasList',
+            title: '油站管理',
+            component: './GasSys/GasList',
           },
         ],
       },
