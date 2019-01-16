@@ -97,8 +97,6 @@ class Page extends PureComponent {
     const {
       dispatch,
       getListIsLoading,
-      // route: { title, name: pageName },
-      // route: { title },
       gasList: {
         listParams: { page },
         list: { data: listData, totalItemCount },
@@ -139,39 +137,6 @@ class Page extends PureComponent {
           width: 100,
           render: (text, record) => <Fragment>{record.e}</Fragment>,
         },
-        // {
-        //   title: '加油站联系人',
-        //   key: 'contact',
-        //   width: 100,
-        //   render: (text, record) => {
-        //     let flatClass = '';
-        //     switch (record.state) {
-        //       case dict.MACHINE_VERIFIED:
-        //         flatClass = 'warning_flat';
-        //         break;
-        //       case dict.MACHINE_BINDED:
-        //         flatClass = 'primary_flat';
-        //         break;
-        //       case dict.MACHINE_COMPLETED:
-        //         flatClass = 'success_flat';
-        //         break;
-        //       default:
-        //         break;
-        //     }
-        //     return (
-        //       <Fragment>
-        //         <i
-        //           style={{
-        //             verticalAlign: 1,
-        //             marginRight: 5,
-        //           }}
-        //           className={`point ${flatClass}`}
-        //         />
-        //         {dict.machineCertState[record.state]}
-        //       </Fragment>
-        //     );
-        //   },
-        // },
         {
           title: '加油站联系人',
           key: 'contact',
