@@ -2,9 +2,10 @@ import pathToRegexp from 'path-to-regexp';
 import mockjs from 'mockjs';
 
 const body = {
-  code: 0, // 状态码
+  code: '000000', // 状态码
   msg: '成功', // 消息 字符串 可以为空
-  result: {
+  timestamp: new Date().getTime(),
+  data: {
     // 返回结果 result 必须为对象
   },
 };
