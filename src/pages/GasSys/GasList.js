@@ -2,16 +2,12 @@ import React, { PureComponent, Fragment } from 'react';
 import { connect } from 'dva';
 import Link from 'umi/link';
 import { Row, Col, Input, Form, Button, Card } from 'antd';
-// import moment from 'moment';
-// import dict from '@/utils/dict';
 import PageHeaderWrapper from '@/components/PageHeaderWrapper';
 import TableList from '@/components/TableList';
 import ListHeaderForm from '@/components/ListHeaderForm';
-// import PageTitle from '@/components/PageTitle';
 import Select from '@/components/Select';
 
 const FormItem = Form.Item;
-// const { Option } = Select;
 
 @connect(({ gasList, loading }) => ({
   gasList,
