@@ -85,20 +85,19 @@ const application = {
   remark: '@CTITLE()',
 };
 
-const machineLite = {
-  'id|+1': 1,
-  updatedAt: '@DATE("yyyy-MM-dd HH:mm:ss")',
-  category: 'mock @CTITLE(2,10)',
-  brandModel: '@CTITLE(2,10)',
-  ownerName: '@NAME()',
-  ownerPhone: '@INTEGER(13000000000,18999999999)',
-  auditor,
-  app: '@TITLE()',
-  machineId: '@INTEGER()',
-  remark: '@CTITLE()',
-  state: '@PICK(["VERIFIED", "BINDED", "COMPLETED"])',
-  certDate: '@DATE("yyyy-MM-dd HH:mm:ss")',
-  plateNum: '@INTEGER(100000,999999)',
+const gasLite = {
+  'a|+1': 1,
+  b: '@INTEGER(13000000000,18999999999)',
+  c: 'WBJZ@INTEGER(1000,9999)',
+  d: '@CTITLE(2,10)加油站',
+  e: '@INTEGER(13000000000,18999999999)',
+  f: '@CNAME()',
+  g: '@INTEGER(13000000000,18999999999)',
+  h: '@EMAIL()',
+  i: '@PROVINCE()@CITY()',
+  j: '@PICK(["禁用", "正常"])',
+  k: '@DATE("yyyy-MM-dd HH:mm:ss")',
+  l: '@INTEGER(100000,999999)',
 };
 
 const licenseList = {
@@ -309,14 +308,14 @@ const mockRouterMap = {
     {
       isMock: true,
       method: 'get',
-      router: '/machine',
+      router: '/gasList',
       result(params) {
         return {
           ...body,
-          result: {
+          data: {
             totalPageCount: 100 / params.size,
             totalItemCount: 100,
-            'data|1-10': [machineLite],
+            'data|1-10': [gasLite],
           },
         };
       },
