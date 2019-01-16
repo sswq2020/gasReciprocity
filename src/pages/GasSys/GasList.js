@@ -1,5 +1,6 @@
 import React, { PureComponent, Fragment } from 'react';
 import { connect } from 'dva';
+import router from 'umi/router';
 import Link from 'umi/link';
 import { Row, Col, Input, Form, Button, Card } from 'antd';
 import PageHeaderWrapper from '@/components/PageHeaderWrapper';
@@ -231,7 +232,13 @@ class Page extends PureComponent {
     return (
       <PageHeaderWrapper
         tools={
-          <Button type="primary" icon="plus">
+          <Button
+            onClick={() => {
+              router.push('/gasSys/gasCreate');
+            }}
+            type="primary"
+            icon="plus"
+          >
             新建
           </Button>
         }

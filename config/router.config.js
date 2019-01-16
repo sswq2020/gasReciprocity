@@ -31,6 +31,13 @@ export default [
             title: '油站管理',
             component: './GasSys/GasList',
           },
+          {
+            path: '/gasSys/gasCreate',
+            name: 'gasSysGasCreate',
+            title: '新建加油站',
+            component: './GasSys/GasCreate',
+            hideInMenu: true,
+          },
         ],
       },
     ],
