@@ -176,7 +176,9 @@ export default class BaseMenu extends PureComponent {
       location: { pathname },
     } = this.props;
     // if pathname can't match, use the nearest parent's key
-    let selectedKeys = this.getSelectedMenuKeys(pathname);
+
+    // todo 现在的路由会出现undefined
+    let selectedKeys = this.getSelectedMenuKeys(pathname).filter(r => !!r);
     if (!selectedKeys.length && openKeys) {
       selectedKeys = [openKeys[openKeys.length - 1]];
     }
@@ -187,7 +189,6 @@ export default class BaseMenu extends PureComponent {
       };
     }
     const parItem = this.getParItem(menuData, selectedKeys);
-    // console.log(openKeys);
     return parItem ? (
       <Fragment>
         <div className={styles.subMenuHead}>

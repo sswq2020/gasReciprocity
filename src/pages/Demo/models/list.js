@@ -2,18 +2,15 @@ import { message } from 'antd';
 import { reducers } from '@/utils/utils';
 import services from '@/services';
 
-const namespace = 'license';
+const namespace = 'list';
 const selectState = state => state[namespace];
 
 const defaultListParams = {
-  plateNumber: '',
-  produceState: '',
+  auditorId: null,
+  appId: null,
+  text: '',
+  certState: null,
   page: 1,
-};
-
-const defaultFormData = {
-  count: '',
-  type: 'GENERAL',
 };
 
 export default {
@@ -33,7 +30,7 @@ export default {
   effects: {
     *getList(_, { call, put, select }) {
       const { listParams } = yield select(selectState);
-      const response = yield call(services.licenseList, listParams);
+      const response = yield call(services.machineList, listParams);
       switch (response.code) {
         case 0:
           yield put({
@@ -44,7 +41,7 @@ export default {
           });
           break;
         default:
-          message.warning('电商列表获取失败，请稍后重试！');
+          message.warning('机械列表获取失败，请稍后重试！');
           break;
       }
     },
@@ -74,41 +71,6 @@ export default {
       yield put({
         type: 'getList',
       });
-    },
-    *openForm({ payload }, { put }) {
-      yield put({
-        type: 'overrideStateProps',
-        payload: {
-          visible: true,
-          ...payload,
-        },
-      });
-    },
-    *closeForm(_, { put }) {
-      yield put({
-        type: 'overrideStateProps',
-        payload: {
-          visible: false,
-          formData: {
-            ...defaultFormData,
-          },
-        },
-      });
-    },
-    *licenseCreate({ payload }, { call, put }) {
-      const { data, resetFields } = payload;
-      const response = yield call(services.licenseCreate, data);
-      switch (response.code) {
-        case 0:
-          resetFields();
-          message.success('电商录入成功！');
-          yield put({ type: 'resetListParams' });
-          yield put({ type: 'closeForm' });
-          break;
-        default:
-          message.warning('电商录入失败，请稍后重试！');
-          break;
-      }
     },
   },
 };
