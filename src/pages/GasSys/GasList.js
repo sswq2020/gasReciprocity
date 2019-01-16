@@ -235,7 +235,7 @@ class Page extends PureComponent {
           width: 200,
           fixed: 'right',
           render: (text, record) => (
-            <Fragment>
+            <div style={{ textAlign: 'center' }}>
               <Link style={{ marginRight: 10 }} to={`/gas/edit/${record.id}`}>
                 编辑
               </Link>
@@ -243,7 +243,7 @@ class Page extends PureComponent {
                 {record.j === '禁用' ? '激活' : '禁用'}
               </Link>
               <Link to={`/gas/edit/${record.id}`}>下载二维码</Link>
-            </Fragment>
+            </div>
           ),
         },
       ],
