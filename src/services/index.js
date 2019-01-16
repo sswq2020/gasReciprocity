@@ -111,29 +111,6 @@ export default {
       url: '/admin/home',
     });
   },
-  fakeAccountLogin(params) {
-    return request({
-      host: BASEURL,
-      url: '/api/login/account',
-      method: 'POST',
-      params,
-    });
-  },
-  fakeRegister(params) {
-    return request({
-      host: BASEURL,
-      url: '/api/register',
-      method: 'POST',
-      params,
-    });
-  },
-  // usersList(params) {
-  //   return request({
-  //     host: BASEURL,
-  //     url: '/admin/home',
-  //     params,
-  //   });
-  // },
   login(params) {
     return request({
       host: BASEURL,
@@ -148,10 +125,10 @@ export default {
       url: '/admin/logout',
     });
   },
-  machineList(params) {
+  gasList(params) {
     return request({
       host: BASEURL,
-      url: '/machine',
+      url: '/gasList',
       params: {
         page: 1,
         size: 10,
