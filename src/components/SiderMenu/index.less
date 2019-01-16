@@ -1,0 +1,213 @@
+@import '~antd/lib/style/themes/default.less';
+@nav-header-height: 64px;
+.logo {
+  height: @nav-header-height;
+  position: relative;
+  line-height: @nav-header-height;
+  padding-left: (@menu-collapsed-width - 32px) / 2;
+  transition: all 0.3s ease-in;
+  background: #002140;
+  overflow: hidden;
+  img {
+    display: inline-block;
+    vertical-align: middle;
+    height: 32px;
+  }
+  h1 {
+    color: white;
+    display: inline-block;
+    vertical-align: middle;
+    font-size: 20px;
+    margin: 0 0 0 12px;
+    font-family: 'Myriad Pro', 'Helvetica Neue', Arial, Helvetica, sans-serif;
+    font-weight: 600;
+  }
+}
+
+.sider {
+  min-height: 100vh; // box-shadow: 2px 0 6px rgba(0, 21, 41, 0.35);
+  position: relative;
+  z-index: 10;
+  &.fixSiderbar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    transition-timing-function: ease-in;
+    :global(.ant-menu-root) {
+      overflow-y: auto;
+      height: ~'calc(100vh - @{nav-header-height})';
+    }
+  }
+  &.light {
+    box-shadow: 2px 0 8px 0 rgba(29, 35, 41, 0.05);
+    background-color: white;
+    .logo {
+      background: white;
+      box-shadow: 1px 1px 0 0 @border-color-split;
+      h1 {
+        color: @primary-color;
+      }
+    }
+    :global(.ant-menu-light) {
+      border-right-color: transparent;
+    }
+  }
+}
+
+.icon {
+  width: 14px;
+  margin-right: 10px;
+}
+
+:global {
+  .top-nav-menu li.ant-menu-item {
+    height: @nav-header-height;
+    line-height: @nav-header-height;
+  }
+  .drawer .drawer-content {
+    background: #001529;
+  }
+  .ant-menu-inline-collapsed {
+    & > .ant-menu-item .sider-menu-item-img + span,
+    &
+      > .ant-menu-item-group
+      > .ant-menu-item-group-list
+      > .ant-menu-item
+      .sider-menu-item-img
+      + span,
+    & > .ant-menu-submenu > .ant-menu-submenu-title .sider-menu-item-img + span {
+      max-width: 0;
+      display: inline-block;
+      opacity: 0;
+    }
+  }
+  .ant-menu-item .sider-menu-item-img + span,
+  .ant-menu-submenu-title .sider-menu-item-img + span {
+    transition: opacity 0.3s @ease-in-out, width 0.3s @ease-in-out;
+    opacity: 1;
+  }
+}
+
+.menuCon {
+  padding-left: 60px;
+  overflow: hidden;
+  :global {
+    .ant-menu:not(.ant-menu-horizontal) .ant-menu-item-selected {
+      background-color: #fff;
+    }
+  }
+}
+
+.parMenu {
+  position: absolute;
+  border-top: 1px solid #404f61;
+  top: 0;
+  left: 0;
+  background: #172841;
+  transition: width 0.2s;
+  transition-timing-function: ease-in;
+  overflow: hidden;
+  width: 60px;
+  height: auto;
+  &:hover {
+    // transition-timing-function: ease-out;
+    width: 260px; // box-shadow: 2px 0 6px rgba(0, 21, 41, 0.35);
+  }
+  :global {
+    .ant-menu-item {
+      height: 60px;
+      line-height: 60px;
+      font-size: 16px;
+      padding: 0 22px !important;
+      margin: 0;
+      &:not(:last-child) {
+        margin-bottom: 0;
+      }
+      .anticon {
+        font-size: 18px;
+        vertical-align: -0.16em;
+      }
+    }
+    .ant-menu-item-selected {
+      background-color: #1890ff !important;
+    }
+  }
+  &.ant-menu-inline-collapsed {
+    :global {
+      .ant-menu-sub {
+        display: none;
+      }
+      .ant-menu-item {
+        .anticon {
+          font-size: 16px;
+        }
+      }
+    }
+  }
+}
+
+.showMore {
+  position: absolute;
+  width: 9px;
+  height: 40px;
+  background: url('../../assets/shorMoreBg.png') left center no-repeat;
+  background-size: cover;
+  cursor: pointer;
+  top: 50%;
+  margin-top: -82px;
+  transition: ease width 0.2s;
+  &:hover {
+    width: 18px;
+  }
+}
+
+.showMoreCur {
+  background: url('../../assets/shorMoreBgCur.png') right center no-repeat;
+  background-size: cover;
+}
+
+.subMenuHead {
+  height: 50px;
+  border-bottom: 1px solid #ddd;
+  line-height: 50px;
+  text-align: center;
+  font-size: 16px;
+  color: #333;
+}
+
+.subMenuHeadIcon {
+  color: rgba(51, 51, 51, 0.8);
+  margin-right: 5px;
+}
+
+.subMenu {
+  background-color: transparent;
+  border-right: 0 none transparent;
+
+  :global {
+    .ant-menu-submenu > .ant-menu {
+      background-color: transparent;
+    }
+    .ant-menu-item:after,
+    .ant-menu-item-selected:after {
+      display: none;
+    }
+    .ant-menu-item:not(:last-child),
+    .ant-menu-item {
+      margin: 0;
+      font-size: 16px;
+      color: #333;
+      width: 100%;
+    }
+    .ant-menu-item:active {
+      background-color: #fff;
+    }
+    .ant-menu-item:hover {
+      background-color: rgba(255, 255, 255, 0.5);
+    }
+    .ant-menu-submenu-title {
+      font-size: 16px;
+      margin: 0;
+    }
+  }
+}
