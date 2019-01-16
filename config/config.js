@@ -106,5 +106,7 @@ export default {
   },
   hash: true,
   // chainWebpack: webpackPlugin,
-  publicPath: process.env.ENV === 'dev' ? '/' : '//static.reactDemo.com/',
+  publicPath: '/',
+  history: 'hash',
+  // base:''
 };
