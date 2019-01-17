@@ -1,24 +1,22 @@
 import React, { PureComponent, Fragment } from 'react';
 import { connect } from 'dva';
-import router from 'umi/router';
-import Link from 'umi/link';
 import { Row, Col, Input, Form, Button, Modal } from 'antd';
+import HLModal from '@/components/Modal';
 import PageHeaderWrapper from '@/components/PageHeaderWrapper';
 import TableList from '@/components/TableList';
 import ListHeaderForm from '@/components/ListHeaderForm';
-import Select from '@/components/Select';
 
 const FormItem = Form.Item;
 
-@connect(({ gasList, loading }) => ({
-  gasList,
-  getListIsLoading: loading.effects['gasList/getList'],
+@connect(({ serviceList, loading }) => ({
+  serviceList,
+  getListIsLoading: loading.effects['serviceList/getList'],
 }))
 @Form.create()
 class Page extends PureComponent {
   componentDidMount() {
     const { dispatch } = this.props;
-    dispatch({ type: 'gasList/resetListParams' });
+    dispatch({ type: 'serviceList/resetListParams' });
   }
 
   changeListParams = e => {
@@ -31,7 +29,7 @@ class Page extends PureComponent {
     validateFields(err => {
       if (err) return;
       dispatch({
-        type: 'gasList/changeListParams',
+        type: 'serviceList/changeListParams',
         payload: {
           page: 1,
           ...getFieldsValue(),
@@ -47,11 +45,25 @@ class Page extends PureComponent {
     } = this.props;
     resetFields();
     dispatch({
-      type: 'gasList/resetListParams',
+      type: 'serviceList/resetListParams',
     });
   };
 
-  renderAdvancedForm() {
+  openFormEdit = data => {
+    const { dispatch } = this.props;
+    const { id, ...formData } = data;
+
+    dispatch({
+      type: 'serviceList/openForm',
+      payload: {
+        isEdit: true,
+        serviceId: id,
+        formData,
+      },
+    });
+  };
+
+  renderAdvancedForm = () => {
     const {
       form: { getFieldDecorator },
     } = this.props;
@@ -59,20 +71,8 @@ class Page extends PureComponent {
       <Form onSubmit={this.changeListParams} layout="inline">
         <Row gutter={{ md: 8, lg: 24, xl: 48 }}>
           <Col md={8} sm={24}>
-            <FormItem label="会员名">
+            <FormItem label="特色服务名称">
               {getFieldDecorator('text')(<Input placeholder="请输入" autoComplete="off" />)}
-            </FormItem>
-          </Col>
-          <Col md={8} sm={24}>
-            <FormItem label="加油站名称">
-              {getFieldDecorator('appId')(<Input placeholder="请输入" autoComplete="off" />)}
-            </FormItem>
-          </Col>
-          <Col md={8} sm={24}>
-            <FormItem label="加油站状态">
-              {getFieldDecorator('auditorId', {
-                initialValue: null,
-              })(<Select hasAll placeholder="请选择" style={{ width: '100%' }} data={[]} />)}
             </FormItem>
           </Col>
         </Row>
@@ -88,79 +88,42 @@ class Page extends PureComponent {
         </div>
       </Form>
     );
-  }
+  };
 
   render() {
     const {
       dispatch,
       getListIsLoading,
-      gasList: {
-        qCodePopup,
-        qCodeUrl,
+      serviceList: {
+        isEdit,
+        visible,
         listParams: { page },
         list: { data: listData, totalItemCount },
       },
     } = this.props;
-
     const listProps = {
       columns: [
         {
           title: '序号',
           key: '#',
           width: 60,
-          fixed: 'left',
           render: (text, record, index) => <Fragment>{(page - 1) * 10 + index + 1}</Fragment>,
         },
         {
-          title: '会员名',
+          title: '特色服务ICON',
           key: 'b',
-          width: 100,
-          fixed: 'left',
+          width: 200,
           render: (text, record) => {
-            return <Fragment>{record.b}</Fragment>;
+            return <img style={{ height: 48 }} src={record.b} alt={record.c} />;
           },
         },
         {
-          title: '加油站编号',
+          title: '特色服务名称',
           key: 'no',
-          width: 120,
           render: (text, record) => <Fragment>{record.c}</Fragment>,
         },
         {
-          title: '加油站名称',
-          key: 'name',
-          render: (text, record) => <Fragment>{record.d}</Fragment>,
-        },
-        {
-          title: '加油站电话',
-          key: 'tel',
-          width: 100,
-          render: (text, record) => <Fragment>{record.e}</Fragment>,
-        },
-        {
-          title: '加油站联系人',
-          key: 'contact',
-          width: 120,
-          render: (text, record) => <Fragment>{record.f}</Fragment>,
-        },
-        {
-          title: '联系人手机',
-          key: 'contactPhone',
-          width: 100,
-          render: (text, record) => <Fragment>{record.g}</Fragment>,
-        },
-        {
-          title: '联系邮箱',
-          key: 'contactEmail',
-          render: (text, record) => <Fragment>{record.h}</Fragment>,
-        },
-        {
-          title: '加油站地址',
-          key: 'add',
-          render: (text, record) => <Fragment>{record.i}</Fragment>,
-        },
-        {
-          title: '加油站状态',
+          title: '状态',
           key: 'status',
           width: 110,
           render: (text, record) => {
@@ -190,45 +153,29 @@ class Page extends PureComponent {
           },
         },
         {
-          title: '收款二维码',
-          key: 'qCode',
-          render: () => (
-            <a
-              onClick={() => {
-                dispatch({
-                  type: 'gasList/overrideStateProps',
-                  payload: {
-                    qCodePopup: true,
-                    qCodeUrl: '//lorempixel.com/450/450/',
-                  },
-                });
-              }}
-            >
-              点击查看
-            </a>
-          ),
-        },
-        {
           title: <div style={{ textAlign: 'center' }}>操作</div>,
           key: 'operating',
-          width: 200,
-          fixed: 'right',
+          width: 150,
           render: (text, record) => {
             const showText = record.j === '禁用' ? '激活' : '禁用';
             return (
               <div style={{ textAlign: 'center' }}>
-                <Link style={{ marginRight: 10 }} to={`/gasSys/gas/edit/${record.id}`}>
+                <a
+                  style={{ marginRight: 10 }}
+                  onClick={() => {
+                    this.openFormEdit(record);
+                  }}
+                >
                   编辑
-                </Link>
+                </a>
                 <span
                   className={`${
                     record.j === '禁用' ? 'success_text' : 'error_text'
                   } cursor_pointer`}
-                  style={{ marginRight: 10 }}
                   onClick={() => {
                     Modal.confirm({
                       autoFocusButton: null,
-                      title: `你确定 ${showText} 该加油站？`,
+                      title: `你确定 ${showText} ${record.c}？`,
                       okText: '确认',
                       cancelText: '取消',
                       onOk: () => {},
@@ -237,19 +184,12 @@ class Page extends PureComponent {
                 >
                   {showText}
                 </span>
-                <a
-                  onClick={() => {
-                    window.open('//lorempixel.com/900/900/');
-                  }}
-                >
-                  下载二维码
-                </a>
               </div>
             );
           },
         },
       ],
-      scroll: { x: 'max-content' },
+      // scroll: { x: 'max-content' },
       dataSource: listData,
       loading: getListIsLoading,
       style: {
@@ -261,7 +201,7 @@ class Page extends PureComponent {
       },
       onChange: pagination => {
         dispatch({
-          type: 'gasList/changeListParams',
+          type: 'serviceList/changeListParams',
           payload: {
             page: pagination.current,
           },
@@ -273,7 +213,12 @@ class Page extends PureComponent {
         tools={
           <Button
             onClick={() => {
-              router.push('/gasSys/gas/create');
+              dispatch({
+                type: 'serviceList/openForm',
+                payload: {
+                  isEdit: false,
+                },
+              });
             }}
             type="primary"
             icon="plus"
@@ -284,29 +229,28 @@ class Page extends PureComponent {
       >
         <ListHeaderForm>{this.renderAdvancedForm()}</ListHeaderForm>
         <TableList {...listProps} />
-        <Modal
-          visible={qCodePopup}
-          footer={null}
-          width={500}
-          onCancel={() => {
+        <HLModal
+          title={`${isEdit ? '编辑' : '新建'}特殊服务`}
+          visible={visible}
+          // confirmLoading={adminEditIsLoading || adminCreateIsLoading}
+          onOk={(data, resetFields) => {
             dispatch({
-              type: 'gasList/overrideStateProps',
+              // type: isEdit === false ? 'admin/adminCreate' : 'admin/adminEdit',
               payload: {
-                qCodePopup: false,
-                qCodeUrl: '',
+                data: { ...data.admin },
+                resetFields,
               },
             });
           }}
+          onClose={() => {
+            dispatch({
+              type: 'serviceList/closeForm',
+            });
+          }}
         >
-          <div
-            style={{
-              background: `url('${qCodeUrl}') no-repeat center`,
-              width: 452,
-              height: 452,
-              marginTop: 36,
-            }}
-          />
-        </Modal>
+          ok
+          {/* <AdminForm data={formData} /> */}
+        </HLModal>
       </PageHeaderWrapper>
     );
   }

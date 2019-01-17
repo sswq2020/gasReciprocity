@@ -1,11 +1,13 @@
 import React, { PureComponent, Fragment } from 'react';
-import { Form, Row, Col, Input, Select, Cascader, Button, Modal } from 'antd';
+import { connect } from 'dva';
 import router from 'umi/router';
+import { Form, Row, Col, Input, Select, Cascader, Button, Modal } from 'antd';
 import FormItemHead from '@/components/FormItemHead';
 import ListHeaderForm from '@/components/ListHeaderForm';
 import TableList from '@/components/TableList';
 import ImageBox from '@/components/ImageBox';
 import ImageUpload from '@/components/ImageUpload';
+import HLModal from '@/components/Modal';
 import styles from './gasForm.less';
 
 const children = [];
@@ -175,6 +177,9 @@ const gasListProps = {
 // };
 
 @Form.create()
+@connect(({ gasForm }) => ({
+  gasForm,
+}))
 class CustomizeComponent extends PureComponent {
   render() {
     const {
@@ -288,6 +293,7 @@ class CustomizeComponent extends PureComponent {
           </Row>
           <FormItemHead>油品分类：</FormItemHead>
           <TableList {...gasListProps} />
+
           {/* <FormItemHead>银行卡信息：</FormItemHead>
           <TableList {...bankListProps} /> */}
         </Form>
@@ -312,6 +318,7 @@ class CustomizeComponent extends PureComponent {
             保存
           </Button>
         </div>
+        <HLModal>ok</HLModal>
       </ListHeaderForm>
     );
   }

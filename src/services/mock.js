@@ -86,7 +86,7 @@ const application = {
 };
 
 const gasLite = {
-  'a|+1': 1,
+  'id|+1': 1,
   b: '@INTEGER(13000000000,18999999999)',
   c: 'WBJZ@INTEGER(1000,9999)',
   d: '@CTITLE(2,10)加油站',
@@ -100,6 +100,12 @@ const gasLite = {
   l: '@INTEGER(100000,999999)',
 };
 
+const serviceLite = {
+  'id|+1': 1,
+  b: '//lorempixel.com/64/64/',
+  c: '@CTITLE(2,10)服务',
+  j: '@PICK(["禁用", "正常"])',
+};
 /**
  * @sswq 加油站管理/加油明细
  */
@@ -352,6 +358,21 @@ const mockRouterMap = {
             totalPageCount: 100 / params.size,
             totalItemCount: 100,
             'data|1-10': [gasLite],
+          },
+        };
+      },
+    },
+    {
+      isMock: true,
+      method: 'get',
+      router: '/serviceList',
+      result(params) {
+        return {
+          ...body,
+          data: {
+            totalPageCount: 100 / params.size,
+            totalItemCount: 100,
+            'data|1-10': [serviceLite],
           },
         };
       },
