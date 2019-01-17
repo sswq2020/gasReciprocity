@@ -15,6 +15,8 @@ const defaultListParams = {
 export default {
   namespace,
   state: {
+    qCodePopup: false,
+    qCodeUrl: '',
     listParams: {
       ...defaultListParams,
     },

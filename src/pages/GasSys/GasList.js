@@ -2,7 +2,7 @@ import React, { PureComponent, Fragment } from 'react';
 import { connect } from 'dva';
 import router from 'umi/router';
 import Link from 'umi/link';
-import { Row, Col, Input, Form, Button, Card } from 'antd';
+import { Row, Col, Input, Form, Button, Modal } from 'antd';
 import PageHeaderWrapper from '@/components/PageHeaderWrapper';
 import TableList from '@/components/TableList';
 import ListHeaderForm from '@/components/ListHeaderForm';
@@ -95,6 +95,8 @@ class Page extends PureComponent {
       dispatch,
       getListIsLoading,
       gasList: {
+        qCodePopup,
+        qCodeUrl,
         listParams: { page },
         list: { data: listData, totalItemCount },
       },
@@ -189,24 +191,61 @@ class Page extends PureComponent {
         {
           title: '收款二维码',
           key: 'qCode',
-          render: () => <a>点击查看</a>,
+          render: () => (
+            <a
+              onClick={() => {
+                dispatch({
+                  type: 'gasList/overrideStateProps',
+                  payload: {
+                    qCodePopup: true,
+                    qCodeUrl: '//lorempixel.com/450/450/',
+                  },
+                });
+              }}
+            >
+              点击查看
+            </a>
+          ),
         },
         {
           title: <div style={{ textAlign: 'center' }}>操作</div>,
           key: 'operating',
           width: 200,
           fixed: 'right',
-          render: (text, record) => (
-            <div style={{ textAlign: 'center' }}>
-              <Link style={{ marginRight: 10 }} to={`/gas/edit/${record.id}`}>
-                编辑
-              </Link>
-              <Link style={{ marginRight: 10 }} to={`/gas/edit/${record.id}`}>
-                {record.j === '禁用' ? '激活' : '禁用'}
-              </Link>
-              <Link to={`/gas/edit/${record.id}`}>下载二维码</Link>
-            </div>
-          ),
+          render: (text, record) => {
+            const showText = record.j === '禁用' ? '激活' : '禁用';
+            return (
+              <div style={{ textAlign: 'center' }}>
+                <Link style={{ marginRight: 10 }} to={`/gasSys/gas/edit/${record.id}`}>
+                  编辑
+                </Link>
+                <span
+                  className={`${
+                    record.j === '禁用' ? 'success_text' : 'error_text'
+                  } cursor_pointer`}
+                  style={{ marginRight: 10 }}
+                  onClick={() => {
+                    Modal.confirm({
+                      autoFocusButton: null,
+                      title: `你确定 ${showText} 该加油站？`,
+                      okText: '确认',
+                      cancelText: '取消',
+                      onOk: () => {},
+                    });
+                  }}
+                >
+                  {showText}
+                </span>
+                <a
+                  onClick={() => {
+                    window.open('//lorempixel.com/900/900/');
+                  }}
+                >
+                  下载二维码
+                </a>
+              </div>
+            );
+          },
         },
       ],
       rowKey: 'a',
@@ -243,10 +282,31 @@ class Page extends PureComponent {
           </Button>
         }
       >
-        <Card bordered={false} bodyStyle={{ padding: '0 0 20px 0' }}>
-          <ListHeaderForm>{this.renderAdvancedForm()}</ListHeaderForm>
-          <TableList {...listProps} />
-        </Card>
+        <ListHeaderForm>{this.renderAdvancedForm()}</ListHeaderForm>
+        <TableList {...listProps} />
+        <Modal
+          visible={qCodePopup}
+          footer={null}
+          width={500}
+          onCancel={() => {
+            dispatch({
+              type: 'gasList/overrideStateProps',
+              payload: {
+                qCodePopup: false,
+                qCodeUrl: '',
+              },
+            });
+          }}
+        >
+          <div
+            style={{
+              background: `url('${qCodeUrl}') no-repeat center`,
+              width: 450,
+              height: 450,
+              marginTop: 36,
+            }}
+          />
+        </Modal>
       </PageHeaderWrapper>
     );
   }
