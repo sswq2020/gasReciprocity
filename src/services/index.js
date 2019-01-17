@@ -166,6 +166,22 @@ export default {
       },
     });
   },
+
+  /**
+   * @author sswq
+   * @description 加油站管理/票据列表
+   * */
+  billCheckList(params) {
+    return request({
+      host: BASEURL,
+      url: '/billCheckList',
+      params: {
+        page: 1,
+        size: 10,
+        ...params,
+      },
+    });
+  },
   machineDetail(id) {
     return request({
       host: BASEURL,

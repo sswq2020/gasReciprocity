@@ -127,6 +127,15 @@ const priceApplyList = {
   e: '￥@float(400,2000)', // 加油金额
 };
 
+/**
+ * @sswq 加油站管理/票据对账列表
+ */
+const billCheckList = {
+  'id|+1': 1,
+  year: '@INTEGER(1,12)', // 月份
+  invoiceAmount: '￥@INTEGER(10000,30000)', // 发票金额
+};
+
 const licenseList = {
   'id|+1': 1,
   updatedAt: '@DATE("yyyy-MM-dd HH:mm:ss")',
@@ -373,6 +382,21 @@ const mockRouterMap = {
             totalPageCount: 100 / params.size,
             totalItemCount: 100,
             'data|1-10': [priceApplyList],
+          },
+        };
+      },
+    },
+    {
+      isMock: true,
+      method: 'get',
+      router: '/billCheckList',
+      result(params) {
+        return {
+          ...body,
+          data: {
+            totalPageCount: 100 / params.size,
+            totalItemCount: 100,
+            'data|1-10': [billCheckList],
           },
         };
       },

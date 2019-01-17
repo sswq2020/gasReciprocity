@@ -74,12 +74,12 @@ export default [
           //   title: '开票信息',
           //   component: './GasStationManage/BillInfo',
           // },
-          // {
-          //   path: '/gasStationManage/billCheck',
-          //   name: 'gasBillCheck',
-          //   title: '票据对账',
-          //   component: './GasStationManage/BillCheck',
-          // },
+          {
+            path: '/gasStationManage/billCheck',
+            name: 'gasBillCheck',
+            title: '票据对账',
+            component: './GasStationManage/BillCheck',
+          },
         ],
       },
     ],
