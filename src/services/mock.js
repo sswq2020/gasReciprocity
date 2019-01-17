@@ -108,11 +108,23 @@ const refuelDetailList = {
   b: '@INTEGER(13000000000,18999999999)', // 会员名
   c: '苏L@INTEGER(1000,9999)', // 车牌号
   d: '0#', // 油品名称
-  e: '@float(100000,999999)', // 零售价
-  f: '@float(100000,999999)', // 惠龙价
+  e: '￥@float(5,8)', // 零售价
+  f: '￥@float(5,8)', // 惠龙价
   g: '@INTEGER(10,100)L', // 加油量
-  h: '@float(100000,999999)', // 加油金额
+  h: '￥@float(400,2000)', // 加油金额
   i: '@DATE("yyyy-MM-dd HH:mm:ss")', // 日期
+};
+
+/**
+ * @sswq 加油站管理/调价明细列表
+ */
+const priceApplyList = {
+  'id|+1': 1,
+  a: '0#(V)', // 油品名称
+  b: '￥@float(5,8)/L', // 零售价
+  c: '￥@float(5,8)', // 会员折扣(%)
+  d: '￥@float(5,8)/L', // 会员价
+  e: '￥@float(400,2000)', // 加油金额
 };
 
 const licenseList = {
@@ -350,7 +362,21 @@ const mockRouterMap = {
         };
       },
     },
-
+    {
+      isMock: true,
+      method: 'get',
+      router: '/priceApplyList',
+      result(params) {
+        return {
+          ...body,
+          data: {
+            totalPageCount: 100 / params.size,
+            totalItemCount: 100,
+            'data|1-10': [priceApplyList],
+          },
+        };
+      },
+    },
     {
       isMock: true,
       method: 'get',

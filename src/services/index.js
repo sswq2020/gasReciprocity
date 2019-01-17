@@ -151,6 +151,21 @@ export default {
       },
     });
   },
+  /**
+   * @author sswq
+   * @description 加油站管理/调价申请列表
+   * */
+  priceApplyList(params) {
+    return request({
+      host: BASEURL,
+      url: '/priceApplyList',
+      params: {
+        page: 1,
+        size: 10,
+        ...params,
+      },
+    });
+  },
   machineDetail(id) {
     return request({
       host: BASEURL,

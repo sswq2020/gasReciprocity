@@ -62,12 +62,12 @@ export default [
             title: '加油明细',
             component: './GasStationManage/InfoList',
           },
-          // {
-          //   path: '/gasStationManage/priceApply',
-          //   name: 'gasPriceApply',
-          //   title: '调价申请',
-          //   component: './GasStationManage/PriceApply',
-          // },
+          {
+            path: '/gasStationManage/priceApply',
+            name: 'gasPriceApply',
+            title: '调价申请',
+            component: './GasStationManage/PriceApply',
+          },
           // {
           //   path: '/gasStationManage/billInfo',
           //   name: 'gasBillInfo',
