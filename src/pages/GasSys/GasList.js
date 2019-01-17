@@ -234,7 +234,7 @@ class Page extends PureComponent {
         tools={
           <Button
             onClick={() => {
-              router.push('/gasSys/gasCreate');
+              router.push('/gasSys/gas/create');
             }}
             type="primary"
             icon="plus"
