@@ -1,12 +1,14 @@
 import { message } from 'antd';
 import { reducers } from '@/utils/utils';
+import moment from 'moment';
 import services from '@/services';
 
 const namespace = 'infoList';
 const selectState = state => state[namespace];
 
 const defaultListParams = {
-  refuelTime: new Date(),
+  refuelTime: moment(new Date(), 'YYYY/MM/DD').valueOf(), // 统一时间戳
+  page: 1,
 };
 
 export default {

@@ -1,5 +1,5 @@
 import React, { PureComponent, Fragment } from 'react';
-import moment from 'moment';
+// import moment from 'moment';
 import { connect } from 'dva';
 // import router from 'umi/router';
 // import Link from 'umi/link';
@@ -28,7 +28,6 @@ class Page extends PureComponent {
       dispatch,
       form: { validateFields, getFieldsValue },
     } = this.props;
-
     validateFields(err => {
       if (err) return;
       dispatch({
@@ -63,10 +62,8 @@ class Page extends PureComponent {
       <Form onSubmit={this.changeListParams} layout="inline">
         <Row gutter={{ md: 8, lg: 24, xl: 48 }}>
           <Col md={8} sm={24}>
-            <FormItem label="会员名">
-              {getFieldDecorator('refuelTime')(
-                <DatePicker defaultValue={moment('2015/01/01', dateFormat)} format={dateFormat} />
-              )}
+            <FormItem label="日期">
+              {getFieldDecorator('refuelTime')(<DatePicker format={dateFormat} />)}
             </FormItem>
           </Col>
         </Row>
@@ -104,7 +101,7 @@ class Page extends PureComponent {
         },
         {
           title: '会员名',
-          key: 'b',
+          key: 'member',
           width: 100,
           fixed: 'left',
           render: (text, record) => {
