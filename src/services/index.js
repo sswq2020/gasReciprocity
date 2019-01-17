@@ -136,6 +136,17 @@ export default {
       },
     });
   },
+  serviceList(params) {
+    return request({
+      host: BASEURL,
+      url: '/serviceList',
+      params: {
+        page: 1,
+        size: 10,
+        ...params,
+      },
+    });
+  },
   /**
    * @author sswq
    * @description 加油站管理/加油明细列表
@@ -180,208 +191,6 @@ export default {
         size: 10,
         ...params,
       },
-    });
-  },
-  machineDetail(id) {
-    return request({
-      host: BASEURL,
-      url: `/machine/${id}`,
-    });
-  },
-  officerList(params) {
-    return request({
-      host: BASEURL,
-      url: '/auditor',
-      params: {
-        page: 1,
-        size: 10,
-        ...params,
-      },
-    });
-  },
-  officerCreate(params) {
-    return request({
-      host: BASEURL,
-      url: '/auditor',
-      method: 'post',
-      params,
-    });
-  },
-  officerEdit(id, params) {
-    return request({
-      host: BASEURL,
-      url: `/auditor/${id}`,
-      method: 'post',
-      params,
-    });
-  },
-  officerEnable(id) {
-    return request({
-      host: BASEURL,
-      url: `/auditor/enable/${id}`,
-      method: 'post',
-    });
-  },
-  officerDisable(id) {
-    return request({
-      host: BASEURL,
-      url: `/auditor/disable/${id}`,
-      method: 'post',
-    });
-  },
-  officerSelect() {
-    return request({
-      host: BASEURL,
-      url: '/auditor/listSelect',
-    });
-  },
-  appList(params) {
-    return request({
-      host: BASEURL,
-      url: '/app',
-      params: {
-        page: 1,
-        size: 10,
-        ...params,
-      },
-    });
-  },
-  appCreate(params) {
-    return request({
-      host: BASEURL,
-      url: '/app',
-      method: 'post',
-      params,
-    });
-  },
-  appEdit(id, params) {
-    return request({
-      host: BASEURL,
-      url: `/app/${id}`,
-      method: 'post',
-      params,
-    });
-  },
-  appSelect() {
-    return request({
-      host: BASEURL,
-      url: '/app/listSelect',
-    });
-  },
-  // /auditor/enable/{id}
-  adminList(params) {
-    return request({
-      host: BASEURL,
-      url: '/admin',
-      params: {
-        page: 1,
-        size: 10,
-        ...params,
-      },
-    });
-  },
-  adminCreate(params) {
-    return request({
-      host: BASEURL,
-      url: '/admin',
-      method: 'post',
-      params,
-    });
-  },
-  adminEdit(id, params) {
-    return request({
-      host: BASEURL,
-      url: `/admin/${id}`,
-      method: 'post',
-      params,
-    });
-  },
-  adminEnable(id) {
-    return request({
-      host: BASEURL,
-      url: `/admin/enable/${id}`,
-      method: 'post',
-    });
-  },
-  adminDisable(id) {
-    return request({
-      host: BASEURL,
-      url: `/admin/disable/${id}`,
-      method: 'post',
-    });
-  },
-  applicationList(params) {
-    return request({
-      host: BASEURL,
-      url: '/petition',
-      method: 'get',
-      params: {
-        page: 1,
-        size: 10,
-        ...params,
-      },
-    });
-  },
-  applicationDetail(id) {
-    return request({
-      host: BASEURL,
-      url: `/petition/${id}`,
-    });
-  },
-  recordList(params) {
-    return request({
-      host: BASEURL,
-      url: '/cert',
-      method: 'get',
-      params: {
-        page: 1,
-        size: 10,
-        ...params,
-      },
-    });
-  },
-  recordDetail(id) {
-    return request({
-      host: BASEURL,
-      url: `/cert/${id}`,
-    });
-  },
-  rfidCreate(params) {
-    return request({
-      host: BASEURL,
-      url: '/app',
-      method: 'post',
-      params,
-    });
-  },
-  rfidList(params) {
-    return request({
-      host: BASEURL,
-      url: '/app',
-      params: {
-        page: 1,
-        size: 10,
-        ...params,
-      },
-    });
-  },
-  licenseList(params) {
-    return request({
-      host: BASEURL,
-      url: '/plate',
-      params: {
-        page: 1,
-        size: 10,
-        ...params,
-      },
-    });
-  },
-  licenseCreate(params) {
-    return request({
-      host: BASEURL,
-      url: '/plate-batch',
-      method: 'post',
-      params,
     });
   },
 };
