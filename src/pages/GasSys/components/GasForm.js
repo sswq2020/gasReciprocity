@@ -55,9 +55,9 @@ const formItemWidth = {
 };
 
 const gasListProps = {
-  style: {
-    marginTop: -24,
-  },
+  // style: {
+  //   marginTop: -24,
+  // },
   columns: [
     {
       title: '序号',
@@ -170,9 +170,6 @@ const bankListProps = {
   rowKey: 'a',
   scroll: { x: 'max-content' },
   dataSource: [],
-  style: {
-    marginTop: -24,
-  },
 };
 
 @Form.create()
