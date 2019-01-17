@@ -6,9 +6,11 @@ import { Row, Col, Input, Form, Button, Modal } from 'antd';
 import PageHeaderWrapper from '@/components/PageHeaderWrapper';
 import TableList from '@/components/TableList';
 import ListHeaderForm from '@/components/ListHeaderForm';
+import PreviewImage from '@/components/PreviewImage';
 import Select from '@/components/Select';
 
 const FormItem = Form.Item;
+let previewImage = null;
 
 @connect(({ gasList, loading }) => ({
   gasList,
@@ -95,8 +97,6 @@ class Page extends PureComponent {
       dispatch,
       getListIsLoading,
       gasList: {
-        qCodePopup,
-        qCodeUrl,
         listParams: { page },
         list: { data: listData, totalItemCount },
       },
@@ -195,13 +195,7 @@ class Page extends PureComponent {
           render: () => (
             <a
               onClick={() => {
-                dispatch({
-                  type: 'gasList/overrideStateProps',
-                  payload: {
-                    qCodePopup: true,
-                    qCodeUrl: '//lorempixel.com/450/450/',
-                  },
-                });
+                previewImage.open('//lorempixel.com/450/250/');
               }}
             >
               点击查看
@@ -284,29 +278,11 @@ class Page extends PureComponent {
       >
         <ListHeaderForm>{this.renderAdvancedForm()}</ListHeaderForm>
         <TableList {...listProps} />
-        <Modal
-          visible={qCodePopup}
-          footer={null}
-          width={500}
-          onCancel={() => {
-            dispatch({
-              type: 'gasList/overrideStateProps',
-              payload: {
-                qCodePopup: false,
-                qCodeUrl: '',
-              },
-            });
+        <PreviewImage
+          ref={ref => {
+            previewImage = ref;
           }}
-        >
-          <div
-            style={{
-              background: `url('${qCodeUrl}') no-repeat center`,
-              width: 452,
-              height: 452,
-              marginTop: 36,
-            }}
-          />
-        </Modal>
+        />
       </PageHeaderWrapper>
     );
   }

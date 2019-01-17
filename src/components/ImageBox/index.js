@@ -1,19 +1,20 @@
 import React, { PureComponent } from 'react';
-import { Icon, Modal } from 'antd';
+import { Icon } from 'antd';
+import PreviewImage from '../PreviewImage';
 import styles from './styles.less';
 
 class CustomizeComponent extends PureComponent {
   constructor() {
     super();
     this.state = {
-      showPreview: false,
+      previewImage: null,
     };
   }
 
   render() {
     const backgroundSizeEnumerate = ['cover', 'contain'];
     const { url, previewUrl, backgroundSize, hasPreview = true, onDelete = false } = this.props;
-    const { showPreview } = this.state;
+    const { previewImage } = this.state;
     let bs = backgroundSizeEnumerate[0];
 
     if (backgroundSizeEnumerate.indexOf(backgroundSize) !== -1) {
@@ -32,9 +33,7 @@ class CustomizeComponent extends PureComponent {
             {hasPreview && (
               <Icon
                 onClick={() => {
-                  this.setState({
-                    showPreview: true,
-                  });
+                  previewImage.open(previewUrl || url);
                 }}
                 title="预览图片"
                 type="eye"
@@ -54,26 +53,33 @@ class CustomizeComponent extends PureComponent {
           </div>
         )}
         {hasPreview && (
-          <Modal
-            visible={showPreview}
-            footer={null}
-            width={600}
-            onCancel={() => {
+          <PreviewImage
+            ref={ref => {
               this.setState({
-                showPreview: false,
+                previewImage: ref,
               });
             }}
-          >
-            <div
-              style={{
-                background: `url('${previewUrl || url}') no-repeat center`,
-                backgroundSize: 'contain',
-                width: 552,
-                height: 552,
-                marginTop: 36,
-              }}
-            />
-          </Modal>
+          />
+          // <Modal
+          //   visible={showPreview}
+          //   footer={null}
+          //   width={600}
+          //   onCancel={() => {
+          //     this.setState({
+          //       showPreview: false,
+          //     });
+          //   }}
+          // >
+          //   <div
+          //     style={{
+          //       background: `url('${previewUrl || url}') no-repeat center`,
+          //       backgroundSize: 'contain',
+          //       width: 552,
+          //       height: 552,
+          //       marginTop: 36,
+          //     }}
+          //   />
+          // </Modal>
         )}
       </div>
     );
