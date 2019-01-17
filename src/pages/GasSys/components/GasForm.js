@@ -1,10 +1,11 @@
 import React, { PureComponent, Fragment } from 'react';
-import { Form, Row, Col, Input, Upload, Icon, Select, Cascader, Button, Modal } from 'antd';
+import { Form, Row, Col, Input, Select, Cascader, Button, Modal } from 'antd';
 import router from 'umi/router';
 import FormItemHead from '@/components/FormItemHead';
 import ListHeaderForm from '@/components/ListHeaderForm';
 import TableList from '@/components/TableList';
 import ImageBox from '@/components/ImageBox';
+import ImageUpload from '@/components/ImageUpload';
 import styles from './gasForm.less';
 
 const children = [];
@@ -180,13 +181,6 @@ class CustomizeComponent extends PureComponent {
       form: { getFieldDecorator },
     } = this.props;
 
-    const uploadButton = (
-      <div>
-        <Icon type="plus" />
-        <div className="ant-upload-text">上传照片</div>
-      </div>
-    );
-
     return (
       <ListHeaderForm>
         <Form className={styles.gasForm} layout="inline">
@@ -221,14 +215,12 @@ class CustomizeComponent extends PureComponent {
             </Col>
             <Col lg={8} md={24} sm={24}>
               <FormItem label="二维码">
-                <ImageBox backgroundSize="contain" url="//lorempixel.com/450/200/" />
+                <ImageBox url="//lorempixel.com/450/200/" />
               </FormItem>
             </Col>
             <Col lg={16} md={24} sm={24}>
               <FormItem label="加油站照片(门头)">
-                <Upload action="//jsonplaceholder.typicode.com/posts/" listType="picture-card">
-                  {uploadButton}
-                </Upload>
+                <ImageUpload />
               </FormItem>
             </Col>
             <Col {...formItemWidth}>
