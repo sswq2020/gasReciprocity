@@ -1,13 +1,12 @@
 import { message } from 'antd';
 import { reducers } from '@/utils/utils';
-import moment from 'moment';
 import services from '@/services';
 
-const namespace = 'infoList';
+const namespace = 'priceApply';
 const selectState = state => state[namespace];
 
 const defaultListParams = {
-  refuelTime: moment(new Date(), 'YYYY/MM/DD').valueOf(), // 统一时间戳
+  fuelName: null, // 油品名称
   page: 1,
 };
 
@@ -26,7 +25,7 @@ export default {
   effects: {
     *getList(_, { call, put, select }) {
       const { listParams } = yield select(selectState);
-      const response = yield call(services.refuelDetailList, listParams);
+      const response = yield call(services.priceApplyList, listParams);
       switch (response.code) {
         case '000000':
           yield put({
@@ -37,7 +36,7 @@ export default {
           });
           break;
         default:
-          message.warning('加油明细列表获取失败，请稍后重试！');
+          message.warning('调价申请列表获取失败，请稍后重试！');
           break;
       }
     },
