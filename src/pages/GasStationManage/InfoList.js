@@ -148,7 +148,7 @@ class Page extends PureComponent {
           render: (text, record) => <Fragment>{record.i}</Fragment>,
         },
       ],
-      rowKey: 'a',
+      rowKey: 'id',
       scroll: { x: 'max-content' },
       dataSource: listData,
       loading: getListIsLoading,
