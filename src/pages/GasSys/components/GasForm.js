@@ -4,6 +4,7 @@ import router from 'umi/router';
 import FormItemHead from '@/components/FormItemHead';
 import ListHeaderForm from '@/components/ListHeaderForm';
 import TableList from '@/components/TableList';
+import ImageBox from '@/components/ImageBox';
 import styles from './gasForm.less';
 
 const children = [];
@@ -97,80 +98,80 @@ const gasListProps = {
   dataSource: [],
 };
 
-const bankListProps = {
-  columns: [
-    {
-      title: '序号',
-      key: '#',
-      width: 60,
-      fixed: 'left',
-      render: (text, record, index) => <Fragment>{(page - 1) * 10 + index + 1}</Fragment>,
-    },
-    {
-      title: '开户银行',
-      key: 'b',
-      width: 100,
-      fixed: 'left',
-      render: (text, record) => {
-        return <Fragment>{record.b}</Fragment>;
-      },
-    },
-    {
-      title: '开户支行/分理处',
-      key: 'no',
-      render: (text, record) => <Fragment>{record.c}</Fragment>,
-    },
-    {
-      title: '户名',
-      key: 'name',
-      render: (text, record) => <Fragment>{record.d}</Fragment>,
-    },
-    {
-      title: '银行卡号',
-      key: 'tel',
-      width: 100,
-      render: (text, record) => <Fragment>{record.e}</Fragment>,
-    },
-    {
-      title: '证件类型',
-      key: 'contact',
-      width: 120,
-      render: (text, record) => <Fragment>{record.f}</Fragment>,
-    },
-    {
-      title: '证件号码',
-      key: 'contactPhone',
-      render: (text, record) => <Fragment>{record.g}</Fragment>,
-    },
-    {
-      title: '是否默认',
-      key: 'contactEmail',
-      width: 100,
-      render: (text, record) => <Fragment>{record.h}</Fragment>,
-    },
-    {
-      title: '指定签约席位号',
-      key: 'add',
-      render: (text, record) => <Fragment>{record.i}</Fragment>,
-    },
-    {
-      title: '银行账户图片',
-      key: 'qCode',
-      width: 150,
-      render: () => <a>点击查看</a>,
-    },
-    {
-      title: <div style={{ textAlign: 'center' }}>操作</div>,
-      key: 'operating',
-      width: 200,
-      fixed: 'right',
-      render: () => <div style={{ textAlign: 'center' }}>000</div>,
-    },
-  ],
-  rowKey: 'a',
-  scroll: { x: 'max-content' },
-  dataSource: [],
-};
+// const bankListProps = {
+//   columns: [
+//     {
+//       title: '序号',
+//       key: '#',
+//       width: 60,
+//       fixed: 'left',
+//       render: (text, record, index) => <Fragment>{(page - 1) * 10 + index + 1}</Fragment>,
+//     },
+//     {
+//       title: '开户银行',
+//       key: 'b',
+//       width: 100,
+//       fixed: 'left',
+//       render: (text, record) => {
+//         return <Fragment>{record.b}</Fragment>;
+//       },
+//     },
+//     {
+//       title: '开户支行/分理处',
+//       key: 'no',
+//       render: (text, record) => <Fragment>{record.c}</Fragment>,
+//     },
+//     {
+//       title: '户名',
+//       key: 'name',
+//       render: (text, record) => <Fragment>{record.d}</Fragment>,
+//     },
+//     {
+//       title: '银行卡号',
+//       key: 'tel',
+//       width: 100,
+//       render: (text, record) => <Fragment>{record.e}</Fragment>,
+//     },
+//     {
+//       title: '证件类型',
+//       key: 'contact',
+//       width: 120,
+//       render: (text, record) => <Fragment>{record.f}</Fragment>,
+//     },
+//     {
+//       title: '证件号码',
+//       key: 'contactPhone',
+//       render: (text, record) => <Fragment>{record.g}</Fragment>,
+//     },
+//     {
+//       title: '是否默认',
+//       key: 'contactEmail',
+//       width: 100,
+//       render: (text, record) => <Fragment>{record.h}</Fragment>,
+//     },
+//     {
+//       title: '指定签约席位号',
+//       key: 'add',
+//       render: (text, record) => <Fragment>{record.i}</Fragment>,
+//     },
+//     {
+//       title: '银行账户图片',
+//       key: 'qCode',
+//       width: 150,
+//       render: () => <a>点击查看</a>,
+//     },
+//     {
+//       title: <div style={{ textAlign: 'center' }}>操作</div>,
+//       key: 'operating',
+//       width: 200,
+//       fixed: 'right',
+//       render: () => <div style={{ textAlign: 'center' }}>000</div>,
+//     },
+//   ],
+//   rowKey: 'a',
+//   scroll: { x: 'max-content' },
+//   dataSource: [],
+// };
 
 @Form.create()
 class CustomizeComponent extends PureComponent {
@@ -220,9 +221,7 @@ class CustomizeComponent extends PureComponent {
             </Col>
             <Col lg={8} md={24} sm={24}>
               <FormItem label="二维码">
-                <Upload action="//jsonplaceholder.typicode.com/posts/" listType="picture-card">
-                  {uploadButton}
-                </Upload>
+                <ImageBox backgroundSize="contain" url="//lorempixel.com/450/200/" />
               </FormItem>
             </Col>
             <Col lg={16} md={24} sm={24}>
@@ -297,8 +296,8 @@ class CustomizeComponent extends PureComponent {
           </Row>
           <FormItemHead>油品分类：</FormItemHead>
           <TableList {...gasListProps} />
-          <FormItemHead>银行卡信息：</FormItemHead>
-          <TableList {...bankListProps} />
+          {/* <FormItemHead>银行卡信息：</FormItemHead>
+          <TableList {...bankListProps} /> */}
         </Form>
         <div className={styles.footer}>
           <Button

@@ -21,7 +21,7 @@ export default [
         path: '/gasSys',
         name: 'gasSys',
         title: '加油站管理',
-        icon: 'safety-certificate',
+        icon: 'shop',
         // authority: ['admin'],
         // hideChildrenInMenu: true,
         routes: [
