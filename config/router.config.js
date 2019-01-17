@@ -74,12 +74,12 @@ export default [
             title: '调价申请',
             component: './GasStationManage/PriceApply',
           },
-          // {
-          //   path: '/gasStationManage/billInfo',
-          //   name: 'gasBillInfo',
-          //   title: '开票信息',
-          //   component: './GasStationManage/BillInfo',
-          // },
+          {
+            path: '/gasStationManage/billInfo',
+            name: 'gasBillInfo',
+            title: '开票信息',
+            component: './GasStationManage/BillInfo',
+          },
           {
             path: '/gasStationManage/billCheck',
             name: 'gasBillCheck',
