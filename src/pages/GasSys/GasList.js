@@ -101,6 +101,7 @@ class Page extends PureComponent {
         list: { data: listData, totalItemCount },
       },
     } = this.props;
+
     const listProps = {
       columns: [
         {
@@ -248,7 +249,6 @@ class Page extends PureComponent {
           },
         },
       ],
-      rowKey: 'a',
       scroll: { x: 'max-content' },
       dataSource: listData,
       loading: getListIsLoading,
