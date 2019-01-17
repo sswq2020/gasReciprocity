@@ -136,6 +136,21 @@ export default {
       },
     });
   },
+  /**
+   * @author sswq
+   * @description 加油站管理/加油明细列表
+   * */
+  refuelDetailList(params) {
+    return request({
+      host: BASEURL,
+      url: '/refuelDetailList',
+      params: {
+        page: 1,
+        size: 10,
+        ...params,
+      },
+    });
+  },
   machineDetail(id) {
     return request({
       host: BASEURL,
