@@ -22,6 +22,7 @@ export default [
         name: 'gasSys',
         title: '加油站管理',
         icon: 'safety-certificate',
+        // authority: ['admin'],
         // hideChildrenInMenu: true,
         routes: [
           { path: '/gasSys', redirect: '/gasSys/gasList' },
@@ -30,6 +31,40 @@ export default [
             name: 'gasSysGasList',
             title: '油站管理',
             component: './GasSys/GasList',
+          },
+        ],
+      },
+      {
+        path: '/gasStationManage',
+        name: 'gasStationManage',
+        title: '加油站管理端',
+        icon: 'safety-certificate',
+        // authority: ['user'],
+        routes: [
+          { path: '/gasStationManage', redirect: '/gasStationManage/infoList' },
+          {
+            path: '/gasStationManage/infoList',
+            name: 'gasInfoList',
+            title: '加油明细',
+            component: './GasStationManage/InfoList',
+          },
+          {
+            path: '/gasStationManage/priceApply',
+            name: 'gasPriceApply',
+            title: '调价申请',
+            component: './GasStationManage/PriceApply',
+          },
+          {
+            path: '/gasStationManage/billInfo',
+            name: 'gasBillInfo',
+            title: '开票信息',
+            component: './GasStationManage/BillInfo',
+          },
+          {
+            path: '/gasStationManage/billCheck',
+            name: 'gasBillCheck',
+            title: '票据对账',
+            component: './GasStationManage/BillCheck',
           },
         ],
       },
