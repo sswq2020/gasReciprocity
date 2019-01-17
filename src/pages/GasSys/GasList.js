@@ -301,8 +301,8 @@ class Page extends PureComponent {
           <div
             style={{
               background: `url('${qCodeUrl}') no-repeat center`,
-              width: 450,
-              height: 450,
+              width: 452,
+              height: 452,
               marginTop: 36,
             }}
           />

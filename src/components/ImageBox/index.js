@@ -12,7 +12,7 @@ class CustomizeComponent extends PureComponent {
 
   render() {
     const backgroundSizeEnumerate = ['cover', 'contain'];
-    const { url, previewUrl, backgroundSize, hasDelete = false, hasPreview = true } = this.props;
+    const { url, previewUrl, backgroundSize, hasPreview = true, onDelete = false } = this.props;
     const { showPreview } = this.state;
     let bs = backgroundSizeEnumerate[0];
 
@@ -20,15 +20,14 @@ class CustomizeComponent extends PureComponent {
       bs = backgroundSize;
     }
 
-    backgroundSizeEnumerate.indexOf(backgroundSize);
     return (
-      <div className={styles.imgBox}>
+      <div className={styles.imgBox} style={{ cursor: onDelete || hasPreview ? 'pointer' : '' }}>
         <div
           className={styles.img}
           style={{ backgroundImage: `url(${url})`, backgroundSize: bs }}
         />
-        <div className={styles.marker} />
-        {(hasDelete || hasPreview) && (
+        {(onDelete || hasPreview) && <div className={styles.marker} />}
+        {(onDelete || hasPreview) && (
           <div className={styles.tools}>
             {hasPreview && (
               <Icon
@@ -41,7 +40,17 @@ class CustomizeComponent extends PureComponent {
                 type="eye"
               />
             )}
-            {hasDelete && <Icon title="删除文件" type="delete" />}
+            {onDelete && (
+              <Icon
+                title="删除文件"
+                type="delete"
+                onClick={() => {
+                  if (typeof onDelete === 'function') {
+                    onDelete();
+                  }
+                }}
+              />
+            )}
           </div>
         )}
         {hasPreview && (
@@ -58,8 +67,9 @@ class CustomizeComponent extends PureComponent {
             <div
               style={{
                 background: `url('${previewUrl || url}') no-repeat center`,
-                width: 550,
-                height: 550,
+                backgroundSize: 'contain',
+                width: 552,
+                height: 552,
                 marginTop: 36,
               }}
             />
