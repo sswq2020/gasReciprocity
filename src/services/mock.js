@@ -115,6 +115,18 @@ const refuelDetailList = {
   i: '@DATE("yyyy-MM-dd HH:mm:ss")', // 日期
 };
 
+/**
+ * @sswq 加油站管理/调价明细列表
+ */
+const priceApplyList = {
+  'id|+1': 1,
+  a: '0#(V)', // 油品名称
+  b: '￥@float(5,8)/L', // 零售价
+  c: '￥@float(5,8)', // 会员折扣(%)
+  d: '￥@float(5,8)/L', // 会员价
+  e: '￥@float(400,2000)', // 加油金额
+};
+
 const licenseList = {
   'id|+1': 1,
   updatedAt: '@DATE("yyyy-MM-dd HH:mm:ss")',
@@ -350,7 +362,21 @@ const mockRouterMap = {
         };
       },
     },
-
+    {
+      isMock: true,
+      method: 'get',
+      router: '/priceApplyList',
+      result(params) {
+        return {
+          ...body,
+          data: {
+            totalPageCount: 100 / params.size,
+            totalItemCount: 100,
+            'data|1-10': [priceApplyList],
+          },
+        };
+      },
+    },
     {
       isMock: true,
       method: 'get',
