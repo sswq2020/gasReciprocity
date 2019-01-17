@@ -5,6 +5,7 @@ import HLModal from '@/components/Modal';
 import PageHeaderWrapper from '@/components/PageHeaderWrapper';
 import TableList from '@/components/TableList';
 import ListHeaderForm from '@/components/ListHeaderForm';
+import ServiceForm from './components/ServiceForm';
 
 const FormItem = Form.Item;
 
@@ -97,6 +98,7 @@ class Page extends PureComponent {
       serviceList: {
         isEdit,
         visible,
+        formData,
         listParams: { page },
         list: { data: listData, totalItemCount },
       },
@@ -112,7 +114,7 @@ class Page extends PureComponent {
         {
           title: '特色服务ICON',
           key: 'b',
-          width: 200,
+          width: 150,
           render: (text, record) => {
             return <img style={{ height: 48 }} src={record.b} alt={record.c} />;
           },
@@ -248,8 +250,7 @@ class Page extends PureComponent {
             });
           }}
         >
-          ok
-          {/* <AdminForm data={formData} /> */}
+          <ServiceForm data={formData} />
         </HLModal>
       </PageHeaderWrapper>
     );
