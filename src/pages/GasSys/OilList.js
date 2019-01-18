@@ -12,6 +12,8 @@ const FormItem = Form.Item;
 @connect(({ oilList, loading }) => ({
   oilList,
   getListIsLoading: loading.effects['oilList/getList'],
+  createIsLoading: loading.effects['oilList/create'],
+  editIsLoading: loading.effects['oilList/edit'],
 }))
 @Form.create()
 class Page extends PureComponent {
@@ -58,7 +60,7 @@ class Page extends PureComponent {
       type: 'oilList/openForm',
       payload: {
         isEdit: true,
-        serviceId: id,
+        id,
         formData,
       },
     });
@@ -95,6 +97,8 @@ class Page extends PureComponent {
     const {
       dispatch,
       getListIsLoading,
+      createIsLoading,
+      editIsLoading,
       oilList: {
         isEdit,
         visible,
@@ -103,6 +107,7 @@ class Page extends PureComponent {
         list: { data: listData, totalItemCount },
       },
     } = this.props;
+
     const listProps = {
       columns: [
         {
@@ -124,7 +129,7 @@ class Page extends PureComponent {
         },
         {
           title: '是否默认',
-          key: 'status',
+          key: 'SS',
           width: 110,
           render: (text, record) => {
             return <span className={record.l === '是' ? 'success_text' : ''}>{record.l}</span>;
@@ -187,7 +192,14 @@ class Page extends PureComponent {
                       title: `你确定 ${showText} ${record.c}？`,
                       okText: '确认',
                       cancelText: '取消',
-                      onOk: () => {},
+                      onOk: () => {
+                        dispatch({
+                          type: record.j === '禁用' ? 'oilList/enable' : 'oilList/disable',
+                          payload: {
+                            id: record.id,
+                          },
+                        });
+                      },
                     });
                   }}
                 >
@@ -201,7 +213,14 @@ class Page extends PureComponent {
                         title: `你确定把 ${record.c} 设为默认展示？`,
                         okText: '确认',
                         cancelText: '取消',
-                        onOk: () => {},
+                        onOk: () => {
+                          dispatch({
+                            type: 'oilList/setDefault',
+                            payload: {
+                              id: record.id,
+                            },
+                          });
+                        },
                       });
                     }}
                   >
@@ -241,6 +260,7 @@ class Page extends PureComponent {
                 type: 'oilList/openForm',
                 payload: {
                   isEdit: false,
+                  id: null,
                 },
               });
             }}
@@ -254,14 +274,14 @@ class Page extends PureComponent {
         <ListHeaderForm>{this.renderAdvancedForm()}</ListHeaderForm>
         <TableList {...listProps} />
         <HLModal
-          title={`${isEdit ? '编辑' : '新建'}油品分类`}
+          title={`${isEdit === false ? '新建' : '编辑'}油品分类`}
           visible={visible}
-          // confirmLoading={adminEditIsLoading || adminCreateIsLoading}
+          confirmLoading={isEdit === false ? createIsLoading : editIsLoading}
           onOk={(data, resetFields) => {
             dispatch({
-              // type: isEdit === false ? 'admin/adminCreate' : 'admin/adminEdit',
+              type: isEdit === false ? 'oilList/create' : 'oilList/edit',
               payload: {
-                data: { ...data.admin },
+                data: { ...data.oil },
                 resetFields,
               },
             });
