@@ -6,8 +6,10 @@ import { connect } from 'dva';
 import { Row, Col, Form, Button, Card } from 'antd';
 import PageHeaderWrapper from '@/components/PageHeaderWrapper';
 import TableList from '@/components/TableList';
+import HLModal from '@/components/Modal';
 import ListHeaderForm from '@/components/ListHeaderForm';
 import Select from '@/components/Select';
+import PriceApplyForm from './components/PriceApplyForm';
 
 const FormItem = Form.Item;
 
@@ -51,7 +53,7 @@ class Page extends PureComponent {
     });
   };
 
-  renderAdvancedForm() {
+  renderAdvancedForm = () => {
     const {
       form: { getFieldDecorator },
     } = this.props;
@@ -79,13 +81,27 @@ class Page extends PureComponent {
         </div>
       </Form>
     );
-  }
+  };
+
+  openFormEdit = data => {
+    const { dispatch } = this.props;
+    const { id, ...formData } = data;
+    dispatch({
+      type: 'priceApply/openForm',
+      payload: {
+        id,
+        formData,
+      },
+    });
+  };
 
   render() {
     const {
       dispatch,
       getListIsLoading,
       priceApply: {
+        visible,
+        formData,
         listParams: { page },
         list: { data: listData, totalItemCount },
       },
@@ -103,7 +119,7 @@ class Page extends PureComponent {
           title: '油品名称',
           key: 'fuelName',
           width: 100,
-          render: (text, record) => <Fragment>{record.a}</Fragment>,
+          render: (text, record) => <Fragment>{record.fuelName}</Fragment>,
         },
         {
           title: '零售价',
@@ -132,10 +148,17 @@ class Page extends PureComponent {
         {
           title: <div style={{ textAlign: 'center' }}>操作</div>,
           key: 'operating',
-          render: () => {
+          render: (text, record) => {
             return (
               <div style={{ textAlign: 'center' }}>
-                <a style={{ marginRight: 5 }}>调价申请</a>
+                <a
+                  onClick={() => {
+                    this.openFormEdit(record);
+                  }}
+                  style={{ marginRight: 5 }}
+                >
+                  调价申请
+                </a>
                 <a>调价历史</a>
               </div>
             );
@@ -167,6 +190,22 @@ class Page extends PureComponent {
         <Card bordered={false} bodyStyle={{ padding: '0 0 20px 0' }}>
           <ListHeaderForm>{this.renderAdvancedForm()}</ListHeaderForm>
           <TableList {...listProps} />
+          <HLModal
+            title="调价申请"
+            visible={visible}
+            onClose={() => {
+              dispatch({
+                type: 'priceApply/closeForm',
+              });
+            }}
+            onOk={() => {
+              dispatch({
+                type: 'priceApply/submit',
+              });
+            }}
+          >
+            <PriceApplyForm data={formData} />
+          </HLModal>
         </Card>
       </PageHeaderWrapper>
     );
