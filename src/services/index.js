@@ -147,6 +147,36 @@ export default {
       },
     });
   },
+  serviceCreate(params) {
+    return request({
+      host: BASEURL,
+      url: '/serviceCreate',
+      method: 'post',
+      params,
+    });
+  },
+  serviceEdit(id, params) {
+    return request({
+      host: BASEURL,
+      url: `/serviceEdit/${id}`,
+      method: 'post',
+      params,
+    });
+  },
+  serviceEnable(id) {
+    return request({
+      host: BASEURL,
+      url: `/serviceEnable/${id}`,
+      params,
+    });
+  },
+  serviceDisable(id) {
+    return request({
+      host: BASEURL,
+      url: `/serviceDisable/${id}`,
+      params,
+    });
+  },
   oilList(params) {
     return request({
       host: BASEURL,

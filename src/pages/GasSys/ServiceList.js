@@ -12,6 +12,8 @@ const FormItem = Form.Item;
 @connect(({ serviceList, loading }) => ({
   serviceList,
   getListIsLoading: loading.effects['serviceList/getList'],
+  createIsLoading: loading.effects['oilList/create'],
+  editIsLoading: loading.effects['oilList/edit'],
 }))
 @Form.create()
 class Page extends PureComponent {
@@ -58,7 +60,7 @@ class Page extends PureComponent {
       type: 'serviceList/openForm',
       payload: {
         isEdit: true,
-        serviceId: id,
+        id,
         formData,
       },
     });
@@ -95,6 +97,8 @@ class Page extends PureComponent {
     const {
       dispatch,
       getListIsLoading,
+      createIsLoading,
+      editIsLoading,
       serviceList: {
         isEdit,
         visible,
@@ -180,7 +184,14 @@ class Page extends PureComponent {
                       title: `你确定 ${showText} ${record.c}？`,
                       okText: '确认',
                       cancelText: '取消',
-                      onOk: () => {},
+                      onOk: () => {
+                        dispatch({
+                          type: record.j === '禁用' ? 'serviceList/enable' : 'serviceList/disable',
+                          payload: {
+                            id: record.id,
+                          },
+                        });
+                      },
                     });
                   }}
                 >
@@ -234,12 +245,12 @@ class Page extends PureComponent {
         <HLModal
           title={`${isEdit ? '编辑' : '新建'}特殊服务`}
           visible={visible}
-          // confirmLoading={adminEditIsLoading || adminCreateIsLoading}
+          confirmLoading={isEdit === false ? createIsLoading : editIsLoading}
           onOk={(data, resetFields) => {
             dispatch({
-              // type: isEdit === false ? 'admin/adminCreate' : 'admin/adminEdit',
+              type: isEdit === false ? 'serviceList/create' : 'serviceList/edit',
               payload: {
-                data: { ...data.admin },
+                data: { ...data.service },
                 resetFields,
               },
             });

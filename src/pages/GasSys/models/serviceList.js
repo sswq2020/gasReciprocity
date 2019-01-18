@@ -21,7 +21,7 @@ export default {
   state: {
     isEdit: false,
     visible: false,
-    serviceId: null,
+    id: null,
     formData: {
       ...defaultFormData,
     },
@@ -51,6 +51,66 @@ export default {
           break;
         default:
           message.warning('特色服务列表获取失败，请稍后重试！');
+          break;
+      }
+    },
+    *create({ payload }, { call, put }) {
+      const { data, resetFields } = payload;
+      const response = yield call(services.serviceCreate, data);
+      switch (response.code) {
+        case '000000':
+          resetFields();
+          message.success('特色服务创建成功！');
+          yield put({ type: 'resetListParams' });
+          yield put({ type: 'closeForm' });
+          break;
+        default:
+          message.warning('特色服务创建失败，请稍后重试！');
+          break;
+      }
+    },
+    *edit({ payload }, { call, put, select }) {
+      const { id } = yield select(selectState);
+      const { data, resetFields } = payload;
+      const response = yield call(services.serviceEdit, id, data);
+
+      switch (response.code) {
+        case '000000':
+          resetFields();
+          message.success('特色服务编辑成功！');
+          yield put({ type: 'getList' });
+          yield put({ type: 'closeForm' });
+          break;
+        default:
+          message.warning('特色服务编辑失败，请稍后重试！');
+          break;
+      }
+    },
+    *enable({ payload }, { call }) {
+      const { id } = payload;
+      const response = yield call(services.serviceEnable, id);
+
+      switch (response.code) {
+        case '000000':
+          message.success('特色服务激活成功！');
+          yield put({ type: 'getList' });
+          break;
+        default:
+          message.warning('特色服务激活失败，请稍后重试！');
+          break;
+      }
+    },
+    *disable({ payload }, { call, put }) {
+      const { id } = payload;
+      const response = yield call(services.serviceDisable, id);
+
+      switch (response.code) {
+        case '000000':
+          message.success('特色服务禁用成功！');
+          yield put({ type: 'getList' });
+          break;
+        default:
+          message.warning('特色服务禁用失败，请稍后重试！');
           break;
       }
     },
