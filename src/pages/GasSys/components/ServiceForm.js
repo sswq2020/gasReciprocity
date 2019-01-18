@@ -68,6 +68,11 @@ export default class CustomizeComponent extends PureComponent {
                 whitespace: true,
                 message: '请填写特色服务名称',
               },
+              {
+                whitespace: true,
+                max: 10,
+                message: '最多10个字符',
+              },
             ],
           })(<Input placeholder="请填写特色服务名称" autoComplete="off" />)}
         </FormItem>
