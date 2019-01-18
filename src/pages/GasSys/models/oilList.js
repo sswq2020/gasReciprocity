@@ -21,7 +21,7 @@ export default {
   state: {
     isEdit: false,
     visible: false,
-    serviceId: null,
+    id: null,
     formData: {
       ...defaultFormData,
     },
@@ -51,6 +51,38 @@ export default {
           break;
         default:
           message.warning('特色服务列表获取失败，请稍后重试！');
+          break;
+      }
+    },
+    *create({ payload }, { call, put }) {
+      const { data, resetFields } = payload;
+      const response = yield call(services.oilCreate, data);
+      switch (response.code) {
+        case '000000':
+          resetFields();
+          message.success('油品分类创建成功！');
+          yield put({ type: 'resetListParams' });
+          yield put({ type: 'closeForm' });
+          break;
+        default:
+          message.warning('油品分类创建失败，请稍后重试！');
+          break;
+      }
+    },
+    *edit({ payload }, { call, put, select }) {
+      const { id } = yield select(selectState);
+      const { data, resetFields } = payload;
+      const response = yield call(services.oilEdit, id, data);
+
+      switch (response.code) {
+        case '000000':
+          resetFields();
+          message.success('油品分类编辑成功！');
+          yield put({ type: 'getList' });
+          yield put({ type: 'closeForm' });
+          break;
+        default:
+          message.warning('油品分类编辑失败，请稍后重试！');
           break;
       }
     },

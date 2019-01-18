@@ -12,6 +12,8 @@ const FormItem = Form.Item;
 @connect(({ oilList, loading }) => ({
   oilList,
   getListIsLoading: loading.effects['oilList/getList'],
+  createIsLoading: loading.effects['oilList/create'],
+  editIsLoading: loading.effects['oilList/edit'],
 }))
 @Form.create()
 class Page extends PureComponent {
@@ -58,7 +60,7 @@ class Page extends PureComponent {
       type: 'oilList/openForm',
       payload: {
         isEdit: true,
-        serviceId: id,
+        id,
         formData,
       },
     });
@@ -95,6 +97,8 @@ class Page extends PureComponent {
     const {
       dispatch,
       getListIsLoading,
+      createIsLoading,
+      editIsLoading,
       oilList: {
         isEdit,
         visible,
@@ -103,6 +107,7 @@ class Page extends PureComponent {
         list: { data: listData, totalItemCount },
       },
     } = this.props;
+
     const listProps = {
       columns: [
         {
@@ -241,6 +246,7 @@ class Page extends PureComponent {
                 type: 'oilList/openForm',
                 payload: {
                   isEdit: false,
+                  id: null,
                 },
               });
             }}
@@ -254,14 +260,14 @@ class Page extends PureComponent {
         <ListHeaderForm>{this.renderAdvancedForm()}</ListHeaderForm>
         <TableList {...listProps} />
         <HLModal
-          title={`${isEdit ? '编辑' : '新建'}油品分类`}
+          title={`${isEdit === false ? '新建' : '编辑'}油品分类`}
           visible={visible}
-          // confirmLoading={adminEditIsLoading || adminCreateIsLoading}
+          confirmLoading={isEdit === false ? createIsLoading : editIsLoading}
           onOk={(data, resetFields) => {
             dispatch({
-              // type: isEdit === false ? 'admin/adminCreate' : 'admin/adminEdit',
+              type: isEdit === false ? 'oilList/create' : 'oilList/edit',
               payload: {
-                data: { ...data.admin },
+                data: { ...data.oil },
                 resetFields,
               },
             });
