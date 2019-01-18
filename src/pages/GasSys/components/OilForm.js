@@ -34,6 +34,11 @@ export default class CustomizeComponent extends PureComponent {
                 whitespace: true,
                 message: '请填写油品分类名称',
               },
+              {
+                whitespace: true,
+                max: 10,
+                message: '最多10个字符',
+              },
             ],
           })(<Input placeholder="请填写油品分类名称" autoComplete="off" />)}
         </FormItem>
@@ -42,8 +47,8 @@ export default class CustomizeComponent extends PureComponent {
             initialValue: data.description,
             rules: [
               {
-                whitespace: true,
-                message: '请填写油品分类描述',
+                max: 50,
+                message: '最多50个字符',
               },
             ],
           })(<TextArea rows={4} placeholder="请填写油品分类描述" autoComplete="off" />)}
