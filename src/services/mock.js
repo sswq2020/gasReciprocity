@@ -142,6 +142,21 @@ const billCheckList = {
   invoiceAmount: '￥@INTEGER(10000,30000)', // 发票金额
 };
 
+/**
+ * @sswq 加油站管理/开票信息
+ */
+const billInfo = {
+  name: '@CNAME()',
+  taxPayerIdNum: '@INTEGER(9382434322324,9982434322324)',
+  adress: '@PROVINCE()@CITY()@CTITLE(2,10)@INTEGER(1,100)号',
+  tel: '@INTEGER(13000000000,18999999999)',
+  bank: '@PROVINCE()银行',
+  account: '000@INTEGER(132123,1454356)',
+  adress2: '@PROVINCE()@CITY()@CTITLE(2,10)@INTEGER(1,100)号',
+  ticketer: '@CNAME()',
+  ticketerTel: '@INTEGER(13000000000,18999999999)',
+};
+
 const licenseList = {
   'id|+1': 1,
   updatedAt: '@DATE("yyyy-MM-dd HH:mm:ss")',
@@ -419,6 +434,17 @@ const mockRouterMap = {
             totalItemCount: 100,
             'data|1-10': [billCheckList],
           },
+        };
+      },
+    },
+    {
+      isMock: true,
+      method: 'get',
+      router: '/billInfo',
+      result() {
+        return {
+          ...body,
+          data: billInfo,
         };
       },
     },

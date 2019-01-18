@@ -18,11 +18,11 @@ export default {
     *getDetail({ payload }, { call, put }) {
       const response = yield call(services.billInfo, payload);
       switch (response.code) {
-        case 0:
+        case '000000':
           yield put({
             type: 'overrideStateProps',
             payload: {
-              detail: response.result,
+              detail: response.data,
             },
           });
           break;
