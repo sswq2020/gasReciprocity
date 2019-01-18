@@ -86,6 +86,48 @@ export default {
           break;
       }
     },
+    *enable({ payload }, { call }) {
+      const { id } = payload;
+      const response = yield call(services.oilEnable, id);
+
+      switch (response.code) {
+        case '000000':
+          message.success('油品分类激活成功！');
+          yield put({ type: 'getList' });
+          break;
+        default:
+          message.warning('油品分类激活失败，请稍后重试！');
+          break;
+      }
+    },
+    *disable({ payload }, { call, put }) {
+      const { id } = payload;
+      const response = yield call(services.oilDisable, id);
+
+      switch (response.code) {
+        case '000000':
+          message.success('油品分类禁用成功！');
+          yield put({ type: 'getList' });
+          break;
+        default:
+          message.warning('油品分类禁用失败，请稍后重试！');
+          break;
+      }
+    },
+    *setDefault({ payload }, { call, put }) {
+      const { id } = payload;
+      const response = yield call(services.oilSetDefault, id);
+
+      switch (response.code) {
+        case '000000':
+          message.success('油品分类设为默认展示成功！');
+          yield put({ type: 'getList' });
+          break;
+        default:
+          message.warning('油品分类设为默认展示失败，请稍后重试！');
+          break;
+      }
+    },
     *changeListParams({ payload }, { put }) {
       yield put({
         type: 'updateStateProps',

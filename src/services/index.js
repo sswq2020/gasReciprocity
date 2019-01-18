@@ -174,6 +174,27 @@ export default {
       params,
     });
   },
+  oilEnable(id) {
+    return request({
+      host: BASEURL,
+      url: `/oilEnable/${id}`,
+      params,
+    });
+  },
+  oilDisable(id) {
+    return request({
+      host: BASEURL,
+      url: `/oilDisable/${id}`,
+      params,
+    });
+  },
+  oilSetDefault(id) {
+    return request({
+      host: BASEURL,
+      url: `/oilSetDefault/${id}`,
+      params,
+    });
+  },
   /**
    * @author sswq
    * @description 加油站管理/加油明细列表

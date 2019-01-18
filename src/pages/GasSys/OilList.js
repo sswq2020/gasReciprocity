@@ -129,7 +129,7 @@ class Page extends PureComponent {
         },
         {
           title: '是否默认',
-          key: 'status',
+          key: 'SS',
           width: 110,
           render: (text, record) => {
             return <span className={record.l === '是' ? 'success_text' : ''}>{record.l}</span>;
@@ -192,7 +192,14 @@ class Page extends PureComponent {
                       title: `你确定 ${showText} ${record.c}？`,
                       okText: '确认',
                       cancelText: '取消',
-                      onOk: () => {},
+                      onOk: () => {
+                        dispatch({
+                          type: record.j === '禁用' ? 'oilList/enable' : 'oilList/disable',
+                          payload: {
+                            id: record.id,
+                          },
+                        });
+                      },
                     });
                   }}
                 >
@@ -206,7 +213,14 @@ class Page extends PureComponent {
                         title: `你确定把 ${record.c} 设为默认展示？`,
                         okText: '确认',
                         cancelText: '取消',
-                        onOk: () => {},
+                        onOk: () => {
+                          dispatch({
+                            type: 'oilList/setDefault',
+                            payload: {
+                              id: record.id,
+                            },
+                          });
+                        },
                       });
                     }}
                   >
