@@ -230,6 +230,7 @@ class Page extends PureComponent {
                 type: 'serviceList/openForm',
                 payload: {
                   isEdit: false,
+                  id: null,
                 },
               });
             }}
