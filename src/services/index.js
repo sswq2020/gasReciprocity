@@ -204,4 +204,19 @@ export default {
       },
     });
   },
+  /**
+   * @author sswq
+   * @description 加油站管理/开票信息
+   * */
+  billInfo() {
+    return request({
+      host: BASEURL,
+      url: '/billInfo',
+      // params: {
+      //   page: 1,
+      //   size: 10,
+      //   ...params,
+      // },
+    });
+  },
 };
