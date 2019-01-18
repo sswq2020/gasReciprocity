@@ -147,6 +147,17 @@ export default {
       },
     });
   },
+  oilList(params) {
+    return request({
+      host: BASEURL,
+      url: '/oilList',
+      params: {
+        page: 1,
+        size: 10,
+        ...params,
+      },
+    });
+  },
   /**
    * @author sswq
    * @description 加油站管理/加油明细列表

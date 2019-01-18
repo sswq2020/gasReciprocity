@@ -52,6 +52,12 @@ export default [
             title: '特色服务',
             component: './GasSys/ServiceList',
           },
+          {
+            path: '/gasSys/oil',
+            name: 'gasSysOil',
+            title: '油品分类',
+            component: './GasSys/OilList',
+          },
         ],
       },
       {

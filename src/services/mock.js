@@ -106,6 +106,14 @@ const serviceLite = {
   c: '@CTITLE(2,10)服务',
   j: '@PICK(["禁用", "正常"])',
 };
+
+const oilLite = {
+  'id|+1': 1,
+  c: '#@INTEGER(0,10)',
+  j: '@PICK(["禁用", "正常"])',
+  k: '@CTITLE(2,10)油',
+  l: '@PICK(["是", "否"])',
+};
 /**
  * @sswq 加油站管理/加油明细
  */
@@ -373,6 +381,21 @@ const mockRouterMap = {
             totalPageCount: 100 / params.size,
             totalItemCount: 100,
             'data|1-10': [serviceLite],
+          },
+        };
+      },
+    },
+    {
+      isMock: true,
+      method: 'get',
+      router: '/oilList',
+      result(params) {
+        return {
+          ...body,
+          data: {
+            totalPageCount: 100 / params.size,
+            totalItemCount: 100,
+            'data|1-10': [oilLite],
           },
         };
       },
