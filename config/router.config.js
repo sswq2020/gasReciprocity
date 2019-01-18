@@ -64,7 +64,7 @@ export default [
         path: '/gasStationManage',
         name: 'gasStationManage',
         title: '加油站管理端',
-        icon: 'safety-certificate',
+        icon: 'dashboard',
         // authority: ['user'],
         routes: [
           { path: '/gasStationManage', redirect: '/gasStationManage/infoList' },
@@ -91,6 +91,21 @@ export default [
             name: 'gasBillCheck',
             title: '票据对账',
             component: './GasStationManage/BillCheck',
+          },
+        ],
+      },
+      {
+        path: '/financeSys',
+        name: 'financeSys',
+        title: '票务管理',
+        icon: 'money-collect',
+        routes: [
+          { path: '/financeSys', redirect: '/financeSys/gasDetail' },
+          {
+            path: '/financeSys/gasDetail',
+            name: 'gasDetail',
+            title: '加油明细',
+            component: './financeSys/gasDetail',
           },
         ],
       },
