@@ -23,8 +23,9 @@ const GlobalFooter = ({ className, links }) => {
         </div>
       )}
       {/* Copyright <Icon type="copyright" />2014-{moment().format('YYYY')}  */}
-      <Icon type="copyright" /> 2014-
-      {moment().format('YYYY')} 电子科技有限公司 苏ICP备88888888号-8
+      <Icon type="copyright" /> 2016-
+      {moment().format('YYYY')} www.hletong.com 惠龙易通国际物流有限公司 经营许可证编号：合字
+      B2-20180004
     </footer>
   );
 };

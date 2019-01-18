@@ -21,7 +21,7 @@ class Page extends PureComponent {
     return (
       <div className={styles.container}>
         <div className={styles.loginCon}>
-          <div className={styles.loginTitle}>后台管理会员登陆</div>
+          <div className={styles.loginTitle}>会员登陆</div>
           <Form>
             <FormItem>
               {getFieldDecorator('username', {
