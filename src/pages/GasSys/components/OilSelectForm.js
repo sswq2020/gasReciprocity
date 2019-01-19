@@ -19,6 +19,15 @@ const formItemLayout = {
   },
 };
 
+// 数组找出不通
+// let _ = require("lodash");
+//     let result = _.differenceBy(
+//       [{ name: "哈哈" }, { sex: "男" }],
+//       [{ name: "哈哈" }],
+//       "name"
+//     );
+//     console.log(result);
+
 @connect(({ gasForm }) => ({
   gasForm,
 }))
