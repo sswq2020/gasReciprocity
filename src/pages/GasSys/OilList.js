@@ -8,6 +8,11 @@ import ListHeaderForm from '@/components/ListHeaderForm';
 import OilForm from './components/OilForm';
 
 const FormItem = Form.Item;
+const formItemWidth = {
+  lg: 8,
+  md: 12,
+  sm: 24,
+};
 
 @connect(({ oilList, loading }) => ({
   oilList,
@@ -71,24 +76,22 @@ class Page extends PureComponent {
       form: { getFieldDecorator },
     } = this.props;
     return (
-      <Form onSubmit={this.changeListParams} layout="inline">
+      <Form onSubmit={this.changeListParams}>
         <Row gutter={{ md: 8, lg: 24, xl: 48 }}>
-          <Col md={8} sm={24}>
+          <Col {...formItemWidth}>
             <FormItem label="油品分类名称">
               {getFieldDecorator('text')(<Input placeholder="请输入" autoComplete="off" />)}
             </FormItem>
           </Col>
-        </Row>
-        <div style={{ overflow: 'hidden' }}>
-          <div style={{ float: 'right' }}>
+          <Col {...formItemWidth}>
             <Button type="primary" htmlType="submit">
               查询
             </Button>
             <Button style={{ marginLeft: 8 }} onClick={this.resetListParams}>
               重置
             </Button>
-          </div>
-        </div>
+          </Col>
+        </Row>
       </Form>
     );
   };
@@ -235,9 +238,6 @@ class Page extends PureComponent {
       // scroll: { x: 'max-content' },
       dataSource: listData,
       loading: getListIsLoading,
-      style: {
-        marginTop: 24,
-      },
       pagination: {
         total: totalItemCount,
         current: page,
