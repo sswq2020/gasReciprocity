@@ -134,7 +134,7 @@ const refuelDetailList = {
  */
 const priceApplyList = {
   'id|+1': 1,
-  a: '0#(V)', // 油品名称
+  fuelName: '0#(V)', // 油品名称
   b: '￥@float(5,8)/L', // 零售价
   c: '￥@float(5,8)', // 会员折扣(%)
   d: '￥@float(5,8)/L', // 会员价

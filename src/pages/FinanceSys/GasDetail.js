@@ -3,25 +3,23 @@ import React, { PureComponent, Fragment } from 'react';
 import { connect } from 'dva';
 // import router from 'umi/router';
 // import Link from 'umi/link';
-import { Row, Col, Form, Button, Card } from 'antd';
+import { Row, Col, Form, Button, Card, DatePicker, Input } from 'antd';
 import PageHeaderWrapper from '@/components/PageHeaderWrapper';
 import TableList from '@/components/TableList';
-import HLModal from '@/components/Modal';
 import ListHeaderForm from '@/components/ListHeaderForm';
-import Select from '@/components/Select';
-import PriceApplyForm from './components/PriceApplyForm';
+// import Select from '@/components/Select';
 
 const FormItem = Form.Item;
 
-@connect(({ priceApply, loading }) => ({
-  priceApply,
-  getListIsLoading: loading.effects['priceApply/getList'],
+@connect(({ getDetailes, loading }) => ({
+  getDetailes,
+  getListIsLoading: loading.effects['getDetailes/getList'],
 }))
 @Form.create()
 class Page extends PureComponent {
   componentDidMount() {
     const { dispatch } = this.props;
-    dispatch({ type: 'priceApply/resetListParams' });
+    dispatch({ type: 'getDetailes/resetListParams' });
   }
 
   changeListParams = e => {
@@ -33,7 +31,7 @@ class Page extends PureComponent {
     validateFields(err => {
       if (err) return;
       dispatch({
-        type: 'priceApply/changeListParams',
+        type: 'getDetailes/changeListParams',
         payload: {
           page: 1,
           ...getFieldsValue(),
@@ -49,59 +47,50 @@ class Page extends PureComponent {
     } = this.props;
     resetFields();
     dispatch({
-      type: 'priceApply/resetListParams',
+      type: 'getDetailes/resetListParams',
     });
   };
 
-  renderAdvancedForm = () => {
+  renderAdvancedForm() {
     const {
       form: { getFieldDecorator },
     } = this.props;
+
+    const dateFormat = 'YYYY/MM/DD';
 
     return (
       <Form onSubmit={this.changeListParams} layout="inline">
         <Row gutter={{ md: 8, lg: 24, xl: 48 }}>
           <Col md={8} sm={24}>
-            <FormItem label="油品名称">
-              {getFieldDecorator('fuelName', {
-                initialValue: null,
-              })(<Select hasAll placeholder="请选择" style={{ width: '100%' }} data={[]} />)}
+            <FormItem label="日期">
+              {getFieldDecorator('refuelTime')(
+                <DatePicker style={{ width: '100%' }} format={dateFormat} />
+              )}
             </FormItem>
           </Col>
-        </Row>
-        <div style={{ overflow: 'hidden' }}>
-          <div style={{ float: 'right' }}>
+          <Col md={8} sm={24}>
+            <FormItem label="加油站名称">
+              {getFieldDecorator('gasStation')(<Input placeholder="请输入" autoComplete="off" />)}
+            </FormItem>
+          </Col>
+          <Col md={8} sm={24}>
             <Button type="primary" htmlType="submit">
               查询
             </Button>
             <Button style={{ marginLeft: 8 }} onClick={this.resetListParams}>
               重置
             </Button>
-          </div>
-        </div>
+          </Col>
+        </Row>
       </Form>
     );
-  };
-
-  openFormEdit = data => {
-    const { dispatch } = this.props;
-    const { id, ...formData } = data;
-    dispatch({
-      type: 'priceApply/openForm',
-      payload: {
-        id,
-        formData,
-      },
-    });
-  };
+  }
 
   render() {
     const {
       dispatch,
       getListIsLoading,
-      priceApply: {
-        visible,
-        formData,
+      getDetailes: {
         listParams: { page },
         list: { data: listData, totalItemCount },
       },
@@ -116,53 +105,52 @@ class Page extends PureComponent {
           render: (text, record, index) => <Fragment>{(page - 1) * 10 + index + 1}</Fragment>,
         },
         {
+          title: '会员名',
+          key: 'member',
+          width: 100,
+          fixed: 'left',
+          render: (text, record) => {
+            return <Fragment>{record.b}</Fragment>;
+          },
+        },
+        {
+          title: '车牌号',
+          key: 'carNum',
+          width: 120,
+          render: (text, record) => <Fragment>{record.c}</Fragment>,
+        },
+        {
           title: '油品名称',
           key: 'fuelName',
-          width: 100,
-          render: (text, record) => <Fragment>{record.fuelName}</Fragment>,
+          render: (text, record) => <Fragment>{record.d}</Fragment>,
         },
         {
           title: '零售价',
           key: 'retailPrice',
           width: 100,
-          render: (text, record) => <Fragment>{record.b}</Fragment>,
+          render: (text, record) => <Fragment>{record.e}</Fragment>,
         },
         {
-          title: '会员折扣(%)',
-          key: 'memberDiscount',
+          title: '惠龙价',
+          key: 'hletPricw',
           width: 120,
-          render: (text, record) => <Fragment>{record.c}</Fragment>,
+          render: (text, record) => <Fragment>{record.f}</Fragment>,
         },
         {
-          title: '会员价',
-          key: 'memberPrice',
+          title: '加油量',
+          key: 'fuelQuantity',
           width: 100,
-          render: (text, record) => <Fragment>{record.d}</Fragment>,
+          render: (text, record) => <Fragment>{record.g}</Fragment>,
         },
         {
           title: '加油金额',
           key: 'fuelPrice',
-          width: 100,
-          render: (text, record) => <Fragment>{record.e}</Fragment>,
+          render: (text, record) => <Fragment>{record.h}</Fragment>,
         },
         {
-          title: <div style={{ textAlign: 'center' }}>操作</div>,
-          key: 'operating',
-          render: (text, record) => {
-            return (
-              <div style={{ textAlign: 'center' }}>
-                <a
-                  onClick={() => {
-                    this.openFormEdit(record);
-                  }}
-                  style={{ marginRight: 5 }}
-                >
-                  调价申请
-                </a>
-                <a>调价历史</a>
-              </div>
-            );
-          },
+          title: '日期',
+          key: 'date',
+          render: (text, record) => <Fragment>{record.i}</Fragment>,
         },
       ],
       rowKey: 'id',
@@ -178,7 +166,7 @@ class Page extends PureComponent {
       },
       onChange: pagination => {
         dispatch({
-          type: 'priceApply/changeListParams',
+          type: 'getDetailes/changeListParams',
           payload: {
             page: pagination.current,
           },
@@ -190,22 +178,6 @@ class Page extends PureComponent {
         <Card bordered={false} bodyStyle={{ padding: '0 0 20px 0' }}>
           <ListHeaderForm>{this.renderAdvancedForm()}</ListHeaderForm>
           <TableList {...listProps} />
-          <HLModal
-            title="调价申请"
-            visible={visible}
-            onClose={() => {
-              dispatch({
-                type: 'priceApply/closeForm',
-              });
-            }}
-            onOk={() => {
-              dispatch({
-                type: 'priceApply/submit',
-              });
-            }}
-          >
-            <PriceApplyForm data={formData} />
-          </HLModal>
         </Card>
       </PageHeaderWrapper>
     );

@@ -10,9 +10,22 @@ const defaultListParams = {
   page: 1,
 };
 
+const defaultFormData = {
+  fuelName: null,
+  retailPrice: null,
+  memberDiscount: null,
+  memberPrice: null,
+  effectDate: null,
+};
+
 export default {
   namespace,
   state: {
+    visible: false,
+    id: null,
+    formData: {
+      ...defaultFormData,
+    },
     listParams: {
       ...defaultListParams,
     },
@@ -66,6 +79,42 @@ export default {
       yield put({
         type: 'getList',
       });
+    },
+    *openForm({ payload }, { put }) {
+      yield put({
+        type: 'overrideStateProps',
+        payload: {
+          visible: true,
+          ...payload,
+        },
+      });
+    },
+    *closeForm(_, { put }) {
+      yield put({
+        type: 'overrideStateProps',
+        payload: {
+          visible: false,
+          formData: {
+            ...defaultFormData,
+          },
+        },
+      });
+    },
+    *submit({ payload }, { call, put, select }) {
+      const { id, formData } = yield select(selectState);
+      const { resetFields } = payload;
+      const response = yield call(services.priceApplyList, { id, ...formData });
+      switch (response.code) {
+        case '000000':
+          resetFields();
+          message.warning('调价申请成功！');
+          yield put({ type: 'getList' });
+          yield put({ type: 'closeForm' });
+          break;
+        default:
+          message.warning('调价申请失败，请稍后重试！');
+          break;
+      }
     },
   },
 };
