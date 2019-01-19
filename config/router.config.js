@@ -105,7 +105,7 @@ export default [
             path: '/financeSys/gasDetail',
             name: 'gasDetail',
             title: '加油明细',
-            component: './financeSys/gasDetail',
+            component: './financeSys/GasDetail',
           },
         ],
       },
