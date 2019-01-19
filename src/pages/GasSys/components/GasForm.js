@@ -15,7 +15,6 @@ const children = [];
 for (let i = 10; i < 36; i++) {
   children.push(<Select.Option key={i.toString(36) + i}>{i.toString(36) + i}</Select.Option>);
 }
-
 const options = [
   {
     value: 'zhejiang',
@@ -50,9 +49,7 @@ const options = [
     ],
   },
 ];
-
 const FormItem = Form.Item;
-
 const formItemWidth = {
   lg: 8,
   md: 12,
@@ -143,7 +140,7 @@ class CustomizeComponent extends PureComponent {
     const {
       dispatch,
       data = {},
-      gasForm: { imgList, oilList },
+      gasForm: { formData, imgList, oilList, visible, isEdit },
       form: { getFieldDecorator, resetFields, getFieldsValue, validateFields },
     } = this.props;
 
@@ -486,7 +483,21 @@ class CustomizeComponent extends PureComponent {
 
           <TableList {...gasListProps} />
           {getFieldDecorator('gas.oilList')(
-            <Button type="dashed" icon="plus" block style={{ marginBottom: 20 }}>
+            <Button
+              block
+              icon="plus"
+              type="dashed"
+              style={{ marginBottom: 20 }}
+              onClick={() => {
+                dispatch({
+                  type: 'gasForm/openForm',
+                  payload: {
+                    isEdit: false,
+                    id: null,
+                  },
+                });
+              }}
+            >
               新增油品信息
             </Button>
           )}
@@ -529,8 +540,25 @@ class CustomizeComponent extends PureComponent {
             保存
           </Button>
         </div>
-        <HLModal>
-          <OilSelectForm />
+        <HLModal
+          title={`${isEdit === false ? '新增' : '编辑'}油品信息`}
+          visible={visible}
+          onOk={(fData, fResetFields) => {
+            dispatch({
+              type: isEdit === false ? 'gasForm/add' : 'gasForm/edit',
+              payload: {
+                data: { ...fData.oil },
+                resetFields: fResetFields,
+              },
+            });
+          }}
+          onClose={() => {
+            dispatch({
+              type: 'gasForm/closeForm',
+            });
+          }}
+        >
+          <OilSelectForm data={formData} />
         </HLModal>
       </Fragment>
     );

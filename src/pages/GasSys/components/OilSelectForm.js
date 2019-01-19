@@ -1,69 +1,114 @@
+import { connect } from 'dva';
 import React, { PureComponent } from 'react';
-import { Form, Input, Radio } from 'antd';
+import { Form, InputNumber, Input } from 'antd';
+import Select from '@/components/Select';
+// import dict from '@/utils/dict';
+// import regexps from '@/utils/regexps';
 
-const RadioGroup = Radio.Group;
-const { TextArea } = Input;
 const FormItem = Form.Item;
 const formItemLayout = {
   labelCol: {
     xs: { span: 24 },
-    sm: { span: 7 },
-    md: { span: 7 },
+    sm: { span: 6 },
+    md: { span: 6 },
   },
   wrapperCol: {
     xs: { span: 24 },
-    sm: { span: 17 },
-    md: { span: 17 },
+    sm: { span: 18 },
+    md: { span: 18 },
   },
 };
 
-export default class CustomizeComponent extends PureComponent {
+@connect(({ gasForm }) => ({
+  gasForm,
+}))
+class CustomizeComponent extends PureComponent {
   render() {
     const {
       data,
       form: { getFieldDecorator },
     } = this.props;
+
     return (
       <Form style={{ marginBottom: -24 }}>
-        <FormItem {...formItemLayout} label="油品分类名称">
-          {getFieldDecorator('oil.name', {
-            initialValue: data.name,
+        <FormItem {...formItemLayout} label="油品名称">
+          {getFieldDecorator('oilSelect.type', {
             rules: [
               {
                 required: true,
-                whitespace: true,
-                message: '请填写油品分类名称',
-              },
-              {
-                whitespace: true,
-                max: 10,
-                message: '最多10个字符',
+                message: '请选择油品名称',
               },
             ],
-          })(<Input placeholder="请填写油品分类名称" autoComplete="off" />)}
+          })(<Select placeholder="请选择油品名称" autoComplete="off" data={[]} />)}
         </FormItem>
-        <FormItem {...formItemLayout} label="油品分类描述">
-          {getFieldDecorator('oil.description', {
-            initialValue: data.description,
+        <FormItem {...formItemLayout} label="零售价">
+          {getFieldDecorator('oilSelect.j', {
             rules: [
               {
-                max: 50,
-                message: '最多50个字符',
+                required: true,
+                message: '请填写零售价',
               },
             ],
-          })(<TextArea rows={4} placeholder="请填写油品分类描述" autoComplete="off" />)}
-        </FormItem>
-        <FormItem {...formItemLayout} label="是否展示默认">
-          {getFieldDecorator('oil.show', {
-            initialValue: 2,
           })(
-            <RadioGroup>
-              <Radio value={1}>是</Radio>
-              <Radio value={2}>否</Radio>
-            </RadioGroup>
+            <InputNumber
+              placeholder="请填写零售价"
+              autoComplete="off"
+              min={0}
+              step={1}
+              precision={2}
+              style={{ width: '100%' }}
+            />
           )}
+        </FormItem>
+        <FormItem {...formItemLayout} label="零售价浮动预警">
+          {getFieldDecorator('oilSelect.h', {
+            rules: [
+              {
+                required: true,
+                message: '请填写零售价浮动预警',
+              },
+            ],
+          })(
+            <InputNumber
+              placeholder="请填写零售价浮动预警"
+              autoComplete="off"
+              min={0}
+              step={1}
+              precision={2}
+              style={{ width: 'calc(100% - 20px)' }}
+            />
+          )}{' '}
+          %
+        </FormItem>
+        <FormItem {...formItemLayout} label="会员折扣">
+          {getFieldDecorator('oilSelect.i', {
+            initialValue: data.i,
+            rules: [
+              {
+                required: true,
+                message: '请填写会员折扣',
+              },
+            ],
+          })(
+            <InputNumber
+              placeholder="请填写会员折扣"
+              autoComplete="off"
+              min={0}
+              step={1}
+              precision={2}
+              style={{ width: 'calc(100% - 20px)' }}
+            />
+          )}{' '}
+          %
+        </FormItem>
+        <FormItem {...formItemLayout} label="会员价">
+          {getFieldDecorator('oilSelect.k', {
+            initialValue: 20,
+          })(<Input readOnly placeholder="请填写会员折扣" autoComplete="off" />)}
         </FormItem>
       </Form>
     );
   }
 }
+
+export default CustomizeComponent;
