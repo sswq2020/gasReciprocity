@@ -140,23 +140,24 @@ class CustomizeComponent extends PureComponent {
     const {
       dispatch,
       data = {},
-      gasForm: { formData, imgList, oilList, visible, isEdit },
+      gasForm: { formData, imgList, oilList, oilSelectList, visible, isEdit },
       form: { getFieldDecorator, resetFields, getFieldsValue, validateFields },
     } = this.props;
 
     const gasListProps = {
-      // style: {
-      //   marginTop: -24,
-      // },
+      style: {
+        marginTop: -24,
+        paddingBottom: 20,
+      },
       columns: [
         {
           title: '序号',
           key: '#',
           width: 60,
-          render: (text, record, index) => <Fragment>{(page - 1) * 10 + index + 1}</Fragment>,
+          render: (text, record, index) => <Fragment>{index + 1}</Fragment>,
         },
         {
-          title: '分类名称',
+          title: '油品名称',
           key: 'b',
           render: (text, record) => {
             return <Fragment>{record.b}</Fragment>;
@@ -178,13 +179,34 @@ class CustomizeComponent extends PureComponent {
           render: (text, record) => <Fragment>{record.e}</Fragment>,
         },
         {
+          title: '零售价浮动预警',
+          key: 'sf',
+          render: (text, record) => <Fragment>{record.f}</Fragment>,
+        },
+        {
           title: <div style={{ textAlign: 'center' }}>操作</div>,
           key: 'operating',
-          width: 200,
-          render: () => <div style={{ textAlign: 'center' }}>oo</div>,
+          width: 100,
+          render: (text, record, index) => {
+            return (
+              <div style={{ textAlign: 'center' }}>
+                <a
+                  onClick={() => {
+                    dispatch({
+                      type: 'gasForm/delete',
+                      payload: index,
+                    });
+                  }}
+                >
+                  删除
+                </a>
+              </div>
+            );
+          },
         },
       ],
       dataSource: oilList,
+      pagination: false,
     };
 
     const pics = imgList.map((r, i) => {
@@ -205,6 +227,7 @@ class CustomizeComponent extends PureComponent {
         </div>
       );
     });
+
     return (
       <Fragment>
         <Form className={styles.gasForm}>
@@ -480,9 +503,9 @@ class CustomizeComponent extends PureComponent {
             </Col>
           </Row>
           <FormItemHead>油品分类：</FormItemHead>
-
           <TableList {...gasListProps} />
-          {getFieldDecorator('gas.oilList')(
+          {getFieldDecorator('gas.oilList', {})(<input type="hidden" />)}
+          {oilList.length < oilSelectList.length && (
             <Button
               block
               icon="plus"
@@ -547,7 +570,7 @@ class CustomizeComponent extends PureComponent {
             dispatch({
               type: isEdit === false ? 'gasForm/add' : 'gasForm/edit',
               payload: {
-                data: { ...fData.oil },
+                data: { ...fData.oilSelect },
                 resetFields: fResetFields,
               },
             });

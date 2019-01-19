@@ -39,7 +39,13 @@ class CustomizeComponent extends PureComponent {
                 message: '请选择油品名称',
               },
             ],
-          })(<Select placeholder="请选择油品名称" autoComplete="off" data={[]} />)}
+          })(
+            <Select
+              placeholder="请选择油品名称"
+              autoComplete="off"
+              data={[{ itemCode: 1, itemName: 1 }]}
+            />
+          )}
         </FormItem>
         <FormItem {...formItemLayout} label="零售价">
           {getFieldDecorator('oilSelect.j', {
