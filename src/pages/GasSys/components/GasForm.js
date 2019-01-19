@@ -2,12 +2,13 @@ import React, { PureComponent, Fragment } from 'react';
 import { connect } from 'dva';
 import router from 'umi/router';
 import { Form, Row, Col, Input, Select, Cascader, Button, Modal } from 'antd';
+import regexps from '@/utils/regexps';
 import FormItemHead from '@/components/FormItemHead';
-import ListHeaderForm from '@/components/ListHeaderForm';
 import TableList from '@/components/TableList';
 import ImageBox from '@/components/ImageBox';
 import ImageUpload from '@/components/ImageUpload';
 import HLModal from '@/components/Modal';
+import OilSelectForm from './OilSelectForm';
 import styles from './gasForm.less';
 
 const children = [];
@@ -56,49 +57,6 @@ const formItemWidth = {
   lg: 8,
   md: 12,
   sm: 24,
-};
-
-const gasListProps = {
-  // style: {
-  //   marginTop: -24,
-  // },
-  columns: [
-    {
-      title: '序号',
-      key: '#',
-      width: 60,
-      render: (text, record, index) => <Fragment>{(page - 1) * 10 + index + 1}</Fragment>,
-    },
-    {
-      title: '分类名称',
-      key: 'b',
-      render: (text, record) => {
-        return <Fragment>{record.b}</Fragment>;
-      },
-    },
-    {
-      title: '零售价',
-      key: 'no',
-      render: (text, record) => <Fragment>{record.c}</Fragment>,
-    },
-    {
-      title: '会员折扣(%)',
-      key: 'name',
-      render: (text, record) => <Fragment>{record.d}</Fragment>,
-    },
-    {
-      title: '会员价',
-      key: 'tel',
-      render: (text, record) => <Fragment>{record.e}</Fragment>,
-    },
-    {
-      title: <div style={{ textAlign: 'center' }}>操作</div>,
-      key: 'operating',
-      width: 200,
-      render: () => <div style={{ textAlign: 'center' }}>oo</div>,
-    },
-  ],
-  dataSource: [],
 };
 
 // const bankListProps = {
@@ -183,31 +141,131 @@ const gasListProps = {
 class CustomizeComponent extends PureComponent {
   render() {
     const {
-      form: { getFieldDecorator },
+      dispatch,
+      data = {},
+      gasForm: { imgList, oilList },
+      form: { getFieldDecorator, resetFields, getFieldsValue, validateFields },
     } = this.props;
 
+    const gasListProps = {
+      // style: {
+      //   marginTop: -24,
+      // },
+      columns: [
+        {
+          title: '序号',
+          key: '#',
+          width: 60,
+          render: (text, record, index) => <Fragment>{(page - 1) * 10 + index + 1}</Fragment>,
+        },
+        {
+          title: '分类名称',
+          key: 'b',
+          render: (text, record) => {
+            return <Fragment>{record.b}</Fragment>;
+          },
+        },
+        {
+          title: '零售价',
+          key: 'no',
+          render: (text, record) => <Fragment>{record.c}</Fragment>,
+        },
+        {
+          title: '会员折扣(%)',
+          key: 'name',
+          render: (text, record) => <Fragment>{record.d}</Fragment>,
+        },
+        {
+          title: '会员价',
+          key: 'tel',
+          render: (text, record) => <Fragment>{record.e}</Fragment>,
+        },
+        {
+          title: <div style={{ textAlign: 'center' }}>操作</div>,
+          key: 'operating',
+          width: 200,
+          render: () => <div style={{ textAlign: 'center' }}>oo</div>,
+        },
+      ],
+      dataSource: oilList,
+    };
+
+    const pics = imgList.map((r, i) => {
+      return (
+        <div key={r} className={styles.imgBox}>
+          <ImageBox
+            url="//lorempixel.com/450/200/"
+            onDelete={() => {
+              imgList.splice(i, 1);
+              dispatch({
+                type: 'gasForm/overrideStateProps',
+                payload: {
+                  imgList,
+                },
+              });
+            }}
+          />
+        </div>
+      );
+    });
     return (
-      <ListHeaderForm>
-        <Form className={styles.gasForm} layout="inline">
+      <Fragment>
+        <Form className={styles.gasForm}>
           <FormItemHead>账号管理员信息：</FormItemHead>
           <Row>
             <Col {...formItemWidth}>
               <FormItem label="会员名">
-                {getFieldDecorator('text')(<Input placeholder="请输入手机号" autoComplete="off" />)}
+                {getFieldDecorator('gas.user', {
+                  initialValue: data.user,
+                  rules: [
+                    {
+                      required: true,
+                      whitespace: true,
+                      message: '请填写会员名',
+                    },
+                    {
+                      pattern: regexps.mobPhone,
+                      message: '请填写正确的手机号',
+                    },
+                  ],
+                })(<Input placeholder="请输入手机号" autoComplete="off" />)}
               </FormItem>
             </Col>
             <Col {...formItemWidth}>
               <FormItem label="管理员姓名">
-                {getFieldDecorator('appId')(
-                  <Input placeholder="请输入管理员姓名" autoComplete="off" />
-                )}
+                {getFieldDecorator('gas.name', {
+                  initialValue: data.name,
+                  rules: [
+                    {
+                      required: true,
+                      whitespace: true,
+                      message: '请填写管理员姓名',
+                    },
+                    {
+                      whitespace: true,
+                      max: 20,
+                      message: '最多20个字符',
+                    },
+                  ],
+                })(<Input placeholder="请输入管理员姓名" autoComplete="off" />)}
               </FormItem>
             </Col>
             <Col {...formItemWidth}>
               <FormItem label="管理员身份证号">
-                {getFieldDecorator('appId')(
-                  <Input placeholder="请输入管理员身份证号" autoComplete="off" />
-                )}
+                {getFieldDecorator('gas.pId', {
+                  initialValue: data.pId,
+                  rules: [
+                    {
+                      required: true,
+                      whitespace: true,
+                      message: '请填写管理员身份证号',
+                    },
+                    {
+                      whitespace: true,
+                      message: '前填写正确的身份证号',
+                    },
+                  ],
+                })(<Input placeholder="请输入管理员身份证号" autoComplete="off" />)}
               </FormItem>
             </Col>
           </Row>
@@ -225,17 +283,129 @@ class CustomizeComponent extends PureComponent {
             </Col>
             <Col lg={16} md={24} sm={24}>
               <FormItem label="加油站照片(门头)">
-                <ImageUpload />
+                {pics}
+                {imgList.length < 3 && (
+                  <div className={styles.imgBox}>
+                    <ImageUpload
+                      onSuccess={response => {
+                        console.log(response);
+                        imgList.push(imgList.length);
+                        dispatch({
+                          type: 'gasForm/overrideStateProps',
+                          payload: {
+                            imgList,
+                          },
+                        });
+                      }}
+                    />
+                  </div>
+                )}
+                {getFieldDecorator('gas.pic', {
+                  initialValue: imgList,
+                  rules: [
+                    {
+                      validator: (rule, value, callback) => {
+                        console.log(value);
+                        if (value.length === 0) {
+                          callback('请上传加油站照片');
+                        }
+                        callback();
+                      },
+                    },
+                  ],
+                })(<input type="hidden" />)}
+              </FormItem>
+            </Col>
+            <Col {...formItemWidth}>
+              <FormItem label="加油站名称">
+                {getFieldDecorator('gas.gasName', {
+                  initialValue: data.gasName,
+                  rules: [
+                    {
+                      required: true,
+                      whitespace: true,
+                      message: '请填写加油站名称',
+                    },
+                    {
+                      whitespace: true,
+                      max: 20,
+                      message: '最多20个字符',
+                    },
+                  ],
+                })(<Input placeholder="请输入加油站名称" autoComplete="off" />)}
+              </FormItem>
+            </Col>
+            <Col {...formItemWidth}>
+              <FormItem label="加油站电话">
+                {getFieldDecorator('gas.gasPhone', {
+                  initialValue: data.gasPhone,
+                  rules: [
+                    {
+                      required: true,
+                      whitespace: true,
+                      message: '请填写加油站电话',
+                    },
+                    {
+                      pattern: regexps.phone,
+                      message: '请填写正确的电话号码',
+                    },
+                  ],
+                })(<Input placeholder="请输入加油站电话" autoComplete="off" />)}
+              </FormItem>
+            </Col>
+            <Col {...formItemWidth}>
+              <FormItem label="联系邮箱">
+                {getFieldDecorator('gas.mail', {
+                  initialValue: data.mail,
+                  rules: [
+                    {
+                      required: true,
+                      whitespace: true,
+                      message: '请填写联系邮箱',
+                    },
+                    {
+                      pattern: regexps.email,
+                      message: '请填写正确的邮箱地址',
+                    },
+                  ],
+                })(<Input placeholder="请输入联系邮箱" autoComplete="off" />)}
               </FormItem>
             </Col>
             <Col {...formItemWidth}>
               <FormItem label="油站联系人">
-                {getFieldDecorator('text')(<Input placeholder="请输入" autoComplete="off" />)}
+                {getFieldDecorator('gas.contact', {
+                  initialValue: data.contact,
+                  rules: [
+                    {
+                      required: true,
+                      whitespace: true,
+                      message: '请填写油站联系人',
+                    },
+                    {
+                      whitespace: true,
+                      max: 10,
+                      message: '最多10个字符',
+                    },
+                  ],
+                })(<Input placeholder="请输入油站联系人" autoComplete="off" />)}
               </FormItem>
             </Col>
             <Col {...formItemWidth}>
               <FormItem label="联系电话">
-                {getFieldDecorator('appId')(<Input placeholder="请输入" autoComplete="off" />)}
+                {getFieldDecorator('gas.contactPhone', {
+                  initialValue: data.contactPhone,
+                  rules: [
+                    {
+                      required: true,
+                      whitespace: true,
+                      message: '请填写联系电话',
+                    },
+                    {
+                      pattern: regexps.mobPhone,
+                      message: '请填写正确的电话号码',
+                    },
+                  ],
+                })(<Input placeholder="请输入联系电话" autoComplete="off" />)}
               </FormItem>
             </Col>
             {/* <Col {...formItemWidth}>
@@ -243,48 +413,69 @@ class CustomizeComponent extends PureComponent {
                 <Checkbox style={{ marginLeft: 20 }}>同管理员</Checkbox>
               </FormItem>
             </Col> */}
-            <Col {...formItemWidth}>
-              <FormItem label="加油站名称">
-                {getFieldDecorator('text')(<Input placeholder="请输入" autoComplete="off" />)}
-              </FormItem>
-            </Col>
-            <Col {...formItemWidth}>
-              <FormItem label="加油站电话">
-                {getFieldDecorator('appId')(<Input placeholder="请输入" autoComplete="off" />)}
-              </FormItem>
-            </Col>
-            <Col {...formItemWidth}>
-              <FormItem label="联系邮箱">
-                {getFieldDecorator('appId')(<Input placeholder="请输入" autoComplete="off" />)}
-              </FormItem>
-            </Col>
 
             <Col {...formItemWidth}>
               <FormItem label="所在地区">
-                {getFieldDecorator('area')(
-                  <Cascader placeholder="请输入" options={options} autoComplete="off" />
+                {getFieldDecorator('gas.area', {
+                  initialValue: data.area,
+                  rules: [
+                    {
+                      required: true,
+                      message: '请选择所在地区',
+                    },
+                  ],
+                })(
+                  <Cascader
+                    allowClear={false}
+                    placeholder="请选择所在地区"
+                    options={options}
+                    autoComplete="off"
+                  />
                 )}
               </FormItem>
             </Col>
             <Col {...formItemWidth}>
               <FormItem label="详细地址">
-                {getFieldDecorator('text')(<Input placeholder="请输入" autoComplete="off" />)}
+                {getFieldDecorator('gas.address', {
+                  initialValue: data.address,
+                  rules: [
+                    {
+                      required: true,
+                      whitespace: true,
+                      message: '请填写详细地址',
+                    },
+                    {
+                      whitespace: true,
+                      max: 40,
+                      message: '最多40个字符',
+                    },
+                  ],
+                })(<Input placeholder="请输入详细地址" autoComplete="off" />)}
               </FormItem>
             </Col>
             <Col {...formItemWidth}>
               <FormItem label="营业时间">
-                {getFieldDecorator('text')(<Input placeholder="请输入" autoComplete="off" />)}
+                {getFieldDecorator('gas.workTime', {
+                  initialValue: data.workTime,
+                  rules: [
+                    {
+                      required: true,
+                      whitespace: true,
+                      message: '请填写营业时间',
+                    },
+                    {
+                      whitespace: true,
+                      max: 40,
+                      message: '最多40个字符',
+                    },
+                  ],
+                })(<Input placeholder="请输入营业时间" autoComplete="off" />)}
               </FormItem>
             </Col>
-            <Col {...formItemWidth}>
+            <Col lg={8} md={24} sm={24}>
               <FormItem label="特色服务">
-                {getFieldDecorator('test')(
-                  <Select
-                    mode="multiple"
-                    placeholder="请选择"
-                    onChange={() => {}}
-                    style={{ width: '100%' }}
-                  >
+                {getFieldDecorator('gas.service')(
+                  <Select mode="multiple" placeholder="请选择" style={{ width: '100%' }}>
                     {children}
                   </Select>
                 )}
@@ -292,8 +483,13 @@ class CustomizeComponent extends PureComponent {
             </Col>
           </Row>
           <FormItemHead>油品分类：</FormItemHead>
-          <TableList {...gasListProps} />
 
+          <TableList {...gasListProps} />
+          {getFieldDecorator('gas.oilList')(
+            <Button type="dashed" icon="plus" block style={{ marginBottom: 20 }}>
+              新增油品信息
+            </Button>
+          )}
           {/* <FormItemHead>银行卡信息：</FormItemHead>
           <TableList {...bankListProps} /> */}
         </Form>
@@ -314,12 +510,29 @@ class CustomizeComponent extends PureComponent {
           >
             取消
           </Button>
-          <Button onClick={() => {}} type="primary">
+          <Button
+            onClick={() => {
+              validateFields(errors => {
+                if (errors) {
+                  return;
+                }
+                onOk(
+                  {
+                    ...getFieldsValue(),
+                  },
+                  resetFields
+                );
+              });
+            }}
+            type="primary"
+          >
             保存
           </Button>
         </div>
-        <HLModal>ok</HLModal>
-      </ListHeaderForm>
+        <HLModal>
+          <OilSelectForm />
+        </HLModal>
+      </Fragment>
     );
   }
 }

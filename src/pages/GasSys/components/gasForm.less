@@ -1,12 +1,22 @@
 .gasForm {
   margin-bottom: 64px;
   :global {
-    .ant-form-item > .ant-form-item-label {
-      width: 140px;
+    .ant-form-item {
+      display: flex;
+      .ant-form-item-label {
+        width: 140px;
+      }
+      .ant-form-item-control-wrapper {
+        flex: 1;
+      }
     }
   }
 }
 
+.imgBox {
+  float: left;
+  margin-right: 10px;
+}
 .footer {
   background: #f6f8fa;
   padding: 16px 20px;

@@ -8,7 +8,8 @@ const namespace = 'gasForm';
 export default {
   namespace,
   state: {
-    gasList: [],
+    oilList: [],
+    imgList: [0, 1],
   },
 
   reducers,
