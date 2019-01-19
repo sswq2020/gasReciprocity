@@ -14,7 +14,7 @@ axios.interceptors.request.use(
     // Do something with request
     const con = { ...config };
     con.headers['X-Requested-With'] = 'XMLHttpRequest';
-    con.headers['X-Auth-Token'] = window.localStorage.getItem('xAuthToken') || '';
+    // con.headers['X-Auth-Token'] = window.localStorage.getItem('xAuthToken') || '';
     return con;
   },
   error => Promise.reject(error)
@@ -191,7 +191,7 @@ export default {
   oilCreate(params) {
     return request({
       host: BASEURL,
-      url: '/oilCreate',
+      url: '/gas/action/bs/insertOilModelInfo',
       method: 'post',
       params,
     });

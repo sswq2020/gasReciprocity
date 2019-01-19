@@ -1,5 +1,6 @@
 import React, { PureComponent } from 'react';
 import { Form, Input, Radio } from 'antd';
+import dict from '@/utils/dict';
 
 const RadioGroup = Radio.Group;
 const { TextArea } = Input;
@@ -26,8 +27,8 @@ export default class CustomizeComponent extends PureComponent {
     return (
       <Form style={{ marginBottom: -24 }}>
         <FormItem {...formItemLayout} label="油品分类名称">
-          {getFieldDecorator('oil.name', {
-            initialValue: data.name,
+          {getFieldDecorator('oil.oilModelName', {
+            initialValue: data.oilModelName,
             rules: [
               {
                 required: true,
@@ -43,23 +44,29 @@ export default class CustomizeComponent extends PureComponent {
           })(<Input placeholder="请填写油品分类名称" autoComplete="off" />)}
         </FormItem>
         <FormItem {...formItemLayout} label="油品分类描述">
-          {getFieldDecorator('oil.description', {
-            initialValue: data.description,
+          {getFieldDecorator('oil.oilModelDesc', {
+            initialValue: data.oilModelDesc,
             rules: [
               {
                 max: 50,
                 message: '最多50个字符',
               },
             ],
-          })(<TextArea rows={4} placeholder="请填写油品分类描述" autoComplete="off" />)}
+          })(
+            <TextArea
+              autosize={{ minRows: 3, maxRows: 3 }}
+              placeholder="请填写油品分类描述"
+              autoComplete="off"
+            />
+          )}
         </FormItem>
         <FormItem {...formItemLayout} label="是否展示默认">
-          {getFieldDecorator('oil.show', {
-            initialValue: 2,
+          {getFieldDecorator('oil.isDefault', {
+            initialValue: data.isDefault,
           })(
             <RadioGroup>
-              <Radio value={1}>是</Radio>
-              <Radio value={2}>否</Radio>
+              <Radio value={dict.oilModelIsDefault}>是</Radio>
+              <Radio value={dict.oilModelIsNotDefault}>否</Radio>
             </RadioGroup>
           )}
         </FormItem>

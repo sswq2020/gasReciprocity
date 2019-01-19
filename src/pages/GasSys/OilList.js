@@ -1,6 +1,7 @@
 import React, { PureComponent, Fragment } from 'react';
 import { connect } from 'dva';
 import { Row, Col, Input, Form, Button, Modal } from 'antd';
+import dict from '@/utils/dict';
 import HLModal from '@/components/Modal';
 import PageHeaderWrapper from '@/components/PageHeaderWrapper';
 import TableList from '@/components/TableList';
@@ -116,39 +117,45 @@ class Page extends PureComponent {
         {
           title: '序号',
           key: '#',
+          align: 'center',
           width: 60,
           render: (text, record, index) => <Fragment>{(page - 1) * 10 + index + 1}</Fragment>,
         },
         {
           title: '油品分类名称',
-          key: 'no',
-          width: 150,
-          render: (text, record) => <Fragment>{record.c}</Fragment>,
+          key: 'oilModelName',
+          // align: 'center',
+          width: 200,
+          render: (text, record) => <Fragment>{record.oilModelName}</Fragment>,
         },
         {
           title: '油品分类描述',
-          key: 's',
-          render: (text, record) => <Fragment>{record.k}</Fragment>,
+          key: 'oilModelDesc',
+          // align: 'center',
+          render: (text, record) => <Fragment>{record.oilModelDesc}</Fragment>,
         },
         {
           title: '是否默认',
-          key: 'SS',
+          key: 'isDefault',
+          align: 'center',
           width: 110,
-          render: (text, record) => {
-            return <span className={record.l === '是' ? 'success_text' : ''}>{record.l}</span>;
-          },
+          render: (text, record) =>
+            record.isDefault === dict.oilModelIsDefault && (
+              <span className="success_text">{dict.oilModelDefault[record.isDefault]}</span>
+            ),
         },
         {
           title: '状态',
-          key: 'status',
+          key: 'deleted',
+          align: 'center',
           width: 110,
           render: (text, record) => {
             let flatClass = '';
-            switch (record.j) {
-              case '禁用':
+            switch (record.deleted) {
+              case dict.oilModelIsDeleted:
                 flatClass = 'error_flat';
                 break;
-              case '正常':
+              case dict.oilModelIsNotDeleted:
                 flatClass = 'success_flat';
                 break;
               default:
@@ -163,19 +170,25 @@ class Page extends PureComponent {
                   }}
                   className={`point ${flatClass}`}
                 />
-                {record.j}
+                {dict.oilModelDeleted[record.deleted]}
               </Fragment>
             );
           },
         },
         {
-          title: <div style={{ textAlign: 'center' }}>操作</div>,
+          title: '操作',
           key: 'operating',
+          align: 'center',
           width: 200,
           render: (text, record) => {
-            const showText = record.j === '禁用' ? '激活' : '禁用';
+            const showText =
+              dict.oilModelDeleted[
+                record.deleted === dict.oilModelIsDeleted
+                  ? dict.oilModelIsNotDeleted
+                  : dict.oilModelIsDeleted
+              ];
             return (
-              <div style={{ textAlign: 'center' }}>
+              <Fragment>
                 <a
                   style={{ marginRight: 10 }}
                   onClick={() => {
@@ -186,13 +199,13 @@ class Page extends PureComponent {
                 </a>
                 <span
                   className={`${
-                    record.j === '禁用' ? 'success_text' : 'error_text'
+                    record.deleted === dict.oilModelIsDeleted ? 'success_text' : 'error_text'
                   } cursor_pointer`}
                   style={{ marginRight: 10 }}
                   onClick={() => {
                     Modal.confirm({
                       autoFocusButton: null,
-                      title: `你确定 ${showText} ${record.c}？`,
+                      title: `你确定 ${showText} ${record.oilModelName}？`,
                       okText: '确认',
                       cancelText: '取消',
                       onOk: () => {
@@ -208,12 +221,12 @@ class Page extends PureComponent {
                 >
                   {showText}
                 </span>
-                {record.l === '否' && (
+                {record.isDefault === dict.oilModelIsNotDefault && (
                   <a
                     onClick={() => {
                       Modal.confirm({
                         autoFocusButton: null,
-                        title: `你确定把 ${record.c} 设为默认展示？`,
+                        title: `你确定把 ${record.oilModelName} 设为默认展示？`,
                         okText: '确认',
                         cancelText: '取消',
                         onOk: () => {
@@ -230,7 +243,7 @@ class Page extends PureComponent {
                     设为默认展示
                   </a>
                 )}
-              </div>
+              </Fragment>
             );
           },
         },
