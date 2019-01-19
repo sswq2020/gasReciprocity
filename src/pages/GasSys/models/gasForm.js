@@ -52,7 +52,6 @@ export default {
   reducers,
 
   effects: {
-    // *add({ payload }, { put, select }) {
     *add({ payload }, { put, select }) {
       const { oilList } = yield select(selectState);
       const { resetFields } = payload;
