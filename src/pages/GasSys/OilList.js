@@ -78,13 +78,13 @@ class Page extends PureComponent {
     } = this.props;
     return (
       <Form onSubmit={this.changeListParams}>
-        <Row gutter={{ md: 8, lg: 24, xl: 48 }}>
+        <Row gutter={{ md: 16, lg: 24, xl: 48 }}>
           <Col {...formItemWidth}>
             <FormItem label="油品分类名称">
               {getFieldDecorator('text')(<Input placeholder="请输入" autoComplete="off" />)}
             </FormItem>
           </Col>
-          <Col {...formItemWidth}>
+          <Col className="submitButtons" {...formItemWidth}>
             <Button type="primary" htmlType="submit">
               查询
             </Button>

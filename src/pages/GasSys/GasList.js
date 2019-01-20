@@ -64,7 +64,7 @@ class Page extends PureComponent {
     } = this.props;
     return (
       <Form onSubmit={this.changeListParams}>
-        <Row gutter={{ md: 8, lg: 24, xl: 48 }}>
+        <Row gutter={{ md: 16, lg: 24, xl: 48 }}>
           <Col {...formItemWidth}>
             <FormItem label="会员名">
               {getFieldDecorator('text')(<Input placeholder="请输入" autoComplete="off" />)}
@@ -82,8 +82,6 @@ class Page extends PureComponent {
               })(<Select hasAll placeholder="请选择" style={{ width: '100%' }} data={[]} />)}
             </FormItem>
           </Col>
-        </Row>
-        <Row gutter={{ md: 8, lg: 24, xl: 48 }}>
           <Col className="submitButtons" {...formItemWidth}>
             <Button type="primary" htmlType="submit">
               查询
@@ -114,12 +112,14 @@ class Page extends PureComponent {
           key: '#',
           width: 60,
           fixed: 'left',
+          align: 'center',
           render: (text, record, index) => <Fragment>{(page - 1) * 10 + index + 1}</Fragment>,
         },
         {
           title: '会员名',
           key: 'b',
           width: 100,
+          align: 'center',
           fixed: 'left',
           render: (text, record) => {
             return <Fragment>{record.b}</Fragment>;
@@ -151,6 +151,7 @@ class Page extends PureComponent {
         {
           title: '联系人手机',
           key: 'contactPhone',
+          align: 'center',
           width: 100,
           render: (text, record) => <Fragment>{record.g}</Fragment>,
         },
@@ -167,6 +168,7 @@ class Page extends PureComponent {
         {
           title: '加油站状态',
           key: 'status',
+          align: 'center',
           width: 110,
           render: (text, record) => {
             let flatClass = '';
@@ -197,6 +199,8 @@ class Page extends PureComponent {
         {
           title: '收款二维码',
           key: 'qCode',
+          align: 'center',
+          width: 110,
           render: () => (
             <a
               onClick={() => {
@@ -212,10 +216,11 @@ class Page extends PureComponent {
           key: 'operating',
           width: 200,
           fixed: 'right',
+          align: 'center',
           render: (text, record) => {
             const showText = record.j === '禁用' ? '激活' : '禁用';
             return (
-              <div style={{ textAlign: 'center' }}>
+              <Fragment>
                 <Link style={{ marginRight: 10 }} to={`/gasSys/gas/edit/${record.id}`}>
                   编辑
                 </Link>
@@ -243,7 +248,7 @@ class Page extends PureComponent {
                 >
                   下载二维码
                 </a>
-              </div>
+              </Fragment>
             );
           },
         },

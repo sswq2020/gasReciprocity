@@ -77,13 +77,13 @@ class Page extends PureComponent {
     } = this.props;
     return (
       <Form onSubmit={this.changeListParams}>
-        <Row gutter={{ md: 8, lg: 24, xl: 48 }}>
+        <Row gutter={{ md: 16, lg: 24, xl: 48 }}>
           <Col {...formItemWidth}>
             <FormItem label="特色服务名称">
               {getFieldDecorator('text')(<Input placeholder="请输入" autoComplete="off" />)}
             </FormItem>
           </Col>
-          <Col {...formItemWidth}>
+          <Col className="submitButtons" {...formItemWidth}>
             <Button type="primary" htmlType="submit">
               查询
             </Button>
@@ -116,12 +116,14 @@ class Page extends PureComponent {
           title: '序号',
           key: '#',
           width: 60,
+          align: 'center',
           render: (text, record, index) => <Fragment>{(page - 1) * 10 + index + 1}</Fragment>,
         },
         {
           title: '特色服务ICON',
           key: 'b',
           width: 150,
+          align: 'center',
           render: (text, record) => {
             return <img style={{ height: 48 }} src={record.b} alt={record.c} />;
           },
@@ -134,6 +136,7 @@ class Page extends PureComponent {
         {
           title: '状态',
           key: 'status',
+          align: 'center',
           width: 110,
           render: (text, record) => {
             let flatClass = '';
@@ -165,10 +168,11 @@ class Page extends PureComponent {
           title: <div style={{ textAlign: 'center' }}>操作</div>,
           key: 'operating',
           width: 150,
+          align: 'center',
           render: (text, record) => {
             const showText = record.j === '禁用' ? '激活' : '禁用';
             return (
-              <div style={{ textAlign: 'center' }}>
+              <Fragment>
                 <a
                   style={{ marginRight: 10 }}
                   onClick={() => {
@@ -200,7 +204,7 @@ class Page extends PureComponent {
                 >
                   {showText}
                 </span>
-              </div>
+              </Fragment>
             );
           },
         },

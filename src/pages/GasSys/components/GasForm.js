@@ -153,6 +153,7 @@ class CustomizeComponent extends PureComponent {
         {
           title: '序号',
           key: '#',
+          align: 'center',
           width: 60,
           render: (text, record, index) => <Fragment>{index + 1}</Fragment>,
         },
@@ -165,21 +166,25 @@ class CustomizeComponent extends PureComponent {
         },
         {
           title: '零售价',
+          align: 'center',
           key: 'no',
           render: (text, record) => <Fragment>{record.c}</Fragment>,
         },
         {
           title: '会员折扣(%)',
+          align: 'center',
           key: 'name',
           render: (text, record) => <Fragment>{record.d}</Fragment>,
         },
         {
           title: '会员价',
+          align: 'center',
           key: 'tel',
           render: (text, record) => <Fragment>{record.e}</Fragment>,
         },
         {
           title: '零售价浮动预警',
+          align: 'center',
           key: 'sf',
           render: (text, record) => <Fragment>{record.f}</Fragment>,
         },
@@ -187,9 +192,10 @@ class CustomizeComponent extends PureComponent {
           title: <div style={{ textAlign: 'center' }}>操作</div>,
           key: 'operating',
           width: 100,
+          align: 'center',
           render: (text, record, index) => {
             return (
-              <div style={{ textAlign: 'center' }}>
+              <Fragment>
                 <a
                   onClick={() => {
                     dispatch({
@@ -200,7 +206,7 @@ class CustomizeComponent extends PureComponent {
                 >
                   删除
                 </a>
-              </div>
+              </Fragment>
             );
           },
         },
