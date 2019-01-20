@@ -11,7 +11,7 @@ const body = {
 };
 
 export const hostList = {
-  dev: 'api.demo.com',
+  dev: '192.168.4.16:25084', // 周扬
   test: 'api.demo.com',
   pro: 'api.demo.com',
 };
@@ -108,11 +108,10 @@ const serviceLite = {
 };
 
 const oilLite = {
-  'id|+1': 1,
-  c: '#@INTEGER(0,10)',
-  j: '@PICK(["禁用", "正常"])',
-  k: '@CTITLE(2,10)油',
-  l: '@PICK(["是", "否"])',
+  oilModelName: '#@INTEGER(0,10)@CTITLE(0,6)油',
+  isDefault: '@PICK([0, 1])',
+  oilModelDesc: '@CTITLE(10,50)',
+  deleted: '@PICK([0, 1])',
 };
 /**
  * @sswq 加油站管理/加油明细

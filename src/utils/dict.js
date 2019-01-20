@@ -177,4 +177,18 @@ dict.licenseProduceState = {
   [dict.LICENSE_PRODUCE_STATE_VALID]: '合格',
 };
 
+dict.oilModelIsDefault = 1;
+dict.oilModelIsNotDefault = 0;
+dict.oilModelDefault = {
+  [dict.oilModelIsDefault]: '是',
+  [dict.oilModelIsNotDefault]: '否',
+};
+
+dict.oilModelIsDeleted = 1;
+dict.oilModelIsNotDeleted = 0;
+dict.oilModelDeleted = {
+  [dict.oilModelIsDeleted]: '禁用',
+  [dict.oilModelIsNotDeleted]: '启用',
+};
+
 export default dict;

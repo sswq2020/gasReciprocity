@@ -8,6 +8,11 @@ import ListHeaderForm from '@/components/ListHeaderForm';
 import ServiceForm from './components/ServiceForm';
 
 const FormItem = Form.Item;
+const formItemWidth = {
+  lg: 8,
+  md: 12,
+  sm: 24,
+};
 
 @connect(({ serviceList, loading }) => ({
   serviceList,
@@ -71,24 +76,22 @@ class Page extends PureComponent {
       form: { getFieldDecorator },
     } = this.props;
     return (
-      <Form onSubmit={this.changeListParams} layout="inline">
-        <Row gutter={{ md: 8, lg: 24, xl: 48 }}>
-          <Col md={8} sm={24}>
+      <Form onSubmit={this.changeListParams}>
+        <Row gutter={{ md: 16, lg: 24, xl: 48 }}>
+          <Col {...formItemWidth}>
             <FormItem label="特色服务名称">
               {getFieldDecorator('text')(<Input placeholder="请输入" autoComplete="off" />)}
             </FormItem>
           </Col>
-        </Row>
-        <div style={{ overflow: 'hidden' }}>
-          <div style={{ float: 'right' }}>
+          <Col className="submitButtons" {...formItemWidth}>
             <Button type="primary" htmlType="submit">
               查询
             </Button>
             <Button style={{ marginLeft: 8 }} onClick={this.resetListParams}>
               重置
             </Button>
-          </div>
-        </div>
+          </Col>
+        </Row>
       </Form>
     );
   };
@@ -113,12 +116,14 @@ class Page extends PureComponent {
           title: '序号',
           key: '#',
           width: 60,
+          align: 'center',
           render: (text, record, index) => <Fragment>{(page - 1) * 10 + index + 1}</Fragment>,
         },
         {
           title: '特色服务ICON',
           key: 'b',
           width: 150,
+          align: 'center',
           render: (text, record) => {
             return <img style={{ height: 48 }} src={record.b} alt={record.c} />;
           },
@@ -131,6 +136,7 @@ class Page extends PureComponent {
         {
           title: '状态',
           key: 'status',
+          align: 'center',
           width: 110,
           render: (text, record) => {
             let flatClass = '';
@@ -162,10 +168,11 @@ class Page extends PureComponent {
           title: <div style={{ textAlign: 'center' }}>操作</div>,
           key: 'operating',
           width: 150,
+          align: 'center',
           render: (text, record) => {
             const showText = record.j === '禁用' ? '激活' : '禁用';
             return (
-              <div style={{ textAlign: 'center' }}>
+              <Fragment>
                 <a
                   style={{ marginRight: 10 }}
                   onClick={() => {
@@ -197,7 +204,7 @@ class Page extends PureComponent {
                 >
                   {showText}
                 </span>
-              </div>
+              </Fragment>
             );
           },
         },
@@ -205,9 +212,6 @@ class Page extends PureComponent {
       // scroll: { x: 'max-content' },
       dataSource: listData,
       loading: getListIsLoading,
-      style: {
-        marginTop: 24,
-      },
       pagination: {
         total: totalItemCount,
         current: page,

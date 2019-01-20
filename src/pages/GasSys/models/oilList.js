@@ -1,6 +1,7 @@
 import { message } from 'antd';
 import { reducers } from '@/utils/utils';
 import services from '@/services';
+import dict from '@/utils/dict';
 
 const namespace = 'oilList';
 const selectState = state => state[namespace];
@@ -11,9 +12,9 @@ const defaultListParams = {
 };
 
 const defaultFormData = {
-  username: '',
-  password: '',
-  type: 'GENERAL',
+  oilModelName: '',
+  oilModelDesc: '',
+  isDefault: dict.oilModelIsNotDefault,
 };
 
 export default {
