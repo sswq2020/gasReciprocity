@@ -39,7 +39,7 @@ class Page extends PureComponent {
       dispatch({
         type: 'serviceList/changeListParams',
         payload: {
-          page: 1,
+          currentPage: 1,
           ...getFieldsValue(),
         },
       });
@@ -59,7 +59,7 @@ class Page extends PureComponent {
 
   openFormEdit = data => {
     const { dispatch } = this.props;
-    const { id, ...formData } = data;
+    const { id, fsIcon, ...formData } = data;
 
     dispatch({
       type: 'serviceList/openForm',
@@ -106,8 +106,8 @@ class Page extends PureComponent {
         isEdit,
         visible,
         formData,
-        listParams: { page },
-        list: { data: listData, totalItemCount },
+        listParams: { currentPage },
+        list: { list: listData, itemCount: totalItemCount },
       },
     } = this.props;
     const listProps = {
@@ -117,64 +117,73 @@ class Page extends PureComponent {
           key: '#',
           width: 60,
           align: 'center',
-          render: (text, record, index) => <Fragment>{(page - 1) * 10 + index + 1}</Fragment>,
+          render: (text, record, index) => (
+            <Fragment>{(currentPage - 1) * 10 + index + 1}</Fragment>
+          ),
         },
         {
           title: '特色服务ICON',
-          key: 'b',
+          key: 'fsIcon',
           width: 150,
           align: 'center',
           render: (text, record) => {
-            return <img style={{ height: 48 }} src={record.b} alt={record.c} />;
+            return (
+              <img
+                style={{ height: 48 }}
+                src={record.fsIcon}
+                alt={record.fsName}
+                title={record.fsName}
+              />
+            );
           },
         },
         {
           title: '特色服务名称',
-          key: 'no',
-          render: (text, record) => <Fragment>{record.c}</Fragment>,
+          key: 'fsName',
+          render: (text, record) => <Fragment>{record.fsName}</Fragment>,
         },
-        {
-          title: '状态',
-          key: 'status',
-          align: 'center',
-          width: 110,
-          render: (text, record) => {
-            let flatClass = '';
-            switch (record.j) {
-              case '禁用':
-                flatClass = 'error_flat';
-                break;
-              case '正常':
-                flatClass = 'success_flat';
-                break;
-              default:
-                break;
-            }
-            return (
-              <Fragment>
-                <i
-                  style={{
-                    verticalAlign: 1,
-                    marginRight: 5,
-                  }}
-                  className={`point ${flatClass}`}
-                />
-                {record.j}
-              </Fragment>
-            );
-          },
-        },
+        // {
+        //   title: '状态',
+        //   key: 'status',
+        //   align: 'center',
+        //   width: 110,
+        //   render: (text, record) => {
+        //     let flatClass = '';
+        //     switch (record.j) {
+        //       case '禁用':
+        //         flatClass = 'error_flat';
+        //         break;
+        //       case '正常':
+        //         flatClass = 'success_flat';
+        //         break;
+        //       default:
+        //         break;
+        //     }
+        //     return (
+        //       <Fragment>
+        //         <i
+        //           style={{
+        //             verticalAlign: 1,
+        //             marginRight: 5,
+        //           }}
+        //           className={`point ${flatClass}`}
+        //         />
+        //         {record.j}
+        //       </Fragment>
+        //     );
+        //   },
+        // },
         {
           title: <div style={{ textAlign: 'center' }}>操作</div>,
           key: 'operating',
           width: 150,
           align: 'center',
           render: (text, record) => {
-            const showText = record.j === '禁用' ? '激活' : '禁用';
+            // const showText = record.j === '禁用' ? '激活' : '禁用';
             return (
               <Fragment>
                 <a
-                  style={{ marginRight: 10 }}
+                  style={{ margin: '0 5px' }}
                   onClick={() => {
                     this.openFormEdit(record);
                   }}
@@ -182,6 +191,28 @@ class Page extends PureComponent {
                   编辑
                 </a>
                 <span
+                  className="error_text cursor_pointer"
+                  style={{ margin: '0 5px' }}
+                  onClick={() => {
+                    Modal.confirm({
+                      autoFocusButton: null,
+                      title: `你确定 删除 ${record.fsName}？`,
+                      okText: '确认',
+                      cancelText: '取消',
+                      onOk: () => {
+                        dispatch({
+                          type: 'serviceList/deleted',
+                          payload: {
+                            id: record.id,
+                          },
+                        });
+                      },
+                    });
+                  }}
+                >
+                  删除
+                </span>
+                {/* <span
                   className={`${
                     record.j === '禁用' ? 'success_text' : 'error_text'
                   } cursor_pointer`}
@@ -203,7 +234,7 @@ class Page extends PureComponent {
                   }}
                 >
                   {showText}
-                </span>
+                </span> */}
               </Fragment>
             );
           },
@@ -214,13 +245,13 @@ class Page extends PureComponent {
       loading: getListIsLoading,
       pagination: {
         total: totalItemCount,
-        current: page,
+        current: currentPage,
       },
       onChange: pagination => {
         dispatch({
           type: 'serviceList/changeListParams',
           payload: {
-            page: pagination.current,
+            currentPage: pagination.current,
           },
         });
       },

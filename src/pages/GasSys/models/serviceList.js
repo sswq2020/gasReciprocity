@@ -7,13 +7,16 @@ const selectState = state => state[namespace];
 
 const defaultListParams = {
   text: '',
-  page: 1,
+  currentPage: 1,
 };
 
 const defaultFormData = {
-  username: '',
-  password: '',
-  type: 'GENERAL',
+  fsName: '',
+  fileDto: {
+    url: null,
+    fileName: null,
+    groupId: null,
+  },
 };
 
 export default {
@@ -29,7 +32,7 @@ export default {
       ...defaultListParams,
     },
     list: {
-      data: [],
+      list: [],
       totalItemCount: 0,
     },
   },
@@ -42,15 +45,27 @@ export default {
       const response = yield call(services.serviceList, listParams);
       switch (response.code) {
         case '000000':
-          yield put({
-            type: 'overrideStateProps',
-            payload: {
-              list: response.data,
-            },
-          });
+          if (response.data.pageTotal < response.data.currentPage) {
+            yield put({
+              type: 'changeListParams',
+              payload: {
+                currentPage: response.data.pageTotal,
+              },
+            });
+            yield put({
+              type: 'getList',
+            });
+          } else {
+            yield put({
+              type: 'overrideStateProps',
+              payload: {
+                list: response.data,
+              },
+            });
+          }
           break;
         default:
-          message.warning('特色服务列表获取失败，请稍后重试！');
+          message.warning(`${response.errMsg}，请稍后重试！`);
           break;
       }
     },
@@ -65,7 +80,7 @@ export default {
           yield put({ type: 'closeForm' });
           break;
         default:
-          message.warning('特色服务创建失败，请稍后重试！');
+          message.warning(`${response.errMsg}，请稍后重试！`);
           break;
       }
     },

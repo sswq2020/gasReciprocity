@@ -102,9 +102,13 @@ const gasLite = {
 
 const serviceLite = {
   'id|+1': 1,
-  b: '//lorempixel.com/64/64/',
-  c: '@CTITLE(2,10)服务',
-  j: '@PICK(["禁用", "正常"])',
+  fsIcon: '//lorempixel.com/64/64/',
+  fsName: '@CTITLE(2,10)服务',
+  fileDto: {
+    url: '//lorempixel.com/64/64/',
+    fileName: '@CTITLE(2,10)服务',
+    groupId: '@CTITLE(2,10)服务',
+  },
 };
 
 const oilLite = {
@@ -408,8 +412,8 @@ const mockRouterMap = {
           ...body,
           data: {
             totalPageCount: 100 / params.size,
-            totalItemCount: 100,
-            'data|1-10': [serviceLite],
+            itemCount: 100,
+            'list|1-10': [serviceLite],
           },
         };
       },
@@ -423,8 +427,8 @@ const mockRouterMap = {
           ...body,
           data: {
             totalPageCount: 100 / params.size,
-            totalItemCount: 100,
-            'data|1-10': [oilLite],
+            itemCount: 100,
+            'list|1-10': [oilLite],
           },
         };
       },
