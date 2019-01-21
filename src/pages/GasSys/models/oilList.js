@@ -30,8 +30,8 @@ export default {
       ...defaultListParams,
     },
     list: {
-      data: [],
-      totalItemCount: 0,
+      list: [],
+      itemCount: 0,
     },
   },
 

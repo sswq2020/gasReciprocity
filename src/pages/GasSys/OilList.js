@@ -108,7 +108,7 @@ class Page extends PureComponent {
         visible,
         formData,
         listParams: { page },
-        list: { data: listData, totalItemCount },
+        list: { list: listData, itemCount: totalItemCount },
       },
     } = this.props;
 

@@ -199,23 +199,34 @@ export default {
   oilEdit(id, params) {
     return request({
       host: BASEURL,
-      url: `/oilEdit/${id}`,
+      url: '/gas/action/bs/editOilModelInfoInfo',
       method: 'post',
-      params,
+      params: {
+        ...params,
+        id,
+      },
     });
   },
   oilEnable(id) {
     return request({
       host: BASEURL,
-      url: `/oilEnable/${id}`,
-      params,
+      url: '/gas/action/bs/deleteOilModelInfo',
+      method: 'post',
+      params: {
+        id,
+        deleted: 1,
+      },
     });
   },
   oilDisable(id) {
     return request({
       host: BASEURL,
-      url: `/oilDisable/${id}`,
-      params,
+      url: '/gas/action/bs/deleteOilModelInfo',
+      method: 'post',
+      params: {
+        id,
+        deleted: 0,
+      },
     });
   },
   oilSetDefault(id) {
