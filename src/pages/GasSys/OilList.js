@@ -141,10 +141,11 @@ class Page extends PureComponent {
           key: 'isDefault',
           align: 'center',
           width: 110,
-          render: (text, record) =>
-            record.isDefault === dict.oilModelIsDefault && (
-              <span className="success_text">{dict.oilModelDefault[record.isDefault]}</span>
-            ),
+          render: (text, record) => (
+            <span className={record.isDefault === dict.oilModelIsDefault && 'success_text'}>
+              {dict.oilModelDefault[record.isDefault]}
+            </span>
+          ),
         },
         // {
         //   title: '状态',

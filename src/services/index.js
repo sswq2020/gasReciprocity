@@ -158,9 +158,12 @@ export default {
   serviceEdit(id, params) {
     return request({
       host: BASEURL,
-      url: `/serviceEdit/${id}`,
+      url: '/gas/action/bs/editOilModelInfoInfo',
       method: 'post',
-      params,
+      params: {
+        ...params,
+        id,
+      },
     });
   },
   serviceEnable(id) {
@@ -242,8 +245,12 @@ export default {
   oilSetDefault(id) {
     return request({
       host: BASEURL,
-      url: `/oilSetDefault/${id}`,
-      params,
+      url: '/gas/action/bs/editOilModelInfoInfo',
+      method: 'post',
+      params: {
+        isDefault: 1,
+        id,
+      },
     });
   },
   /**
