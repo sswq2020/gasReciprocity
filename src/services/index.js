@@ -286,4 +286,19 @@ export default {
       // },
     });
   },
+  /**
+   * @author sswq
+   * @description 加油站管理/票据列表
+   * */
+  invoiceConfirmList(params) {
+    return request({
+      host: BASEURL,
+      url: '/invoiceConfirmList',
+      params: {
+        page: 1,
+        size: 10,
+        ...params,
+      },
+    });
+  },
 };
