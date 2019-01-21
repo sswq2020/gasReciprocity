@@ -1,4 +1,3 @@
-// https://umijs.org/config/
 import os from 'os';
 import pageRoutes from './router.config';
 // import webpackPlugin from './plugin.config';
@@ -46,7 +45,6 @@ const plugins = [
 // }
 
 export default {
-  // add for transfer to umi
   plugins,
   targets: {
     ie: 11,
@@ -106,7 +104,7 @@ export default {
   },
   hash: true,
   // chainWebpack: webpackPlugin,
-  publicPath: '/',
   history: 'hash',
-  // base:''
+  publicPath: process.env.ENV === 'dev' ? '/' : '/',
+  base: process.env.ENV === 'test' ? '/test' : '/',
 };

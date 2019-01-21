@@ -66,7 +66,7 @@ export default {
           yield put({ type: 'closeForm' });
           break;
         default:
-          message.warning('油品分类创建失败，请稍后重试！');
+          message.warning(`${response.errMsg}，请稍后重试！`);
           break;
       }
     },
