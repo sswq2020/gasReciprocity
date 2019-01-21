@@ -40,7 +40,7 @@ class Page extends PureComponent {
       dispatch({
         type: 'oilList/changeListParams',
         payload: {
-          page: 1,
+          currentPage: 1,
           ...getFieldsValue(),
         },
       });
@@ -107,7 +107,7 @@ class Page extends PureComponent {
         isEdit,
         visible,
         formData,
-        listParams: { page },
+        listParams: { currentPage },
         list: { list: listData, itemCount: totalItemCount },
       },
     } = this.props;
@@ -119,7 +119,9 @@ class Page extends PureComponent {
           key: '#',
           align: 'center',
           width: 60,
-          render: (text, record, index) => <Fragment>{(page - 1) * 10 + index + 1}</Fragment>,
+          render: (text, record, index) => (
+            <Fragment>{(currentPage - 1) * 10 + index + 1}</Fragment>
+          ),
         },
         {
           title: '油品分类名称',
@@ -139,58 +141,59 @@ class Page extends PureComponent {
           key: 'isDefault',
           align: 'center',
           width: 110,
-          render: (text, record) =>
-            record.isDefault === dict.oilModelIsDefault && (
-              <span className="success_text">{dict.oilModelDefault[record.isDefault]}</span>
-            ),
+          render: (text, record) => (
+            <span className={record.isDefault === dict.oilModelIsDefault ? 'success_text' : ''}>
+              {dict.oilModelDefault[record.isDefault]}
+            </span>
+          ),
         },
-        {
-          title: '状态',
-          key: 'deleted',
-          align: 'center',
-          width: 110,
-          render: (text, record) => {
-            let flatClass = '';
-            switch (record.deleted) {
-              case dict.oilModelIsDeleted:
-                flatClass = 'error_flat';
-                break;
-              case dict.oilModelIsNotDeleted:
-                flatClass = 'success_flat';
-                break;
-              default:
-                break;
-            }
-            return (
-              <Fragment>
-                <i
-                  style={{
-                    verticalAlign: 1,
-                    marginRight: 5,
-                  }}
-                  className={`point ${flatClass}`}
-                />
-                {dict.oilModelDeleted[record.deleted]}
-              </Fragment>
-            );
-          },
-        },
+        // {
+        //   title: '状态',
+        //   key: 'deleted',
+        //   align: 'center',
+        //   width: 110,
+        //   render: (text, record) => {
+        //     let flatClass = '';
+        //     switch (record.deleted) {
+        //       case dict.oilModelIsDeleted:
+        //         flatClass = 'error_flat';
+        //         break;
+        //       case dict.oilModelIsNotDeleted:
+        //         flatClass = 'success_flat';
+        //         break;
+        //       default:
+        //         break;
+        //     }
+        //     return (
+        //       <Fragment>
+        //         <i
+        //           style={{
+        //             verticalAlign: 1,
+        //             marginRight: 5,
+        //           }}
+        //           className={`point ${flatClass}`}
+        //         />
+        //         {dict.oilModelDeleted[record.deleted]}
+        //       </Fragment>
+        //     );
+        //   },
+        // },
         {
           title: '操作',
           key: 'operating',
           align: 'center',
           width: 200,
           render: (text, record) => {
-            const showText =
-              dict.oilModelDeleted[
-                record.deleted === dict.oilModelIsDeleted
-                  ? dict.oilModelIsNotDeleted
-                  : dict.oilModelIsDeleted
-              ];
+            // const showText =
+            //   dict.oilModelDeleted[
+            //   record.deleted === dict.oilModelIsDeleted
+            //     ? dict.oilModelIsNotDeleted
+            //     : dict.oilModelIsDeleted
+            //   ];
             return (
               <Fragment>
                 <a
-                  style={{ marginRight: 10 }}
+                  style={{ margin: '0 5px' }}
                   onClick={() => {
                     this.openFormEdit(record);
                   }}
@@ -198,6 +201,28 @@ class Page extends PureComponent {
                   编辑
                 </a>
                 <span
+                  className="error_text cursor_pointer"
+                  style={{ margin: '0 5px' }}
+                  onClick={() => {
+                    Modal.confirm({
+                      autoFocusButton: null,
+                      title: `你确定 删除 ${record.oilModelName}？`,
+                      okText: '确认',
+                      cancelText: '取消',
+                      onOk: () => {
+                        dispatch({
+                          type: 'oilList/deleted',
+                          payload: {
+                            id: record.id,
+                          },
+                        });
+                      },
+                    });
+                  }}
+                >
+                  删除
+                </span>
+                {/* <span
                   className={`${
                     record.deleted === dict.oilModelIsDeleted ? 'success_text' : 'error_text'
                   } cursor_pointer`}
@@ -220,9 +245,10 @@ class Page extends PureComponent {
                   }}
                 >
                   {showText}
-                </span>
+                </span> */}
                 {record.isDefault === dict.oilModelIsNotDefault && (
                   <a
+                    style={{ margin: '0 5px' }}
                     onClick={() => {
                       Modal.confirm({
                         autoFocusButton: null,
@@ -253,13 +279,13 @@ class Page extends PureComponent {
       loading: getListIsLoading,
       pagination: {
         total: totalItemCount,
-        current: page,
+        current: currentPage,
       },
       onChange: pagination => {
         dispatch({
           type: 'oilList/changeListParams',
           payload: {
-            page: pagination.current,
+            currentPage: pagination.current,
           },
         });
       },

@@ -8,7 +8,7 @@ const selectState = state => state[namespace];
 
 const defaultListParams = {
   oilModelName: '',
-  page: 1,
+  currentPage: 1,
 };
 
 const defaultFormData = {
@@ -43,12 +43,25 @@ export default {
       const response = yield call(services.oilList, listParams);
       switch (response.code) {
         case '000000':
-          yield put({
-            type: 'overrideStateProps',
-            payload: {
-              list: response.data,
-            },
-          });
+          if (response.data.pageTotal < response.data.currentPage) {
+            yield put({
+              type: 'changeListParams',
+              payload: {
+                currentPage: response.data.pageTotal,
+              },
+            });
+            yield put({
+              type: 'getList',
+            });
+          } else {
+            yield put({
+              type: 'overrideStateProps',
+              payload: {
+                list: response.data,
+              },
+            });
+          }
+
           break;
         default:
           message.warning(`${response.errMsg}，请稍后重试！`);
@@ -67,6 +80,20 @@ export default {
           break;
         default:
           message.warning(`${response.errMsg}，请稍后重试！`);
+          break;
+      }
+    },
+    *deleted({ payload }, { call, put }) {
+      const { id } = payload;
+      const response = yield call(services.oilDeleted, id);
+
+      switch (response.code) {
+        case '000000':
+          message.success('油品分类删除成功！');
+          yield put({ type: 'getList' });
+          break;
+        default:
+          message.warning('油品分类删除失败，请稍后重试！');
           break;
       }
     },
@@ -93,11 +120,11 @@ export default {
 
       switch (response.code) {
         case '000000':
-          message.success('油品分类激活成功！');
+          message.success('油品分类启用成功！');
           yield put({ type: 'getList' });
           break;
         default:
-          message.warning('油品分类激活失败，请稍后重试！');
+          message.warning('油品分类启用失败，请稍后重试！');
           break;
       }
     },

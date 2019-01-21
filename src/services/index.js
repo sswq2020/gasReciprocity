@@ -158,9 +158,12 @@ export default {
   serviceEdit(id, params) {
     return request({
       host: BASEURL,
-      url: `/serviceEdit/${id}`,
+      url: '/gas/action/bs/editOilModelInfoInfo',
       method: 'post',
-      params,
+      params: {
+        ...params,
+        id,
+      },
     });
   },
   serviceEnable(id) {
@@ -182,7 +185,7 @@ export default {
       host: BASEURL,
       url: '/gas/action/bs/queryOilModelInfoPage',
       params: {
-        page: 1,
+        currentPage: 1,
         size: 10,
         ...params,
       },
@@ -229,11 +232,25 @@ export default {
       },
     });
   },
+  oilDeleted(id) {
+    return request({
+      host: BASEURL,
+      url: '/gas/action/bs/deleteOilModelInfo',
+      method: 'post',
+      params: {
+        id,
+      },
+    });
+  },
   oilSetDefault(id) {
     return request({
       host: BASEURL,
-      url: `/oilSetDefault/${id}`,
-      params,
+      url: '/gas/action/bs/editOilModelInfoInfo',
+      method: 'post',
+      params: {
+        isDefault: 1,
+        id,
+      },
     });
   },
   /**
