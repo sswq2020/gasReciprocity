@@ -19,7 +19,7 @@ export default {
 
       const response = yield call(services.login, {
         loginName,
-        password: md5(md5(password) + loginName),
+        userPasswd: md5(md5(password) + loginName),
       });
       switch (response.code) {
         case '000000':

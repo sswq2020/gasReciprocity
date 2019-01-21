@@ -28,11 +28,11 @@ fi
 
 echo $split_line
 if [ $1 = 't' ]; then
-    # echo 'copy to test server'
-    echo 'zip to hhgs_test_'${now}'.zip'
+    echo 'copy to test server'
+    # echo 'zip to hhgs_test_'${now}'.zip'
     echo $split_line
-    # $cmd -r dist/* $website_path/
-    zip -m -r -q hhgs_test_$now.zip ./dist
+    $cmd -r dist/* $website_path
+    # zip -m -r -q hhgs_test_$now.zip ./dist
 elif [ $1 = 'p' ]; then
     echo 'zip to hhgs_pro_'${now}'.zip'
     echo $split_line

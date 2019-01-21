@@ -114,7 +114,7 @@ export default {
   login(params) {
     return request({
       host: BASEURL,
-      url: '/gas/action/login/doLogin',
+      url: '/action/login/doLogin',
       method: 'POST',
       params,
     });
@@ -122,7 +122,7 @@ export default {
   logout() {
     return request({
       host: BASEURL,
-      url: '/gas/action/login/doLogout',
+      url: '/action/login/doLogout',
     });
   },
   gasList(params) {
@@ -150,7 +150,7 @@ export default {
   serviceCreate(params) {
     return request({
       host: BASEURL,
-      url: '/gas/action/bs/insertFeatureServiceInfo',
+      url: '/action/bs/insertFeatureServiceInfo',
       method: 'post',
       params,
     });
@@ -158,7 +158,7 @@ export default {
   serviceEdit(id, params) {
     return request({
       host: BASEURL,
-      url: '/gas/action/bs/editOilModelInfoInfo',
+      url: '/action/bs/editOilModelInfoInfo',
       method: 'post',
       params: {
         ...params,
@@ -183,7 +183,7 @@ export default {
   oilList(params) {
     return request({
       host: BASEURL,
-      url: '/gas/action/bs/queryOilModelInfoPage',
+      url: '/action/bs/queryOilModelInfoPage',
       params: {
         currentPage: 1,
         size: 10,
@@ -194,7 +194,7 @@ export default {
   oilCreate(params) {
     return request({
       host: BASEURL,
-      url: '/gas/action/bs/insertOilModelInfo',
+      url: '/action/bs/insertOilModelInfo',
       method: 'post',
       params,
     });
@@ -202,7 +202,7 @@ export default {
   oilEdit(id, params) {
     return request({
       host: BASEURL,
-      url: '/gas/action/bs/editOilModelInfoInfo',
+      url: '/action/bs/editOilModelInfoInfo',
       method: 'post',
       params: {
         ...params,
@@ -213,7 +213,7 @@ export default {
   oilEnable(id) {
     return request({
       host: BASEURL,
-      url: '/gas/action/bs/deleteOilModelInfo',
+      url: '/action/bs/deleteOilModelInfo',
       method: 'post',
       params: {
         id,
@@ -224,7 +224,7 @@ export default {
   oilDisable(id) {
     return request({
       host: BASEURL,
-      url: '/gas/action/bs/deleteOilModelInfo',
+      url: '/action/bs/deleteOilModelInfo',
       method: 'post',
       params: {
         id,
@@ -235,7 +235,7 @@ export default {
   oilDeleted(id) {
     return request({
       host: BASEURL,
-      url: '/gas/action/bs/deleteOilModelInfo',
+      url: '/action/bs/deleteOilModelInfo',
       method: 'post',
       params: {
         id,
@@ -245,7 +245,7 @@ export default {
   oilSetDefault(id) {
     return request({
       host: BASEURL,
-      url: '/gas/action/bs/editOilModelInfoInfo',
+      url: '/action/bs/editOilModelInfoInfo',
       method: 'post',
       params: {
         isDefault: 1,
