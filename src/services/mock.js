@@ -164,6 +164,21 @@ const billInfo = {
   ticketerTel: '@INTEGER(13000000000,18999999999)',
 };
 
+/**
+ * @sswq 票务管理/收票确认列表
+ */
+const invoiceConfirmLite = {
+  'id|+1': 1,
+  a: '@DATE("yyyy-MM")',
+  b: '@CTITLE(2,10)加油站',
+  c: '@INTEGER(13000000000,18999999999)',
+  d: '@PROVINCE()@CITY()@CTITLE(2)石油',
+  e: '增值税专用发票',
+  f: '@INTEGER(1300,18999)',
+  g: '@INTEGER(1300,18999)',
+  j: '@PICK(["作废", "正常"])',
+};
+
 const licenseList = {
   'id|+1': 1,
   updatedAt: '@DATE("yyyy-MM-dd HH:mm:ss")',
@@ -467,6 +482,21 @@ const mockRouterMap = {
         return {
           ...body,
           data: billInfo,
+        };
+      },
+    },
+    {
+      isMock: true,
+      method: 'get',
+      router: '/invoiceConfirmList',
+      result(params) {
+        return {
+          ...body,
+          data: {
+            totalPageCount: 100 / params.size,
+            totalItemCount: 100,
+            'data|1-10': [invoiceConfirmLite],
+          },
         };
       },
     },
