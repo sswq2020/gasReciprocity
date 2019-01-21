@@ -1,0 +1,38 @@
+.financeForm {
+  margin-bottom: 64px;
+  :global {
+    .ant-form-item {
+      margin-right: 0;
+      display: flex;
+      > .ant-form-item-label {
+        width: 140px;
+        line-height: 32px;
+        padding-right: 8px;
+      }
+      .ant-form-item-control {
+        line-height: 32px;
+      }
+    }
+    .ant-form-item-control-wrapper {
+      flex: 1;
+    }
+  }
+}
+
+.imgBox {
+  float: left;
+  margin-right: 10px;
+}
+.footer {
+  background: #f6f8fa;
+  padding: 16px 20px;
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  z-index: 20;
+  text-align: right;
+  button + button {
+    margin-left: 16px;
+  }
+}
