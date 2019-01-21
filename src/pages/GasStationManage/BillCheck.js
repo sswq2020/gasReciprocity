@@ -10,6 +10,11 @@ import ListHeaderForm from '@/components/ListHeaderForm';
 // import Select from '@/components/Select';
 
 const FormItem = Form.Item;
+const formItemWidth = {
+  lg: 8,
+  md: 12,
+  sm: 24,
+};
 
 @connect(({ billCheck, loading }) => ({
   billCheck,
@@ -61,22 +66,22 @@ class Page extends PureComponent {
     return (
       <Form onSubmit={this.changeListParams} layout="inline">
         <Row gutter={{ md: 8, lg: 24, xl: 48 }}>
-          <Col md={8} sm={24}>
+          <Col {...formItemWidth}>
             <FormItem label="年份">
-              {getFieldDecorator('year')(<DatePicker format={dateFormat} />)}
+              {getFieldDecorator('year')(
+                <DatePicker style={{ width: '100%' }} format={dateFormat} />
+              )}
             </FormItem>
           </Col>
-        </Row>
-        <div style={{ overflow: 'hidden' }}>
-          <div style={{ float: 'right' }}>
+          <Col className="submitButtons" {...formItemWidth}>
             <Button type="primary" htmlType="submit">
               查询
             </Button>
             <Button style={{ marginLeft: 8 }} onClick={this.resetListParams}>
               重置
             </Button>
-          </div>
-        </div>
+          </Col>
+        </Row>
       </Form>
     );
   }
