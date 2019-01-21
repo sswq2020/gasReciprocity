@@ -105,6 +105,6 @@ export default {
   hash: true,
   // chainWebpack: webpackPlugin,
   history: 'hash',
-  publicPath: process.env.ENV === 'dev' ? '/' : '/static',
-  base: process.env.ENV === 'test' ? '/' : '/',
+  publicPath: process.env.ENV === 'test' ? '/hhgs/' : '/',
+  base: process.env.ENV === 'test' ? '/hhgs' : '/',
 };
