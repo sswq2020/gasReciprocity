@@ -142,7 +142,7 @@ class Page extends PureComponent {
           align: 'center',
           width: 110,
           render: (text, record) => (
-            <span className={record.isDefault === dict.oilModelIsDefault && 'success_text'}>
+            <span className={record.isDefault === dict.oilModelIsDefault ? 'success_text' : ''}>
               {dict.oilModelDefault[record.isDefault]}
             </span>
           ),
