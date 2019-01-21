@@ -12,6 +12,11 @@ import Select from '@/components/Select';
 import PriceApplyForm from './components/PriceApplyForm';
 
 const FormItem = Form.Item;
+const formItemWidth = {
+  lg: 8,
+  md: 12,
+  sm: 24,
+};
 
 @connect(({ priceApply, loading }) => ({
   priceApply,
@@ -61,24 +66,22 @@ class Page extends PureComponent {
     return (
       <Form onSubmit={this.changeListParams} layout="inline">
         <Row gutter={{ md: 8, lg: 24, xl: 48 }}>
-          <Col md={8} sm={24}>
+          <Col {...formItemWidth}>
             <FormItem label="油品名称">
               {getFieldDecorator('fuelName', {
                 initialValue: null,
               })(<Select hasAll placeholder="请选择" style={{ width: '100%' }} data={[]} />)}
             </FormItem>
           </Col>
-        </Row>
-        <div style={{ overflow: 'hidden' }}>
-          <div style={{ float: 'right' }}>
+          <Col className="submitButtons" {...formItemWidth}>
             <Button type="primary" htmlType="submit">
               查询
             </Button>
             <Button style={{ marginLeft: 8 }} onClick={this.resetListParams}>
               重置
             </Button>
-          </div>
-        </div>
+          </Col>
+        </Row>
       </Form>
     );
   };
