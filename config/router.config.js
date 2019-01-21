@@ -107,6 +107,12 @@ export default [
             title: '加油明细',
             component: './financeSys/GasDetail',
           },
+          {
+            path: '/financeSys/invoiceConfirm',
+            name: 'invoiceConfirm',
+            title: '收票确认',
+            component: './financeSys/InvoiceConfirm',
+          },
         ],
       },
     ],
