@@ -182,7 +182,7 @@ export default {
       host: BASEURL,
       url: '/gas/action/bs/queryOilModelInfoPage',
       params: {
-        page: 1,
+        currentPage: 1,
         size: 10,
         ...params,
       },
@@ -226,6 +226,16 @@ export default {
       params: {
         id,
         deleted: 0,
+      },
+    });
+  },
+  oilDeleted(id) {
+    return request({
+      host: BASEURL,
+      url: '/gas/action/bs/deleteOilModelInfo',
+      method: 'post',
+      params: {
+        id,
       },
     });
   },
