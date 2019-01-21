@@ -150,7 +150,7 @@ export default {
   serviceCreate(params) {
     return request({
       host: BASEURL,
-      url: '/serviceCreate',
+      url: '/gas/action/bs/insertFeatureServiceInfo',
       method: 'post',
       params,
     });
