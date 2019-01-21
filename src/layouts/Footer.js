@@ -34,7 +34,7 @@ const FooterView = () => (
   //     ]}
   //     copyright={
   //       <Fragment>
-  //         Copyright <Icon type="copyright" /> 2018 管理系统
+  //         Copyright <Icon type="copyright" /> 2018 互惠互利加油站
   //       </Fragment>
   //     }
   //   /> */}
