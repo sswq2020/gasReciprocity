@@ -370,9 +370,9 @@ const mockRouterMap = {
       },
     },
     {
-      isMock: true,
-      method: 'get',
-      router: '/gasList',
+      // isMock: true,
+      method: 'post',
+      router: '/gas/action/bs/queryOilModelInfoPage',
       result(params) {
         return {
           ...body,

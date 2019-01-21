@@ -7,7 +7,7 @@ const namespace = 'oilList';
 const selectState = state => state[namespace];
 
 const defaultListParams = {
-  text: '',
+  oilModelName: '',
   page: 1,
 };
 
@@ -51,7 +51,7 @@ export default {
           });
           break;
         default:
-          message.warning('特色服务列表获取失败，请稍后重试！');
+          message.warning(`${response.errMsg}，请稍后重试！`);
           break;
       }
     },

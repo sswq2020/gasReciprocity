@@ -81,7 +81,7 @@ class Page extends PureComponent {
         <Row gutter={{ md: 16, lg: 24, xl: 48 }}>
           <Col {...formItemWidth}>
             <FormItem label="油品分类名称">
-              {getFieldDecorator('text')(<Input placeholder="请输入" autoComplete="off" />)}
+              {getFieldDecorator('oilModelName')(<Input placeholder="请输入" autoComplete="off" />)}
             </FormItem>
           </Col>
           <Col className="submitButtons" {...formItemWidth}>
