@@ -114,7 +114,7 @@ export default {
   login(params) {
     return request({
       host: BASEURL,
-      url: '/gas/action/bs/editOilModelInfoInfo',
+      url: '/gas/action/login/doLogin',
       method: 'POST',
       params,
     });
@@ -122,7 +122,7 @@ export default {
   logout() {
     return request({
       host: BASEURL,
-      url: '/admin/logout',
+      url: '/gas/action/login/doLogout',
     });
   },
   gasList(params) {

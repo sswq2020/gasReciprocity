@@ -48,5 +48,22 @@ export default {
           break;
       }
     },
+    *logout(_, { call, put }) {
+      const response = yield call(services.logout);
+      switch (response.code) {
+        case 0:
+          window.localStorage.removeItem('xAuthToken');
+          yield put(
+            routerRedux.push({
+              pathname: '/account/login',
+            })
+          );
+
+          break;
+        default:
+          message.warning('退出登录失败，请稍后重试！');
+          break;
+      }
+    },
   },
 };

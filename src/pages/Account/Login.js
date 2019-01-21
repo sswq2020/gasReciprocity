@@ -30,6 +30,7 @@ class Page extends PureComponent {
       });
     });
   };
+
   render() {
     const {
       submitting,
