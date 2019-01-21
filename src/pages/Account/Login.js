@@ -12,11 +12,28 @@ const FormItem = Form.Item;
   submitting: loading.effects['login/login'],
 }))
 class Page extends PureComponent {
-  render() {
+  submit = () => {
     const {
       dispatch,
+      form: { validateFields, getFieldsValue },
+    } = this.props;
+
+    validateFields(errors => {
+      if (errors) {
+        return;
+      }
+      dispatch({
+        type: 'login/login',
+        payload: {
+          ...getFieldsValue(),
+        },
+      });
+    });
+  };
+  render() {
+    const {
       submitting,
-      form: { getFieldDecorator, validateFields, getFieldsValue },
+      form: { getFieldDecorator },
     } = this.props;
     return (
       <div className={styles.container}>
@@ -24,7 +41,7 @@ class Page extends PureComponent {
           <div className={styles.loginTitle}>会员登陆</div>
           <Form>
             <FormItem>
-              {getFieldDecorator('username', {
+              {getFieldDecorator('loginName', {
                 rules: [
                   {
                     required: true,
@@ -33,10 +50,14 @@ class Page extends PureComponent {
                 ],
               })(
                 <Input
+                  autoFocus
                   size="large"
                   autoComplete="off"
                   addonBefore={<Icon type="user" />}
                   placeholder="请输入账号"
+                  onPressEnter={() => {
+                    this.submit();
+                  }}
                 />
               )}
             </FormItem>
@@ -55,6 +76,9 @@ class Page extends PureComponent {
                   type="password"
                   addonBefore={<Icon type="lock" />}
                   placeholder="请输入密码"
+                  onPressEnter={() => {
+                    this.submit();
+                  }}
                 />
               )}
             </FormItem>
@@ -65,17 +89,7 @@ class Page extends PureComponent {
               size="large"
               loading={submitting}
               onClick={() => {
-                validateFields(errors => {
-                  if (errors) {
-                    return;
-                  }
-                  dispatch({
-                    type: 'login/login',
-                    payload: {
-                      ...getFieldsValue(),
-                    },
-                  });
-                });
+                this.submit();
               }}
               className={styles.submit}
             >

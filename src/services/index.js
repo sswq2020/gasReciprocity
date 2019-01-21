@@ -114,7 +114,7 @@ export default {
   login(params) {
     return request({
       host: BASEURL,
-      url: '/admin/login',
+      url: '/gas/action/bs/editOilModelInfoInfo',
       method: 'POST',
       params,
     });

@@ -11,6 +11,7 @@ const body = {
 };
 
 export const hostList = {
+  // dev: '192.168.4.16:25092', // 易凯
   dev: '192.168.4.16:25084', // 周扬
   test: 'api.demo.com',
   pro: 'api.demo.com',

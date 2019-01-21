@@ -1,3 +1,4 @@
+import md5 from 'js-md5';
 import { routerRedux } from 'dva/router';
 import { message } from 'antd';
 import { reducers } from '@/utils/utils';
@@ -14,14 +15,25 @@ export default {
 
   effects: {
     *login({ payload }, { call, put }) {
-      const response = yield call(services.login, payload);
+      const { loginName, password } = payload;
+
+      const response = yield call(services.login, {
+        loginName,
+        password: md5(md5(password) + loginName),
+      });
       switch (response.code) {
-        case 0:
+        case '000000':
           // todo 自动登陆
           // if (payload.autoLogin === true) {
           //   window.localStorage.setItem('xAuthToken', response.result['X-Auth-Token']);
           // }
-          window.localStorage.setItem('xAuthToken', response.result['X-Auth-Token']);
+          window.localStorage.setItem('xAuthToken', response.result.token);
+          yield put({
+            type: 'user/overrideStateProps',
+            payload: {
+              currentUser: {},
+            },
+          });
           yield put(
             routerRedux.push({
               pathname: '/',
