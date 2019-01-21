@@ -113,6 +113,13 @@ export default [
             title: '收票确认',
             component: './financeSys/InvoiceConfirm',
           },
+          {
+            path: '/financeSys/invoiceConfirm/create',
+            name: 'createInvoice',
+            title: '新增发票',
+            component: './financeSys/CreateInvoice',
+            hideInMenu: true,
+          },
         ],
       },
     ],

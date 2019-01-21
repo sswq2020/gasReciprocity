@@ -249,7 +249,7 @@ class Page extends PureComponent {
         tools={
           <Button
             onClick={() => {
-              router.push('/gasSys/gas/create');
+              router.push('/financeSys/invoiceConfirm/create');
             }}
             type="primary"
             icon="plus"
