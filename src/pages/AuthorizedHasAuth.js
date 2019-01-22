@@ -2,6 +2,8 @@ import React from 'react';
 import dynamic from 'umi/dynamic';
 import Redirect from 'umi/redirect';
 import services from '@/services';
+import RenderAuthorized from '@/components/Authorized';
+import { getAuthority } from '@/utils/authority';
 
 export default dynamic({
   async loader() {
@@ -32,7 +34,18 @@ export default dynamic({
     }
     return ({ children }) => {
       // console.log(g_app._store.getState().user.currentUser);
-      return hasAuth === true ? children : <Redirect to="/account/login" />;
+      const Authorized = RenderAuthorized(getAuthority());
+
+      return hasAuth === true ? (
+        <Authorized
+          authority={children.props.route.authority}
+          noMatch={<Redirect to="/account/login" />}
+        >
+          {children}
+        </Authorized>
+      ) : (
+        <Redirect to="/account/login" />
+      );
     };
   },
 });
