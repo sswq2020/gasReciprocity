@@ -11,8 +11,8 @@ const body = {
 };
 
 export const hostList = {
-  dev: '192.168.4.16:25092/gas', // 易凯
-  // dev: '192.168.4.16:25084', // 周扬
+  // dev: '192.168.4.16:25092/gas', // 易凯
+  dev: '192.168.4.16:25084', // 周扬
   test: 'test.hletong.com/hhgs',
   pro: 'api.demo.com',
 };
@@ -406,8 +406,8 @@ const mockRouterMap = {
     },
     {
       isMock: true,
-      method: 'get',
-      router: '/serviceList',
+      method: 'post',
+      router: '/action/bs/queryFeatureServiceInfoPage',
       result(params) {
         return {
           ...body,
