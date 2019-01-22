@@ -13,8 +13,7 @@ export default [
   {
     path: '/',
     component: '../layouts/BasicLayout',
-    // component: './Authorized',
-    Routes: ['src/pages/Authorized'],
+    // Routes: ['src/pages/AuthorizedHasToken', 'src/pages/AuthorizedHasAuth'],
     authority: ['1', '2'],
     routes: [
       // { path: '/', redirect: '/machine' },
