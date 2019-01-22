@@ -33,19 +33,20 @@ export default dynamic({
         break;
     }
     return ({ children }) => {
-      // console.log(g_app._store.getState().user.currentUser);
-      const Authorized = RenderAuthorized(getAuthority());
-
-      return hasAuth === true ? (
-        <Authorized
-          authority={children.props.route.authority}
-          noMatch={<Redirect to="/account/login" />}
-        >
-          {children}
-        </Authorized>
-      ) : (
-        <Redirect to="/account/login" />
-      );
+      if (hasAuth === true) {
+        // console.log(g_app._store.getState().user.currentUser);
+        const Authorized = RenderAuthorized(getAuthority());
+        return (
+          <Authorized
+            authority={children.props.route.authority}
+            noMatch={<Redirect to="/account/login" />}
+          >
+            {children}
+          </Authorized>
+        );
+      } else {
+        return <Redirect to="/account/login" />;
+      }
     };
   },
 });
