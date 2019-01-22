@@ -28,12 +28,9 @@ class CustomizeComponent extends PureComponent {
             if (errors) {
               return;
             }
-            onOk(
-              {
-                ...getFieldsValue(),
-              },
-              resetFields
-            );
+            onOk({
+              ...getFieldsValue(),
+            });
           });
         }}
         onCancel={() => {
