@@ -14,8 +14,8 @@ export default [
     path: '/',
     component: '../layouts/BasicLayout',
     // component: './Authorized',
-    // Routes: ['src/pages/Authorized'],
-    // authority: ['1', '2'],
+    Routes: ['src/pages/Authorized'],
+    authority: ['1', '2'],
     routes: [
       // { path: '/', redirect: '/machine' },
       {
