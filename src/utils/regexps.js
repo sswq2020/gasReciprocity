@@ -20,6 +20,8 @@ export default {
   bdName: /^[0-9a-zA-Z\u0391-\uFFE5]+$/,
   /* 必须是数字 */
   number: /^\d+$/,
+  /* 数值类型小数位只能输入第2位 */
+  decimal2: /^[0-9]+(.[0-9]{2})?$/,
   unEmpty: /^\S+$/,
   username: /^[a-z_0-9]{2,16}$/,
   password: /^[a-zA-Z_0-9]{6,32}$/,
