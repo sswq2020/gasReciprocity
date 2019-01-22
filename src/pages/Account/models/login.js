@@ -2,7 +2,6 @@ import md5 from 'js-md5';
 import { routerRedux } from 'dva/router';
 import { message } from 'antd';
 import { reducers } from '@/utils/utils';
-import { setAuthority } from '@/utils/authority';
 import services from '@/services';
 
 const namespace = 'login';
@@ -35,7 +34,6 @@ export default {
               currentUser: {},
             },
           });
-          setAuthority(['1']);
           yield put(
             routerRedux.push({
               pathname: '/',
