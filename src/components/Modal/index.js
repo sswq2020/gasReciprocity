@@ -37,8 +37,10 @@ class CustomizeComponent extends PureComponent {
           });
         }}
         onCancel={() => {
-          resetFields();
           onClose();
+        }}
+        afterClose={() => {
+          resetFields();
         }}
       >
         {renderChildren(this.props)}
