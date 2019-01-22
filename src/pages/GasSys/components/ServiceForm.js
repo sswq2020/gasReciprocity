@@ -1,5 +1,5 @@
 import React, { PureComponent } from 'react';
-import { Form, Input, message } from 'antd';
+import { Form, Input } from 'antd';
 import ImageUpload from '@/components/ImageUpload';
 import ImageBox from '@/components/ImageBox';
 
@@ -18,35 +18,17 @@ const formItemLayout = {
 };
 
 export default class CustomizeComponent extends PureComponent {
-  constructor() {
-    super();
-    this.state = {
-      iconFile: null,
-    };
-  }
-
-  componentWillMount() {
-    const {
-      data: {
-        fileDto: { url },
-      },
-    } = this.props;
-    this.setState({
-      iconFile: url,
-    });
-  }
-
   render() {
     const {
       data,
-      form: { getFieldDecorator, setFieldsValue },
+      form: { getFieldDecorator, setFieldsValue, getFieldValue },
     } = this.props;
-    const { iconFile } = this.state;
+    const iconFile = getFieldValue('service.fsIcon') || data.fsIcon;
     return (
       <Form style={{ marginBottom: -24 }}>
         <FormItem {...formItemLayout} label="特色服务ICON">
-          {getFieldDecorator('service.fileDto', {
-            initialValue: data.fileDto,
+          {getFieldDecorator('service.fsIcon', {
+            initialValue: data.fsIcon,
             // rules: [
             //   {
             //     required: true,
@@ -54,13 +36,12 @@ export default class CustomizeComponent extends PureComponent {
             //   },
             // ],
           })(
-            iconFile ? (
+            iconFile.url ? (
               <ImageBox
-                url={iconFile}
+                url={iconFile.url}
                 onDelete={() => {
-                  this.setState({ iconFile: null });
                   setFieldsValue({
-                    fileDto: {
+                    'service.fsIcon': {
                       url: null,
                       fileName: null,
                       groupId: null,
@@ -70,22 +51,12 @@ export default class CustomizeComponent extends PureComponent {
               />
             ) : (
               <ImageUpload
-                onSuccess={response => {
-                  switch (code) {
-                    case '000000':
-                      this.setState({ iconFile: response });
-                      setFieldsValue({
-                        fileDto: {
-                          url: null,
-                          fileName: null,
-                          groupId: null,
-                        },
-                      });
-                      break;
-                    default:
-                      message.warning('图片上传失败，请稍后重试！');
-                      break;
-                  }
+                onSuccess={file => {
+                  setFieldsValue({
+                    'service.fsIcon': {
+                      ...file,
+                    },
+                  });
                 }}
               />
             )

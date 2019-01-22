@@ -13,7 +13,7 @@ export default [
   {
     path: '/',
     component: '../layouts/BasicLayout',
-    // Routes: ['src/pages/Authorized'],
+    // Routes: ['src/pages/AuthorizedHasToken', 'src/pages/AuthorizedHasAuth'],
     // authority: ['1', '2'],
     routes: [
       // { path: '/', redirect: '/machine' },
@@ -65,7 +65,7 @@ export default [
         name: 'gasStationManage',
         title: '加油站管理端',
         icon: 'dashboard',
-        // authority: ['1'],
+        // authority: ['2'],
         routes: [
           { path: '/gasStationManage', redirect: '/gasStationManage/infoList' },
           {

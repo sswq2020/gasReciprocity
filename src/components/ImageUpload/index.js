@@ -1,6 +1,6 @@
 import React, { PureComponent, Fragment } from 'react';
 import { Upload, Message, Progress } from 'antd';
-// import { hostList } from '@/services/mock';
+import { hostList } from '@/services/mock';
 import styles from './index.less';
 
 function beforeUpload(file, maxSize) {
@@ -10,6 +10,10 @@ function beforeUpload(file, maxSize) {
   }
   return isLtMaxSize;
 }
+
+const hostName = hostList[ENV];
+const actionUrl = `//${hostName}/action/hletong/file/gasUpload`;
+const imgUrl = `//${hostName}/action/hletong/file/gasDownload?file_id=`;
 
 export default class CustomizeComponent extends PureComponent {
   state = {
@@ -38,7 +42,19 @@ export default class CustomizeComponent extends PureComponent {
             fileList: [],
           });
         } else {
-          onSuccess(info.file.response);
+          switch (info.file.response.code) {
+            case '000000':
+              onSuccess({
+                url: `${imgUrl}${info.file.response.data.file_info.file_id}`,
+                fileId: info.file.response.data.file_info.file_id,
+                groupId: info.file.response.data.file_info.file_group_id,
+              });
+              break;
+            default:
+              this.setState({ loading: false, percent: 0 });
+              Message.error('图片上传失败，请稍后重试！');
+              break;
+          }
         }
         break;
       case 'error':
@@ -70,7 +86,6 @@ export default class CustomizeComponent extends PureComponent {
                 fileList: [
                   {
                     status: 'done',
-                    beforeUpload,
                   },
                 ],
                 loading: false,
@@ -87,10 +102,10 @@ export default class CustomizeComponent extends PureComponent {
           headers={{
             'X-Auth-Token': window.localStorage.getItem('xAuthToken') || '',
           }}
-          action="//jsonplaceholder.typicode.com/posts/"
+          action={actionUrl}
           fileList={fileList}
           beforeUpload={file => {
-            beforeUpload(file, maxSize);
+            return beforeUpload(file, maxSize);
           }}
           onChange={this.handleChange}
         >

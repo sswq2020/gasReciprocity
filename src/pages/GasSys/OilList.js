@@ -316,12 +316,11 @@ class Page extends PureComponent {
           title={`${isEdit === false ? '新建' : '编辑'}油品分类`}
           visible={visible}
           confirmLoading={isEdit === false ? createIsLoading : editIsLoading}
-          onOk={(data, resetFields) => {
+          onOk={data => {
             dispatch({
               type: isEdit === false ? 'oilList/create' : 'oilList/edit',
               payload: {
                 data: { ...data.oil },
-                resetFields,
               },
             });
           }}

@@ -1,5 +1,5 @@
 import axios from 'axios';
-// import router from 'umi/router';
+import router from 'umi/router';
 import { message } from 'antd';
 import { isMock, hostList } from './mock';
 
@@ -23,15 +23,11 @@ axios.interceptors.request.use(
 axios.interceptors.response.use(
   response => {
     if (response.status >= 200 && response.status < 300) {
-      switch (response.data.code) {
-        case 200:
-          message.warning('没有权限');
-          break;
-        default:
-          return response;
-      }
+      return response;
     } else {
-      Promise.reject(new Error());
+      window.localStorage.removeItem('xAuthToken');
+      router.push('/account/login');
+      // Promise.reject(new Error(response));
     }
   },
   // Do something with response
@@ -140,9 +136,8 @@ export default {
     return request({
       host: BASEURL,
       url: '/action/bs/queryFeatureServiceInfoPage',
-      method: 'post',
       params: {
-        page: 1,
+        currentPage: 1,
         size: 10,
         ...params,
       },

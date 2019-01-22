@@ -130,7 +130,7 @@ class Page extends PureComponent {
             return (
               <img
                 style={{ height: 48 }}
-                src={record.fsIcon}
+                src={record.fsIcon.url}
                 alt={record.fsName}
                 title={record.fsName}
               />
@@ -279,15 +279,15 @@ class Page extends PureComponent {
         <ListHeaderForm>{this.renderAdvancedForm()}</ListHeaderForm>
         <TableList {...listProps} />
         <HLModal
+          destroyOnClose
           title={`${isEdit ? '编辑' : '新建'}特殊服务`}
           visible={visible}
           confirmLoading={isEdit === false ? createIsLoading : editIsLoading}
-          onOk={(data, resetFields) => {
+          onOk={data => {
             dispatch({
               type: isEdit === false ? 'serviceList/create' : 'serviceList/edit',
               payload: {
                 data: { ...data.service },
-                resetFields,
               },
             });
           }}

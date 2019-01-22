@@ -12,7 +12,7 @@ const body = {
 
 export const hostList = {
   // dev: '192.168.4.16:25092/gas', // 易凯
-  dev: '192.168.4.16:25084', // 周扬
+  dev: '192.168.4.16:25084/hhgs', // 周扬
   test: 'test.hletong.com/hhgs',
   pro: 'api.demo.com',
 };
@@ -107,7 +107,7 @@ const serviceLite = {
   fsName: '@CTITLE(2,10)服务',
   fileDto: {
     url: '//lorempixel.com/64/64/',
-    fileName: '@CTITLE(2,10)服务',
+    fileId: '@CTITLE(2,10)服务',
     groupId: '@CTITLE(2,10)服务',
   },
 };
@@ -405,8 +405,8 @@ const mockRouterMap = {
       },
     },
     {
-      isMock: true,
-      method: 'post',
+      // isMock: true,
+      method: 'get',
       router: '/action/bs/queryFeatureServiceInfoPage',
       result(params) {
         return {
