@@ -140,9 +140,8 @@ export default {
     return request({
       host: BASEURL,
       url: '/action/bs/queryFeatureServiceInfoPage',
-      method: 'post',
       params: {
-        page: 1,
+        currentPage: 1,
         size: 10,
         ...params,
       },

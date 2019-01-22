@@ -405,8 +405,8 @@ const mockRouterMap = {
       },
     },
     {
-      isMock: true,
-      method: 'post',
+      // isMock: true,
+      method: 'get',
       router: '/action/bs/queryFeatureServiceInfoPage',
       result(params) {
         return {
