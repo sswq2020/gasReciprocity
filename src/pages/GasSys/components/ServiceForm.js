@@ -18,30 +18,12 @@ const formItemLayout = {
 };
 
 export default class CustomizeComponent extends PureComponent {
-  constructor() {
-    super();
-    this.state = {
-      iconFile: null,
-    };
-  }
-
-  componentWillMount() {
-    const {
-      data: { fileDto },
-    } = this.props;
-    this.setState({
-      iconFile: fileDto.url,
-    });
-  }
-
   render() {
     const {
       data,
-      form: { getFieldDecorator, setFieldsValue },
+      form: { getFieldDecorator, setFieldsValue, getFieldValue },
     } = this.props;
-    const { iconFile } = this.state;
-
-    console.log(data.fileDto);
+    const iconFile = getFieldValue('service.fileDto') || data.fileDto;
     return (
       <Form style={{ marginBottom: -24 }}>
         <FormItem {...formItemLayout} label="特色服务ICON">
@@ -54,7 +36,7 @@ export default class CustomizeComponent extends PureComponent {
             //   },
             // ],
           })(
-            iconFile ? (
+            iconFile.url ? (
               <ImageBox
                 url={iconFile.url}
                 onDelete={() => {
@@ -65,7 +47,6 @@ export default class CustomizeComponent extends PureComponent {
                       groupId: null,
                     },
                   });
-                  this.setState({ iconFile: null });
                 }}
               />
             ) : (
@@ -76,7 +57,6 @@ export default class CustomizeComponent extends PureComponent {
                       ...file,
                     },
                   });
-                  this.setState({ iconFile: file.url });
                 }}
               />
             )
