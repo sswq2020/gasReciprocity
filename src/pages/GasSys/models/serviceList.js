@@ -70,11 +70,10 @@ export default {
       }
     },
     *create({ payload }, { call, put }) {
-      const { data, resetFields } = payload;
+      const { data } = payload;
       const response = yield call(services.serviceCreate, data);
       switch (response.code) {
         case '000000':
-          resetFields();
           message.success('特色服务创建成功！');
           yield put({ type: 'resetListParams' });
           yield put({ type: 'closeForm' });
@@ -86,12 +85,11 @@ export default {
     },
     *edit({ payload }, { call, put, select }) {
       const { id } = yield select(selectState);
-      const { data, resetFields } = payload;
+      const { data } = payload;
       const response = yield call(services.serviceEdit, id, data);
 
       switch (response.code) {
         case '000000':
-          resetFields();
           message.success('特色服务编辑成功！');
           yield put({ type: 'getList' });
           yield put({ type: 'closeForm' });

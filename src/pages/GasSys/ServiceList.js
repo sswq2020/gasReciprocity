@@ -283,12 +283,11 @@ class Page extends PureComponent {
           title={`${isEdit ? '编辑' : '新建'}特殊服务`}
           visible={visible}
           confirmLoading={isEdit === false ? createIsLoading : editIsLoading}
-          onOk={(data, resetFields) => {
+          onOk={data => {
             dispatch({
               type: isEdit === false ? 'serviceList/create' : 'serviceList/edit',
               payload: {
                 data: { ...data.service },
-                resetFields,
               },
             });
           }}

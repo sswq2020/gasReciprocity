@@ -69,11 +69,10 @@ export default {
       }
     },
     *create({ payload }, { call, put }) {
-      const { data, resetFields } = payload;
+      const { data } = payload;
       const response = yield call(services.oilCreate, data);
       switch (response.code) {
         case '000000':
-          resetFields();
           message.success('油品分类创建成功！');
           yield put({ type: 'resetListParams' });
           yield put({ type: 'closeForm' });
@@ -99,12 +98,11 @@ export default {
     },
     *edit({ payload }, { call, put, select }) {
       const { id } = yield select(selectState);
-      const { data, resetFields } = payload;
+      const { data } = payload;
       const response = yield call(services.oilEdit, id, data);
 
       switch (response.code) {
         case '000000':
-          resetFields();
           message.success('油品分类编辑成功！');
           yield put({ type: 'getList' });
           yield put({ type: 'closeForm' });
