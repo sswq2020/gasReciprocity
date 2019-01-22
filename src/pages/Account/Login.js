@@ -15,20 +15,22 @@ class Page extends PureComponent {
   submit = () => {
     const {
       dispatch,
+      submitting,
       form: { validateFields, getFieldsValue },
     } = this.props;
-
-    validateFields(errors => {
-      if (errors) {
-        return;
-      }
-      dispatch({
-        type: 'login/login',
-        payload: {
-          ...getFieldsValue(),
-        },
+    if (!!submitting === false) {
+      validateFields(errors => {
+        if (errors) {
+          return;
+        }
+        dispatch({
+          type: 'login/login',
+          payload: {
+            ...getFieldsValue(),
+          },
+        });
       });
-    });
+    }
   };
 
   render() {
