@@ -6,7 +6,7 @@ const namespace = 'serviceList';
 const selectState = state => state[namespace];
 
 const defaultListParams = {
-  text: '',
+  fsName: '',
   currentPage: 1,
 };
 
@@ -175,6 +175,19 @@ export default {
           },
         },
       });
+    },
+    *deleted({ payload }, { call, put }) {
+      const { id } = payload;
+      const response = yield call(services.serviceDelete, id);
+      switch (response.code) {
+        case '000000':
+          message.success('特色服务删除成功！');
+          yield put({ type: 'getList' });
+          break;
+        default:
+          message.warning(`${response.errMsg}，请稍后重试！`);
+          break;
+      }
     },
   },
 };
