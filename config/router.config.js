@@ -65,7 +65,7 @@ export default [
         name: 'gasStationManage',
         title: '加油站管理端',
         icon: 'dashboard',
-        // authority: ['1'],
+        authority: ['2'],
         routes: [
           { path: '/gasStationManage', redirect: '/gasStationManage/infoList' },
           {

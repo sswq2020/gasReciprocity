@@ -2,6 +2,7 @@ import md5 from 'js-md5';
 import { routerRedux } from 'dva/router';
 import { message } from 'antd';
 import { reducers } from '@/utils/utils';
+import { setAuthority } from '@/utils/authority';
 import services from '@/services';
 
 const namespace = 'login';
@@ -34,6 +35,7 @@ export default {
               currentUser: {},
             },
           });
+          setAuthority(['1']);
           yield put(
             routerRedux.push({
               pathname: '/',
@@ -51,8 +53,14 @@ export default {
     *logout(_, { call, put }) {
       const response = yield call(services.logout);
       switch (response.code) {
-        case 0:
+        case '000000':
           window.localStorage.removeItem('xAuthToken');
+          yield put({
+            type: 'user/overrideStateProps',
+            payload: {
+              currentUser: {},
+            },
+          });
           yield put(
             routerRedux.push({
               pathname: '/account/login',

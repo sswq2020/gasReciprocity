@@ -1,8 +1,7 @@
 // use localStorage to store the authority info, which might be sent from server in actual project.
 export function getAuthority(str) {
   // return localStorage.getItem('react-authority') || ['admin', 'user'];
-  const authorityString =
-    typeof str === 'undefined' ? localStorage.getItem('react-authority') : str;
+  const authorityString = typeof str === 'undefined' ? localStorage.getItem('authority') : str;
   // authorityString could be admin, "admin", ["admin"]
   let authority;
   try {
@@ -13,10 +12,11 @@ export function getAuthority(str) {
   if (typeof authority === 'string') {
     return [authority];
   }
-  return authority || ['admin'];
+  // localStorage.removeItem('authority');
+  return authority || [];
 }
 
 export function setAuthority(authority) {
   const proAuthority = typeof authority === 'string' ? [authority] : authority;
-  return localStorage.setItem('react-authority', JSON.stringify(proAuthority));
+  return localStorage.setItem('authority', JSON.stringify(proAuthority));
 }

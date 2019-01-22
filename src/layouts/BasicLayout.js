@@ -273,12 +273,12 @@ class BasicLayout extends React.PureComponent {
             }}
           >
             <Content style={this.getContentStyle()}>
-              <Authorized
+              {/* <Authorized
                 authority={routerConfig && routerConfig.authority}
                 noMatch={<Exception403 />}
-              >
-                {children}
-              </Authorized>
+              > */}
+              {children}
+              {/* </Authorized> */}
             </Content>
             <Footer />
           </Layout>
@@ -291,7 +291,12 @@ class BasicLayout extends React.PureComponent {
           <ContainerQuery query={query}>
             {params => (
               <Context.Provider value={this.getContext()}>
-                <div className={classNames(params)}>{layout}</div>
+                <Authorized
+                  authority={routerConfig && routerConfig.authority}
+                  noMatch={<Exception403 />}
+                >
+                  <div className={classNames(params)}>{layout}</div>
+                </Authorized>
               </Context.Provider>
             )}
           </ContainerQuery>
