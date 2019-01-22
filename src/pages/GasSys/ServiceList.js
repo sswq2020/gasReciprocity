@@ -279,7 +279,6 @@ class Page extends PureComponent {
         <ListHeaderForm>{this.renderAdvancedForm()}</ListHeaderForm>
         <TableList {...listProps} />
         <HLModal
-          destroyOnClose
           title={`${isEdit ? '编辑' : '新建'}特殊服务`}
           visible={visible}
           confirmLoading={isEdit === false ? createIsLoading : editIsLoading}
