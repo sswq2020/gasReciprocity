@@ -38,7 +38,15 @@ export default class CustomizeComponent extends PureComponent {
             fileList: [],
           });
         } else {
-          onSuccess(info.file.response);
+          switch (info.file.response.code) {
+            case '000000':
+              onSuccess(info.file.response.data);
+              break;
+            default:
+              this.setState({ loading: false, percent: 0 });
+              Message.error('图片上传失败，请稍后重试！');
+              break;
+          }
         }
         break;
       case 'error':
