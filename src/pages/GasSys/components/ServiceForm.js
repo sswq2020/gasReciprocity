@@ -23,12 +23,12 @@ export default class CustomizeComponent extends PureComponent {
       data,
       form: { getFieldDecorator, setFieldsValue, getFieldValue },
     } = this.props;
-    const iconFile = getFieldValue('service.fileDto') || data.fileDto;
+    const iconFile = getFieldValue('service.fsIcon') || data.fsIcon;
     return (
       <Form style={{ marginBottom: -24 }}>
         <FormItem {...formItemLayout} label="特色服务ICON">
-          {getFieldDecorator('service.fileDto', {
-            initialValue: data.fileDto,
+          {getFieldDecorator('service.fsIcon', {
+            initialValue: data.fsIcon,
             // rules: [
             //   {
             //     required: true,
@@ -41,7 +41,7 @@ export default class CustomizeComponent extends PureComponent {
                 url={iconFile.url}
                 onDelete={() => {
                   setFieldsValue({
-                    'service.fileDto': {
+                    'service.fsIcon': {
                       url: null,
                       fileName: null,
                       groupId: null,
@@ -53,7 +53,7 @@ export default class CustomizeComponent extends PureComponent {
               <ImageUpload
                 onSuccess={file => {
                   setFieldsValue({
-                    'service.fileDto': {
+                    'service.fsIcon': {
                       ...file,
                     },
                   });

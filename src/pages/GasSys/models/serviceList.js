@@ -12,7 +12,7 @@ const defaultListParams = {
 
 const defaultFormData = {
   fsName: '',
-  fileDto: {
+  fsIcon: {
     url: null,
     fileName: null,
     groupId: null,

@@ -130,7 +130,7 @@ class Page extends PureComponent {
             return (
               <img
                 style={{ height: 48 }}
-                src={record.fsIcon}
+                src={record.fsIcon.url}
                 alt={record.fsName}
                 title={record.fsName}
               />
