@@ -8,7 +8,7 @@ const selectState = state => state[namespace];
 
 const defaultListParams = {
   refuelTime: moment(new Date(), 'YYYY/MM/DD').valueOf(), // 统一时间戳
-  page: 1,
+  currentPage: 1,
 };
 
 export default {
@@ -18,8 +18,8 @@ export default {
       ...defaultListParams,
     },
     list: {
-      data: [],
-      totalItemCount: 0,
+      list: [],
+      itemCount: 0,
     },
   },
   reducers,

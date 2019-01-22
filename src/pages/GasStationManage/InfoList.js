@@ -38,7 +38,7 @@ class Page extends PureComponent {
       dispatch({
         type: 'infoList/changeListParams',
         payload: {
-          page: 1,
+          currentPage: 1,
           ...getFieldsValue(),
         },
       });
@@ -91,8 +91,8 @@ class Page extends PureComponent {
       dispatch,
       getListIsLoading,
       infoList: {
-        listParams: { page },
-        list: { data: listData, totalItemCount },
+        listParams: { currentPage },
+        list: { list: listData, itemCount: totalItemCount },
       },
     } = this.props;
     const listProps = {
@@ -102,7 +102,9 @@ class Page extends PureComponent {
           key: '#',
           width: 60,
           fixed: 'left',
-          render: (text, record, index) => <Fragment>{(page - 1) * 10 + index + 1}</Fragment>,
+          render: (text, record, index) => (
+            <Fragment>{(currentPage - 1) * 10 + index + 1}</Fragment>
+          ),
         },
         {
           title: '会员名',
