@@ -109,6 +109,12 @@ export default [
             component: './financeSys/GasDetail',
           },
           {
+            path: '/financeSys/infoPreserve',
+            name: 'infoPreserve',
+            title: '开票、收票地址信息维护',
+            component: './financeSys/InfoPreserve',
+          },
+          {
             path: '/financeSys/invoiceConfirm',
             name: 'invoiceConfirm',
             title: '收票确认',
