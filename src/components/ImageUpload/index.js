@@ -1,6 +1,6 @@
 import React, { PureComponent, Fragment } from 'react';
 import { Upload, Message, Progress } from 'antd';
-// import { hostList } from '@/services/mock';
+import { hostList } from '@/services/mock';
 import styles from './index.less';
 
 function beforeUpload(file, maxSize) {
@@ -70,7 +70,6 @@ export default class CustomizeComponent extends PureComponent {
                 fileList: [
                   {
                     status: 'done',
-                    beforeUpload,
                   },
                 ],
                 loading: false,
@@ -87,10 +86,10 @@ export default class CustomizeComponent extends PureComponent {
           headers={{
             'X-Auth-Token': window.localStorage.getItem('xAuthToken') || '',
           }}
-          action="//jsonplaceholder.typicode.com/posts/"
+          action={`//${hostList[ENV]}/action/hletong/file/gasUpload`}
           fileList={fileList}
           beforeUpload={file => {
-            beforeUpload(file, maxSize);
+            return beforeUpload(file, maxSize);
           }}
           onChange={this.handleChange}
         >
