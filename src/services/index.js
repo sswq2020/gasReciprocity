@@ -139,7 +139,8 @@ export default {
   serviceList(params) {
     return request({
       host: BASEURL,
-      url: '/serviceList',
+      url: '/action/bs/queryFeatureServiceInfoPage',
+      method: 'post',
       params: {
         page: 1,
         size: 10,
@@ -178,6 +179,16 @@ export default {
       host: BASEURL,
       url: `/serviceDisable/${id}`,
       params,
+    });
+  },
+  serviceDelete(id) {
+    return request({
+      host: BASEURL,
+      url: '/action/bs/deleteFeatureServiceInfo',
+      method: 'post',
+      params: {
+        id,
+      },
     });
   },
   oilList(params) {
