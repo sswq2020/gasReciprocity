@@ -19,7 +19,6 @@ class CustomizeComponent extends PureComponent {
     const { resetFields, getFieldsValue, validateFields } = form;
     return (
       <Modal
-        destroyOnClose
         maskClosable={false}
         keyboard={false}
         {...props}
