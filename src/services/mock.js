@@ -107,7 +107,7 @@ const serviceLite = {
   fsName: '@CTITLE(2,10)服务',
   fileDto: {
     url: '//lorempixel.com/64/64/',
-    fileName: '@CTITLE(2,10)服务',
+    fileId: '@CTITLE(2,10)服务',
     groupId: '@CTITLE(2,10)服务',
   },
 };

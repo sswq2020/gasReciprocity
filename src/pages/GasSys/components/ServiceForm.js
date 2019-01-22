@@ -1,5 +1,5 @@
 import React, { PureComponent } from 'react';
-import { Form, Input, message } from 'antd';
+import { Form, Input } from 'antd';
 import ImageUpload from '@/components/ImageUpload';
 import ImageBox from '@/components/ImageBox';
 
@@ -27,12 +27,10 @@ export default class CustomizeComponent extends PureComponent {
 
   componentWillMount() {
     const {
-      data: {
-        fileDto: { url },
-      },
+      data: { fileDto },
     } = this.props;
     this.setState({
-      iconFile: url,
+      iconFile: fileDto.url,
     });
   }
 
@@ -42,6 +40,8 @@ export default class CustomizeComponent extends PureComponent {
       form: { getFieldDecorator, setFieldsValue },
     } = this.props;
     const { iconFile } = this.state;
+
+    console.log(data.fileDto);
     return (
       <Form style={{ marginBottom: -24 }}>
         <FormItem {...formItemLayout} label="特色服务ICON">
@@ -56,36 +56,27 @@ export default class CustomizeComponent extends PureComponent {
           })(
             iconFile ? (
               <ImageBox
-                url={iconFile}
+                url={iconFile.url}
                 onDelete={() => {
-                  this.setState({ iconFile: null });
                   setFieldsValue({
-                    fileDto: {
+                    'service.fileDto': {
                       url: null,
                       fileName: null,
                       groupId: null,
                     },
                   });
+                  this.setState({ iconFile: null });
                 }}
               />
             ) : (
               <ImageUpload
-                onSuccess={response => {
-                  switch (code) {
-                    case '000000':
-                      this.setState({ iconFile: response });
-                      setFieldsValue({
-                        fileDto: {
-                          url: null,
-                          fileName: null,
-                          groupId: null,
-                        },
-                      });
-                      break;
-                    default:
-                      message.warning('图片上传失败，请稍后重试！');
-                      break;
-                  }
+                onSuccess={file => {
+                  setFieldsValue({
+                    'service.fileDto': {
+                      ...file,
+                    },
+                  });
+                  this.setState({ iconFile: file.url });
                 }}
               />
             )
