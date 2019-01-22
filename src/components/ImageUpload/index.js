@@ -11,6 +11,10 @@ function beforeUpload(file, maxSize) {
   return isLtMaxSize;
 }
 
+const hostName = hostList[ENV];
+const actionUrl = `//${hostName}/action/hletong/file/gasUpload`;
+const imgUrl = `//${hostName}/action/hletong/file/gasDownload?file_id=`;
+
 export default class CustomizeComponent extends PureComponent {
   state = {
     fileList: [],
@@ -40,7 +44,11 @@ export default class CustomizeComponent extends PureComponent {
         } else {
           switch (info.file.response.code) {
             case '000000':
-              onSuccess(info.file.response.data);
+              onSuccess({
+                url: `${imgUrl}${info.file.response.data.file_info.file_id}`,
+                fileId: info.file.response.data.file_info.file_id,
+                groupId: info.file.response.data.file_info.file_group_id,
+              });
               break;
             default:
               this.setState({ loading: false, percent: 0 });
@@ -94,7 +102,7 @@ export default class CustomizeComponent extends PureComponent {
           headers={{
             'X-Auth-Token': window.localStorage.getItem('xAuthToken') || '',
           }}
-          action={`//${hostList[ENV]}/action/hletong/file/gasUpload`}
+          action={actionUrl}
           fileList={fileList}
           beforeUpload={file => {
             return beforeUpload(file, maxSize);
