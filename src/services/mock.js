@@ -807,7 +807,7 @@ const mockRouterMap = {
       },
     },
     {
-      isMock: true,
+      // isMock: true,
       method: 'post',
       router: '/action/login/doLogin',
       result() {
@@ -820,7 +820,7 @@ const mockRouterMap = {
       },
     },
     {
-      isMock: true,
+      // isMock: true,
       method: 'post',
       router: '/action/public/login/permission',
       result() {
