@@ -59,7 +59,6 @@ class Page extends PureComponent {
   openFormEdit = data => {
     const { dispatch } = this.props;
     const { id, ...formData } = data;
-
     dispatch({
       type: 'priceApply/openForm',
       payload: {
@@ -131,25 +130,25 @@ class Page extends PureComponent {
           title: '零售价',
           key: 'retailPrice',
           width: 100,
-          render: (text, record) => <Fragment>{record.b}</Fragment>,
+          render: (text, record) => <Fragment>￥{record.b}</Fragment>,
         },
         {
           title: '会员折扣(%)',
           key: 'memberDiscount',
           width: 120,
-          render: (text, record) => <Fragment>{record.c}</Fragment>,
+          render: (text, record) => <Fragment>{record.c}%</Fragment>,
         },
         {
           title: '会员价',
           key: 'memberPrice',
           width: 100,
-          render: (text, record) => <Fragment>{record.d}</Fragment>,
+          render: (text, record) => <Fragment>￥{record.d}</Fragment>,
         },
         {
           title: '加油金额',
           key: 'fuelPrice',
           width: 100,
-          render: (text, record) => <Fragment>{record.e}</Fragment>,
+          render: (text, record) => <Fragment>￥{record.e}</Fragment>,
         },
         {
           title: <div style={{ textAlign: 'center' }}>操作</div>,
@@ -165,7 +164,7 @@ class Page extends PureComponent {
                 >
                   调价申请
                 </a>
-                <a>调价历史</a>
+                <a onClick={() => {}}>调价历史</a>
               </div>
             );
           },
@@ -191,6 +190,7 @@ class Page extends PureComponent {
         });
       },
     };
+
     return (
       <PageHeaderWrapper>
         <Card bordered={false} bodyStyle={{ padding: '0 0 20px 0' }}>
