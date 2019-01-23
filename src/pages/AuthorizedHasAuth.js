@@ -9,37 +9,47 @@ let hasAuth = false;
 
 export default dynamic({
   async loader() {
-    const response = await services.queryCurrentUser();
-    switch (response.code) {
-      case 0:
-        for (let i = 0; i < response.result.auth.length; i++) {
-          if (response.result.auth[i].authority === 'ROLE_admin') {
+    let {
+      user: { currentUser },
+    } = g_app._store.getState();
+    hasAuth = !!currentUser;
+
+    if (hasAuth === false) {
+      const response = await services.queryCurrentUser();
+      switch (response.code) {
+        case 0:
+          hasAuth = !!response.data.userType;
+          if (hasAuth) {
             hasAuth = true;
             // 保存用户信息
+            currentUser = {
+              ...response.data,
+              auth: [response.data.userType],
+            };
             g_app._store.dispatch({
               type: 'user/overrideStateProps',
               payload: {
-                currentUser: response.result,
+                currentUser,
               },
             });
-            break;
+          } else {
+            window.localStorage.removeItem('xAuthToken');
           }
-        }
-        if (hasAuth === false) {
+          break;
+        default:
           window.localStorage.removeItem('xAuthToken');
-        }
-        break;
-      default:
-        window.localStorage.removeItem('xAuthToken');
-        break;
+          break;
+      }
     }
     return ({ children }) => {
       if (hasAuth === false) {
-        hasAuth = !!g_app._store.getState().user.currentUser;
+        const {
+          user: { currentUser: curtUser },
+        } = g_app._store.getState();
+        hasAuth = !!curtUser;
       }
       if (hasAuth === true) {
-        // console.log(g_app._store.getState().user.currentUser);
-        const Authorized = RenderAuthorized(getAuthority());
+        const Authorized = RenderAuthorized(getAuthority(curtUser.auth));
         return (
           <Authorized
             authority={children.props.route.authority}

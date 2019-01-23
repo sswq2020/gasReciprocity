@@ -106,7 +106,8 @@ export default {
   queryCurrentUser() {
     return request({
       host: BASEURL,
-      url: '/admin/home',
+      url: '/action/public/login/permission',
+      method: 'POST',
     });
   },
   login(params) {
