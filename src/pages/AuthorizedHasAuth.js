@@ -2,64 +2,51 @@ import React from 'react';
 import dynamic from 'umi/dynamic';
 import Redirect from 'umi/redirect';
 import services from '@/services';
-import RenderAuthorized from '@/components/Authorized';
-import { getAuthority } from '@/utils/authority';
-
-let hasAuth = false;
+import { setAuthority } from '@/utils/authority';
 
 export default dynamic({
   async loader() {
-    let {
-      user: { currentUser },
-    } = g_app._store.getState();
-    hasAuth = !!currentUser;
-
-    if (hasAuth === false) {
-      const response = await services.queryCurrentUser();
-      switch (response.code) {
-        case 0:
-          hasAuth = !!response.data.userType;
-          if (hasAuth) {
-            hasAuth = true;
-            // 保存用户信息
-            currentUser = {
-              ...response.data,
-              auth: [response.data.userType],
-            };
-            g_app._store.dispatch({
-              type: 'user/overrideStateProps',
-              payload: {
-                currentUser,
+    const response = await services.queryCurrentUser();
+    switch (response.code) {
+      case '000000':
+        if (response.data.userType) {
+          // 保存用户信息
+          g_app._store.dispatch({
+            type: 'user/overrideStateProps',
+            payload: {
+              currentUser: {
+                ...response.data,
+                auth: [response.data.userType],
               },
-            });
-          } else {
-            window.localStorage.removeItem('xAuthToken');
-          }
-          break;
-        default:
+            },
+          });
+        } else {
           window.localStorage.removeItem('xAuthToken');
-          break;
-      }
+        }
+
+        break;
+      default:
+        window.localStorage.removeItem('xAuthToken');
+        break;
     }
     return ({ children }) => {
-      if (hasAuth === false) {
-        const {
-          user: { currentUser: curtUser },
-        } = g_app._store.getState();
-        hasAuth = !!curtUser;
-      }
-      if (hasAuth === true) {
-        const Authorized = RenderAuthorized(getAuthority(curtUser.auth));
-        return (
-          <Authorized
-            authority={children.props.route.authority}
-            noMatch={<Redirect to="/account/login" />}
-          >
-            {children}
-          </Authorized>
-        );
-      } else {
+      const user = g_app._store.getState().user.currentUser;
+      // console.log(user, children);
+      if (user === null) {
         return <Redirect to="/account/login" />;
+      } else {
+        setAuthority(user.auth);
+        if (children.props.location.pathname === '/') {
+          switch (user.auth[0]) {
+            case '1':
+              return <Redirect to="/gasSys" />;
+            case '2':
+              return <Redirect to="/gasStationManage" />;
+            default:
+              break;
+          }
+        }
+        return children;
       }
     };
   },
