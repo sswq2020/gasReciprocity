@@ -139,10 +139,11 @@ const refuelDetailList = {
 const priceApplyList = {
   'id|+1': 1,
   fuelName: '0#(V)', // 油品名称
-  b: '￥@float(5,8)/L', // 零售价
-  c: '￥@float(5,8)', // 会员折扣(%)
-  d: '￥@float(5,8)/L', // 会员价
-  e: '￥@float(400,2000)', // 加油金额
+  b: '@float(5,8)', // 零售价
+  c: '@INTEGER(1,2)', // 会员折扣(%)
+  d: '@float(5,8)', // 会员价
+  e: '@float(400,2000)', // 加油金额
+  f: '@DATE("yyyy-MM-dd HH:mm:ss")', // 调价历史
 };
 
 /**
