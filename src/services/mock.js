@@ -444,7 +444,7 @@ const mockRouterMap = {
           data: {
             totalPageCount: 100 / params.size,
             totalItemCount: 100,
-            'data|1-10': [refuelDetailList],
+            'list|1-10': [refuelDetailList],
           },
         };
       },
@@ -459,7 +459,7 @@ const mockRouterMap = {
           data: {
             totalPageCount: 100 / params.size,
             totalItemCount: 100,
-            'data|1-10': [priceApplyList],
+            'list|1-10': [priceApplyList],
           },
         };
       },

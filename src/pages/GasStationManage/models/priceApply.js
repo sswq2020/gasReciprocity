@@ -7,7 +7,7 @@ const selectState = state => state[namespace];
 
 const defaultListParams = {
   fuelName: null, // 油品名称
-  page: 1,
+  currentPage: 1,
 };
 
 const defaultFormData = {
@@ -30,8 +30,8 @@ export default {
       ...defaultListParams,
     },
     list: {
-      data: [],
-      totalItemCount: 0,
+      list: [],
+      itemCount: 0,
     },
   },
   reducers,
@@ -100,10 +100,10 @@ export default {
         },
       });
     },
-    *submit({ payload }, { call, put, select }) {
-      const { id, formData } = yield select(selectState);
-      const { resetFields } = payload;
-      const response = yield call(services.priceApplyList, { id, ...formData });
+    *applyPrice({ payload }, { call, put, select }) {
+      const { id } = yield select(selectState);
+      const { data, resetFields } = payload;
+      const response = yield call(services.insertPriceApply, { id, data });
       switch (response.code) {
         case '000000':
           resetFields();
