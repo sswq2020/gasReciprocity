@@ -135,7 +135,7 @@ class Page extends PureComponent {
                 title={record.fsName}
               />
             ) : (
-              '未设置图标'
+              <span className="error_text">未设置图标</span>
             );
           },
         },

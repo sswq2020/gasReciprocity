@@ -13,6 +13,7 @@ export default [
   {
     path: '/',
     component: '../layouts/BasicLayout',
+    Routes: ['src/pages/AuthorizedHasToken'],
     // Routes: ['src/pages/AuthorizedHasToken', 'src/pages/AuthorizedHasAuth'],
     // authority: ['1', '2'],
     routes: [
