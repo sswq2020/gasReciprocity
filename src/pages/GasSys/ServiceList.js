@@ -59,7 +59,7 @@ class Page extends PureComponent {
 
   openFormEdit = data => {
     const { dispatch } = this.props;
-    const { id, fsIcon, ...formData } = data;
+    const { id, ...formData } = data;
 
     dispatch({
       type: 'serviceList/openForm',
@@ -127,13 +127,15 @@ class Page extends PureComponent {
           width: 150,
           align: 'center',
           render: (text, record) => {
-            return (
+            return record.fsIcon.url ? (
               <img
                 style={{ height: 48 }}
                 src={record.fsIcon.url}
                 alt={record.fsName}
                 title={record.fsName}
               />
+            ) : (
+              '未设置图标'
             );
           },
         },
@@ -279,6 +281,7 @@ class Page extends PureComponent {
         <ListHeaderForm>{this.renderAdvancedForm()}</ListHeaderForm>
         <TableList {...listProps} />
         <HLModal
+          destroyOnClose
           title={`${isEdit ? '编辑' : '新建'}特殊服务`}
           visible={visible}
           confirmLoading={isEdit === false ? createIsLoading : editIsLoading}

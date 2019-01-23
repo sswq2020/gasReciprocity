@@ -19,7 +19,6 @@ class CustomizeComponent extends PureComponent {
     const { resetFields, getFieldsValue, validateFields } = form;
     return (
       <Modal
-        destroyOnClose
         maskClosable={false}
         keyboard={false}
         {...props}
@@ -28,17 +27,16 @@ class CustomizeComponent extends PureComponent {
             if (errors) {
               return;
             }
-            onOk(
-              {
-                ...getFieldsValue(),
-              },
-              resetFields
-            );
+            onOk({
+              ...getFieldsValue(),
+            });
           });
         }}
         onCancel={() => {
-          resetFields();
           onClose();
+        }}
+        afterClose={() => {
+          resetFields();
         }}
       >
         {renderChildren(this.props)}

@@ -139,7 +139,12 @@ export default class GlobalHeaderRight extends PureComponent {
         </NoticeIcon> */}
         <Dropdown overlay={menu}>
           <span className={`${styles.action} ${styles.account}`}>
-            <span size="small" className={styles.avatar} src={currentUser.avatar} alt="avatar" />
+            <span
+              size="small"
+              className={styles.avatar}
+              src={currentUser && currentUser.avatar}
+              alt="avatar"
+            />
             {/* <span className={styles.name}>{currentUser.username}</span> */}
           </span>
         </Dropdown>

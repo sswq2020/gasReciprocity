@@ -5,10 +5,11 @@ import services from '@/services';
 import RenderAuthorized from '@/components/Authorized';
 import { getAuthority } from '@/utils/authority';
 
+let hasAuth = false;
+
 export default dynamic({
   async loader() {
     const response = await services.queryCurrentUser();
-    let hasAuth = false;
     switch (response.code) {
       case 0:
         for (let i = 0; i < response.result.auth.length; i++) {
@@ -33,6 +34,9 @@ export default dynamic({
         break;
     }
     return ({ children }) => {
+      if (hasAuth === false) {
+        hasAuth = !!g_app._store.getState().user.currentUser;
+      }
       if (hasAuth === true) {
         // console.log(g_app._store.getState().user.currentUser);
         const Authorized = RenderAuthorized(getAuthority());

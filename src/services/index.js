@@ -31,9 +31,9 @@ axios.interceptors.response.use(
     }
   },
   // Do something with response
-  error => {
+  () => {
     message.error('网络错误，请稍后重试！！');
-    Promise.reject(error);
+    // Promise.reject(error);
   }
   // tools.toast({
   //   position: 'top',
@@ -86,7 +86,9 @@ function request({ host = '', version = '', url, params, method = 'get' }) {
     axios[methodStr](host === '' ? urlStr : `http://${host}${urlStr}`, data)
       .then(response => {
         // TODO 这里做数据的验证
-        resolve(response.data);
+        if (response && response.data) {
+          resolve(response.data);
+        }
       })
       .catch(error => Promise.reject(error));
   });
@@ -154,7 +156,7 @@ export default {
   serviceEdit(id, params) {
     return request({
       host: BASEURL,
-      url: '/action/bs/editOilModelInfoInfo',
+      url: '/action/bs/editFeatureServiceInfo',
       method: 'post',
       params: {
         ...params,
