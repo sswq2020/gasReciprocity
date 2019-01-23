@@ -1,8 +1,5 @@
 import React, { PureComponent, Fragment } from 'react';
-// import moment from 'moment';
 import { connect } from 'dva';
-// import router from 'umi/router';
-// import Link from 'umi/link';
 import { Row, Col, Form, Button, Card, DatePicker, Input } from 'antd';
 import PageHeaderWrapper from '@/components/PageHeaderWrapper';
 import TableList from '@/components/TableList';
@@ -10,6 +7,11 @@ import ListHeaderForm from '@/components/ListHeaderForm';
 // import Select from '@/components/Select';
 
 const FormItem = Form.Item;
+const formItemWidth = {
+  lg: 8,
+  md: 12,
+  sm: 24,
+};
 
 @connect(({ getDetailes, loading }) => ({
   getDetailes,
@@ -61,19 +63,19 @@ class Page extends PureComponent {
     return (
       <Form onSubmit={this.changeListParams} layout="inline">
         <Row gutter={{ md: 8, lg: 24, xl: 48 }}>
-          <Col md={8} sm={24}>
+          <Col {...formItemWidth}>
             <FormItem label="日期">
               {getFieldDecorator('refuelTime')(
                 <DatePicker style={{ width: '100%' }} format={dateFormat} />
               )}
             </FormItem>
           </Col>
-          <Col md={8} sm={24}>
+          <Col {...formItemWidth}>
             <FormItem label="加油站名称">
               {getFieldDecorator('gasStation')(<Input placeholder="请输入" autoComplete="off" />)}
             </FormItem>
           </Col>
-          <Col md={8} sm={24}>
+          <Col {...formItemWidth}>
             <Button type="primary" htmlType="submit">
               查询
             </Button>
@@ -91,8 +93,8 @@ class Page extends PureComponent {
       dispatch,
       getListIsLoading,
       getDetailes: {
-        listParams: { page },
-        list: { data: listData, totalItemCount },
+        listParams: { currentPage },
+        list: { list: listData, itemCount: totalItemCount },
       },
     } = this.props;
     const listProps = {
@@ -102,7 +104,9 @@ class Page extends PureComponent {
           key: '#',
           width: 60,
           fixed: 'left',
-          render: (text, record, index) => <Fragment>{(page - 1) * 10 + index + 1}</Fragment>,
+          render: (text, record, index) => (
+            <Fragment>{(currentPage - 1) * 10 + index + 1}</Fragment>
+          ),
         },
         {
           title: '会员名',
@@ -157,12 +161,9 @@ class Page extends PureComponent {
       scroll: { x: 'max-content' },
       dataSource: listData,
       loading: getListIsLoading,
-      style: {
-        marginTop: 24,
-      },
       pagination: {
         total: totalItemCount,
-        current: page,
+        current: currentPage,
       },
       onChange: pagination => {
         dispatch({

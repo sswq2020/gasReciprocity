@@ -116,7 +116,6 @@ class Page extends PureComponent {
         },
       ],
       rowKey: 'id',
-      scroll: { x: 'max-content' },
       dataSource: listData,
       loading: getListIsLoading,
       style: {
