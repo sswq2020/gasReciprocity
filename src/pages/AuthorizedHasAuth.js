@@ -6,6 +6,7 @@ import { setAuthority } from '@/utils/authority';
 
 export default dynamic({
   async loader() {
+    // console.log('loader');
     const response = await services.queryCurrentUser();
     switch (response.code) {
       case '000000':
@@ -30,6 +31,7 @@ export default dynamic({
         break;
     }
     return ({ children }) => {
+      // console.log('render');
       const user = g_app._store.getState().user.currentUser;
       // console.log(user, children);
       if (user === null) {
