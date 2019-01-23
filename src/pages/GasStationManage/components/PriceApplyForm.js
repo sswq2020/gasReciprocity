@@ -1,5 +1,6 @@
 import React, { PureComponent } from 'react';
 import { Form, Input, DatePicker } from 'antd';
+import regexps from '@/utils/regexps';
 
 const FormItem = Form.Item;
 
@@ -32,13 +33,17 @@ export default class CustomizeComponent extends PureComponent {
         <FormItem {...formItemLayout} label="零售价">
           {getFieldDecorator('priceApply.retailPrice', {
             initialValue: data.retailPrice,
-            // rules: [
-            //   {
-            //     required: true,
-            //     whitespace: true,
-            //     message: '请填写油品分类名称',
-            //   },
-            // ],
+            rules: [
+              {
+                required: true,
+                whitespace: true,
+                message: '请填写零售价',
+              },
+              {
+                pattern: regexps.decimal2,
+                message: '小数位必须2位',
+              },
+            ],
           })(<Input placeholder="请填写零售价" autoComplete="off" />)}
         </FormItem>
         <FormItem {...formItemLayout} label="会员折扣">
@@ -49,7 +54,7 @@ export default class CustomizeComponent extends PureComponent {
         </FormItem>
         <FormItem {...formItemLayout} label="生效日期">
           {getFieldDecorator('priceApply.effectDate', {
-            initialValue: null,
+            initialValue: data.effectDate,
           })(<DatePicker showTime format={dateFormat} />)}
         </FormItem>
       </Form>

@@ -1,8 +1,5 @@
 import React, { PureComponent, Fragment } from 'react';
-// import moment from 'moment';
 import { connect } from 'dva';
-// import router from 'umi/router';
-// import Link from 'umi/link';
 import { Row, Col, Form, Button, Card } from 'antd';
 import PageHeaderWrapper from '@/components/PageHeaderWrapper';
 import TableList from '@/components/TableList';
@@ -21,6 +18,7 @@ const formItemWidth = {
 @connect(({ priceApply, loading }) => ({
   priceApply,
   getListIsLoading: loading.effects['priceApply/getList'],
+  applyPriceIsLoading: loading.effects['priceApply/applyPrice'],
 }))
 @Form.create()
 class Page extends PureComponent {
@@ -58,6 +56,19 @@ class Page extends PureComponent {
     });
   };
 
+  openFormEdit = data => {
+    const { dispatch } = this.props;
+    const { id, ...formData } = data;
+
+    dispatch({
+      type: 'priceApply/openForm',
+      payload: {
+        id,
+        formData,
+      },
+    });
+  };
+
   renderAdvancedForm = () => {
     const {
       form: { getFieldDecorator },
@@ -65,7 +76,7 @@ class Page extends PureComponent {
 
     return (
       <Form onSubmit={this.changeListParams} layout="inline">
-        <Row gutter={{ md: 8, lg: 24, xl: 48 }}>
+        <Row gutter={{ md: 16, lg: 24, xl: 48 }}>
           <Col {...formItemWidth}>
             <FormItem label="油品名称">
               {getFieldDecorator('fuelName', {
@@ -86,29 +97,19 @@ class Page extends PureComponent {
     );
   };
 
-  openFormEdit = data => {
-    const { dispatch } = this.props;
-    const { id, ...formData } = data;
-    dispatch({
-      type: 'priceApply/openForm',
-      payload: {
-        id,
-        formData,
-      },
-    });
-  };
-
   render() {
     const {
       dispatch,
       getListIsLoading,
+      applyPriceIsLoading,
       priceApply: {
         visible,
         formData,
-        listParams: { page },
-        list: { data: listData, totalItemCount },
+        listParams: { currentPage },
+        list: { list: listData, itemCount: totalItemCount },
       },
     } = this.props;
+
     const listProps = {
       columns: [
         {
@@ -116,7 +117,9 @@ class Page extends PureComponent {
           key: '#',
           width: 60,
           fixed: 'left',
-          render: (text, record, index) => <Fragment>{(page - 1) * 10 + index + 1}</Fragment>,
+          render: (text, record, index) => (
+            <Fragment>{(currentPage - 1) * 10 + index + 1}</Fragment>
+          ),
         },
         {
           title: '油品名称',
@@ -177,13 +180,13 @@ class Page extends PureComponent {
       },
       pagination: {
         total: totalItemCount,
-        current: page,
+        current: currentPage,
       },
       onChange: pagination => {
         dispatch({
           type: 'priceApply/changeListParams',
           payload: {
-            page: pagination.current,
+            pagcurrentPagee: pagination.current,
           },
         });
       },
@@ -196,14 +199,19 @@ class Page extends PureComponent {
           <HLModal
             title="调价申请"
             visible={visible}
+            confirmLoading={applyPriceIsLoading}
             onClose={() => {
               dispatch({
                 type: 'priceApply/closeForm',
               });
             }}
-            onOk={() => {
+            onOk={(data, resetFields) => {
               dispatch({
-                type: 'priceApply/submit',
+                type: 'priceApply/applyPrice',
+                payload: {
+                  data: { ...data },
+                  resetFields,
+                },
               });
             }}
           >

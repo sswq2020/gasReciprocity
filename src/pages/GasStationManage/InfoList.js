@@ -1,13 +1,9 @@
 import React, { PureComponent, Fragment } from 'react';
-// import moment from 'moment';
 import { connect } from 'dva';
-// import router from 'umi/router';
-// import Link from 'umi/link';
-import { Row, Col, Form, Button, Card, DatePicker } from 'antd';
+import { Row, Col, Form, Button, DatePicker } from 'antd';
 import PageHeaderWrapper from '@/components/PageHeaderWrapper';
 import TableList from '@/components/TableList';
 import ListHeaderForm from '@/components/ListHeaderForm';
-// import Select from '@/components/Select';
 
 const FormItem = Form.Item;
 const formItemWidth = {
@@ -156,31 +152,25 @@ class Page extends PureComponent {
         },
       ],
       rowKey: 'id',
-      scroll: { x: 'max-content' },
       dataSource: listData,
       loading: getListIsLoading,
-      style: {
-        marginTop: 24,
-      },
       pagination: {
         total: totalItemCount,
-        current: page,
+        current: currentPage,
       },
       onChange: pagination => {
         dispatch({
           type: 'infoList/changeListParams',
           payload: {
-            page: pagination.current,
+            currentPage: pagination.current,
           },
         });
       },
     };
     return (
       <PageHeaderWrapper>
-        <Card bordered={false} bodyStyle={{ padding: '0 0 20px 0' }}>
-          <ListHeaderForm>{this.renderAdvancedForm()}</ListHeaderForm>
-          <TableList {...listProps} />
-        </Card>
+        <ListHeaderForm>{this.renderAdvancedForm()}</ListHeaderForm>
+        <TableList {...listProps} />
       </PageHeaderWrapper>
     );
   }
