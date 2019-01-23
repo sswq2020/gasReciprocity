@@ -9,7 +9,7 @@ export default {
   namespace,
   reducers,
   state: {
-    currentUser: {},
+    currentUser: null,
   },
 
   effects: {

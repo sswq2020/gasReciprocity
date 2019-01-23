@@ -59,7 +59,15 @@ export default {
             yield put({
               type: 'overrideStateProps',
               payload: {
-                list: response.data,
+                list: {
+                  ...response.data,
+                  list: response.data.list.map(r => {
+                    return {
+                      ...r,
+                      fsIcon: JSON.parse(r.fsIcon),
+                    };
+                  }),
+                },
               },
             });
           }
