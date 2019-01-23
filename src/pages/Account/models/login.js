@@ -23,15 +23,14 @@ export default {
       });
       switch (response.code) {
         case '000000':
-          // todo 自动登陆
-          // if (payload.autoLogin === true) {
-          //   window.localStorage.setItem('xAuthToken', response.result['X-Auth-Token']);
-          // }
-          window.localStorage.setItem('xAuthToken', response.result.token);
+          window.localStorage.setItem('xAuthToken', response.data.token);
           yield put({
             type: 'user/overrideStateProps',
             payload: {
-              currentUser: {},
+              currentUser: {
+                ...response.data,
+                auth: [response.data.userType],
+              },
             },
           });
           yield put(

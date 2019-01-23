@@ -11,8 +11,8 @@ const body = {
 };
 
 export const hostList = {
-  // dev: '192.168.4.16:25092/gas', // 易凯
-  dev: '192.168.4.16:25084/hhgs', // 周扬
+  dev: '192.168.4.16:25092/gas', // 易凯
+  // dev: '192.168.4.16:25084/hhgs', // 周扬
   test: 'test.hletong.com/hhgs',
   pro: 'api.demo.com',
 };
@@ -292,6 +292,13 @@ const applicationDetail = {
   auditor,
   app: '@TITLE()',
   contactsPhone: '@INTEGER(13000000000,18999999999)',
+};
+
+const userInfo = {
+  userCode: 'JX@INTEGER(100000,999999)',
+  loginName: '@NAME()',
+  token: 'MOCK_TOKEN_@INTEGER(321102198000000000,321102198999999999)',
+  userType: '@PICK(["1","2"])',
 };
 // const internship = {
 //   'id|+1': 1,
@@ -795,6 +802,32 @@ const mockRouterMap = {
             enabled: true,
             username: 'mock @NAME()',
             type: '@PICK(["GENERAL", "FACTORY"])',
+          },
+        };
+      },
+    },
+    {
+      isMock: true,
+      method: 'post',
+      router: '/action/login/doLogin',
+      result() {
+        return {
+          ...body,
+          data: {
+            ...userInfo,
+          },
+        };
+      },
+    },
+    {
+      isMock: true,
+      method: 'post',
+      router: '/action/public/login/permission',
+      result() {
+        return {
+          ...body,
+          data: {
+            ...userInfo,
           },
         };
       },

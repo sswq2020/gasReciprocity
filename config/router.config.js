@@ -2,7 +2,6 @@ export default [
   // user
   {
     path: '/account',
-    // component: '../layouts/UserLayout',
     Routes: ['src/pages/AccountAuthorized'],
     routes: [
       { path: '/account', redirect: '/account/login' },
@@ -13,8 +12,8 @@ export default [
   {
     path: '/',
     component: '../layouts/BasicLayout',
-    // Routes: ['src/pages/AuthorizedHasToken', 'src/pages/AuthorizedHasAuth'],
-    // authority: ['1', '2'],
+    Routes: ['src/pages/AuthorizedHasToken', 'src/pages/AuthorizedHasAuth'],
+    authority: ['1', '2'],
     routes: [
       // { path: '/', redirect: '/machine' },
       {
@@ -22,7 +21,7 @@ export default [
         name: 'gasSys',
         title: '加油站管理',
         icon: 'shop',
-        // authority: ['1'],
+        authority: ['1'],
         // hideChildrenInMenu: true,
         routes: [
           { path: '/gasSys', redirect: '/gasSys/gas' },
@@ -65,7 +64,7 @@ export default [
         name: 'gasStationManage',
         title: '加油站管理端',
         icon: 'dashboard',
-        // authority: ['2'],
+        authority: ['2'],
         routes: [
           { path: '/gasStationManage', redirect: '/gasStationManage/infoList' },
           {
@@ -99,7 +98,7 @@ export default [
         name: 'financeSys',
         title: '票务管理',
         icon: 'money-collect',
-        // authority: ['2'],
+        authority: ['1'],
         routes: [
           { path: '/financeSys', redirect: '/financeSys/gasDetail' },
           {
