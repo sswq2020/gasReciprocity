@@ -135,6 +135,7 @@ class CustomizeComponent extends PureComponent {
         marginTop: -24,
         paddingBottom: 20,
       },
+      rowKey: 'oilModelId',
       columns: [
         {
           title: '序号',
@@ -154,27 +155,25 @@ class CustomizeComponent extends PureComponent {
           title: '零售价',
           align: 'center',
           key: 'oilRetailPrice',
-          render: (text, record) => <Fragment>{record.oilRetailPrice}</Fragment>,
+          render: (text, record) => <Fragment>{record.oilRetailPrice}元</Fragment>,
         },
         {
           title: '会员折扣(%)',
           align: 'center',
           key: 'oilMemberAgio',
-          render: (text, record) => <Fragment>{record.oilMemberAgio}</Fragment>,
+          render: (text, record) => <Fragment>{record.oilMemberAgio}%</Fragment>,
         },
         {
           title: '会员价',
           align: 'center',
           key: 'oilMemberPrice',
-          render: (text, record) => (
-            <Fragment>{(record.oilRetailPrice * 100 * record.oilMemberAgio) / 100}</Fragment>
-          ),
+          render: (text, record) => <Fragment>{record.oilMemberPrice}元</Fragment>,
         },
         {
           title: '零售价浮动预警',
           align: 'center',
           key: 'oilRetailWarn',
-          render: (text, record) => <Fragment>{record.oilRetailWarn}</Fragment>,
+          render: (text, record) => <Fragment>{record.oilRetailWarn}%</Fragment>,
         },
         {
           title: <div style={{ textAlign: 'center' }}>操作</div>,
@@ -503,26 +502,25 @@ class CustomizeComponent extends PureComponent {
           {getFieldDecorator('gas.gasOilModelList', {
             initialValue: data.gasOilModelList,
           })(<input type="hidden" />)}
-          {gasOilModelList.length < oilModelInfoList.length ||
-            (gasOilModelList.length === 0 && (
-              <Button
-                block
-                icon="plus"
-                type="dashed"
-                style={{ marginBottom: 20 }}
-                onClick={() => {
-                  dispatch({
-                    type: 'gasForm/openForm',
-                    payload: {
-                      isEdit: false,
-                      id: null,
-                    },
-                  });
-                }}
-              >
-                新增油品信息
-              </Button>
-            ))}
+          {(gasOilModelList.length < oilModelInfoList.length || gasOilModelList.length === 0) && (
+            <Button
+              block
+              icon="plus"
+              type="dashed"
+              style={{ marginBottom: 20 }}
+              onClick={() => {
+                dispatch({
+                  type: 'gasForm/openForm',
+                  payload: {
+                    isEdit: false,
+                    id: null,
+                  },
+                });
+              }}
+            >
+              新增油品信息
+            </Button>
+          )}
           {/* <FormItemHead>银行卡信息：</FormItemHead>
           <TableList {...bankListProps} /> */}
         </Form>
@@ -565,13 +563,13 @@ class CustomizeComponent extends PureComponent {
         <HLModal
           title={`${isEdit === false ? '新增' : '编辑'}油品信息`}
           visible={visible}
-          onOk={(fData, fResetFields) => {
+          onOk={fData => {
+            gasOilModelList.push(fData.oilSelect);
+            setFieldsValue({
+              'gas.gasOilModelList': gasOilModelList,
+            });
             dispatch({
-              type: isEdit === false ? 'gasForm/add' : 'gasForm/edit',
-              payload: {
-                data: { ...fData.oilSelect },
-                resetFields: fResetFields,
-              },
+              type: 'gasForm/closeForm',
             });
           }}
           onClose={() => {
@@ -582,9 +580,11 @@ class CustomizeComponent extends PureComponent {
         >
           <OilSelectForm
             data={formData}
-            selectList={oilModelInfoList}
+            selectList={oilModelInfoList.map(r => {
+              return { itemCode: r.id, itemName: r.oilModelName };
+            })}
             hasSelect={gasOilModelList.map(r => {
-              return { id: r.oilModelId, oilModelName: r.oilModelName };
+              return { itemCode: r.oilModelId, itemName: r.oilModelName };
             })}
           />
         </HLModal>

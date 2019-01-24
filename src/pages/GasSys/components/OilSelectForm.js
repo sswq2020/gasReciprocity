@@ -20,15 +20,6 @@ const formItemLayout = {
   },
 };
 
-// 数组找出不通
-// let _ = require("lodash");
-//     let result = _.differenceBy(
-//       [{ name: "哈哈" }, { sex: "男" }],
-//       [{ name: "哈哈" }],
-//       "name"
-//     );
-//     console.log(result);
-
 @connect(({ gasForm }) => ({
   gasForm,
 }))
@@ -38,12 +29,26 @@ class CustomizeComponent extends PureComponent {
       data,
       hasSelect,
       selectList,
-      form: { getFieldDecorator },
+      form: { getFieldDecorator, setFieldsValue, getFieldValue },
     } = this.props;
 
     getFieldDecorator('oilSelect.oilModelName', {
       initialValue: data.oilModelName,
     });
+
+    const setMemberPrice = (price, agio) => {
+      let mP = 0;
+      // console.log(price, agio);
+      // console.log(Number(price), Number(agio));
+      const nP = Number(price);
+      const nA = Number(agio);
+      if (!!nP && !!nA) {
+        mP = nP && nA ? ((nP * 100 * nA) / 10000).toFixed(2) : 0;
+      }
+      setFieldsValue({
+        'oilSelect.oilMemberPrice': mP,
+      });
+    };
 
     return (
       <Form style={{ marginBottom: -24 }}>
@@ -51,7 +56,9 @@ class CustomizeComponent extends PureComponent {
           {getFieldDecorator('oilSelect.oilModelId', {
             initialValue: data.oilModelId,
             getValueFromEvent: value => {
-              console.log(value);
+              setFieldsValue({
+                'oilSelect.oilModelName': selectList.filter(r => r.itemCode === value)[0].itemName,
+              });
               return value;
             },
             rules: [
@@ -64,13 +71,17 @@ class CustomizeComponent extends PureComponent {
             <Select
               placeholder="请选择油品名称"
               autoComplete="off"
-              data={_.differenceBy(selectList, hasSelect, 'id')}
+              data={_.differenceBy(selectList, hasSelect, 'itemCode')}
             />
           )}
         </FormItem>
         <FormItem {...formItemLayout} label="零售价">
           {getFieldDecorator('oilSelect.oilRetailPrice', {
             initialValue: data.oilRetailPrice,
+            getValueFromEvent: value => {
+              setMemberPrice(value, getFieldValue('oilSelect.oilMemberAgio'));
+              return value;
+            },
             rules: [
               {
                 required: true,
@@ -102,6 +113,7 @@ class CustomizeComponent extends PureComponent {
               placeholder="请填写零售价浮动预警"
               autoComplete="off"
               min={0}
+              max={100}
               step={1}
               precision={2}
               style={{ width: 'calc(100% - 20px)' }}
@@ -112,6 +124,10 @@ class CustomizeComponent extends PureComponent {
         <FormItem {...formItemLayout} label="会员折扣">
           {getFieldDecorator('oilSelect.oilMemberAgio', {
             initialValue: data.oilMemberAgio,
+            getValueFromEvent: value => {
+              setMemberPrice(getFieldValue('oilSelect.oilRetailPrice'), value);
+              return value;
+            },
             rules: [
               {
                 required: true,
@@ -123,6 +139,7 @@ class CustomizeComponent extends PureComponent {
               placeholder="请填写会员折扣"
               autoComplete="off"
               min={0}
+              max={100}
               step={1}
               precision={2}
               style={{ width: 'calc(100% - 20px)' }}
