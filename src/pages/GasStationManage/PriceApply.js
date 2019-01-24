@@ -7,6 +7,7 @@ import HLModal from '@/components/Modal';
 import ListHeaderForm from '@/components/ListHeaderForm';
 import Select from '@/components/Select';
 import PriceApplyForm from './components/PriceApplyForm';
+import PriceHistoryList from './components/PriceHistoryList';
 
 const FormItem = Form.Item;
 const formItemWidth = {
@@ -164,7 +165,16 @@ class Page extends PureComponent {
                 >
                   调价申请
                 </a>
-                <a onClick={() => {}}>调价历史</a>
+                <a
+                  onClick={() => {
+                    dispatch({
+                      type: 'priceHistoryList/openPopup',
+                      payload: 'world',
+                    });
+                  }}
+                >
+                  调价历史
+                </a>
               </div>
             );
           },
@@ -216,6 +226,7 @@ class Page extends PureComponent {
         >
           <PriceApplyForm data={formData} />
         </HLModal>
+        <PriceHistoryList />
       </PageHeaderWrapper>
     );
   }

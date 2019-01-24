@@ -1,6 +1,7 @@
 import { connect } from 'dva';
 import React, { PureComponent } from 'react';
 import { Form, InputNumber, Input } from 'antd';
+import _ from 'lodash';
 import Select from '@/components/Select';
 // import dict from '@/utils/dict';
 // import regexps from '@/utils/regexps';
@@ -35,13 +36,24 @@ class CustomizeComponent extends PureComponent {
   render() {
     const {
       data,
+      hasSelect,
+      selectList,
       form: { getFieldDecorator },
     } = this.props;
+
+    getFieldDecorator('oilSelect.oilModelName', {
+      initialValue: data.oilModelName,
+    });
 
     return (
       <Form style={{ marginBottom: -24 }}>
         <FormItem {...formItemLayout} label="油品名称">
-          {getFieldDecorator('oilSelect.type', {
+          {getFieldDecorator('oilSelect.oilModelId', {
+            initialValue: data.oilModelId,
+            getValueFromEvent: value => {
+              console.log(value);
+              return value;
+            },
             rules: [
               {
                 required: true,
@@ -52,12 +64,13 @@ class CustomizeComponent extends PureComponent {
             <Select
               placeholder="请选择油品名称"
               autoComplete="off"
-              data={[{ itemCode: 1, itemName: 1 }]}
+              data={_.differenceBy(selectList, hasSelect, 'id')}
             />
           )}
         </FormItem>
         <FormItem {...formItemLayout} label="零售价">
-          {getFieldDecorator('oilSelect.j', {
+          {getFieldDecorator('oilSelect.oilRetailPrice', {
+            initialValue: data.oilRetailPrice,
             rules: [
               {
                 required: true,
@@ -76,7 +89,8 @@ class CustomizeComponent extends PureComponent {
           )}
         </FormItem>
         <FormItem {...formItemLayout} label="零售价浮动预警">
-          {getFieldDecorator('oilSelect.h', {
+          {getFieldDecorator('oilSelect.oilRetailWarn', {
+            initialValue: data.oilRetailWarn,
             rules: [
               {
                 required: true,
@@ -96,8 +110,8 @@ class CustomizeComponent extends PureComponent {
           %
         </FormItem>
         <FormItem {...formItemLayout} label="会员折扣">
-          {getFieldDecorator('oilSelect.i', {
-            initialValue: data.i,
+          {getFieldDecorator('oilSelect.oilMemberAgio', {
+            initialValue: data.oilMemberAgio,
             rules: [
               {
                 required: true,
@@ -117,8 +131,8 @@ class CustomizeComponent extends PureComponent {
           %
         </FormItem>
         <FormItem {...formItemLayout} label="会员价">
-          {getFieldDecorator('oilSelect.k', {
-            initialValue: 20,
+          {getFieldDecorator('oilSelect.oilMemberPrice', {
+            initialValue: data.oilMemberPrice,
           })(<Input readOnly placeholder="请填写会员折扣" autoComplete="off" />)}
         </FormItem>
       </Form>

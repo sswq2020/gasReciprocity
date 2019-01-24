@@ -1,16 +1,27 @@
 import React, { PureComponent } from 'react';
-// import { connect } from 'dva';
+import { connect } from 'dva';
 import PageHeaderWrapper from '@/components/PageHeaderWrapper';
 import GasForm from './components/GasForm';
 
-// @connect(({ loading }) => ({
-//   getListIsLoading: loading.effects['gasList/getList'],
-// }))
+@connect(({ loading, gasCreate }) => ({
+  gasCreate,
+  isLoading: loading.effects['gasCreate/create'],
+}))
 class Page extends PureComponent {
   render() {
+    const {
+      gasCreate: { formData },
+      isLoading,
+    } = this.props;
     return (
       <PageHeaderWrapper>
-        <GasForm />
+        <GasForm
+          loading={isLoading}
+          data={formData}
+          onOk={data => {
+            console.log(data);
+          }}
+        />
       </PageHeaderWrapper>
     );
   }
