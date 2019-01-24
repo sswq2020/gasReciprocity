@@ -1,7 +1,6 @@
 import React, { PureComponent, Fragment } from 'react';
 import { connect } from 'dva';
 import router from 'umi/router';
-// import Link from 'umi/link';
 import { Row, Col, Input, Form, Button, Modal, DatePicker } from 'antd';
 import PageHeaderWrapper from '@/components/PageHeaderWrapper';
 import TableList from '@/components/TableList';
@@ -40,7 +39,7 @@ class Page extends PureComponent {
       dispatch({
         type: 'invoiceConfirm/changeListParams',
         payload: {
-          page: 1,
+          currentPage: 1,
           ...getFieldsValue(),
         },
       });
@@ -93,8 +92,8 @@ class Page extends PureComponent {
       dispatch,
       invoiceConfirmIsLoading,
       invoiceConfirm: {
-        listParams: { page },
-        list: { data: listData, totalItemCount },
+        listParams: { currentPage },
+        list: { list: listData, itemCount: totalItemCount },
       },
     } = this.props;
 
@@ -105,7 +104,9 @@ class Page extends PureComponent {
           key: '#',
           width: 60,
           fixed: 'left',
-          render: (text, record, index) => <Fragment>{(page - 1) * 10 + index + 1}</Fragment>,
+          render: (text, record, index) => (
+            <Fragment>{(currentPage - 1) * 10 + index + 1}</Fragment>
+          ),
         },
         {
           title: '加油站名称',
@@ -225,6 +226,7 @@ class Page extends PureComponent {
           },
         },
       ],
+      rowKey: 'id',
       scroll: { x: 'max-content' },
       dataSource: listData,
       loading: invoiceConfirmIsLoading,
@@ -233,13 +235,13 @@ class Page extends PureComponent {
       },
       pagination: {
         total: totalItemCount,
-        current: page,
+        current: currentPage,
       },
       onChange: pagination => {
         dispatch({
           type: 'invoiceConfirm/changeListParams',
           payload: {
-            page: pagination.current,
+            pagcurrentPagee: pagination.current,
           },
         });
       },

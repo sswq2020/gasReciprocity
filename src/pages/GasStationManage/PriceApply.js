@@ -1,6 +1,6 @@
 import React, { PureComponent, Fragment } from 'react';
 import { connect } from 'dva';
-import { Row, Col, Form, Button, Card } from 'antd';
+import { Row, Col, Form, Button } from 'antd';
 import PageHeaderWrapper from '@/components/PageHeaderWrapper';
 import TableList from '@/components/TableList';
 import HLModal from '@/components/Modal';
@@ -38,7 +38,7 @@ class Page extends PureComponent {
       dispatch({
         type: 'priceApply/changeListParams',
         payload: {
-          page: 1,
+          currentPage: 1,
           ...getFieldsValue(),
         },
       });
@@ -193,31 +193,29 @@ class Page extends PureComponent {
 
     return (
       <PageHeaderWrapper>
-        <Card bordered={false} bodyStyle={{ padding: '0 0 20px 0' }}>
-          <ListHeaderForm>{this.renderAdvancedForm()}</ListHeaderForm>
-          <TableList {...listProps} />
-          <HLModal
-            title="调价申请"
-            visible={visible}
-            confirmLoading={applyPriceIsLoading}
-            onClose={() => {
-              dispatch({
-                type: 'priceApply/closeForm',
-              });
-            }}
-            onOk={(data, resetFields) => {
-              dispatch({
-                type: 'priceApply/applyPrice',
-                payload: {
-                  data: { ...data },
-                  resetFields,
-                },
-              });
-            }}
-          >
-            <PriceApplyForm data={formData} />
-          </HLModal>
-        </Card>
+        <ListHeaderForm>{this.renderAdvancedForm()}</ListHeaderForm>
+        <TableList {...listProps} />
+        <HLModal
+          title="调价申请"
+          visible={visible}
+          confirmLoading={applyPriceIsLoading}
+          onClose={() => {
+            dispatch({
+              type: 'priceApply/closeForm',
+            });
+          }}
+          onOk={(data, resetFields) => {
+            dispatch({
+              type: 'priceApply/applyPrice',
+              payload: {
+                data: { ...data },
+                resetFields,
+              },
+            });
+          }}
+        >
+          <PriceApplyForm data={formData} />
+        </HLModal>
       </PageHeaderWrapper>
     );
   }

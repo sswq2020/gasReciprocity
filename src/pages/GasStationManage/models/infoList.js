@@ -7,7 +7,7 @@ const namespace = 'infoList';
 const selectState = state => state[namespace];
 
 const defaultListParams = {
-  refuelTime: moment(new Date(), 'YYYY/MM/DD').valueOf(), // 统一时间戳
+  queryYears: moment(new Date(), 'YYYY-MM'), // 统一时间戳
   currentPage: 1,
 };
 
@@ -18,15 +18,23 @@ export default {
       ...defaultListParams,
     },
     list: {
-      list: [],
+      orderDtoList: [],
       itemCount: 0,
+      // pageTotal: 0,
+      // subtotal: 0,
+      // fuelVSubTotal: 0,
+      // total: 0,
+      // fuelVTotal: 0,
     },
   },
   reducers,
   effects: {
     *getList(_, { call, put, select }) {
       const { listParams } = yield select(selectState);
-      const response = yield call(services.refuelDetailList, listParams);
+      const queryParams = Object.assign({}, listParams, {
+        queryYears: moment(listParams.queryYears).format('YYYY-MM'),
+      });
+      const response = yield call(services.refuelDetailList, queryParams);
       switch (response.code) {
         case '000000':
           yield put({
