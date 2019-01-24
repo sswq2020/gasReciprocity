@@ -8,7 +8,7 @@ const selectState = state => state[namespace];
 const defaultListParams = {
   year: '', // 年月
   gasStation: '', // 加油站名称
-  page: 1,
+  currentPage: 1,
 };
 
 export default {
@@ -18,8 +18,8 @@ export default {
       ...defaultListParams,
     },
     list: {
-      data: [],
-      totalItemCount: 0,
+      list: [],
+      itemCount: 0,
     },
   },
 
