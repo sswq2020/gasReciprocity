@@ -5,6 +5,7 @@ import PageHeaderWrapper from '@/components/PageHeaderWrapper';
 import TableList from '@/components/TableList';
 import ListHeaderForm from '@/components/ListHeaderForm';
 
+const { MonthPicker } = DatePicker;
 const FormItem = Form.Item;
 const formItemWidth = {
   lg: 8,
@@ -55,18 +56,18 @@ class Page extends PureComponent {
   renderAdvancedForm() {
     const {
       form: { getFieldDecorator },
+      infoList: { queryYears },
     } = this.props;
-
-    const dateFormat = 'YYYY/MM/DD';
+    const dateFormat = 'YYYY-MM';
 
     return (
       <Form onSubmit={this.changeListParams} layout="inline">
         <Row gutter={{ md: 8, lg: 24, xl: 48 }}>
           <Col {...formItemWidth}>
             <FormItem label="日期">
-              {getFieldDecorator('refuelTime')(
-                <DatePicker style={{ width: '100%' }} format={dateFormat} />
-              )}
+              {getFieldDecorator('queryYears', {
+                initialValue: queryYears,
+              })(<MonthPicker style={{ width: '100%' }} format={dateFormat} />)}
             </FormItem>
           </Col>
           <Col className="submitButtons" {...formItemWidth}>
@@ -88,7 +89,7 @@ class Page extends PureComponent {
       getListIsLoading,
       infoList: {
         listParams: { currentPage },
-        list: { list: listData, itemCount: totalItemCount },
+        list: { orderDtoList: listData, itemCount: totalItemCount },
       },
     } = this.props;
     const listProps = {
@@ -104,51 +105,51 @@ class Page extends PureComponent {
         },
         {
           title: '会员名',
-          key: 'member',
+          key: 'userName',
           width: 100,
           fixed: 'left',
           render: (text, record) => {
-            return <Fragment>{record.b}</Fragment>;
+            return <Fragment>{record.userName}</Fragment>;
           },
         },
         {
           title: '车牌号',
-          key: 'carNum',
+          key: 'userPlate',
           width: 120,
-          render: (text, record) => <Fragment>{record.c}</Fragment>,
+          render: (text, record) => <Fragment>{record.userPlate}</Fragment>,
         },
         {
           title: '油品名称',
-          key: 'fuelName',
-          render: (text, record) => <Fragment>{record.d}</Fragment>,
+          key: 'oilModelName',
+          render: (text, record) => <Fragment>{record.oilModelName}</Fragment>,
         },
         {
           title: '零售价',
-          key: 'retailPrice',
+          key: 'oilRetailPrice',
           width: 100,
-          render: (text, record) => <Fragment>{record.e}</Fragment>,
+          render: (text, record) => <Fragment>{record.oilRetailPrice}</Fragment>,
         },
         {
           title: '惠龙价',
-          key: 'hletPricw',
+          key: 'oilMemberPrice',
           width: 120,
-          render: (text, record) => <Fragment>{record.f}</Fragment>,
+          render: (text, record) => <Fragment>{record.oilMemberPrice}</Fragment>,
         },
         {
           title: '加油量',
-          key: 'fuelQuantity',
+          key: 'fuelVolume',
           width: 100,
-          render: (text, record) => <Fragment>{record.g}</Fragment>,
+          render: (text, record) => <Fragment>{record.fuelVolume}</Fragment>,
         },
         {
           title: '加油金额',
-          key: 'fuelPrice',
-          render: (text, record) => <Fragment>{record.h}</Fragment>,
+          key: 'totalPrice',
+          render: (text, record) => <Fragment>{record.totalPrice}</Fragment>,
         },
         {
           title: '日期',
-          key: 'date',
-          render: (text, record) => <Fragment>{record.i}</Fragment>,
+          key: 'orderTime',
+          render: (text, record) => <Fragment>{record.orderTime}</Fragment>,
         },
       ],
       rowKey: 'id',

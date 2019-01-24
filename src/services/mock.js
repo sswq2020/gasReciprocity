@@ -123,14 +123,14 @@ const oilLite = {
  */
 const refuelDetailList = {
   'id|+1': 1,
-  b: '@INTEGER(13000000000,18999999999)', // 会员名
-  c: '苏L@INTEGER(1000,9999)', // 车牌号
-  d: '0#', // 油品名称
-  e: '￥@float(5,8)', // 零售价
-  f: '￥@float(5,8)', // 惠龙价
-  g: '@INTEGER(10,100)L', // 加油量
-  h: '￥@float(400,2000)', // 加油金额
-  i: '@DATE("yyyy-MM-dd HH:mm:ss")', // 日期
+  userName: '@INTEGER(13000000000,18999999999)', // 会员名
+  userPlate: '苏L@INTEGER(1000,9999)', // 车牌号
+  oilModelName: '0#', // 油品名称
+  oilRetailPrice: '￥@float(5,8)', // 零售价
+  oilMemberPrice: '￥@float(5,8)', // 惠龙价
+  fuelVolume: '@INTEGER(10,100)L', // 加油量
+  totalPrice: '￥@float(400,2000)', // 加油金额
+  orderTime: '@DATE("yyyy-MM-dd HH:mm:ss")', // 日期
 };
 
 /**
@@ -444,15 +444,20 @@ const mockRouterMap = {
     },
     {
       isMock: true,
-      method: 'get',
-      router: '/refuelDetailList',
+      method: 'post',
+      router: '/action/jy/queryRefuelingDetails',
       result(params) {
         return {
           ...body,
           data: {
-            totalPageCount: 100 / params.size,
-            totalItemCount: 100,
-            'list|1-10': [refuelDetailList],
+            subtotal: 100, // 小计
+            fuelVSubTotal: 100, // 加油量小计
+            total: 100, // 总计
+            fuelVTotal: 100, // 加油量总计
+            'orderDtoList|1-10': [refuelDetailList],
+            pageTotal: 100 / params.pageSize,
+            itemCount: 100,
+            pageSize: 10,
           },
         };
       },
