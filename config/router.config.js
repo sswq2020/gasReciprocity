@@ -12,8 +12,8 @@ export default [
   {
     path: '/',
     component: '../layouts/BasicLayout',
-    Routes: ['src/pages/AuthorizedHasToken', 'src/pages/AuthorizedHasAuth'],
-    authority: ['1', '2'],
+    // Routes: ['src/pages/AuthorizedHasToken', 'src/pages/AuthorizedHasAuth'],
+    // authority: ['1', '2'],
     routes: [
       // { path: '/', redirect: '/machine' },
       {
@@ -21,7 +21,7 @@ export default [
         name: 'gasSys',
         title: '加油站管理',
         icon: 'shop',
-        authority: ['1'],
+        // authority: ['1'],
         // hideChildrenInMenu: true,
         routes: [
           { path: '/gasSys', redirect: '/gasSys/gas' },

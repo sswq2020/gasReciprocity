@@ -1,57 +1,51 @@
-// import { message } from 'antd';
+import { message } from 'antd';
 import { reducers } from '@/utils/utils';
-// import services from '@/services';
+import services from '@/services';
 
 const namespace = 'gasForm';
 const selectState = state => state[namespace];
 
 const defaultFormData = {
-  username: '',
-  password: '',
-  type: 'GENERAL',
+  oilModelId: null,
+  oilModelName: null,
+  oilRetailPrice: null,
+  oilRetailWarn: null,
+  oilMemberAgio: null,
+  oilMemberPrice: null,
 };
 
 export default {
   namespace,
   state: {
-    oilSelectList: [1, 2, 3, 4],
-    oilList: [
-      {
-        id: '1',
-        b: 'b',
-        c: 'b',
-        d: 'b',
-        e: 'b',
-        f: 'b',
-      },
-      {
-        id: '2',
-        b: 'b',
-        c: 'b',
-        d: 'b',
-        e: 'b',
-        f: 'b',
-      },
-      {
-        id: '3',
-        b: 'b',
-        c: 'b',
-        d: 'b',
-        e: 'b',
-        f: 'b',
-      },
-    ],
-    imgList: [0, 1],
-    visible: false,
-    isEdit: false,
     formData: {
       ...defaultFormData,
     },
+    visible: false,
+    isEdit: false,
+    provinceList: [],
+    featureServiceInfoList: [],
+    oilModelInfoList: [],
   },
 
   reducers,
 
   effects: {
+    *getDict(_, { put, call }) {
+      const response = yield call(services.gasDict);
+      switch (response.code) {
+        case '000000':
+          yield put({
+            type: 'updateStateProps',
+            payload: {
+              ...response.data,
+            },
+          });
+          break;
+        default:
+          message.warning('相关资源获取失败，请稍后重试！');
+          break;
+      }
+    },
     *add({ payload }, { put, select }) {
       const { oilList } = yield select(selectState);
       const { resetFields } = payload;

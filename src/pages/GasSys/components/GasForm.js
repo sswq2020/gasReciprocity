@@ -11,44 +11,6 @@ import HLModal from '@/components/Modal';
 import OilSelectForm from './OilSelectForm';
 import styles from './gasForm.less';
 
-const children = [];
-for (let i = 10; i < 36; i++) {
-  children.push(<Select.Option key={i.toString(36) + i}>{i.toString(36) + i}</Select.Option>);
-}
-const options = [
-  {
-    value: 'zhejiang',
-    label: 'Zhejiang',
-    children: [
-      {
-        value: 'hangzhou',
-        label: 'Hangzhou',
-        children: [
-          {
-            value: 'xihu',
-            label: 'West Lake',
-          },
-        ],
-      },
-    ],
-  },
-  {
-    value: 'jiangsu',
-    label: 'Jiangsu',
-    children: [
-      {
-        value: 'nanjing',
-        label: 'Nanjing',
-        children: [
-          {
-            value: 'zhonghuamen',
-            label: 'Zhong Hua Men',
-          },
-        ],
-      },
-    ],
-  },
-];
 const FormItem = Form.Item;
 const formItemWidth = {
   lg: 8,
@@ -136,13 +98,37 @@ const formItemWidth = {
   gasForm,
 }))
 class CustomizeComponent extends PureComponent {
+  constructor(props) {
+    super(props);
+    const { dispatch } = this.props;
+    dispatch({ type: 'gasForm/getDict' });
+  }
+
   render() {
     const {
       dispatch,
-      data = {},
-      gasForm: { formData, imgList, oilList, oilSelectList, visible, isEdit },
-      form: { getFieldDecorator, resetFields, getFieldsValue, validateFields },
+      onOk,
+      data,
+      gasForm: {
+        provinceList,
+        oilModelInfoList,
+        featureServiceInfoList,
+        formData,
+        visible,
+        isEdit,
+      },
+      form: {
+        getFieldDecorator,
+        resetFields,
+        setFieldsValue,
+        getFieldValue,
+        getFieldsValue,
+        validateFields,
+      },
     } = this.props;
+
+    const fileList = getFieldValue('gas.fileList') || data.fileList;
+    const gasOilModelList = getFieldValue('gas.gasOilModelList') || data.gasOilModelList;
 
     const gasListProps = {
       style: {
@@ -159,34 +145,36 @@ class CustomizeComponent extends PureComponent {
         },
         {
           title: '油品名称',
-          key: 'b',
+          key: 'oilModelName',
           render: (text, record) => {
-            return <Fragment>{record.b}</Fragment>;
+            return <Fragment>{record.oilModelName}</Fragment>;
           },
         },
         {
           title: '零售价',
           align: 'center',
-          key: 'no',
-          render: (text, record) => <Fragment>{record.c}</Fragment>,
+          key: 'oilRetailPrice',
+          render: (text, record) => <Fragment>{record.oilRetailPrice}</Fragment>,
         },
         {
           title: '会员折扣(%)',
           align: 'center',
-          key: 'name',
-          render: (text, record) => <Fragment>{record.d}</Fragment>,
+          key: 'oilMemberAgio',
+          render: (text, record) => <Fragment>{record.oilMemberAgio}</Fragment>,
         },
         {
           title: '会员价',
           align: 'center',
-          key: 'tel',
-          render: (text, record) => <Fragment>{record.e}</Fragment>,
+          key: 'oilMemberPrice',
+          render: (text, record) => (
+            <Fragment>{(record.oilRetailPrice * 100 * record.oilMemberAgio) / 100}</Fragment>
+          ),
         },
         {
           title: '零售价浮动预警',
           align: 'center',
-          key: 'sf',
-          render: (text, record) => <Fragment>{record.f}</Fragment>,
+          key: 'oilRetailWarn',
+          render: (text, record) => <Fragment>{record.oilRetailWarn}</Fragment>,
         },
         {
           title: <div style={{ textAlign: 'center' }}>操作</div>,
@@ -211,22 +199,19 @@ class CustomizeComponent extends PureComponent {
           },
         },
       ],
-      dataSource: oilList,
+      dataSource: gasOilModelList,
       pagination: false,
     };
 
-    const pics = imgList.map((r, i) => {
+    const pics = fileList.map((file, index) => {
       return (
-        <div key={r} className={styles.imgBox}>
+        <div key={file.fileId} className={styles.imgBox}>
           <ImageBox
-            url="//lorempixel.com/450/200/"
+            url={file.url}
             onDelete={() => {
-              imgList.splice(i, 1);
-              dispatch({
-                type: 'gasForm/overrideStateProps',
-                payload: {
-                  imgList,
-                },
+              fileList.splice(index, 1);
+              setFieldsValue({
+                'gas.fileList': fileList,
               });
             }}
           />
@@ -241,8 +226,8 @@ class CustomizeComponent extends PureComponent {
           <Row>
             <Col {...formItemWidth}>
               <FormItem label="会员名">
-                {getFieldDecorator('gas.user', {
-                  initialValue: data.user,
+                {getFieldDecorator('gas.memberName', {
+                  initialValue: data.memberName,
                   rules: [
                     {
                       required: true,
@@ -259,8 +244,8 @@ class CustomizeComponent extends PureComponent {
             </Col>
             <Col {...formItemWidth}>
               <FormItem label="管理员姓名">
-                {getFieldDecorator('gas.name', {
-                  initialValue: data.name,
+                {getFieldDecorator('gas.adminName', {
+                  initialValue: data.adminName,
                   rules: [
                     {
                       required: true,
@@ -278,8 +263,8 @@ class CustomizeComponent extends PureComponent {
             </Col>
             <Col {...formItemWidth}>
               <FormItem label="管理员身份证号">
-                {getFieldDecorator('gas.pId', {
-                  initialValue: data.pId,
+                {getFieldDecorator('gas.adminCard', {
+                  initialValue: data.adminCard,
                   rules: [
                     {
                       required: true,
@@ -297,7 +282,7 @@ class CustomizeComponent extends PureComponent {
           </Row>
           <FormItemHead>加油站信息：</FormItemHead>
           <Row>
-            <Col lg={24} md={24} sm={24}>
+            {/* <Col lg={24} md={24} sm={24}>
               <FormItem label="加油站编号">
                 <div>sfsfsf</div>
               </FormItem>
@@ -306,32 +291,28 @@ class CustomizeComponent extends PureComponent {
               <FormItem label="二维码">
                 <ImageBox url="//lorempixel.com/450/200/" />
               </FormItem>
-            </Col>
-            <Col lg={16} md={24} sm={24}>
+            </Col> */}
+            <Col lg={24} md={24} sm={24}>
               <FormItem label="加油站照片(门头)">
                 {pics}
-                {imgList.length < 3 && (
+                {fileList.length < 3 && (
                   <div className={styles.imgBox}>
                     <ImageUpload
-                      onSuccess={response => {
-                        console.log(response);
-                        imgList.push(imgList.length);
-                        dispatch({
-                          type: 'gasForm/overrideStateProps',
-                          payload: {
-                            imgList,
-                          },
+                      onSuccess={file => {
+                        fileList.push(file);
+                        setFieldsValue({
+                          'gas.fileList': fileList,
                         });
                       }}
                     />
                   </div>
                 )}
-                {getFieldDecorator('gas.pic', {
-                  initialValue: imgList,
+                {getFieldDecorator('gas.fileList', {
+                  initialValue: data.fileList,
                   rules: [
                     {
+                      required: true,
                       validator: (rule, value, callback) => {
-                        console.log(value);
                         if (value.length === 0) {
                           callback('请上传加油站照片');
                         }
@@ -344,8 +325,8 @@ class CustomizeComponent extends PureComponent {
             </Col>
             <Col {...formItemWidth}>
               <FormItem label="加油站名称">
-                {getFieldDecorator('gas.gasName', {
-                  initialValue: data.gasName,
+                {getFieldDecorator('gas.gsName', {
+                  initialValue: data.gsName,
                   rules: [
                     {
                       required: true,
@@ -363,8 +344,8 @@ class CustomizeComponent extends PureComponent {
             </Col>
             <Col {...formItemWidth}>
               <FormItem label="加油站电话">
-                {getFieldDecorator('gas.gasPhone', {
-                  initialValue: data.gasPhone,
+                {getFieldDecorator('gas.gsPhone', {
+                  initialValue: data.gsPhone,
                   rules: [
                     {
                       required: true,
@@ -381,8 +362,8 @@ class CustomizeComponent extends PureComponent {
             </Col>
             <Col {...formItemWidth}>
               <FormItem label="联系邮箱">
-                {getFieldDecorator('gas.mail', {
-                  initialValue: data.mail,
+                {getFieldDecorator('gas.gsEmail', {
+                  initialValue: data.gsEmail,
                   rules: [
                     {
                       required: true,
@@ -399,8 +380,8 @@ class CustomizeComponent extends PureComponent {
             </Col>
             <Col {...formItemWidth}>
               <FormItem label="油站联系人">
-                {getFieldDecorator('gas.contact', {
-                  initialValue: data.contact,
+                {getFieldDecorator('gas.gsContact', {
+                  initialValue: data.gsContact,
                   rules: [
                     {
                       required: true,
@@ -442,8 +423,8 @@ class CustomizeComponent extends PureComponent {
 
             <Col {...formItemWidth}>
               <FormItem label="所在地区">
-                {getFieldDecorator('gas.area', {
-                  initialValue: data.area,
+                {getFieldDecorator('gas.areaList', {
+                  initialValue: data.areaList,
                   rules: [
                     {
                       required: true,
@@ -452,9 +433,14 @@ class CustomizeComponent extends PureComponent {
                   ],
                 })(
                   <Cascader
-                    allowClear={false}
                     placeholder="请选择所在地区"
-                    options={options}
+                    allowClear={false}
+                    fieldNames={{
+                      label: 'name',
+                      value: 'id',
+                      children: 'children',
+                    }}
+                    options={provinceList}
                     autoComplete="off"
                   />
                 )}
@@ -462,8 +448,8 @@ class CustomizeComponent extends PureComponent {
             </Col>
             <Col {...formItemWidth}>
               <FormItem label="详细地址">
-                {getFieldDecorator('gas.address', {
-                  initialValue: data.address,
+                {getFieldDecorator('gas.gsDetailAddress', {
+                  initialValue: data.gsDetailAddress,
                   rules: [
                     {
                       required: true,
@@ -481,8 +467,8 @@ class CustomizeComponent extends PureComponent {
             </Col>
             <Col {...formItemWidth}>
               <FormItem label="营业时间">
-                {getFieldDecorator('gas.workTime', {
-                  initialValue: data.workTime,
+                {getFieldDecorator('gas.gsBusinessTime', {
+                  initialValue: data.gsBusinessTime,
                   rules: [
                     {
                       required: true,
@@ -500,9 +486,13 @@ class CustomizeComponent extends PureComponent {
             </Col>
             <Col lg={8} md={24} sm={24}>
               <FormItem label="特色服务">
-                {getFieldDecorator('gas.service')(
+                {getFieldDecorator('gas.gasFeatureServiceIdList', {
+                  initialValue: data.gasFeatureServiceIdList,
+                })(
                   <Select mode="multiple" placeholder="请选择" style={{ width: '100%' }}>
-                    {children}
+                    {featureServiceInfoList.map(service => (
+                      <Select.Option key={service.id}>{service.fsName}</Select.Option>
+                    ))}
                   </Select>
                 )}
               </FormItem>
@@ -510,26 +500,29 @@ class CustomizeComponent extends PureComponent {
           </Row>
           <FormItemHead>油品分类：</FormItemHead>
           <TableList {...gasListProps} />
-          {getFieldDecorator('gas.oilList', {})(<input type="hidden" />)}
-          {oilList.length < oilSelectList.length && (
-            <Button
-              block
-              icon="plus"
-              type="dashed"
-              style={{ marginBottom: 20 }}
-              onClick={() => {
-                dispatch({
-                  type: 'gasForm/openForm',
-                  payload: {
-                    isEdit: false,
-                    id: null,
-                  },
-                });
-              }}
-            >
-              新增油品信息
-            </Button>
-          )}
+          {getFieldDecorator('gas.gasOilModelList', {
+            initialValue: data.gasOilModelList,
+          })(<input type="hidden" />)}
+          {gasOilModelList.length < oilModelInfoList.length ||
+            (gasOilModelList.length === 0 && (
+              <Button
+                block
+                icon="plus"
+                type="dashed"
+                style={{ marginBottom: 20 }}
+                onClick={() => {
+                  dispatch({
+                    type: 'gasForm/openForm',
+                    payload: {
+                      isEdit: false,
+                      id: null,
+                    },
+                  });
+                }}
+              >
+                新增油品信息
+              </Button>
+            ))}
           {/* <FormItemHead>银行卡信息：</FormItemHead>
           <TableList {...bankListProps} /> */}
         </Form>
@@ -587,11 +580,16 @@ class CustomizeComponent extends PureComponent {
             });
           }}
         >
-          <OilSelectForm data={formData} />
+          <OilSelectForm
+            data={formData}
+            selectList={oilModelInfoList}
+            hasSelect={gasOilModelList.map(r => {
+              return { id: r.oilModelId, oilModelName: r.oilModelName };
+            })}
+          />
         </HLModal>
       </Fragment>
     );
   }
 }
-
 export default CustomizeComponent;
