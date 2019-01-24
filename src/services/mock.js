@@ -508,7 +508,7 @@ const mockRouterMap = {
           data: {
             totalPageCount: 100 / params.size,
             totalItemCount: 100,
-            'data|1-10': [invoiceConfirmLite],
+            'list|1-10': [invoiceConfirmLite],
           },
         };
       },
