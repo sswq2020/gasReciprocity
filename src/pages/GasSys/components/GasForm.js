@@ -109,6 +109,8 @@ class CustomizeComponent extends PureComponent {
       dispatch,
       onOk,
       data,
+      hasData,
+      loading,
       gasForm: {
         provinceList,
         oilModelInfoList,
@@ -133,8 +135,8 @@ class CustomizeComponent extends PureComponent {
     const gasListProps = {
       style: {
         marginTop: -24,
-        paddingBottom: 20,
       },
+      rowKey: 'oilModelId',
       columns: [
         {
           title: '序号',
@@ -154,27 +156,25 @@ class CustomizeComponent extends PureComponent {
           title: '零售价',
           align: 'center',
           key: 'oilRetailPrice',
-          render: (text, record) => <Fragment>{record.oilRetailPrice}</Fragment>,
+          render: (text, record) => <Fragment>{record.oilRetailPrice}元</Fragment>,
         },
         {
           title: '会员折扣(%)',
           align: 'center',
           key: 'oilMemberAgio',
-          render: (text, record) => <Fragment>{record.oilMemberAgio}</Fragment>,
+          render: (text, record) => <Fragment>{record.oilMemberAgio}%</Fragment>,
         },
         {
           title: '会员价',
           align: 'center',
           key: 'oilMemberPrice',
-          render: (text, record) => (
-            <Fragment>{(record.oilRetailPrice * 100 * record.oilMemberAgio) / 100}</Fragment>
-          ),
+          render: (text, record) => <Fragment>{record.oilMemberPrice}元</Fragment>,
         },
         {
           title: '零售价浮动预警',
           align: 'center',
           key: 'oilRetailWarn',
-          render: (text, record) => <Fragment>{record.oilRetailWarn}</Fragment>,
+          render: (text, record) => <Fragment>{record.oilRetailWarn}%</Fragment>,
         },
         {
           title: <div style={{ textAlign: 'center' }}>操作</div>,
@@ -186,9 +186,9 @@ class CustomizeComponent extends PureComponent {
               <Fragment>
                 <a
                   onClick={() => {
-                    dispatch({
-                      type: 'gasForm/delete',
-                      payload: index,
+                    gasOilModelList.splice(index, 1);
+                    setFieldsValue({
+                      'gas.gasOilModelList': gasOilModelList,
                     });
                   }}
                 >
@@ -272,7 +272,7 @@ class CustomizeComponent extends PureComponent {
                       message: '请填写管理员身份证号',
                     },
                     {
-                      whitespace: true,
+                      pattern: regexps.IdCard,
                       message: '前填写正确的身份证号',
                     },
                   ],
@@ -431,19 +431,28 @@ class CustomizeComponent extends PureComponent {
                       message: '请选择所在地区',
                     },
                   ],
-                })(
-                  <Cascader
-                    placeholder="请选择所在地区"
-                    allowClear={false}
-                    fieldNames={{
-                      label: 'name',
-                      value: 'id',
-                      children: 'children',
-                    }}
-                    options={provinceList}
-                    autoComplete="off"
-                  />
-                )}
+                })(<Input type="hidden" />)}
+                <Cascader
+                  placeholder="请选择所在地区"
+                  allowClear={false}
+                  fieldNames={{
+                    label: 'name',
+                    value: 'id',
+                    children: 'children',
+                  }}
+                  options={provinceList}
+                  autoComplete="off"
+                  onChange={(value, selectedOptions) => {
+                    setFieldsValue({
+                      'gas.areaList': selectedOptions.map(item => {
+                        return {
+                          id: item.id,
+                          name: item.name,
+                        };
+                      }),
+                    });
+                  }}
+                />
               </FormItem>
             </Col>
             <Col {...formItemWidth}>
@@ -499,30 +508,42 @@ class CustomizeComponent extends PureComponent {
             </Col>
           </Row>
           <FormItemHead>油品分类：</FormItemHead>
-          <TableList {...gasListProps} />
-          {getFieldDecorator('gas.gasOilModelList', {
-            initialValue: data.gasOilModelList,
-          })(<input type="hidden" />)}
-          {gasOilModelList.length < oilModelInfoList.length ||
-            (gasOilModelList.length === 0 && (
-              <Button
-                block
-                icon="plus"
-                type="dashed"
-                style={{ marginBottom: 20 }}
-                onClick={() => {
-                  dispatch({
-                    type: 'gasForm/openForm',
-                    payload: {
-                      isEdit: false,
-                      id: null,
-                    },
-                  });
-                }}
-              >
-                新增油品信息
-              </Button>
-            ))}
+          <FormItem>
+            <TableList {...gasListProps} />
+            {getFieldDecorator('gas.gasOilModelList', {
+              initialValue: data.gasOilModelList,
+              rules: [
+                {
+                  required: true,
+                  validator: (rule, value, callback) => {
+                    if (value.length === 0) {
+                      callback('请选择油品分类');
+                    }
+                    callback();
+                  },
+                },
+              ],
+            })(<input type="hidden" />)}
+          </FormItem>
+          {(gasOilModelList.length < oilModelInfoList.length || gasOilModelList.length === 0) && (
+            <Button
+              block
+              icon="plus"
+              type="dashed"
+              style={{ marginBottom: 20 }}
+              onClick={() => {
+                dispatch({
+                  type: 'gasForm/openForm',
+                  payload: {
+                    isEdit: false,
+                    id: null,
+                  },
+                });
+              }}
+            >
+              新增油品信息
+            </Button>
+          )}
           {/* <FormItemHead>银行卡信息：</FormItemHead>
           <TableList {...bankListProps} /> */}
         </Form>
@@ -544,17 +565,20 @@ class CustomizeComponent extends PureComponent {
             取消
           </Button>
           <Button
+            loading={loading}
             onClick={() => {
               validateFields(errors => {
                 if (errors) {
                   return;
                 }
-                onOk(
-                  {
-                    ...getFieldsValue(),
-                  },
-                  resetFields
-                );
+                if (hasData === true) {
+                  onOk(
+                    {
+                      ...getFieldsValue(),
+                    },
+                    resetFields
+                  );
+                }
               });
             }}
             type="primary"
@@ -565,13 +589,13 @@ class CustomizeComponent extends PureComponent {
         <HLModal
           title={`${isEdit === false ? '新增' : '编辑'}油品信息`}
           visible={visible}
-          onOk={(fData, fResetFields) => {
+          onOk={fData => {
+            gasOilModelList.push(fData.oilSelect);
+            setFieldsValue({
+              'gas.gasOilModelList': gasOilModelList,
+            });
             dispatch({
-              type: isEdit === false ? 'gasForm/add' : 'gasForm/edit',
-              payload: {
-                data: { ...fData.oilSelect },
-                resetFields: fResetFields,
-              },
+              type: 'gasForm/closeForm',
             });
           }}
           onClose={() => {
@@ -582,9 +606,11 @@ class CustomizeComponent extends PureComponent {
         >
           <OilSelectForm
             data={formData}
-            selectList={oilModelInfoList}
+            selectList={oilModelInfoList.map(r => {
+              return { itemCode: r.id, itemName: r.oilModelName };
+            })}
             hasSelect={gasOilModelList.map(r => {
-              return { id: r.oilModelId, oilModelName: r.oilModelName };
+              return { itemCode: r.oilModelId, itemName: r.oilModelName };
             })}
           />
         </HLModal>

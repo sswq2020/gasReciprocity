@@ -6,7 +6,7 @@ const namespace = 'gasForm';
 const selectState = state => state[namespace];
 
 const defaultFormData = {
-  oilModelId: null,
+  oilModelId: undefined,
   oilModelName: null,
   oilRetailPrice: null,
   oilRetailWarn: null,
@@ -35,7 +35,7 @@ export default {
       switch (response.code) {
         case '000000':
           yield put({
-            type: 'updateStateProps',
+            type: 'overrideStateProps',
             payload: {
               ...response.data,
             },

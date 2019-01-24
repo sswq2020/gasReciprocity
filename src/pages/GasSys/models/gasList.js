@@ -6,8 +6,8 @@ const namespace = 'gasList';
 const selectState = state => state[namespace];
 
 const defaultListParams = {
-  appId: '',
-  text: '',
+  memberName: '',
+  gsName: '',
   certState: null,
   page: 1,
 };
@@ -17,6 +17,7 @@ export default {
   state: {
     // qCodePopup: false,
     // qCodeUrl: '',
+    toEdit: false,
     listParams: {
       ...defaultListParams,
     },
@@ -59,6 +60,24 @@ export default {
       yield put({
         type: 'getList',
       });
+    },
+    *initList(_, { put, select }) {
+      const { toEdit } = yield select(selectState);
+      yield put({
+        type: 'overrideStateProps',
+        payload: {
+          toEdit: false,
+        },
+      });
+      if (toEdit === true) {
+        yield put({
+          type: 'getList',
+        });
+      } else {
+        yield put({
+          type: 'resetListParams',
+        });
+      }
     },
     *resetListParams(_, { put }) {
       yield put({

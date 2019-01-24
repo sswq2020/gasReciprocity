@@ -1,6 +1,8 @@
-// import { message } from 'antd';
+import { message } from 'antd';
+import { routerRedux } from 'dva/router';
 import { reducers } from '@/utils/utils';
-// import services from '@/services';
+import { gasFormAdapter } from '@/utils/adapter';
+import services from '@/services';
 
 const namespace = 'gasCreate';
 // const selectState = state => state[namespace];
@@ -36,10 +38,15 @@ export default {
   effects: {
     *create({ payload }, { call }) {
       const { data } = payload;
-      const response = yield call(services.gasCreate, data);
+      const response = yield call(services.gasCreate, gasFormAdapter(data));
       switch (response.code) {
         case '000000':
           message.success('加油站创建成功！');
+          yield put(
+            routerRedux.push({
+              pathname: '/gasSys/gas',
+            })
+          );
           break;
         default:
           message.warning(`${response.errMsg}，请稍后重试！`);

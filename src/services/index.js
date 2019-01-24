@@ -130,6 +130,14 @@ export default {
       url: '/action/gs/getGasBaseData',
     });
   },
+  gasCreate(params) {
+    return request({
+      host: BASEURL,
+      url: '/action/gs/insertGasStationInfo',
+      method: 'post',
+      params,
+    });
+  },
   gasList(params) {
     return request({
       host: BASEURL,
