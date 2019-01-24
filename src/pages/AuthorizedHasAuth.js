@@ -35,6 +35,7 @@ export default dynamic({
       const user = g_app._store.getState().user.currentUser;
       // console.log(user, children);
       if (user === null) {
+        window.localStorage.removeItem('xAuthToken');
         return <Redirect to="/account/login" />;
       } else {
         setAuthority(user.auth);

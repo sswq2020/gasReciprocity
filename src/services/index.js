@@ -124,6 +124,12 @@ export default {
       url: '/action/login/doLogout',
     });
   },
+  gasDict() {
+    return request({
+      host: BASEURL,
+      url: '//action/gs/getGasBaseData',
+    });
+  },
   gasList(params) {
     return request({
       host: BASEURL,
@@ -135,6 +141,7 @@ export default {
       },
     });
   },
+
   serviceList(params) {
     return request({
       host: BASEURL,
