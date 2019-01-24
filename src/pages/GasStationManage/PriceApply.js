@@ -169,7 +169,7 @@ class Page extends PureComponent {
                   onClick={() => {
                     dispatch({
                       type: 'priceHistoryList/openPopup',
-                      payload: 'world',
+                      payload: record,
                     });
                   }}
                 >

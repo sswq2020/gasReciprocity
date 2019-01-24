@@ -14,7 +14,6 @@ export default {
   namespace,
   state: {
     visible: false,
-    id: null,
     listParams: {
       ...defaultListParams,
     },
@@ -70,12 +69,21 @@ export default {
       });
     },
     *openPopup({ payload }, { put }) {
+      const { id } = payload;
+      yield put({
+        type: 'overrideStateProps',
+        payload: {
+          listParams: { ...defaultListParams, id },
+        },
+      });
       yield put({
         type: 'overrideStateProps',
         payload: {
           visible: true,
-          id: payload,
         },
+      });
+      yield put({
+        type: 'getList',
       });
     },
     *closePopup(_, { put }) {
