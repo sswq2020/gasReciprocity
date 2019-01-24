@@ -127,7 +127,7 @@ export default {
   gasDict() {
     return request({
       host: BASEURL,
-      url: '//action/gs/getGasBaseData',
+      url: '/action/gs/getGasBaseData',
     });
   },
   gasList(params) {
