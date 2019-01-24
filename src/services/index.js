@@ -276,10 +276,11 @@ export default {
   refuelDetailList(params) {
     return request({
       host: BASEURL,
-      url: '/refuelDetailList',
+      url: '/action/jy/queryRefuelingDetails',
+      method: 'post',
       params: {
-        page: 1,
-        size: 10,
+        currentPage: 1,
+        pageSize: 10,
         ...params,
       },
     });
