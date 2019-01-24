@@ -1,7 +1,6 @@
 import React, { PureComponent, Fragment } from 'react';
 import { connect } from 'dva';
 import router from 'umi/router';
-import Link from 'umi/link';
 import { Row, Col, Input, Form, Button, Modal } from 'antd';
 import PageHeaderWrapper from '@/components/PageHeaderWrapper';
 import TableList from '@/components/TableList';
@@ -25,7 +24,7 @@ let previewImage = null;
 class Page extends PureComponent {
   componentDidMount() {
     const { dispatch } = this.props;
-    dispatch({ type: 'gasList/resetListParams' });
+    dispatch({ type: 'gasList/initList' });
   }
 
   changeListParams = e => {
@@ -67,12 +66,12 @@ class Page extends PureComponent {
         <Row gutter={{ md: 16, lg: 24, xl: 48 }}>
           <Col {...formItemWidth}>
             <FormItem label="会员名">
-              {getFieldDecorator('text')(<Input placeholder="请输入" autoComplete="off" />)}
+              {getFieldDecorator('memberName')(<Input placeholder="请输入" autoComplete="off" />)}
             </FormItem>
           </Col>
           <Col {...formItemWidth}>
             <FormItem label="加油站名称">
-              {getFieldDecorator('appId')(<Input placeholder="请输入" autoComplete="off" />)}
+              {getFieldDecorator('gsName')(<Input placeholder="请输入" autoComplete="off" />)}
             </FormItem>
           </Col>
           <Col {...formItemWidth}>
@@ -117,12 +116,12 @@ class Page extends PureComponent {
         },
         {
           title: '会员名',
-          key: 'b',
+          key: 'memberName',
           width: 100,
           align: 'center',
           fixed: 'left',
           render: (text, record) => {
-            return <Fragment>{record.b}</Fragment>;
+            return <Fragment>{record.memberName}</Fragment>;
           },
         },
         {
@@ -133,37 +132,37 @@ class Page extends PureComponent {
         },
         {
           title: '加油站名称',
-          key: 'name',
-          render: (text, record) => <Fragment>{record.d}</Fragment>,
+          key: 'gsName',
+          render: (text, record) => <Fragment>{record.gsName}</Fragment>,
         },
         {
           title: '加油站电话',
-          key: 'tel',
+          key: 'gsPhone',
           width: 100,
-          render: (text, record) => <Fragment>{record.e}</Fragment>,
+          render: (text, record) => <Fragment>{record.gsPhone}</Fragment>,
         },
         {
           title: '加油站联系人',
-          key: 'contact',
+          key: 'gsContact',
           width: 120,
-          render: (text, record) => <Fragment>{record.f}</Fragment>,
+          render: (text, record) => <Fragment>{record.gsContact}</Fragment>,
         },
         {
           title: '联系人手机',
           key: 'contactPhone',
           align: 'center',
           width: 100,
-          render: (text, record) => <Fragment>{record.g}</Fragment>,
+          render: (text, record) => <Fragment>{record.contactPhone}</Fragment>,
         },
         {
           title: '联系邮箱',
-          key: 'contactEmail',
-          render: (text, record) => <Fragment>{record.h}</Fragment>,
+          key: 'gsEmail',
+          render: (text, record) => <Fragment>{record.gsEmail}</Fragment>,
         },
         {
           title: '加油站地址',
-          key: 'add',
-          render: (text, record) => <Fragment>{record.i}</Fragment>,
+          key: 'gsDetailAddress',
+          render: (text, record) => <Fragment>{record.gsDetailAddress}</Fragment>,
         },
         {
           title: '加油站状态',
@@ -176,7 +175,7 @@ class Page extends PureComponent {
               case '禁用':
                 flatClass = 'error_flat';
                 break;
-              case '正常':
+              case '启用':
                 flatClass = 'success_flat';
                 break;
               default:
@@ -221,9 +220,20 @@ class Page extends PureComponent {
             const showText = record.j === '禁用' ? '激活' : '禁用';
             return (
               <Fragment>
-                <Link style={{ marginRight: 10 }} to={`/gasSys/gas/edit/${record.id}`}>
+                <a
+                  style={{ marginRight: 10 }}
+                  onClick={() => {
+                    dispatch({
+                      type: 'overrideStateProps',
+                      payload: {
+                        toEdit: true,
+                      },
+                    });
+                    router.push(`/gasSys/gas/edit/${record.id}`);
+                  }}
+                >
                   编辑
-                </Link>
+                </a>
                 <span
                   className={`${
                     record.j === '禁用' ? 'success_text' : 'error_text'

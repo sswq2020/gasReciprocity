@@ -109,6 +109,8 @@ class CustomizeComponent extends PureComponent {
       dispatch,
       onOk,
       data,
+      hasData,
+      loading,
       gasForm: {
         provinceList,
         oilModelInfoList,
@@ -133,7 +135,6 @@ class CustomizeComponent extends PureComponent {
     const gasListProps = {
       style: {
         marginTop: -24,
-        paddingBottom: 20,
       },
       rowKey: 'oilModelId',
       columns: [
@@ -185,9 +186,9 @@ class CustomizeComponent extends PureComponent {
               <Fragment>
                 <a
                   onClick={() => {
-                    dispatch({
-                      type: 'gasForm/delete',
-                      payload: index,
+                    gasOilModelList.splice(index, 1);
+                    setFieldsValue({
+                      'gas.gasOilModelList': gasOilModelList,
                     });
                   }}
                 >
@@ -271,7 +272,7 @@ class CustomizeComponent extends PureComponent {
                       message: '请填写管理员身份证号',
                     },
                     {
-                      whitespace: true,
+                      pattern: regexps.IdCard,
                       message: '前填写正确的身份证号',
                     },
                   ],
@@ -430,19 +431,28 @@ class CustomizeComponent extends PureComponent {
                       message: '请选择所在地区',
                     },
                   ],
-                })(
-                  <Cascader
-                    placeholder="请选择所在地区"
-                    allowClear={false}
-                    fieldNames={{
-                      label: 'name',
-                      value: 'id',
-                      children: 'children',
-                    }}
-                    options={provinceList}
-                    autoComplete="off"
-                  />
-                )}
+                })(<Input type="hidden" />)}
+                <Cascader
+                  placeholder="请选择所在地区"
+                  allowClear={false}
+                  fieldNames={{
+                    label: 'name',
+                    value: 'id',
+                    children: 'children',
+                  }}
+                  options={provinceList}
+                  autoComplete="off"
+                  onChange={(value, selectedOptions) => {
+                    setFieldsValue({
+                      'gas.areaList': selectedOptions.map(item => {
+                        return {
+                          id: item.id,
+                          name: item.name,
+                        };
+                      }),
+                    });
+                  }}
+                />
               </FormItem>
             </Col>
             <Col {...formItemWidth}>
@@ -498,10 +508,23 @@ class CustomizeComponent extends PureComponent {
             </Col>
           </Row>
           <FormItemHead>油品分类：</FormItemHead>
-          <TableList {...gasListProps} />
-          {getFieldDecorator('gas.gasOilModelList', {
-            initialValue: data.gasOilModelList,
-          })(<input type="hidden" />)}
+          <FormItem>
+            <TableList {...gasListProps} />
+            {getFieldDecorator('gas.gasOilModelList', {
+              initialValue: data.gasOilModelList,
+              rules: [
+                {
+                  required: true,
+                  validator: (rule, value, callback) => {
+                    if (value.length === 0) {
+                      callback('请选择油品分类');
+                    }
+                    callback();
+                  },
+                },
+              ],
+            })(<input type="hidden" />)}
+          </FormItem>
           {(gasOilModelList.length < oilModelInfoList.length || gasOilModelList.length === 0) && (
             <Button
               block
@@ -542,17 +565,20 @@ class CustomizeComponent extends PureComponent {
             取消
           </Button>
           <Button
+            loading={loading}
             onClick={() => {
               validateFields(errors => {
                 if (errors) {
                   return;
                 }
-                onOk(
-                  {
-                    ...getFieldsValue(),
-                  },
-                  resetFields
-                );
+                if (hasData === true) {
+                  onOk(
+                    {
+                      ...getFieldsValue(),
+                    },
+                    resetFields
+                  );
+                }
               });
             }}
             type="primary"

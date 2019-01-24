@@ -1,6 +1,6 @@
 import { connect } from 'dva';
 import React, { PureComponent } from 'react';
-import { Form, InputNumber, Input } from 'antd';
+import { Form, InputNumber } from 'antd';
 import _ from 'lodash';
 import Select from '@/components/Select';
 // import dict from '@/utils/dict';
@@ -150,7 +150,14 @@ class CustomizeComponent extends PureComponent {
         <FormItem {...formItemLayout} label="会员价">
           {getFieldDecorator('oilSelect.oilMemberPrice', {
             initialValue: data.oilMemberPrice,
-          })(<Input readOnly placeholder="请填写会员折扣" autoComplete="off" />)}
+          })(
+            <InputNumber
+              style={{ width: '100%' }}
+              readOnly
+              placeholder="请填写会员折扣"
+              autoComplete="off"
+            />
+          )}
         </FormItem>
       </Form>
     );

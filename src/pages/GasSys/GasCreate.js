@@ -10,6 +10,7 @@ import GasForm from './components/GasForm';
 class Page extends PureComponent {
   render() {
     const {
+      dispatch,
       gasCreate: { formData },
       isLoading,
     } = this.props;
@@ -18,8 +19,14 @@ class Page extends PureComponent {
         <GasForm
           loading={isLoading}
           data={formData}
+          hasData
           onOk={data => {
-            console.log(data);
+            dispatch({
+              type: 'gasCreate/create',
+              payload: {
+                data: data.gas,
+              },
+            });
           }}
         />
       </PageHeaderWrapper>
