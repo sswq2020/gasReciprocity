@@ -33,11 +33,12 @@ export default {
               },
             },
           });
-          yield put(
-            routerRedux.push({
-              pathname: '/',
-            })
-          );
+          window.location.href = '/';
+          // yield put(
+          //   routerRedux.push({
+          //     pathname: '/',
+          //   })
+          // );
           break;
         case 420:
           message.warning('账号或密码错误！');
