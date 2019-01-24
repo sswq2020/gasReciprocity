@@ -102,12 +102,11 @@ export default {
     },
     *applyPrice({ payload }, { call, put, select }) {
       const { id } = yield select(selectState);
-      const { data, resetFields } = payload;
-      const response = yield call(services.insertPriceApply, { id, data });
+      const { data } = payload;
+      const response = yield call(services.priceApplyList, { id, data });
       switch (response.code) {
         case '000000':
-          resetFields();
-          message.warning('调价申请成功！');
+          message.success('调价申请成功！');
           yield put({ type: 'getList' });
           yield put({ type: 'closeForm' });
           break;

@@ -1,5 +1,5 @@
 import React, { PureComponent, Fragment } from 'react';
-import { Form, Row, Col, Input, Button } from 'antd';
+import { Form, Row, Col, Input, Button, Modal } from 'antd';
 import { connect } from 'dva';
 import PageHeaderWrapper from '@/components/PageHeaderWrapper';
 import FormItemHead from '@/components/FormItemHead';

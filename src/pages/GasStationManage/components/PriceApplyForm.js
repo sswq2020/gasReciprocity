@@ -1,6 +1,7 @@
 import React, { PureComponent } from 'react';
 import { Form, Input, DatePicker } from 'antd';
 import regexps from '@/utils/regexps';
+import moment from 'moment';
 
 const FormItem = Form.Item;
 
@@ -23,7 +24,6 @@ export default class CustomizeComponent extends PureComponent {
       data,
       form: { getFieldDecorator },
     } = this.props;
-
     const dateFormat = 'YYYY-MM-DD HH:mm:ss';
     return (
       <Form style={{ marginBottom: -24 }}>
@@ -32,7 +32,7 @@ export default class CustomizeComponent extends PureComponent {
         </FormItem>
         <FormItem {...formItemLayout} label="零售价">
           {getFieldDecorator('priceApply.retailPrice', {
-            initialValue: data.retailPrice,
+            initialValue: data.b,
             rules: [
               {
                 required: true,
@@ -47,14 +47,14 @@ export default class CustomizeComponent extends PureComponent {
           })(<Input placeholder="请填写零售价" autoComplete="off" />)}
         </FormItem>
         <FormItem {...formItemLayout} label="会员折扣">
-          {data.memberDiscount}
+          {data.c}
         </FormItem>
         <FormItem {...formItemLayout} label="会员价">
-          {data.memberPrice}
+          {data.d}
         </FormItem>
         <FormItem {...formItemLayout} label="生效日期">
           {getFieldDecorator('priceApply.effectDate', {
-            initialValue: data.effectDate,
+            initialValue: moment(data.f),
           })(<DatePicker showTime format={dateFormat} />)}
         </FormItem>
       </Form>
