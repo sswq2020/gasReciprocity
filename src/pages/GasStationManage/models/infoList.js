@@ -1,5 +1,5 @@
 import { message } from 'antd';
-import { reducers } from '@/utils/utils';
+import { reducers, ERR_OK } from '@/utils/utils';
 import moment from 'moment';
 import services from '@/services';
 
@@ -36,7 +36,7 @@ export default {
       });
       const response = yield call(services.refuelDetailList, queryParams);
       switch (response.code) {
-        case '000000':
+        case ERR_OK:
           yield put({
             type: 'overrideStateProps',
             payload: {
