@@ -133,7 +133,7 @@ class Page extends PureComponent {
         {
           title: '开票方名称',
           key: 'invoiceName',
-          width: 120,
+          width: 200,
           align: 'center',
           render: (text, record) => <Fragment>{record.d}</Fragment>,
         },
@@ -208,6 +208,7 @@ class Page extends PureComponent {
           title: <div style={{ textAlign: 'center' }}>操作</div>,
           key: 'operating',
           align: 'center',
+          fixed: 'right',
           width: 100,
           render: (text, record) => {
             if (record.j === '正常') {
