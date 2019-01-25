@@ -13,20 +13,15 @@ const formItemWidth = {
 };
 
 const FormItem = Form.Item;
-
 @connect(({ infoPreserve, loading }) => ({
   infoPreserve,
   getListIsLoading: loading.effects['infoPreserve/getList'],
 }))
 @Form.create()
 class Page extends PureComponent {
-  componentDidMount() {
-    const { dispatch } = this.props;
-    dispatch({ type: 'infoPreserve/getDetail' });
-  }
-
   render() {
     const {
+      dispatch,
       infoPreserve: { formData },
       form: { getFieldDecorator, resetFields, getFieldsValue, validateFields },
     } = this.props;
@@ -151,18 +146,18 @@ class Page extends PureComponent {
                   })(<Input placeholder="请输入收票人联系电话" autoComplete="off" />)}
                 </FormItem>
               </Col>
-              <Col lg={12} md={24} sm={24}>
+              <Col {...formItemWidth}>
                 <FormItem label="寄票地址:">
-                  {getFieldDecorator('formData.ticketerTel', {
-                    initialValue: formData.ticketerTel,
+                  {getFieldDecorator('formData.adress2', {
+                    initialValue: formData.adress2,
                     rules: [
                       {
                         required: true,
                         whitespace: true,
-                        message: '请填写收票人联系电话',
+                        message: '请填写寄票地址',
                       },
                     ],
-                  })(<Input placeholder="请输入收票人联系电话" autoComplete="off" />)}
+                  })(<Input placeholder="请输入寄票地址" autoComplete="off" />)}
                 </FormItem>
               </Col>
             </Row>
@@ -181,12 +176,13 @@ class Page extends PureComponent {
                   if (errors) {
                     return;
                   }
-                  onOk(
-                    {
+                  dispatch({
+                    type: 'infoPreserve/save',
+                    payload: {
                       ...getFieldsValue(),
+                      resetFields,
                     },
-                    resetFields
-                  );
+                  });
                 });
               }}
               type="primary"
