@@ -22,3 +22,5 @@ export const reducers = {
     };
   },
 };
+
+export const ERR_OK = '000000';

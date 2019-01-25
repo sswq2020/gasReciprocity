@@ -104,6 +104,7 @@ class Page extends PureComponent {
           key: '#',
           width: 60,
           fixed: 'left',
+          align: 'center',
           render: (text, record, index) => (
             <Fragment>{(currentPage - 1) * 10 + index + 1}</Fragment>
           ),
@@ -111,44 +112,50 @@ class Page extends PureComponent {
         {
           title: '加油站名称',
           key: 'name',
-          fixed: 'left',
-          width: 120,
+          width: 200,
+          align: 'center',
           render: (text, record) => <Fragment>{record.b}</Fragment>,
         },
         {
           title: '年月',
           key: 'date',
           width: 120,
+          align: 'center',
           render: (text, record) => <Fragment>{record.a}</Fragment>,
         },
         {
           title: '发票号码',
           key: 'invoiceNum',
           width: 120,
+          align: 'center',
           render: (text, record) => <Fragment>{record.c}</Fragment>,
         },
         {
           title: '开票方名称',
           key: 'invoiceName',
-          width: 120,
+          width: 200,
+          align: 'center',
           render: (text, record) => <Fragment>{record.d}</Fragment>,
         },
         {
           title: '发票类型',
           key: 'invoiceType',
           width: 120,
+          align: 'center',
           render: (text, record) => <Fragment>{record.e}</Fragment>,
         },
         {
           title: '应开金额',
           key: 'finace',
           width: 120,
+          align: 'center',
           render: (text, record) => <Fragment>{record.f}</Fragment>,
         },
         {
           title: '实开金额',
           key: 'finace2',
           width: 120,
+          align: 'center',
           render: (text, record) => <Fragment>{record.g}</Fragment>,
         },
         {
@@ -200,29 +207,31 @@ class Page extends PureComponent {
         {
           title: <div style={{ textAlign: 'center' }}>操作</div>,
           key: 'operating',
+          align: 'center',
+          fixed: 'right',
           width: 100,
           render: (text, record) => {
-            return (
-              <div style={{ textAlign: 'center' }}>
-                <span
-                  className={`${
-                    record.j === '作废' ? 'error_text' : 'success_text'
-                  } cursor_pointer`}
-                  style={{ marginRight: 10 }}
-                  onClick={() => {
-                    Modal.confirm({
-                      autoFocusButton: null,
-                      title: '你确定作废该发票？',
-                      okText: '确认',
-                      cancelText: '取消',
-                      onOk: () => {},
-                    });
-                  }}
-                >
-                  作废
-                </span>
-              </div>
-            );
+            if (record.j === '正常') {
+              return (
+                <div style={{ textAlign: 'center' }}>
+                  <span
+                    className="success_text cursor_pointer"
+                    style={{ marginRight: 10 }}
+                    onClick={() => {
+                      Modal.confirm({
+                        autoFocusButton: null,
+                        title: '你确定作废该发票？',
+                        okText: '确认',
+                        cancelText: '取消',
+                        onOk: () => {},
+                      });
+                    }}
+                  >
+                    作废
+                  </span>
+                </div>
+              );
+            }
           },
         },
       ],
@@ -230,9 +239,6 @@ class Page extends PureComponent {
       scroll: { x: 'max-content' },
       dataSource: listData,
       loading: invoiceConfirmIsLoading,
-      style: {
-        marginTop: 24,
-      },
       pagination: {
         total: totalItemCount,
         current: currentPage,

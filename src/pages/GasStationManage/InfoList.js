@@ -99,6 +99,7 @@ class Page extends PureComponent {
           key: '#',
           width: 60,
           fixed: 'left',
+          align: 'center',
           render: (text, record, index) => (
             <Fragment>{(currentPage - 1) * 10 + index + 1}</Fragment>
           ),
@@ -106,8 +107,9 @@ class Page extends PureComponent {
         {
           title: '会员名',
           key: 'userName',
-          width: 100,
+          width: 200,
           fixed: 'left',
+          align: 'center',
           render: (text, record) => {
             return <Fragment>{record.userName}</Fragment>;
           },
@@ -116,39 +118,49 @@ class Page extends PureComponent {
           title: '车牌号',
           key: 'userPlate',
           width: 120,
+          align: 'center',
           render: (text, record) => <Fragment>{record.userPlate}</Fragment>,
         },
         {
           title: '油品名称',
           key: 'oilModelName',
+          width: 120,
+          align: 'center',
           render: (text, record) => <Fragment>{record.oilModelName}</Fragment>,
         },
         {
           title: '零售价',
           key: 'oilRetailPrice',
-          width: 100,
+          width: 120,
+          align: 'center',
           render: (text, record) => <Fragment>{record.oilRetailPrice}</Fragment>,
         },
         {
           title: '惠龙价',
           key: 'oilMemberPrice',
           width: 120,
+          align: 'center',
           render: (text, record) => <Fragment>{record.oilMemberPrice}</Fragment>,
         },
         {
           title: '加油量',
           key: 'fuelVolume',
           width: 100,
+          align: 'center',
           render: (text, record) => <Fragment>{record.fuelVolume}</Fragment>,
         },
         {
           title: '加油金额',
           key: 'totalPrice',
+          width: 100,
+          align: 'center',
           render: (text, record) => <Fragment>{record.totalPrice}</Fragment>,
         },
         {
           title: '日期',
           key: 'orderTime',
+          width: 200,
+          align: 'center',
           render: (text, record) => <Fragment>{record.orderTime}</Fragment>,
         },
       ],
