@@ -117,6 +117,7 @@ class Page extends PureComponent {
           key: '#',
           width: 60,
           fixed: 'left',
+          align: 'center',
           render: (text, record, index) => (
             <Fragment>{(currentPage - 1) * 10 + index + 1}</Fragment>
           ),
@@ -124,36 +125,43 @@ class Page extends PureComponent {
         {
           title: '油品名称',
           key: 'fuelName',
-          width: 100,
+          width: 120,
+          align: 'center',
           render: (text, record) => <Fragment>{record.fuelName}</Fragment>,
         },
         {
           title: '零售价',
           key: 'retailPrice',
-          width: 100,
+          width: 120,
+          align: 'center',
           render: (text, record) => <Fragment>￥{record.b}</Fragment>,
         },
         {
           title: '会员折扣(%)',
           key: 'memberDiscount',
           width: 120,
+          align: 'center',
           render: (text, record) => <Fragment>{record.c}%</Fragment>,
         },
         {
           title: '会员价',
           key: 'memberPrice',
-          width: 100,
+          width: 120,
+          align: 'center',
           render: (text, record) => <Fragment>￥{record.d}</Fragment>,
         },
         {
           title: '加油金额',
           key: 'fuelPrice',
-          width: 100,
+          width: 120,
+          align: 'center',
           render: (text, record) => <Fragment>￥{record.e}</Fragment>,
         },
         {
           title: <div style={{ textAlign: 'center' }}>操作</div>,
           key: 'operating',
+          width: 200,
+          align: 'center',
           render: (text, record) => {
             return (
               <div style={{ textAlign: 'center' }}>
