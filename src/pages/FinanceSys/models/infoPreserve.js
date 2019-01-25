@@ -23,19 +23,20 @@ export default {
   },
   reducers,
   effects: {
-    *getDetail({ payload }, { call, put }) {
-      const response = yield call(services.billInfo, payload);
+    *save({ payload }, { call, put }) {
+      const { formData } = payload;
+      const response = yield call(services.gasCreate, formData);
       switch (response.code) {
         case ERR_OK:
-          yield put({
-            type: 'overrideStateProps',
-            payload: {
-              detail: response.data,
-            },
-          });
+          message.success('开票、收票地址信息创建成功！');
+          yield put(
+            routerRedux.push({
+              pathname: '/financeSys',
+            })
+          );
           break;
         default:
-          message.warning('开票信息获取失败，请稍后重试！');
+          message.warning('开票、收票地址信息创建失败，请稍后重试！');
           break;
       }
     },
