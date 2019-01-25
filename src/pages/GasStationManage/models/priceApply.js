@@ -1,5 +1,5 @@
 import { message } from 'antd';
-import { reducers } from '@/utils/utils';
+import { reducers, ERR_OK } from '@/utils/utils';
 import services from '@/services';
 
 const namespace = 'priceApply';
@@ -40,7 +40,7 @@ export default {
       const { listParams } = yield select(selectState);
       const response = yield call(services.priceApplyList, listParams);
       switch (response.code) {
-        case '000000':
+        case ERR_OK:
           yield put({
             type: 'overrideStateProps',
             payload: {
@@ -105,7 +105,7 @@ export default {
       const { data } = payload;
       const response = yield call(services.priceApplyList, { id, data });
       switch (response.code) {
-        case '000000':
+        case ERR_OK:
           message.success('调价申请成功！');
           yield put({ type: 'getList' });
           yield put({ type: 'closeForm' });
