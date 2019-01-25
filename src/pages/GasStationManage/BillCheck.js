@@ -116,6 +116,12 @@ class Page extends PureComponent {
           align: 'center',
           render: (text, record) => <Fragment>{record.invoiceAmount}</Fragment>,
         },
+        {
+          title: '到票确认',
+          key: 'invoiceConfirm',
+          align: 'center',
+          render: (text, record) => <Fragment>{record.invoiceConfirm}</Fragment>,
+        },
       ],
       rowKey: 'id',
       dataSource: listData,

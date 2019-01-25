@@ -153,6 +153,7 @@ const billCheckList = {
   'id|+1': 1,
   year: '@INTEGER(1,12)', // 月份
   invoiceAmount: '￥@INTEGER(10000,30000)', // 发票金额
+  invoiceConfirm: '@PICK("是", "否","------")',
 };
 
 /**
