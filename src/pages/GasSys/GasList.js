@@ -1,6 +1,5 @@
 import React, { PureComponent, Fragment } from 'react';
 import { connect } from 'dva';
-import router from 'umi/router';
 import { Row, Col, Input, Form, Button, Modal } from 'antd';
 import dict from '@/utils/dict';
 import PageHeaderWrapper from '@/components/PageHeaderWrapper';
@@ -243,12 +242,12 @@ class Page extends PureComponent {
                   style={{ marginRight: 10 }}
                   onClick={() => {
                     dispatch({
-                      type: 'overrideStateProps',
+                      type: 'gasList/toEdit',
                       payload: {
                         toEdit: true,
+                        data: record,
                       },
                     });
-                    router.push(`/gasSys/gas/edit/${record.id}`);
                   }}
                 >
                   编辑

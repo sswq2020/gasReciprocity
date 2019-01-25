@@ -1,4 +1,6 @@
 import { message } from 'antd';
+import { routerRedux } from 'dva/router';
+import { gasModelToFormData } from '@/utils/adapter';
 import { reducers } from '@/utils/utils';
 import services from '@/services';
 
@@ -119,6 +121,24 @@ export default {
       yield put({
         type: 'getList',
       });
+    },
+    *toEdit({ payload }, { put }) {
+      const {
+        data: { id, ...formData },
+      } = payload;
+      yield put({
+        type: 'gasEdit/overrideStateProps',
+        payload: {
+          id,
+          formData: gasModelToFormData(formData),
+        },
+      });
+      console.log(gasModelToFormData(formData));
+      yield put(
+        routerRedux.push({
+          pathname: '/gasSys/gas/edit',
+        })
+      );
     },
   },
 };
