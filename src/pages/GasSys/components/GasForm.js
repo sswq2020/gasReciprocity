@@ -185,6 +185,23 @@ class CustomizeComponent extends PureComponent {
             return (
               <Fragment>
                 <a
+                  style={{ marginRight: 10 }}
+                  onClick={() => {
+                    dispatch({
+                      type: 'gasForm/overrideStateProps',
+                      payload: {
+                        isEdit: true,
+                        visible: true,
+                        formData: {
+                          ...record,
+                        },
+                      },
+                    });
+                  }}
+                >
+                  编辑
+                </a>
+                <a
                   onClick={() => {
                     gasOilModelList.splice(index, 1);
                     setFieldsValue({

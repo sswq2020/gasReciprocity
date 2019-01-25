@@ -50,6 +50,12 @@ class CustomizeComponent extends PureComponent {
       });
     };
 
+    const selectData = _.differenceBy(
+      selectList,
+      hasSelect.filter(item => item.itemCode !== data.oilModelId),
+      'itemCode'
+    );
+
     return (
       <Form style={{ marginBottom: -24 }}>
         <FormItem {...formItemLayout} label="油品名称">
@@ -67,13 +73,7 @@ class CustomizeComponent extends PureComponent {
                 message: '请选择油品名称',
               },
             ],
-          })(
-            <Select
-              placeholder="请选择油品名称"
-              autoComplete="off"
-              data={_.differenceBy(selectList, hasSelect, 'itemCode')}
-            />
-          )}
+          })(<Select placeholder="请选择油品名称" autoComplete="off" data={selectData} />)}
         </FormItem>
         <FormItem {...formItemLayout} label="零售价">
           {getFieldDecorator('oilSelect.oilRetailPrice', {
