@@ -1,6 +1,6 @@
 export const gasFormAdapter = data => {
   const rData = {
-    ...rData,
+    ...data,
     gsProvinceId: data.areaList[0].id,
     gsProvinceName: data.areaList[0].name,
     gsCityId: data.areaList[1].id,

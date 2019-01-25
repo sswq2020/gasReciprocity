@@ -185,6 +185,23 @@ class CustomizeComponent extends PureComponent {
             return (
               <Fragment>
                 <a
+                  style={{ marginRight: 10 }}
+                  onClick={() => {
+                    dispatch({
+                      type: 'gasForm/overrideStateProps',
+                      payload: {
+                        isEdit: true,
+                        visible: true,
+                        formData: {
+                          ...record,
+                        },
+                      },
+                    });
+                  }}
+                >
+                  编辑
+                </a>
+                <a
                   onClick={() => {
                     gasOilModelList.splice(index, 1);
                     setFieldsValue({
@@ -420,7 +437,25 @@ class CustomizeComponent extends PureComponent {
                 <Checkbox style={{ marginLeft: 20 }}>同管理员</Checkbox>
               </FormItem>
             </Col> */}
-
+            <Col {...formItemWidth}>
+              <FormItem label="营业时间">
+                {getFieldDecorator('gas.gsBusinessTime', {
+                  initialValue: data.gsBusinessTime,
+                  rules: [
+                    {
+                      required: true,
+                      whitespace: true,
+                      message: '请填写营业时间',
+                    },
+                    {
+                      whitespace: true,
+                      max: 40,
+                      message: '最多40个字符',
+                    },
+                  ],
+                })(<Input placeholder="请输入营业时间" autoComplete="off" />)}
+              </FormItem>
+            </Col>
             <Col {...formItemWidth}>
               <FormItem label="所在地区">
                 {getFieldDecorator('gas.areaList', {
@@ -474,25 +509,6 @@ class CustomizeComponent extends PureComponent {
                 })(<Input placeholder="请输入详细地址" autoComplete="off" />)}
               </FormItem>
             </Col>
-            <Col {...formItemWidth}>
-              <FormItem label="营业时间">
-                {getFieldDecorator('gas.gsBusinessTime', {
-                  initialValue: data.gsBusinessTime,
-                  rules: [
-                    {
-                      required: true,
-                      whitespace: true,
-                      message: '请填写营业时间',
-                    },
-                    {
-                      whitespace: true,
-                      max: 40,
-                      message: '最多40个字符',
-                    },
-                  ],
-                })(<Input placeholder="请输入营业时间" autoComplete="off" />)}
-              </FormItem>
-            </Col>
             <Col lg={8} md={24} sm={24}>
               <FormItem label="特色服务">
                 {getFieldDecorator('gas.gasFeatureServiceIdList', {
@@ -536,7 +552,6 @@ class CustomizeComponent extends PureComponent {
                   type: 'gasForm/openForm',
                   payload: {
                     isEdit: false,
-                    id: null,
                   },
                 });
               }}
@@ -561,6 +576,7 @@ class CustomizeComponent extends PureComponent {
                 },
               });
             }}
+            disabled={loading}
           >
             取消
           </Button>

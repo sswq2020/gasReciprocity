@@ -49,7 +49,7 @@ export default {
           );
           break;
         default:
-          message.warning(`${response.errMsg}，请稍后重试！`);
+          message.warning('加油站创建失败，请稍后重试！');
           break;
       }
     },

@@ -41,7 +41,13 @@ export default class CustomizeComponent extends PureComponent {
                 message: '最多10个字符',
               },
             ],
-          })(<Input placeholder="请填写油品分类名称" autoComplete="off" />)}
+          })(
+            <Input
+              readonly={data.oilModelName}
+              placeholder="请填写油品分类名称"
+              autoComplete="off"
+            />
+          )}
         </FormItem>
         <FormItem {...formItemLayout} label="油品分类描述">
           {getFieldDecorator('oil.oilModelDesc', {
