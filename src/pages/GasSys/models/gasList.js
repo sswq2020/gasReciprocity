@@ -47,6 +47,34 @@ export default {
           break;
       }
     },
+    *enable({ payload }, { call, put }) {
+      const { id } = payload;
+      const response = yield call(services.gasEnable, id);
+
+      switch (response.code) {
+        case '000000':
+          message.success('加油站启用成功！');
+          yield put({ type: 'getList' });
+          break;
+        default:
+          message.warning('加油站启用失败，请稍后重试！');
+          break;
+      }
+    },
+    *disable({ payload }, { call, put }) {
+      const { id } = payload;
+      const response = yield call(services.gasDisable, id);
+
+      switch (response.code) {
+        case '000000':
+          message.success('加油站禁用成功！');
+          yield put({ type: 'getList' });
+          break;
+        default:
+          message.warning('加油站禁用失败，请稍后重试！');
+          break;
+      }
+    },
     *changeListParams({ payload }, { put }) {
       yield put({
         type: 'updateStateProps',

@@ -6,7 +6,7 @@ import dict from '@/utils/dict';
 import PageHeaderWrapper from '@/components/PageHeaderWrapper';
 import TableList from '@/components/TableList';
 import ListHeaderForm from '@/components/ListHeaderForm';
-import PreviewImage from '@/components/PreviewImage';
+// import PreviewImage from '@/components/PreviewImage';
 import Select from '@/components/Select';
 
 const FormItem = Form.Item;
@@ -15,7 +15,7 @@ const formItemWidth = {
   md: 12,
   sm: 24,
 };
-let previewImage = null;
+// const previewImage = null;
 
 @connect(({ gasList, loading }) => ({
   gasList,
@@ -78,7 +78,7 @@ class Page extends PureComponent {
           </Col>
           <Col {...formItemWidth}>
             <FormItem label="加油站状态">
-              {getFieldDecorator('isban', {
+              {getFieldDecorator('isBan', {
                 initialValue: null,
               })(
                 <Select
@@ -137,9 +137,9 @@ class Page extends PureComponent {
         },
         {
           title: '加油站编号',
-          key: 'no',
+          key: 'gsCode',
           width: 120,
-          render: (text, record) => <Fragment>{record.c}</Fragment>,
+          render: (text, record) => <Fragment>{record.gsCode}</Fragment>,
         },
         {
           title: '加油站名称',
@@ -173,20 +173,27 @@ class Page extends PureComponent {
         {
           title: '加油站地址',
           key: 'gsDetailAddress',
-          render: (text, record) => <Fragment>{record.gsDetailAddress}</Fragment>,
+          render: (text, record) => (
+            <Fragment>
+              {record.gsProvinceName}
+              {record.gsCityName}
+              {record.gsRegionName}
+              {record.gsDetailAddress}
+            </Fragment>
+          ),
         },
         {
           title: '加油站状态',
-          key: 'status',
+          key: 'isBan',
           align: 'center',
           width: 110,
           render: (text, record) => {
             let flatClass = '';
-            switch (record.j) {
-              case '禁用':
+            switch (record.isBan) {
+              case '1':
                 flatClass = 'error_flat';
                 break;
-              case '启用':
+              case '0':
                 flatClass = 'success_flat';
                 break;
               default:
@@ -201,34 +208,35 @@ class Page extends PureComponent {
                   }}
                   className={`point ${flatClass}`}
                 />
-                {record.j}
+                {dict.gasIsBaned[record.isBan]}
               </Fragment>
             );
           },
         },
-        {
-          title: '收款二维码',
-          key: 'qCode',
-          align: 'center',
-          width: 110,
-          render: () => (
-            <a
-              onClick={() => {
-                previewImage.open('//lorempixel.com/450/250/');
-              }}
-            >
-              点击查看
-            </a>
-          ),
-        },
+        // {
+        //   title: '收款二维码',
+        //   key: 'qCode',
+        //   align: 'center',
+        //   width: 110,
+        //   render: () => (
+        //     <a
+        //       onClick={() => {
+        //         previewImage.open('//lorempixel.com/450/250/');
+        //       }}
+        //     >
+        //       点击查看
+        //     </a>
+        //   ),
+        // },
         {
           title: <div style={{ textAlign: 'center' }}>操作</div>,
           key: 'operating',
-          width: 200,
+          width: 150,
           fixed: 'right',
           align: 'center',
           render: (text, record) => {
-            const showText = record.j === '禁用' ? '激活' : '禁用';
+            const showText =
+              dict.gasIsBaned[record.isBan === dict.gasIsBan ? dict.gasIsNotBan : dict.gasIsBan];
             return (
               <Fragment>
                 <a
@@ -247,28 +255,35 @@ class Page extends PureComponent {
                 </a>
                 <span
                   className={`${
-                    record.j === '禁用' ? 'success_text' : 'error_text'
+                    record.isBan === dict.gasIsBan ? 'success_text' : 'error_text'
                   } cursor_pointer`}
-                  style={{ marginRight: 10 }}
+                  // style={{ marginRight: 10 }}
                   onClick={() => {
                     Modal.confirm({
                       autoFocusButton: null,
-                      title: `你确定 ${showText} 该加油站？`,
+                      title: `你确定 ${showText} 加油站${record.gsName}？`,
                       okText: '确认',
                       cancelText: '取消',
-                      onOk: () => {},
+                      onOk: () => {
+                        dispatch({
+                          type: `gasList/${record.isBan === dict.gasIsBan ? 'enable' : 'disable'}`,
+                          payload: {
+                            id: record.id,
+                          },
+                        });
+                      },
                     });
                   }}
                 >
                   {showText}
                 </span>
-                <a
+                {/* <a
                   onClick={() => {
                     window.open('//lorempixel.com/900/900/');
                   }}
                 >
                   下载二维码
-                </a>
+                </a> */}
               </Fragment>
             );
           },
@@ -309,11 +324,11 @@ class Page extends PureComponent {
       >
         <ListHeaderForm>{this.renderAdvancedForm()}</ListHeaderForm>
         <TableList {...listProps} />
-        <PreviewImage
+        {/* <PreviewImage
           ref={ref => {
             previewImage = ref;
           }}
-        />
+        /> */}
       </PageHeaderWrapper>
     );
   }

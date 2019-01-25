@@ -149,7 +149,28 @@ export default {
       },
     });
   },
-
+  gasEnable(id) {
+    return request({
+      host: BASEURL,
+      url: '/action/gs/activeGasStationInfo',
+      method: 'post',
+      params: {
+        isBan: '1',
+        id,
+      },
+    });
+  },
+  gasDisable(id) {
+    return request({
+      host: BASEURL,
+      url: '/action/gs/activeGasStationInfo',
+      method: 'post',
+      params: {
+        isBan: '0',
+        id,
+      },
+    });
+  },
   serviceList(params) {
     return request({
       host: BASEURL,
