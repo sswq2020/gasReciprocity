@@ -39,7 +39,7 @@ export default [
             hideInMenu: true,
           },
           {
-            path: '/gasSys/gas/edit',
+            path: '/gasSys/gas/edit/:id',
             name: 'gasSysGasEdit',
             title: '编辑加油站',
             component: './GasSys/GasEdit',

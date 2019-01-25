@@ -133,7 +133,6 @@ export default {
           formData: gasModelToFormData(formData),
         },
       });
-      console.log(gasModelToFormData(formData));
       yield put(
         routerRedux.push({
           pathname: '/gasSys/gas/edit',

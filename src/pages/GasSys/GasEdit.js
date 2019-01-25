@@ -6,20 +6,37 @@ import GasForm from './components/GasForm';
 @connect(({ loading, gasEdit }) => ({
   gasEdit,
   isLoading: loading.effects['gasEdit/submit'],
+  isGetDetailing: loading.effects['gasEdit/detail'],
 }))
 class Page extends PureComponent {
+  componentDidMount() {
+    const {
+      dispatch,
+      match: {
+        params: { id },
+      },
+    } = this.props;
+    dispatch({ type: 'gasEdit/detail', payload: id });
+    dispatch({
+      type: 'gasEdit/overrideStateProps',
+      payload: {
+        id,
+      },
+    });
+  }
   render() {
     const {
       dispatch,
-      gasEdit: { formData },
       isLoading,
+      isGetDetailing,
+      gasEdit: { formData },
     } = this.props;
     return (
       <PageHeaderWrapper>
         <GasForm
           loading={isLoading}
           data={formData}
-          hasData
+          hasData={!isGetDetailing}
           onOk={data => {
             dispatch({
               type: 'gasEdit/submit',

@@ -1,7 +1,8 @@
 import { message } from 'antd';
 import { routerRedux } from 'dva/router';
 import { reducers } from '@/utils/utils';
-import { formDataTogasModel } from '@/utils/adapter';
+import { gasModelToFormData, formDataTogasModel } from '@/utils/adapter';
+
 import services from '@/services';
 
 const namespace = 'gasEdit';
@@ -37,9 +38,25 @@ export default {
   reducers,
 
   effects: {
+    *detail({ payload }, { call, put }) {
+      const response = yield call(services.gasDetail, payload);
+      console.log(response);
+      switch (response.code) {
+        case '000000':
+          yield put({
+            type: 'overrideStateProps',
+            payload: {
+              formData: gasModelToFormData(response.data),
+            },
+          });
+          break;
+        default:
+          message.warning('加油站信息获取失败，请稍后重试！');
+          break;
+      }
+    },
     *submit({ payload }, { call, put, select }) {
       const { id } = yield select(selectState);
-
       const { data } = payload;
       const response = yield call(services.gasEdit, id, formDataTogasModel(data));
       switch (response.code) {

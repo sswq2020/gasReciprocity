@@ -186,6 +186,7 @@ export default {
     return request({
       host: BASEURL,
       url: '/action/gs/selectGasStationInfo',
+      // method: 'post',
       params: {
         id,
       },
