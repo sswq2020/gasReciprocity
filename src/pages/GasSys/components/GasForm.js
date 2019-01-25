@@ -576,6 +576,7 @@ class CustomizeComponent extends PureComponent {
                 },
               });
             }}
+            disabled={loading}
           >
             取消
           </Button>

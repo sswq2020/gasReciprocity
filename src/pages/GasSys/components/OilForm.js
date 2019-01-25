@@ -43,7 +43,7 @@ export default class CustomizeComponent extends PureComponent {
             ],
           })(
             <Input
-              readOnly={!data.oilModelName}
+              readonly={data.oilModelName}
               placeholder="请填写油品分类名称"
               autoComplete="off"
             />
