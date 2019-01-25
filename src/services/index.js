@@ -141,7 +141,7 @@ export default {
   gasList(params) {
     return request({
       host: BASEURL,
-      url: '/gasList',
+      url: '/action/gs/queryGasStationInfoPage',
       params: {
         page: 1,
         size: 10,

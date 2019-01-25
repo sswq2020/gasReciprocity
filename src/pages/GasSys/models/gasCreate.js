@@ -36,7 +36,7 @@ export default {
   reducers,
 
   effects: {
-    *create({ payload }, { call }) {
+    *create({ payload }, { call, put }) {
       const { data } = payload;
       const response = yield call(services.gasCreate, gasFormAdapter(data));
       switch (response.code) {

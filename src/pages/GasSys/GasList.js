@@ -2,6 +2,7 @@ import React, { PureComponent, Fragment } from 'react';
 import { connect } from 'dva';
 import router from 'umi/router';
 import { Row, Col, Input, Form, Button, Modal } from 'antd';
+import dict from '@/utils/dict';
 import PageHeaderWrapper from '@/components/PageHeaderWrapper';
 import TableList from '@/components/TableList';
 import ListHeaderForm from '@/components/ListHeaderForm';
@@ -61,6 +62,7 @@ class Page extends PureComponent {
     const {
       form: { getFieldDecorator },
     } = this.props;
+
     return (
       <Form onSubmit={this.changeListParams}>
         <Row gutter={{ md: 16, lg: 24, xl: 48 }}>
@@ -76,9 +78,18 @@ class Page extends PureComponent {
           </Col>
           <Col {...formItemWidth}>
             <FormItem label="加油站状态">
-              {getFieldDecorator('auditorId', {
+              {getFieldDecorator('isban', {
                 initialValue: null,
-              })(<Select hasAll placeholder="请选择" style={{ width: '100%' }} data={[]} />)}
+              })(
+                <Select
+                  hasAll
+                  placeholder="请选择"
+                  style={{ width: '100%' }}
+                  data={Object.keys(dict.gasIsBaned).map(key => {
+                    return { itemCode: key, itemName: dict.gasIsBaned[key] };
+                  })}
+                />
+              )}
             </FormItem>
           </Col>
           <Col className="submitButtons" {...formItemWidth}>
@@ -100,7 +111,7 @@ class Page extends PureComponent {
       getListIsLoading,
       gasList: {
         listParams: { page },
-        list: { data: listData, totalItemCount },
+        list: { list: listData, totalItemCount },
       },
     } = this.props;
 
@@ -138,20 +149,20 @@ class Page extends PureComponent {
         {
           title: '加油站电话',
           key: 'gsPhone',
-          width: 100,
+          width: 150,
           render: (text, record) => <Fragment>{record.gsPhone}</Fragment>,
         },
         {
           title: '加油站联系人',
           key: 'gsContact',
-          width: 120,
+          width: 150,
           render: (text, record) => <Fragment>{record.gsContact}</Fragment>,
         },
         {
           title: '联系人手机',
           key: 'contactPhone',
           align: 'center',
-          width: 100,
+          width: 150,
           render: (text, record) => <Fragment>{record.contactPhone}</Fragment>,
         },
         {

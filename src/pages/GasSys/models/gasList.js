@@ -8,7 +8,7 @@ const selectState = state => state[namespace];
 const defaultListParams = {
   memberName: '',
   gsName: '',
-  certState: null,
+  isban: null,
   page: 1,
 };
 
@@ -22,7 +22,7 @@ export default {
       ...defaultListParams,
     },
     list: {
-      data: [],
+      list: [],
       totalItemCount: 0,
     },
   },
