@@ -35,8 +35,7 @@ class CustomizeComponent extends PureComponent {
       >
         <div
           style={{
-            background: `url('${url}') no-repeat center`,
-            backgroundSize: 'contain',
+            background: `url('${url}') center center / contain no-repeat`,
             width: imageSize + 2,
             height: imageSize + 2,
             marginTop: 36,
