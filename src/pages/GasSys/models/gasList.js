@@ -8,7 +8,7 @@ const selectState = state => state[namespace];
 const defaultListParams = {
   memberName: '',
   gsName: '',
-  certState: null,
+  isban: null,
   page: 1,
 };
 
@@ -22,7 +22,7 @@ export default {
       ...defaultListParams,
     },
     list: {
-      data: [],
+      list: [],
       totalItemCount: 0,
     },
   },
@@ -44,6 +44,34 @@ export default {
           break;
         default:
           message.warning('加油站列表获取失败，请稍后重试！');
+          break;
+      }
+    },
+    *enable({ payload }, { call, put }) {
+      const { id } = payload;
+      const response = yield call(services.gasEnable, id);
+
+      switch (response.code) {
+        case '000000':
+          message.success('加油站启用成功！');
+          yield put({ type: 'getList' });
+          break;
+        default:
+          message.warning('加油站启用失败，请稍后重试！');
+          break;
+      }
+    },
+    *disable({ payload }, { call, put }) {
+      const { id } = payload;
+      const response = yield call(services.gasDisable, id);
+
+      switch (response.code) {
+        case '000000':
+          message.success('加油站禁用成功！');
+          yield put({ type: 'getList' });
+          break;
+        default:
+          message.warning('加油站禁用失败，请稍后重试！');
           break;
       }
     },
