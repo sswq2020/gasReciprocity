@@ -7,6 +7,7 @@ import PageHeaderWrapper from '@/components/PageHeaderWrapper';
 import FormItemHead from '@/components/FormItemHead';
 import ImageBox from '@/components/ImageBox';
 import ImageUpload from '@/components/ImageUpload';
+import moment from 'moment';
 import styles from './components/financeForm.less';
 
 const children = [];
@@ -30,10 +31,10 @@ class Page extends PureComponent {
   render() {
     const {
       dispatch,
-      data = {},
       createInvoice: { formData },
       form: { getFieldDecorator, resetFields, getFieldsValue, validateFields },
     } = this.props;
+
     return (
       <PageHeaderWrapper>
         <Fragment>
@@ -43,7 +44,7 @@ class Page extends PureComponent {
               <Col lg={24} md={24} sm={24}>
                 <FormItem label="发票照片">
                   {getFieldDecorator('formData.photo', {
-                    initialValue: data.photo,
+                    initialValue: formData.photo,
                     rules: [
                       {
                         required: true,
@@ -83,7 +84,15 @@ class Page extends PureComponent {
               <Col {...formItemWidth}>
                 <FormItem label="年月">
                   {getFieldDecorator('formData.year', {
-                    initialValue: data.year,
+                    initialValue: formData.year,
+                    getValueFromEvent: value => {
+                      const date = moment(value).format('YYYY-MM');
+                      dispatch({
+                        type: 'createInvoice/changeYear',
+                        payload: { date },
+                      });
+                      return value;
+                    },
                     rules: [
                       {
                         required: true,
@@ -96,7 +105,7 @@ class Page extends PureComponent {
               <Col {...formItemWidth}>
                 <FormItem label="加油站名称">
                   {getFieldDecorator('formData.gasStation', {
-                    initialValue: data.gasStation,
+                    initialValue: formData.gasStation,
                     rules: [
                       {
                         required: true,
@@ -115,7 +124,7 @@ class Page extends PureComponent {
               <Col {...formItemWidth}>
                 <FormItem label="发票类型">
                   {getFieldDecorator('formData.invoiceType', {
-                    initialValue: data.invoiceType,
+                    initialValue: formData.invoiceType,
                     rules: [
                       {
                         required: true,
@@ -133,7 +142,7 @@ class Page extends PureComponent {
               <Col {...formItemWidth}>
                 <FormItem label="发票号码">
                   {getFieldDecorator('formData.invoiceNumList', {
-                    initialValue: data.invoiceNumList,
+                    initialValue: formData.invoiceNumList,
                     rules: [
                       {
                         required: true,
@@ -156,7 +165,7 @@ class Page extends PureComponent {
               <Col {...formItemWidth}>
                 <FormItem label="开票房名称">
                   {getFieldDecorator('formData.invoicePartyName', {
-                    initialValue: data.invoicePartyName,
+                    initialValue: formData.invoicePartyName,
                     rules: [
                       {
                         required: true,
@@ -170,7 +179,7 @@ class Page extends PureComponent {
               <Col {...formItemWidth}>
                 <FormItem label="税率">
                   {getFieldDecorator('formData.taxRate', {
-                    initialValue: data.taxRate,
+                    initialValue: formData.taxRate,
                     rules: [
                       {
                         required: true,
@@ -186,12 +195,12 @@ class Page extends PureComponent {
                 </FormItem>
               </Col>
               <Col {...formItemWidth}>
-                <FormItem label="应开金额">{}</FormItem>
+                <FormItem label="应开金额">{formData.shouldsum}</FormItem>
               </Col>
               <Col {...formItemWidth}>
                 <FormItem label="实开金额">
                   {getFieldDecorator('formData.sum', {
-                    initialValue: data.sum,
+                    initialValue: formData.sum,
                     rules: [
                       {
                         required: true,

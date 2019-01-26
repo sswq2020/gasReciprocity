@@ -87,6 +87,10 @@ const application = {
   remark: '@CTITLE()',
 };
 
+const shouldsum = {
+  shouldsum: '@INTEGER(13000000000,18999999999)',
+};
+
 const gasLite = {
   'id|+1': 1,
   b: '@INTEGER(13000000000,18999999999)',
@@ -851,6 +855,20 @@ const mockRouterMap = {
             enabled: false,
             username: 'mock @NAME()',
             type: '@PICK(["GENERAL", "FACTORY"])',
+          },
+        };
+      },
+    },
+    {
+      isMock: true,
+      method: 'post',
+      router: '/getshouldSum',
+      result(params) {
+        return {
+          ...body,
+          data: {
+            shouldsum,
+            ...params,
           },
         };
       },
