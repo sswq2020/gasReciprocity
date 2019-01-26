@@ -24,6 +24,7 @@ class Page extends PureComponent {
       },
     });
   }
+
   render() {
     const {
       dispatch,

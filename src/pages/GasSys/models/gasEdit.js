@@ -40,7 +40,6 @@ export default {
   effects: {
     *detail({ payload }, { call, put }) {
       const response = yield call(services.gasDetail, payload);
-      console.log(response);
       switch (response.code) {
         case '000000':
           yield put({

@@ -1,5 +1,5 @@
 import { message } from 'antd';
-import { routerRedux } from 'dva/router';
+// import { routerRedux } from 'dva/router';
 import { gasModelToFormData } from '@/utils/adapter';
 import { reducers } from '@/utils/utils';
 import services from '@/services';
@@ -133,11 +133,11 @@ export default {
           formData: gasModelToFormData(formData),
         },
       });
-      yield put(
-        routerRedux.push({
-          pathname: '/gasSys/gas/edit',
-        })
-      );
+      // yield put(
+      //   routerRedux.push({
+      //     pathname: '/gasSys/gas/edit',
+      //   })
+      // );
     },
   },
 };

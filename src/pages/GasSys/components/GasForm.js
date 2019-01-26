@@ -309,7 +309,7 @@ class CustomizeComponent extends PureComponent {
                 </Col>
                 <Col lg={8} md={24} sm={24}>
                   <FormItem label="二维码">
-                    <ImageBox url="//lorempixel.com/450/200/" />
+                    <ImageBox url={data.gsQrCode} />
                   </FormItem>
                 </Col>
               </Fragment>

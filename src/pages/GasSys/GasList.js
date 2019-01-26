@@ -1,7 +1,7 @@
 import React, { PureComponent, Fragment } from 'react';
 import { connect } from 'dva';
 import router from 'umi/router';
-import Link from 'umi/link';
+// import Link from 'umi/link';
 import { Row, Col, Input, Form, Button, Modal } from 'antd';
 import dict from '@/utils/dict';
 import PageHeaderWrapper from '@/components/PageHeaderWrapper';
@@ -255,9 +255,20 @@ class Page extends PureComponent {
                 >
                   编辑
                 </a> */}
-                <Link style={{ marginRight: 10 }} to={`/gasSys/gas/edit/${record.id}`}>
+                <a
+                  style={{ marginRight: 10 }}
+                  onClick={() => {
+                    router.push(`/gasSys/gas/edit/${record.id}`);
+                    dispatch({
+                      type: 'gasList/overrideStateProps',
+                      payload: {
+                        toEdit: true,
+                      },
+                    });
+                  }}
+                >
                   编辑
-                </Link>
+                </a>
                 <span
                   className={`${
                     record.isBan === dict.gasIsBan ? 'success_text' : 'error_text'
@@ -284,7 +295,7 @@ class Page extends PureComponent {
                 </span>
                 <a
                   onClick={() => {
-                    window.open(record.gsQrCode);
+                    // window.open(record.gsQrCode);
                   }}
                 >
                   下载二维码
