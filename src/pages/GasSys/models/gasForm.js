@@ -1,5 +1,6 @@
 import { message } from 'antd';
 import { reducers } from '@/utils/utils';
+import dict from '@/utils/dict';
 import services from '@/services';
 
 const namespace = 'gasForm';
@@ -33,7 +34,7 @@ export default {
     *getDict(_, { put, call }) {
       const response = yield call(services.gasDict);
       switch (response.code) {
-        case '000000':
+        case dict.SUCCESS:
           yield put({
             type: 'overrideStateProps',
             payload: {

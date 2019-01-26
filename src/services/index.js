@@ -138,6 +138,17 @@ export default {
       params,
     });
   },
+  gasEdit(id, params) {
+    return request({
+      host: BASEURL,
+      url: '/action/gs/editGasStationInfo',
+      method: 'post',
+      params: {
+        id,
+        ...params,
+      },
+    });
+  },
   gasList(params) {
     return request({
       host: BASEURL,
@@ -167,6 +178,16 @@ export default {
       method: 'post',
       params: {
         isBan: '0',
+        id,
+      },
+    });
+  },
+  gasDetail(id) {
+    return request({
+      host: BASEURL,
+      url: '/action/gs/selectGasStationInfo',
+      // method: 'post',
+      params: {
         id,
       },
     });

@@ -131,6 +131,7 @@ class CustomizeComponent extends PureComponent {
 
     const fileList = getFieldValue('gas.fileList') || data.fileList;
     const gasOilModelList = getFieldValue('gas.gasOilModelList') || data.gasOilModelList;
+    const areaList = getFieldValue('gas.areaList') || data.areaList;
 
     const gasListProps = {
       style: {
@@ -299,17 +300,21 @@ class CustomizeComponent extends PureComponent {
           </Row>
           <FormItemHead>加油站信息：</FormItemHead>
           <Row>
-            {/* <Col lg={24} md={24} sm={24}>
-              <FormItem label="加油站编号">
-                <div>sfsfsf</div>
-              </FormItem>
-            </Col>
-            <Col lg={8} md={24} sm={24}>
-              <FormItem label="二维码">
-                <ImageBox url="//lorempixel.com/450/200/" />
-              </FormItem>
-            </Col> */}
-            <Col lg={24} md={24} sm={24}>
+            {data.gsCode && (
+              <Fragment>
+                <Col lg={24} md={24} sm={24}>
+                  <FormItem label="加油站编号">
+                    <div>{data.gsCode}</div>
+                  </FormItem>
+                </Col>
+                <Col lg={8} md={24} sm={24}>
+                  <FormItem label="二维码">
+                    <ImageBox url={data.gsQrCode} />
+                  </FormItem>
+                </Col>
+              </Fragment>
+            )}
+            <Col lg={data.gsCode ? 16 : 24} md={24} sm={24}>
               <FormItem label="加油站照片(门头)">
                 {pics}
                 {fileList.length < 3 && (
@@ -470,6 +475,7 @@ class CustomizeComponent extends PureComponent {
                 <Cascader
                   placeholder="请选择所在地区"
                   allowClear={false}
+                  defaultValue={areaList.map(item => item.id)}
                   fieldNames={{
                     label: 'name',
                     value: 'id',

@@ -5,7 +5,7 @@ import GasForm from './components/GasForm';
 
 @connect(({ loading, gasCreate }) => ({
   gasCreate,
-  isLoading: loading.effects['gasCreate/create'],
+  isLoading: loading.effects['gasCreate/submit'],
 }))
 class Page extends PureComponent {
   render() {
@@ -22,7 +22,7 @@ class Page extends PureComponent {
           hasData
           onOk={data => {
             dispatch({
-              type: 'gasCreate/create',
+              type: 'gasCreate/submit',
               payload: {
                 data: data.gas,
               },

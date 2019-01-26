@@ -1,12 +1,13 @@
 import { message } from 'antd';
 import { routerRedux } from 'dva/router';
 import { reducers } from '@/utils/utils';
-import { formDataTogasModel } from '@/utils/adapter';
 import dict from '@/utils/dict';
+import { gasModelToFormData, formDataTogasModel } from '@/utils/adapter';
+
 import services from '@/services';
 
-const namespace = 'gasCreate';
-// const selectState = state => state[namespace];
+const namespace = 'gasEdit';
+const selectState = state => state[namespace];
 
 const defaultFormData = {
   memberName: '', // 会员名
@@ -29,6 +30,7 @@ const defaultFormData = {
 export default {
   namespace,
   state: {
+    id: null,
     formData: {
       ...defaultFormData,
     },
@@ -37,12 +39,29 @@ export default {
   reducers,
 
   effects: {
-    *submit({ payload }, { call, put }) {
-      const { data } = payload;
-      const response = yield call(services.gasCreate, formDataTogasModel(data));
+    *detail({ payload }, { call, put }) {
+      const response = yield call(services.gasDetail, payload);
       switch (response.code) {
         case dict.SUCCESS:
-          message.success('加油站创建成功！');
+          yield put({
+            type: 'overrideStateProps',
+            payload: {
+              formData: gasModelToFormData(response.data),
+            },
+          });
+          break;
+        default:
+          message.warning('加油站信息获取失败，请稍后重试！');
+          break;
+      }
+    },
+    *submit({ payload }, { call, put, select }) {
+      const { id } = yield select(selectState);
+      const { data } = payload;
+      const response = yield call(services.gasEdit, id, formDataTogasModel(data));
+      switch (response.code) {
+        case dict.SUCCESS:
+          message.success('加油站编辑成功！');
           yield put(
             routerRedux.push({
               pathname: '/gasSys/gas',
@@ -50,7 +69,7 @@ export default {
           );
           break;
         default:
-          message.warning('加油站创建失败，请稍后重试！');
+          message.warning('加油站编辑失败，请稍后重试！');
           break;
       }
     },

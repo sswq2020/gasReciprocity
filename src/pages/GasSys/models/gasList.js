@@ -1,5 +1,8 @@
 import { message } from 'antd';
+// import { routerRedux } from 'dva/router';
+import { gasModelToFormData } from '@/utils/adapter';
 import { reducers } from '@/utils/utils';
+import dict from '@/utils/dict';
 import services from '@/services';
 
 const namespace = 'gasList';
@@ -34,7 +37,7 @@ export default {
       const { listParams } = yield select(selectState);
       const response = yield call(services.gasList, listParams);
       switch (response.code) {
-        case '000000':
+        case dict.SUCCESS:
           yield put({
             type: 'overrideStateProps',
             payload: {
@@ -52,7 +55,7 @@ export default {
       const response = yield call(services.gasEnable, id);
 
       switch (response.code) {
-        case '000000':
+        case dict.SUCCESS:
           message.success('加油站启用成功！');
           yield put({ type: 'getList' });
           break;
@@ -66,7 +69,7 @@ export default {
       const response = yield call(services.gasDisable, id);
 
       switch (response.code) {
-        case '000000':
+        case dict.SUCCESS:
           message.success('加油站禁用成功！');
           yield put({ type: 'getList' });
           break;
@@ -119,6 +122,23 @@ export default {
       yield put({
         type: 'getList',
       });
+    },
+    *toEdit({ payload }, { put }) {
+      const {
+        data: { id, ...formData },
+      } = payload;
+      yield put({
+        type: 'gasEdit/overrideStateProps',
+        payload: {
+          id,
+          formData: gasModelToFormData(formData),
+        },
+      });
+      // yield put(
+      //   routerRedux.push({
+      //     pathname: '/gasSys/gas/edit',
+      //   })
+      // );
     },
   },
 };

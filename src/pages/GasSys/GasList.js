@@ -1,12 +1,13 @@
 import React, { PureComponent, Fragment } from 'react';
 import { connect } from 'dva';
 import router from 'umi/router';
+// import Link from 'umi/link';
 import { Row, Col, Input, Form, Button, Modal } from 'antd';
 import dict from '@/utils/dict';
 import PageHeaderWrapper from '@/components/PageHeaderWrapper';
 import TableList from '@/components/TableList';
 import ListHeaderForm from '@/components/ListHeaderForm';
-// import PreviewImage from '@/components/PreviewImage';
+import PreviewImage from '@/components/PreviewImage';
 import Select from '@/components/Select';
 
 const FormItem = Form.Item;
@@ -15,7 +16,8 @@ const formItemWidth = {
   md: 12,
   sm: 24,
 };
-// const previewImage = null;
+
+let previewImage = null;
 
 @connect(({ gasList, loading }) => ({
   gasList,
@@ -213,25 +215,25 @@ class Page extends PureComponent {
             );
           },
         },
-        // {
-        //   title: '收款二维码',
-        //   key: 'qCode',
-        //   align: 'center',
-        //   width: 110,
-        //   render: () => (
-        //     <a
-        //       onClick={() => {
-        //         previewImage.open('//lorempixel.com/450/250/');
-        //       }}
-        //     >
-        //       点击查看
-        //     </a>
-        //   ),
-        // },
+        {
+          title: '收款二维码',
+          key: 'gsQrCode',
+          align: 'center',
+          width: 110,
+          render: (text, record) => (
+            <a
+              onClick={() => {
+                previewImage.open(record.gsQrCode);
+              }}
+            >
+              点击查看
+            </a>
+          ),
+        },
         {
           title: <div style={{ textAlign: 'center' }}>操作</div>,
           key: 'operating',
-          width: 150,
+          width: 200,
           fixed: 'right',
           align: 'center',
           render: (text, record) => {
@@ -239,16 +241,30 @@ class Page extends PureComponent {
               dict.gasIsBaned[record.isBan === dict.gasIsBan ? dict.gasIsNotBan : dict.gasIsBan];
             return (
               <Fragment>
-                <a
+                {/* <a
                   style={{ marginRight: 10 }}
                   onClick={() => {
                     dispatch({
-                      type: 'overrideStateProps',
+                      type: 'gasList/toEdit',
+                      payload: {
+                        toEdit: true,
+                        data: record,
+                      },
+                    });
+                  }}
+                >
+                  编辑
+                </a> */}
+                <a
+                  style={{ marginRight: 10 }}
+                  onClick={() => {
+                    router.push(`/gasSys/gas/edit/${record.id}`);
+                    dispatch({
+                      type: 'gasList/overrideStateProps',
                       payload: {
                         toEdit: true,
                       },
                     });
-                    router.push(`/gasSys/gas/edit/${record.id}`);
                   }}
                 >
                   编辑
@@ -257,7 +273,7 @@ class Page extends PureComponent {
                   className={`${
                     record.isBan === dict.gasIsBan ? 'success_text' : 'error_text'
                   } cursor_pointer`}
-                  // style={{ marginRight: 10 }}
+                  style={{ marginRight: 10 }}
                   onClick={() => {
                     Modal.confirm({
                       autoFocusButton: null,
@@ -277,13 +293,13 @@ class Page extends PureComponent {
                 >
                   {showText}
                 </span>
-                {/* <a
+                <a
                   onClick={() => {
-                    window.open('//lorempixel.com/900/900/');
+                    // window.open(record.gsQrCode);
                   }}
                 >
                   下载二维码
-                </a> */}
+                </a>
               </Fragment>
             );
           },
@@ -324,11 +340,11 @@ class Page extends PureComponent {
       >
         <ListHeaderForm>{this.renderAdvancedForm()}</ListHeaderForm>
         <TableList {...listProps} />
-        {/* <PreviewImage
+        <PreviewImage
           ref={ref => {
             previewImage = ref;
           }}
-        /> */}
+        />
       </PageHeaderWrapper>
     );
   }

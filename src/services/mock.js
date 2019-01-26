@@ -1,8 +1,9 @@
 import pathToRegexp from 'path-to-regexp';
 import mockjs from 'mockjs';
+import dict from '@/utils/dict';
 
 const body = {
-  code: '000000', // 状态码
+  code: dict.SUCCESS, // 状态码
   msg: '成功', // 消息 字符串 可以为空
   timestamp: new Date().getTime(),
   data: {
