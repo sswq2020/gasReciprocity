@@ -1,5 +1,6 @@
 import { message } from 'antd';
-import { reducers, ERR_OK } from '@/utils/utils';
+import { reducers } from '@/utils/utils';
+import dict from '@/utils/dict';
 import services from '@/services';
 
 const namespace = 'infoPreserve';
@@ -27,7 +28,7 @@ export default {
       const { formData } = payload;
       const response = yield call(services.gasCreate, formData);
       switch (response.code) {
-        case ERR_OK:
+        case dict.SUCCESS:
           message.success('开票、收票地址信息创建成功！');
           yield put(
             routerRedux.push({

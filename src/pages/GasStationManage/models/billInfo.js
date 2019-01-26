@@ -1,5 +1,6 @@
 import { message } from 'antd';
-import { reducers, ERR_OK } from '@/utils/utils';
+import { reducers } from '@/utils/utils';
+import dict from '@/utils/dict';
 import services from '@/services';
 
 const namespace = 'billInfo';
@@ -18,7 +19,7 @@ export default {
     *getDetail({ payload }, { call, put }) {
       const response = yield call(services.billInfo, payload);
       switch (response.code) {
-        case ERR_OK:
+        case dict.SUCCESS:
           yield put({
             type: 'overrideStateProps',
             payload: {

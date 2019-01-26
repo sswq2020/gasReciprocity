@@ -1,5 +1,6 @@
 import { message } from 'antd';
-import { reducers, ERR_OK } from '@/utils/utils';
+import { reducers } from '@/utils/utils';
+import dict from '@/utils/dict';
 import moment from 'moment';
 import services from '@/services';
 
@@ -36,7 +37,7 @@ export default {
       });
       const response = yield call(services.refuelDetailList, queryParams);
       switch (response.code) {
-        case ERR_OK:
+        case dict.SUCCESS:
           yield put({
             type: 'overrideStateProps',
             payload: {
