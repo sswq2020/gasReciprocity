@@ -1,5 +1,6 @@
 import React, { PureComponent, Fragment } from 'react';
-import { Form, Row, Col, Input, Button, Modal } from 'antd';
+import { Form, Row, Col, Input, Button } from 'antd';
+import router from 'umi/router';
 import { connect } from 'dva';
 import PageHeaderWrapper from '@/components/PageHeaderWrapper';
 import FormItemHead from '@/components/FormItemHead';
@@ -12,20 +13,15 @@ const formItemWidth = {
 };
 
 const FormItem = Form.Item;
-
 @connect(({ infoPreserve, loading }) => ({
   infoPreserve,
   getListIsLoading: loading.effects['infoPreserve/getList'],
 }))
 @Form.create()
 class Page extends PureComponent {
-  componentDidMount() {
-    const { dispatch } = this.props;
-    dispatch({ type: 'infoPreserve/getDetail' });
-  }
-
   render() {
     const {
+      dispatch,
       infoPreserve: { formData },
       form: { getFieldDecorator, resetFields, getFieldsValue, validateFields },
     } = this.props;
@@ -150,18 +146,18 @@ class Page extends PureComponent {
                   })(<Input placeholder="请输入收票人联系电话" autoComplete="off" />)}
                 </FormItem>
               </Col>
-              <Col lg={12} md={24} sm={24}>
+              <Col {...formItemWidth}>
                 <FormItem label="寄票地址:">
-                  {getFieldDecorator('formData.ticketerTel', {
-                    initialValue: formData.ticketerTel,
+                  {getFieldDecorator('formData.adress2', {
+                    initialValue: formData.adress2,
                     rules: [
                       {
                         required: true,
                         whitespace: true,
-                        message: '请填写收票人联系电话',
+                        message: '请填写寄票地址',
                       },
                     ],
-                  })(<Input placeholder="请输入收票人联系电话" autoComplete="off" />)}
+                  })(<Input placeholder="请输入寄票地址" autoComplete="off" />)}
                 </FormItem>
               </Col>
             </Row>
@@ -169,14 +165,7 @@ class Page extends PureComponent {
           <div className={styles.footer}>
             <Button
               onClick={() => {
-                Modal.confirm({
-                  autoFocusButton: null,
-                  title: '取消操作',
-                  content: '你确定保存前取消？',
-                  okText: '确认',
-                  cancelText: '取消',
-                  onOk: () => {},
-                });
+                router.goBack();
               }}
             >
               取消
@@ -187,12 +176,13 @@ class Page extends PureComponent {
                   if (errors) {
                     return;
                   }
-                  onOk(
-                    {
+                  dispatch({
+                    type: 'infoPreserve/save',
+                    payload: {
                       ...getFieldsValue(),
+                      resetFields,
                     },
-                    resetFields
-                  );
+                  });
                 });
               }}
               type="primary"

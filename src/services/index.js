@@ -383,7 +383,7 @@ export default {
   },
   /**
    * @author sswq
-   * @description 加油站管理/票据列表
+   * @description 票务管理/收票确认
    * */
   invoiceConfirmList(params) {
     return request({
@@ -393,6 +393,20 @@ export default {
         page: 1,
         size: 10,
         ...params,
+      },
+    });
+  },
+  /**
+   * @author sswq
+   * @description 票务管理/收票作废
+   */
+  invoiceDisannul(id) {
+    return request({
+      host: BASEURL,
+      url: '/action/gs/invoiceDisannul',
+      method: 'post',
+      params: {
+        id,
       },
     });
   },

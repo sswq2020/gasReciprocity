@@ -1,5 +1,5 @@
 import { message } from 'antd';
-import { reducers } from '@/utils/utils';
+import { reducers, ERR_OK } from '@/utils/utils';
 import services from '@/services';
 
 const namespace = 'createInvoice';
@@ -27,48 +27,23 @@ export default {
   },
   reducers,
   effects: {
-    *getList(_, { call, put }) {
-      const response = yield call(services.gasList, listParams);
+    *save({ payload }, { call, put }) {
+      const { formData } = payload;
+      const response = yield call(services.gasCreate, formData);
       switch (response.code) {
-        case '000000':
-          yield put({
-            type: 'overrideStateProps',
-            payload: {
-              list: response.data,
-            },
-          });
+        case ERR_OK:
+          message.success('新增发票创建成功！');
+          resetFields();
+          yield put(
+            routerRedux.push({
+              pathname: '/financeSys/invoiceConfirm',
+            })
+          );
           break;
         default:
-          message.warning('加油站列表获取失败，请稍后重试！');
+          message.warning('新增发票创建失败，请稍后重试！');
           break;
       }
-    },
-    *changeListParams({ payload }, { put }) {
-      yield put({
-        type: 'updateStateProps',
-        payload: {
-          name: 'listParams',
-          value: {
-            ...payload,
-          },
-        },
-      });
-      yield put({
-        type: 'getList',
-      });
-    },
-    *resetListParams(_, { put }) {
-      yield put({
-        type: 'overrideStateProps',
-        payload: {
-          listParams: {
-            ...defaultListParams,
-          },
-        },
-      });
-      yield put({
-        type: 'getList',
-      });
     },
   },
 };

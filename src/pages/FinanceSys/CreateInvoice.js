@@ -1,7 +1,7 @@
 import React, { PureComponent, Fragment } from 'react';
 import { connect } from 'dva';
 import router from 'umi/router';
-import { Form, Row, Col, Input, Select, Button, Modal, DatePicker } from 'antd';
+import { Form, Row, Col, Input, Select, Button, DatePicker } from 'antd';
 import regexps from '@/utils/regexps';
 import PageHeaderWrapper from '@/components/PageHeaderWrapper';
 import FormItemHead from '@/components/FormItemHead';
@@ -207,16 +207,7 @@ class Page extends PureComponent {
           <div className={styles.footer}>
             <Button
               onClick={() => {
-                Modal.confirm({
-                  autoFocusButton: null,
-                  title: '取消操作',
-                  content: '你确定保存前取消？',
-                  okText: '确认',
-                  cancelText: '取消',
-                  onOk: () => {
-                    router.push('/financeSys/invoiceConfirm');
-                  },
-                });
+                router.push('/financeSys/invoiceConfirm');
               }}
             >
               取消
@@ -227,12 +218,13 @@ class Page extends PureComponent {
                   if (errors) {
                     return;
                   }
-                  onOk(
-                    {
+                  dispatch({
+                    type: 'createInvoice/save',
+                    payload: {
                       ...getFieldsValue(),
+                      resetFields,
                     },
-                    resetFields
-                  );
+                  });
                 });
               }}
               type="primary"

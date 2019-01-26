@@ -1,5 +1,5 @@
 import { message } from 'antd';
-import { reducers } from '@/utils/utils';
+import { reducers, ERR_OK } from '@/utils/utils';
 import services from '@/services';
 
 const namespace = 'invoiceConfirm';
@@ -30,7 +30,7 @@ export default {
       const { listParams } = yield select(selectState);
       const response = yield call(services.invoiceConfirmList, listParams);
       switch (response.code) {
-        case '000000':
+        case ERR_OK:
           yield put({
             type: 'overrideStateProps',
             payload: {
@@ -69,6 +69,19 @@ export default {
       yield put({
         type: 'getList',
       });
+    },
+    *disannul({ payload }, { call, put }) {
+      const { id } = payload;
+      const response = yield call(services.invoiceDisannul, id);
+      switch (response.code) {
+        case ERR_OK:
+          message.success('作废成功！');
+          yield put({ type: 'getList' });
+          break;
+        default:
+          message.warning('作废失败，请稍后重试！');
+          break;
+      }
     },
   },
 };
