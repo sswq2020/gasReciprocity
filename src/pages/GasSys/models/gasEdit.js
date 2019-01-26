@@ -1,6 +1,7 @@
 import { message } from 'antd';
 import { routerRedux } from 'dva/router';
 import { reducers } from '@/utils/utils';
+import dict from '@/utils/dict';
 import { gasModelToFormData, formDataTogasModel } from '@/utils/adapter';
 
 import services from '@/services';
@@ -41,7 +42,7 @@ export default {
     *detail({ payload }, { call, put }) {
       const response = yield call(services.gasDetail, payload);
       switch (response.code) {
-        case '000000':
+        case dict.SUCCESS:
           yield put({
             type: 'overrideStateProps',
             payload: {
@@ -59,7 +60,7 @@ export default {
       const { data } = payload;
       const response = yield call(services.gasEdit, id, formDataTogasModel(data));
       switch (response.code) {
-        case '000000':
+        case dict.SUCCESS:
           message.success('加油站编辑成功！');
           yield put(
             routerRedux.push({

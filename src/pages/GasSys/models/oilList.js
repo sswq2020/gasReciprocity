@@ -42,7 +42,7 @@ export default {
       const { listParams } = yield select(selectState);
       const response = yield call(services.oilList, listParams);
       switch (response.code) {
-        case '000000':
+        case dict.SUCCESS:
           if (response.data.pageTotal < response.data.currentPage) {
             yield put({
               type: 'changeListParams',
@@ -72,7 +72,7 @@ export default {
       const { data } = payload;
       const response = yield call(services.oilCreate, data);
       switch (response.code) {
-        case '000000':
+        case dict.SUCCESS:
           message.success('油品分类创建成功！');
           yield put({ type: 'resetListParams' });
           yield put({ type: 'closeForm' });
@@ -87,7 +87,7 @@ export default {
       const response = yield call(services.oilDeleted, id);
 
       switch (response.code) {
-        case '000000':
+        case dict.SUCCESS:
           message.success('油品分类删除成功！');
           yield put({ type: 'getList' });
           break;
@@ -102,7 +102,7 @@ export default {
       const response = yield call(services.oilEdit, id, data);
 
       switch (response.code) {
-        case '000000':
+        case dict.SUCCESS:
           message.success('油品分类编辑成功！');
           yield put({ type: 'getList' });
           yield put({ type: 'closeForm' });
@@ -117,7 +117,7 @@ export default {
       const response = yield call(services.oilEnable, id);
 
       switch (response.code) {
-        case '000000':
+        case dict.SUCCESS:
           message.success('油品分类启用成功！');
           yield put({ type: 'getList' });
           break;
@@ -131,7 +131,7 @@ export default {
       const response = yield call(services.oilDisable, id);
 
       switch (response.code) {
-        case '000000':
+        case dict.SUCCESS:
           message.success('油品分类禁用成功！');
           yield put({ type: 'getList' });
           break;
@@ -145,7 +145,7 @@ export default {
       const response = yield call(services.oilSetDefault, id);
 
       switch (response.code) {
-        case '000000':
+        case dict.SUCCESS:
           message.success('油品分类设为默认展示成功！');
           yield put({ type: 'getList' });
           break;

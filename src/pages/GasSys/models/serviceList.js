@@ -1,6 +1,7 @@
 import { message } from 'antd';
 import { reducers } from '@/utils/utils';
 import services from '@/services';
+import dict from '@/utils/dict';
 
 const namespace = 'serviceList';
 const selectState = state => state[namespace];
@@ -44,7 +45,7 @@ export default {
       const { listParams } = yield select(selectState);
       const response = yield call(services.serviceList, listParams);
       switch (response.code) {
-        case '000000':
+        case dict.SUCCESS:
           if (response.data.pageTotal < response.data.currentPage) {
             yield put({
               type: 'changeListParams',
@@ -81,7 +82,7 @@ export default {
       const { data } = payload;
       const response = yield call(services.serviceCreate, data);
       switch (response.code) {
-        case '000000':
+        case dict.SUCCESS:
           message.success('特色服务创建成功！');
           yield put({ type: 'resetListParams' });
           yield put({ type: 'closeForm' });
@@ -97,7 +98,7 @@ export default {
       const response = yield call(services.serviceEdit, id, data);
 
       switch (response.code) {
-        case '000000':
+        case dict.SUCCESS:
           message.success('特色服务编辑成功！');
           yield put({ type: 'getList' });
           yield put({ type: 'closeForm' });
@@ -112,7 +113,7 @@ export default {
       const response = yield call(services.serviceEnable, id);
 
       switch (response.code) {
-        case '000000':
+        case dict.SUCCESS:
           message.success('特色服务激活成功！');
           yield put({ type: 'getList' });
           break;
@@ -126,7 +127,7 @@ export default {
       const response = yield call(services.serviceDisable, id);
 
       switch (response.code) {
-        case '000000':
+        case dict.SUCCESS:
           message.success('特色服务禁用成功！');
           yield put({ type: 'getList' });
           break;
@@ -186,7 +187,7 @@ export default {
       const { id } = payload;
       const response = yield call(services.serviceDelete, id);
       switch (response.code) {
-        case '000000':
+        case dict.SUCCESS:
           message.success('特色服务删除成功！');
           yield put({ type: 'getList' });
           break;

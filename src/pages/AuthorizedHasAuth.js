@@ -2,6 +2,7 @@ import React from 'react';
 import dynamic from 'umi/dynamic';
 import Redirect from 'umi/redirect';
 import services from '@/services';
+import dict from '@/utils/dict';
 import { setAuthority } from '@/utils/authority';
 
 export default dynamic({
@@ -9,7 +10,7 @@ export default dynamic({
     // console.log('loader');
     const response = await services.queryCurrentUser();
     switch (response.code) {
-      case '000000':
+      case dict.SUCCESS:
         if (response.data.userType) {
           // 保存用户信息
           g_app._store.dispatch({

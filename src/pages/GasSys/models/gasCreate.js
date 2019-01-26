@@ -2,6 +2,7 @@ import { message } from 'antd';
 import { routerRedux } from 'dva/router';
 import { reducers } from '@/utils/utils';
 import { formDataTogasModel } from '@/utils/adapter';
+import dict from '@/utils/dict';
 import services from '@/services';
 
 const namespace = 'gasCreate';
@@ -40,7 +41,7 @@ export default {
       const { data } = payload;
       const response = yield call(services.gasCreate, formDataTogasModel(data));
       switch (response.code) {
-        case '000000':
+        case dict.SUCCESS:
           message.success('加油站创建成功！');
           yield put(
             routerRedux.push({

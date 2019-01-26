@@ -1,5 +1,6 @@
 import React, { PureComponent, Fragment } from 'react';
 import { Upload, Message, Progress } from 'antd';
+import dict from '@/utils/dict';
 import { hostList } from '@/services/mock';
 import styles from './index.less';
 
@@ -43,7 +44,7 @@ export default class CustomizeComponent extends PureComponent {
           });
         } else {
           switch (info.file.response.code) {
-            case '000000':
+            case dict.SUCCESS:
               onSuccess({
                 url: `${imgUrl}${info.file.response.data.file_info.file_id}`,
                 fileId: info.file.response.data.file_info.file_id,

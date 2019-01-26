@@ -2,6 +2,7 @@ import md5 from 'js-md5';
 import { routerRedux } from 'dva/router';
 import { message } from 'antd';
 import { reducers } from '@/utils/utils';
+import dict from '@/utils/dict';
 import services from '@/services';
 
 const namespace = 'login';
@@ -22,7 +23,7 @@ export default {
         userPasswd: md5(md5(password) + loginName),
       });
       switch (response.code) {
-        case '000000':
+        case dict.SUCCESS:
           window.localStorage.setItem('xAuthToken', response.data.token);
           yield put({
             type: 'user/overrideStateProps',
@@ -51,7 +52,7 @@ export default {
     *logout(_, { call, put }) {
       const response = yield call(services.logout);
       switch (response.code) {
-        case '000000':
+        case dict.SUCCESS:
           window.localStorage.removeItem('xAuthToken');
           yield put({
             type: 'user/overrideStateProps',
