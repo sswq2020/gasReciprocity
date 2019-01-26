@@ -410,4 +410,16 @@ export default {
       },
     });
   },
+  /**
+   * @author sswq
+   * @description 票务管理/根据年月获取应开金额
+   */
+  getshouldSum(params) {
+    return request({
+      host: BASEURL,
+      url: '/getshouldSum',
+      method: 'post',
+      params,
+    });
+  },
 };

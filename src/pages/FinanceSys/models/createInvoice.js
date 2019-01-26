@@ -4,7 +4,7 @@ import dict from '@/utils/dict';
 import services from '@/services';
 
 const namespace = 'createInvoice';
-// const selectState = store => store[namespace];
+const selectState = store => store[namespace];
 
 const defaultFormData = {
   year: null,
@@ -13,6 +13,7 @@ const defaultFormData = {
   invoiceNumList: null,
   invoicePartyName: null,
   taxRate: null,
+  shouldsum: '', // 应开金额
   sum: null,
   photo: {
     url: null,
@@ -43,6 +44,27 @@ export default {
           break;
         default:
           message.warning('新增发票创建失败，请稍后重试！');
+          break;
+      }
+    },
+
+    *changeYear({ payload }, { call, put, select }) {
+      const { formData } = yield select(selectState);
+      const { date } = payload;
+      const response = yield call(services.getshouldSum, date);
+      switch (response.code) {
+        case dict.SUCCESS:
+          yield put({
+            type: 'overrideStateProps',
+            payload: {
+              formData: Object.assign({}, formData, {
+                shouldsum: response.data.shouldsum.shouldsum,
+              }),
+            },
+          });
+          break;
+        default:
+          message.warning('应开金额失败，请稍后重试！');
           break;
       }
     },
