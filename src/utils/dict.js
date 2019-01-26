@@ -1,6 +1,6 @@
 const dict = {};
 // 成功
-dict.SUCCESS = 0;
+dict.SUCCESS = '000000';
 
 // 没有权限
 dict.PERMISSION_INVALID = 200;

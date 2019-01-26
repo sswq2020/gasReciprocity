@@ -215,7 +215,7 @@ class Page extends PureComponent {
               return (
                 <div style={{ textAlign: 'center' }}>
                   <span
-                    className="success_text cursor_pointer"
+                    className="error_text cursor_pointer"
                     style={{ marginRight: 10 }}
                     onClick={() => {
                       Modal.confirm({
