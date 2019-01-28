@@ -140,7 +140,7 @@ class Page extends PureComponent {
         {
           title: '发票类型',
           key: 'invoiceType',
-          width: 120,
+          width: 150,
           align: 'center',
           render: (text, record) => <Fragment>{record.e}</Fragment>,
         },
