@@ -11,7 +11,7 @@ export default dynamic({
     const response = await services.queryCurrentUser();
     switch (response.code) {
       case dict.SUCCESS:
-        if (response.data.userType) {
+        if (response.data && response.data.userType) {
           // 保存用户信息
           g_app._store.dispatch({
             type: 'user/overrideStateProps',
@@ -22,8 +22,6 @@ export default dynamic({
               },
             },
           });
-        } else {
-          window.localStorage.removeItem('xAuthToken');
         }
 
         break;
