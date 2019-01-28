@@ -1,6 +1,7 @@
 import axios from 'axios';
 import router from 'umi/router';
-import { message } from 'antd';
+// import { message } from 'antd';
+import dict from '@/utils/dict';
 import { isMock, hostList } from './mock';
 
 const BASEURL = hostList[ENV];
@@ -33,8 +34,16 @@ axios.interceptors.response.use(
   },
   // Do something with response
   () => {
-    message.error('网络错误，请稍后重试！！');
+    // message.error('网络错误，请稍后重试！！');
     // Promise.reject(error);
+    return new Promise(resolve => {
+      resolve({
+        code: dict.SUCCESS,
+        mesg: '网络错误',
+        timestamp: new Date().getTime(),
+        data: null,
+      });
+    });
   }
   // tools.toast({
   //   position: 'top',
@@ -156,7 +165,7 @@ export default {
       host: BASEURL,
       url: '/action/gs/queryGasStationInfoPage',
       params: {
-        page: 1,
+        currentPage: 1,
         size: 10,
         ...params,
       },

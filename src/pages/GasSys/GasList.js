@@ -42,7 +42,7 @@ class Page extends PureComponent {
       dispatch({
         type: 'gasList/changeListParams',
         payload: {
-          page: 1,
+          currentPage: 1,
           ...getFieldsValue(),
         },
       });
@@ -112,7 +112,7 @@ class Page extends PureComponent {
       dispatch,
       getListIsLoading,
       gasList: {
-        listParams: { page },
+        listParams: { currentPage },
         list: { list: listData, totalItemCount },
       },
     } = this.props;
@@ -125,7 +125,9 @@ class Page extends PureComponent {
           width: 60,
           fixed: 'left',
           align: 'center',
-          render: (text, record, index) => <Fragment>{(page - 1) * 10 + index + 1}</Fragment>,
+          render: (text, record, index) => (
+            <Fragment>{(currentPage - 1) * 10 + index + 1}</Fragment>
+          ),
         },
         {
           title: '会员名',
@@ -313,13 +315,13 @@ class Page extends PureComponent {
       // },
       pagination: {
         total: totalItemCount,
-        current: page,
+        current: currentPage,
       },
       onChange: pagination => {
         dispatch({
           type: 'gasList/changeListParams',
           payload: {
-            page: pagination.current,
+            currentPage: pagination.current,
           },
         });
       },
