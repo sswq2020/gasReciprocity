@@ -38,7 +38,7 @@ axios.interceptors.response.use(
     // Promise.reject(error);
     return new Promise(resolve => {
       resolve({
-        code: dict.SUCCESS,
+        code: dict.EXCEPTION,
         mesg: '网络错误',
         timestamp: new Date().getTime(),
         data: null,
