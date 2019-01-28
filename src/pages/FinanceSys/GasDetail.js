@@ -95,7 +95,14 @@ class Page extends PureComponent {
       getListIsLoading,
       getDetailes: {
         listParams: { currentPage },
-        list: { orderDtoList: listData, itemCount: totalItemCount },
+        list: {
+          orderDtoList: listData,
+          itemCount: totalItemCount,
+          subtotal,
+          fuelVSubTotal,
+          total,
+          fuelVTotal,
+        },
       },
     } = this.props;
     const listProps = {
@@ -184,6 +191,35 @@ class Page extends PureComponent {
             currentPage: pagination.current,
           },
         });
+      },
+      title: () => {
+        return (
+          <div
+            style={{
+              display: 'flex',
+              justifyContent: 'space-around',
+              width: '80%',
+              margin: '0 auto',
+            }}
+          >
+            <div>
+              当前页加油量小计
+              <span style={{ color: 'red', fontSize: '1.2rem' }}>{subtotal}</span>L
+            </div>
+            <div>
+              当前页加油金额小计￥
+              <span style={{ color: 'red', fontSize: '1.2rem' }}>{total}</span>
+            </div>
+            <div>
+              总页加油量合计
+              <span style={{ color: 'red', fontSize: '1.2rem' }}>{fuelVSubTotal}</span>L
+            </div>
+            <div>
+              总页加油金额合计￥
+              <span style={{ color: 'red', fontSize: '1.2rem' }}>{fuelVTotal}</span>
+            </div>
+          </div>
+        );
       },
     };
     return (

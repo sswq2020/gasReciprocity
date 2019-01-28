@@ -22,6 +22,11 @@ export default {
     list: {
       orderDtoList: [],
       itemCount: 0,
+      pageTotal: 0,
+      subtotal: 0,
+      fuelVSubTotal: 0,
+      total: 0,
+      fuelVTotal: 0,
     },
   },
   reducers,
