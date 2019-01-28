@@ -2,6 +2,8 @@ const dict = {};
 // 成功
 dict.SUCCESS = '000000';
 
+dict.EXCEPTION = '-1';
+
 // 没有权限
 dict.PERMISSION_INVALID = 200;
 

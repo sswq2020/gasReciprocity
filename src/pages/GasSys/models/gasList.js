@@ -12,7 +12,7 @@ const defaultListParams = {
   memberName: '',
   gsName: '',
   isban: null,
-  page: 1,
+  currentPage: 1,
 };
 
 export default {
