@@ -1,6 +1,7 @@
 import { message } from 'antd';
 import { routerRedux } from 'dva/router';
 import services from '@/services';
+import dict from '@/utils/dict';
 import { reducers } from '@/utils/utils';
 
 const namespace = 'user';
@@ -16,7 +17,7 @@ export default {
     *fetchCurrent(_, { put, call }) {
       const response = yield call(services.queryCurrentUser);
       switch (response.code) {
-        case 0:
+        case dict.SUCCESS:
           yield put({
             type: 'overrideStateProps',
             payload: {
@@ -32,7 +33,7 @@ export default {
     *logout(_, { call, put }) {
       const response = yield call(services.logout);
       switch (response.code) {
-        case '000000':
+        case dict.SUCCESS:
           window.localStorage.removeItem('xAuthToken');
           window.localStorage.removeItem('authority');
           yield put(

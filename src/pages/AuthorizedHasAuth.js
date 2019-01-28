@@ -27,6 +27,7 @@ export default dynamic({
         break;
       default:
         window.localStorage.removeItem('xAuthToken');
+        window.localStorage.removeItem('authority');
         break;
     }
     return ({ children }) => {
@@ -35,6 +36,7 @@ export default dynamic({
       // console.log(user, children);
       if (user === null) {
         window.localStorage.removeItem('xAuthToken');
+        window.localStorage.removeItem('authority');
         return <Redirect to="/account/login" />;
       } else {
         setAuthority(user.auth);
