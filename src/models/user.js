@@ -34,6 +34,7 @@ export default {
       switch (response.code) {
         case '000000':
           window.localStorage.removeItem('xAuthToken');
+          window.localStorage.removeItem('authority');
           yield put(
             routerRedux.push({
               pathname: '/account/login',
