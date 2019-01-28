@@ -24,17 +24,21 @@ export default {
       });
       switch (response.code) {
         case dict.SUCCESS:
-          window.localStorage.setItem('xAuthToken', response.data.token);
-          yield put({
-            type: 'user/overrideStateProps',
-            payload: {
-              currentUser: {
-                ...response.data,
-                auth: [response.data.userType],
+          if (response.data && response.data.userType) {
+            window.localStorage.setItem('xAuthToken', response.data.token);
+            yield put({
+              type: 'user/overrideStateProps',
+              payload: {
+                currentUser: {
+                  ...response.data,
+                  auth: [response.data.userType],
+                },
               },
-            },
-          });
-          window.location.href = '/';
+            });
+            window.location.href = '/';
+          } else {
+            message.warning('账号或密码错误！');
+          }
           // yield put(
           //   routerRedux.push({
           //     pathname: '/',

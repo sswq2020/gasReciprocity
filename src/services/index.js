@@ -122,6 +122,7 @@ export default {
     return request({
       host: BASEURL,
       url: '/action/login/doLogout',
+      method: 'POST',
     });
   },
   gasDict() {

@@ -32,7 +32,7 @@ export default {
     *logout(_, { call, put }) {
       const response = yield call(services.logout);
       switch (response.code) {
-        case 0:
+        case '000000':
           window.localStorage.removeItem('xAuthToken');
           yield put(
             routerRedux.push({
