@@ -26,6 +26,7 @@ axios.interceptors.response.use(
       return response;
     } else {
       window.localStorage.removeItem('xAuthToken');
+      window.localStorage.removeItem('authority');
       router.push('/account/login');
       // Promise.reject(new Error(response));
     }
@@ -122,6 +123,7 @@ export default {
     return request({
       host: BASEURL,
       url: '/action/login/doLogout',
+      method: 'POST',
     });
   },
   gasDict() {
