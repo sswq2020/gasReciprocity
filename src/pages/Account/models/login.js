@@ -58,6 +58,7 @@ export default {
       switch (response.code) {
         case dict.SUCCESS:
           window.localStorage.removeItem('xAuthToken');
+          window.localStorage.removeItem('authority');
           yield put({
             type: 'user/overrideStateProps',
             payload: {
