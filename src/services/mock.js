@@ -191,6 +191,24 @@ const invoiceConfirmLite = {
   status: '@PICK(["0", "1"])',
 };
 
+const invoiceAddress = {
+  invoiceDto: {
+    // id:null,
+    invoiceName: '惠龙易通国际物流股份有限公司',
+    invoiceTaxpayer: '92321100661790118F',
+    invoiceAddress: '镇江市长江路758号',
+    invoiceTel: '0511-85110838',
+    invoiceBank: '江苏银行股份有限公司镇江一泉支行',
+    invoiceBankCode: '00025727045012',
+  },
+  receiveAddressDto: {
+    //  id:123213,
+    receivingAddressPerson: '许扬',
+    receivingAddressTel: '18012129898',
+    receivingAddress: '江苏省镇江市长江路758号惠龙易通国际物流股份有限公司',
+  },
+};
+
 const licenseList = {
   'id|+1': 1,
   updatedAt: '@DATE("yyyy-MM-dd HH:mm:ss")',
@@ -539,6 +557,37 @@ const mockRouterMap = {
       isMock: true,
       method: 'get',
       router: '/action/sc/receiptBill/insertReceiptBill',
+      result() {
+        return {
+          ...body,
+        };
+      },
+    },
+    {
+      isMock: true,
+      method: 'get',
+      router: '/action/sc/receiptBill/getInvoiceAddress',
+      result() {
+        return {
+          ...body,
+          data: invoiceAddress,
+        };
+      },
+    },
+    {
+      isMock: true,
+      method: 'get',
+      router: '/action/sc/receiptBill/updateInvoiceAddress',
+      result() {
+        return {
+          ...body,
+        };
+      },
+    },
+    {
+      isMock: true,
+      method: 'get',
+      router: '/action/sc/receiptBill/insertInvoiceAddress',
       result() {
         return {
           ...body,
