@@ -441,11 +441,24 @@ export default {
   invoiceDisannul(id) {
     return request({
       host: BASEURL,
+      method: 'post',
       url: '/action/sc/receiptBill/updateReceiptBill',
       params: {
         id,
         status: 1,
       },
+    });
+  },
+  /**
+   * @author sswq
+   * @description 票务管理/新增发票
+   */
+  invoiceCreate(params) {
+    return request({
+      host: BASEURL,
+      method: 'post',
+      url: '/action/sc/receiptBill/insertReceiptBill',
+      params,
     });
   },
   /**
@@ -457,17 +470,6 @@ export default {
       host: BASEURL,
       url: '/getshouldSum',
       method: 'post',
-      params,
-    });
-  },
-  /**
-   * @author sswq
-   * @description 票务管理/新增发票
-   */
-  invoiceCreate(params) {
-    return request({
-      host: BASEURL,
-      url: '/action/sc/receiptBill/insertReceiptBill',
       params,
     });
   },
