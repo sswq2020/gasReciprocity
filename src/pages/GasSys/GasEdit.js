@@ -9,7 +9,7 @@ import GasForm from './components/GasForm';
   isGetDetailing: loading.effects['gasEdit/detail'],
 }))
 class Page extends PureComponent {
-  componentDidMount() {
+  componentWillMount() {
     const {
       dispatch,
       match: {
@@ -17,12 +17,11 @@ class Page extends PureComponent {
       },
     } = this.props;
     dispatch({ type: 'gasEdit/detail', payload: id });
-    dispatch({
-      type: 'gasEdit/overrideStateProps',
-      payload: {
-        id,
-      },
-    });
+  }
+
+  componentWillUnmount() {
+    const { dispatch } = this.props;
+    dispatch({ type: 'gasEdit/resetFormData' });
   }
 
   render() {
