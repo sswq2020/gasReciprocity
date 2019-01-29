@@ -469,7 +469,27 @@ const mockRouterMap = {
     {
       isMock: true,
       method: 'post',
-      router: '/action/jy/queryRefuelingDetails',
+      router: '/action/jy/queryRefuelingDetailsForGS',
+      result(params) {
+        return {
+          ...body,
+          data: {
+            subtotal: 100, // 小计
+            fuelVSubTotal: 100, // 加油量小计
+            total: 100, // 总计
+            fuelVTotal: 100, // 加油量总计
+            'orderDtoList|1-10': [refuelDetailList],
+            pageTotal: 100 / params.pageSize,
+            itemCount: 100,
+            pageSize: 10,
+          },
+        };
+      },
+    },
+    {
+      isMock: true,
+      method: 'post',
+      router: '/action/jy/queryRefuelingDetailsForHL',
       result(params) {
         return {
           ...body,
