@@ -132,7 +132,6 @@ class CustomizeComponent extends PureComponent {
     const fileList = getFieldValue('gas.fileList') || data.fileList;
     const gasOilModelList = getFieldValue('gas.gasOilModelList') || data.gasOilModelList;
     const areaList = getFieldValue('gas.areaList') || data.areaList;
-
     const gasListProps = {
       style: {
         marginTop: -24,
@@ -300,7 +299,7 @@ class CustomizeComponent extends PureComponent {
           </Row>
           <FormItemHead>加油站信息：</FormItemHead>
           <Row>
-            {data.gsCode && (
+            {data.gsCode !== undefined && (
               <Fragment>
                 <Col lg={24} md={24} sm={24}>
                   <FormItem label="加油站编号">
@@ -314,7 +313,7 @@ class CustomizeComponent extends PureComponent {
                 </Col>
               </Fragment>
             )}
-            <Col lg={data.gsCode ? 16 : 24} md={24} sm={24}>
+            <Col lg={data.gsCode !== undefined ? 16 : 24} md={24} sm={24}>
               <FormItem label="加油站照片(门头)">
                 {pics}
                 {fileList.length < 3 && (
@@ -475,7 +474,7 @@ class CustomizeComponent extends PureComponent {
                 <Cascader
                   placeholder="请选择所在地区"
                   allowClear={false}
-                  defaultValue={areaList.map(item => item.id)}
+                  value={areaList.map(item => item.id)}
                   fieldNames={{
                     label: 'name',
                     value: 'id',

@@ -33,9 +33,10 @@ axios.interceptors.response.use(
     }
   },
   // Do something with response
-  () => {
+  error => {
     // message.error('网络错误，请稍后重试！！');
     // Promise.reject(error);
+    console.log(error);
     return new Promise(resolve => {
       resolve({
         code: dict.EXCEPTION,

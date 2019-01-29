@@ -8,7 +8,7 @@
     "lint-staged:js": "eslint --fix --ext .js"
   },
   "dependencies": {
-    "antd": "^3.11.6",
+    "antd": "^3.13.0",
     "axios": "^0.18.0",
     "dva": "^2.4.0",
     "enquire-js": "^0.2.1",

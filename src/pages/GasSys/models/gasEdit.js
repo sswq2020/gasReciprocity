@@ -10,6 +10,7 @@ const namespace = 'gasEdit';
 const selectState = state => state[namespace];
 
 const defaultFormData = {
+  gsCode: '',
   memberName: '', // 会员名
   adminName: '', // 管理员
   adminCard: '', // 管理员身份证
@@ -46,6 +47,7 @@ export default {
           yield put({
             type: 'overrideStateProps',
             payload: {
+              id: payload,
               formData: gasModelToFormData(response.data),
             },
           });
@@ -54,6 +56,14 @@ export default {
           message.warning('加油站信息获取失败，请稍后重试！');
           break;
       }
+    },
+    *resetFormData(_, { put }) {
+      yield put({
+        type: 'overrideStateProps',
+        payload: {
+          formData: { ...defaultFormData },
+        },
+      });
     },
     *submit({ payload }, { call, put, select }) {
       const { id } = yield select(selectState);

@@ -52,7 +52,7 @@ class Page extends PureComponent {
                       },
                     ],
                   })(
-                    formData.photo.url ? (
+                    formData.photo.fileId ? (
                       <ImageBox
                         src="sdf"
                         onDelete={() => {
