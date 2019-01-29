@@ -121,4 +121,11 @@ dict.gasIsBaned = {
   [dict.gasIsNotBan]: '启用',
 };
 
+dict.billIsNormalStatus = '0';
+dict.billIsDisannultStatus = '1';
+dict.billStatus = {
+  [dict.billIsNormalStatus]: '正常',
+  [dict.billIsDisannultStatus]: '作废',
+};
+
 export default dict;

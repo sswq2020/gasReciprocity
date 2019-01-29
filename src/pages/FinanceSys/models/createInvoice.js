@@ -7,14 +7,14 @@ const namespace = 'createInvoice';
 const selectState = store => store[namespace];
 
 const defaultFormData = {
-  year: null,
-  gasStation: null,
-  invoiceType: null,
-  invoiceNumList: null,
-  invoicePartyName: null,
-  taxRate: null,
-  shouldsum: '', // 应开金额
-  sum: null,
+  createTime: null,
+  gsName: null,
+  billType: null,
+  billCode: null,
+  billName: null,
+  billTaxRate: null,
+  billAmt: '', // 应开金额
+  billActualAmt: null,
   photo: {
     url: null,
   },
@@ -31,7 +31,7 @@ export default {
   effects: {
     *save({ payload }, { call, put }) {
       const { formData } = payload;
-      const response = yield call(services.gasCreate, formData);
+      const response = yield call(services.invoiceCreate, formData);
       switch (response.code) {
         case dict.SUCCESS:
           message.success('新增发票创建成功！');

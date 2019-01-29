@@ -7,8 +7,8 @@ const namespace = 'invoiceConfirm';
 const selectState = state => state[namespace];
 
 const defaultListParams = {
-  year: '', // 年月
-  gasStation: '', // 加油站名称
+  createTime: '', // 年月
+  gsName: '', // 加油站名称
   currentPage: 1,
 };
 

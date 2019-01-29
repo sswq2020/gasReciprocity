@@ -399,10 +399,10 @@ export default {
   invoiceConfirmList(params) {
     return request({
       host: BASEURL,
-      url: '/invoiceConfirmList',
+      url: '/action/sc/receiptBill/queryReceiptBillPage',
       params: {
-        page: 1,
-        size: 10,
+        currentPage: 1,
+        pageSize: 10,
         ...params,
       },
     });
@@ -414,10 +414,10 @@ export default {
   invoiceDisannul(id) {
     return request({
       host: BASEURL,
-      url: '/action/gs/invoiceDisannul',
-      method: 'post',
+      url: '/action/sc/receiptBill/updateReceiptBill',
       params: {
         id,
+        status: 1,
       },
     });
   },
@@ -430,6 +430,17 @@ export default {
       host: BASEURL,
       url: '/getshouldSum',
       method: 'post',
+      params,
+    });
+  },
+  /**
+   * @author sswq
+   * @description 票务管理/新增发票
+   */
+  invoiceCreate(params) {
+    return request({
+      host: BASEURL,
+      url: '/action/sc/receiptBill/insertReceiptBill',
       params,
     });
   },
