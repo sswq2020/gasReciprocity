@@ -6,6 +6,7 @@ import PageHeaderWrapper from '@/components/PageHeaderWrapper';
 import TableList from '@/components/TableList';
 import ListHeaderForm from '@/components/ListHeaderForm';
 import PreviewImage from '@/components/PreviewImage';
+import dict from '@/utils/dict';
 
 const { MonthPicker } = DatePicker;
 const FormItem = Form.Item;
@@ -66,12 +67,12 @@ class Page extends PureComponent {
         <Row gutter={{ md: 8, lg: 24, xl: 48 }}>
           <Col {...formItemWidth}>
             <FormItem label="年月">
-              {getFieldDecorator('year')(<MonthPicker style={{ width: '100%' }} />)}
+              {getFieldDecorator('createTime')(<MonthPicker style={{ width: '100%' }} />)}
             </FormItem>
           </Col>
           <Col {...formItemWidth}>
             <FormItem label="加油站名称">
-              {getFieldDecorator('gasStation')(<Input placeholder="请输入" autoComplete="off" />)}
+              {getFieldDecorator('gsName')(<Input placeholder="请输入" autoComplete="off" />)}
             </FormItem>
           </Col>
           <Col className="submitButtons" {...formItemWidth}>
@@ -111,52 +112,52 @@ class Page extends PureComponent {
         },
         {
           title: '加油站名称',
-          key: 'name',
+          key: 'gsName',
           width: 200,
           align: 'center',
-          render: (text, record) => <Fragment>{record.b}</Fragment>,
+          render: (text, record) => <Fragment>{record.gsName}</Fragment>,
         },
         {
           title: '年月',
-          key: 'date',
+          key: 'createTime',
           width: 120,
           align: 'center',
-          render: (text, record) => <Fragment>{record.a}</Fragment>,
+          render: (text, record) => <Fragment>{record.createTime}</Fragment>,
         },
         {
           title: '发票号码',
-          key: 'invoiceNum',
+          key: 'billCode',
           width: 120,
           align: 'center',
-          render: (text, record) => <Fragment>{record.c}</Fragment>,
+          render: (text, record) => <Fragment>{record.billCode}</Fragment>,
         },
         {
           title: '开票方名称',
-          key: 'invoiceName',
+          key: 'billName',
           width: 200,
           align: 'center',
-          render: (text, record) => <Fragment>{record.d}</Fragment>,
+          render: (text, record) => <Fragment>{record.billName}</Fragment>,
         },
         {
           title: '发票类型',
-          key: 'invoiceType',
+          key: 'billType',
           width: 150,
           align: 'center',
-          render: (text, record) => <Fragment>{record.e}</Fragment>,
+          render: (text, record) => <Fragment>{record.billType}</Fragment>,
         },
         {
           title: '应开金额',
-          key: 'finace',
+          key: 'billAmt',
           width: 120,
           align: 'center',
-          render: (text, record) => <Fragment>{record.f}</Fragment>,
+          render: (text, record) => <Fragment>{record.billAmt}</Fragment>,
         },
         {
           title: '实开金额',
-          key: 'finace2',
+          key: 'billActualAmt',
           width: 120,
           align: 'center',
-          render: (text, record) => <Fragment>{record.g}</Fragment>,
+          render: (text, record) => <Fragment>{record.billActualAmt}</Fragment>,
         },
         {
           title: '发票照片',
@@ -180,11 +181,11 @@ class Page extends PureComponent {
           width: 110,
           render: (text, record) => {
             let flatClass = '';
-            switch (record.j) {
-              case '作废':
+            switch (record.status) {
+              case dict.billIsDisannultStatus:
                 flatClass = 'error_flat';
                 break;
-              case '正常':
+              case dict.billIsNormalStatus:
                 flatClass = 'success_flat';
                 break;
               default:
@@ -199,7 +200,7 @@ class Page extends PureComponent {
                   }}
                   className={`point ${flatClass}`}
                 />
-                {record.j}
+                {dict.billStatus[record.status]}
               </Fragment>
             );
           },
@@ -211,7 +212,7 @@ class Page extends PureComponent {
           fixed: 'right',
           width: 100,
           render: (text, record) => {
-            if (record.j === '正常') {
+            if (dict.billIsNormalStatus === record.status) {
               return (
                 <div style={{ textAlign: 'center' }}>
                   <span
@@ -220,10 +221,17 @@ class Page extends PureComponent {
                     onClick={() => {
                       Modal.confirm({
                         autoFocusButton: null,
-                        title: '你确定作废该发票？',
+                        title: `你确定作废发票号码${record.billCode}吗？`,
                         okText: '确认',
                         cancelText: '取消',
-                        onOk: () => {},
+                        onOk: () => {
+                          dispatch({
+                            type: 'invoiceConfirm/disannul',
+                            payload: {
+                              id: record.id,
+                            },
+                          });
+                        },
                       });
                     }}
                   >
@@ -247,7 +255,7 @@ class Page extends PureComponent {
         dispatch({
           type: 'invoiceConfirm/changeListParams',
           payload: {
-            pagcurrentPagee: pagination.current,
+            currentPage: pagination.current,
           },
         });
       },

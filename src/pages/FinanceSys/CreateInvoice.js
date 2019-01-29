@@ -83,8 +83,8 @@ class Page extends PureComponent {
               </Col>
               <Col {...formItemWidth}>
                 <FormItem label="年月">
-                  {getFieldDecorator('formData.year', {
-                    initialValue: formData.year,
+                  {getFieldDecorator('formData.createTime', {
+                    initialValue: formData.createTime,
                     getValueFromEvent: value => {
                       const date = moment(value).format('YYYY-MM');
                       dispatch({
@@ -104,8 +104,8 @@ class Page extends PureComponent {
               </Col>
               <Col {...formItemWidth}>
                 <FormItem label="加油站名称">
-                  {getFieldDecorator('formData.gasStation', {
-                    initialValue: formData.gasStation,
+                  {getFieldDecorator('formData.gsName', {
+                    initialValue: formData.gsName,
                     rules: [
                       {
                         required: true,
@@ -123,8 +123,8 @@ class Page extends PureComponent {
               </Col>
               <Col {...formItemWidth}>
                 <FormItem label="发票类型">
-                  {getFieldDecorator('formData.invoiceType', {
-                    initialValue: formData.invoiceType,
+                  {getFieldDecorator('formData.billType', {
+                    initialValue: formData.billType,
                     rules: [
                       {
                         required: true,
@@ -141,8 +141,8 @@ class Page extends PureComponent {
               </Col>
               <Col {...formItemWidth}>
                 <FormItem label="发票号码">
-                  {getFieldDecorator('formData.invoiceNumList', {
-                    initialValue: formData.invoiceNumList,
+                  {getFieldDecorator('formData.billCode', {
+                    initialValue: formData.billCode,
                     rules: [
                       {
                         required: true,
@@ -164,8 +164,8 @@ class Page extends PureComponent {
               </Col>
               <Col {...formItemWidth}>
                 <FormItem label="开票房名称">
-                  {getFieldDecorator('formData.invoicePartyName', {
-                    initialValue: formData.invoicePartyName,
+                  {getFieldDecorator('formData.billName', {
+                    initialValue: formData.billName,
                     rules: [
                       {
                         required: true,
@@ -178,8 +178,8 @@ class Page extends PureComponent {
               </Col>
               <Col {...formItemWidth}>
                 <FormItem label="税率">
-                  {getFieldDecorator('formData.taxRate', {
-                    initialValue: formData.taxRate,
+                  {getFieldDecorator('formData.billTaxRate', {
+                    initialValue: formData.billTaxRate,
                     rules: [
                       {
                         required: true,
@@ -195,12 +195,12 @@ class Page extends PureComponent {
                 </FormItem>
               </Col>
               <Col {...formItemWidth}>
-                <FormItem label="应开金额">{formData.shouldsum}</FormItem>
+                <FormItem label="应开金额">{formData.billAmt}</FormItem>
               </Col>
               <Col {...formItemWidth}>
                 <FormItem label="实开金额">
-                  {getFieldDecorator('formData.sum', {
-                    initialValue: formData.sum,
+                  {getFieldDecorator('formData.billActualAmt', {
+                    initialValue: formData.billActualAmt,
                     rules: [
                       {
                         required: true,
