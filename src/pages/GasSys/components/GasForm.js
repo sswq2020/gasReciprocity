@@ -315,11 +315,12 @@ class CustomizeComponent extends PureComponent {
             )}
             <Col lg={data.gsCode !== undefined ? 16 : 24} md={24} sm={24}>
               <FormItem label="加油站照片(门头)">
+                {pics}
                 {fileList.length < 3 && (
                   <div className={styles.imgBox}>
                     <ImageUpload
                       onSuccess={file => {
-                        fileList.unshift(file);
+                        fileList.push(file);
                         setFieldsValue({
                           'gas.fileList': fileList,
                         });
@@ -327,7 +328,6 @@ class CustomizeComponent extends PureComponent {
                     />
                   </div>
                 )}
-                {pics}
                 {getFieldDecorator('gas.fileList', {
                   initialValue: data.fileList,
                   rules: [
