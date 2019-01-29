@@ -79,7 +79,7 @@ class Page extends PureComponent {
         <Row gutter={{ md: 16, lg: 24, xl: 48 }}>
           <Col {...formItemWidth}>
             <FormItem label="油品名称">
-              {getFieldDecorator('fuelName', {
+              {getFieldDecorator('oilModelName', {
                 initialValue: null,
               })(<Select hasAll placeholder="请选择" style={{ width: '100%' }} data={[]} />)}
             </FormItem>
@@ -124,38 +124,31 @@ class Page extends PureComponent {
         },
         {
           title: '油品名称',
-          key: 'fuelName',
+          key: 'oilModelName',
           width: 120,
           align: 'center',
-          render: (text, record) => <Fragment>{record.fuelName}</Fragment>,
+          render: (text, record) => <Fragment>{record.oilModelName}</Fragment>,
         },
         {
           title: '零售价',
-          key: 'retailPrice',
+          key: 'oilRetailPrice',
           width: 120,
           align: 'center',
-          render: (text, record) => <Fragment>￥{record.b}</Fragment>,
+          render: (text, record) => <Fragment>￥{record.oilRetailPrice}</Fragment>,
         },
         {
           title: '会员折扣(%)',
           key: 'memberDiscount',
           width: 120,
           align: 'center',
-          render: (text, record) => <Fragment>{record.c}%</Fragment>,
+          render: (text, record) => <Fragment>{record.oilMemberAgio}%</Fragment>,
         },
         {
           title: '会员价',
           key: 'memberPrice',
           width: 120,
           align: 'center',
-          render: (text, record) => <Fragment>￥{record.d}</Fragment>,
-        },
-        {
-          title: '加油金额',
-          key: 'fuelPrice',
-          width: 120,
-          align: 'center',
-          render: (text, record) => <Fragment>￥{record.e}</Fragment>,
+          render: (text, record) => <Fragment>￥{record.oilMemberPrice}</Fragment>,
         },
         {
           title: <div style={{ textAlign: 'center' }}>操作</div>,
@@ -203,7 +196,7 @@ class Page extends PureComponent {
         dispatch({
           type: 'priceApply/changeListParams',
           payload: {
-            pagcurrentPagee: pagination.current,
+            currentPage: pagination.current,
           },
         });
       },

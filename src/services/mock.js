@@ -143,12 +143,12 @@ const refuelDetailList = {
  */
 const priceApplyList = {
   'id|+1': 1,
-  fuelName: '0#(V)', // 油品名称
-  b: '@float(5,8)', // 零售价
-  c: '@INTEGER(1,2)', // 会员折扣(%)
-  d: '@float(5,8)', // 会员价
-  e: '@float(400,2000)', // 加油金额
-  f: '@DATE("yyyy-MM-dd HH:mm:ss")', // 调价历史
+  oilModelName: '0#(V)', // 油品名称
+  oilRetailPrice: '@float(5,8)', // 零售价
+  oilMemberAgio: '@INTEGER(1,2)', // 会员折扣(%)
+  oilMemberPrice: '@float(5,8)', // 会员价
+  effectTime: '@DATE("yyyy-MM-dd HH:mm:ss")', // 生效时间
+  createTime: '@DATE("yyyy-MM-dd HH:mm:ss")', // 调价历史
 };
 
 /**
@@ -489,15 +489,42 @@ const mockRouterMap = {
     {
       isMock: true,
       method: 'get',
-      router: '/priceApplyList',
+      router: '/action/sc/receiptBill/queryGasOilModelPage',
       result(params) {
         return {
           ...body,
           data: {
-            totalPageCount: 100 / params.size,
-            totalItemCount: 100,
+            pageTotal: 100 / params.pageSize,
+            itemCount: 100,
+            pageSize: 10,
             'list|1-10': [priceApplyList],
           },
+        };
+      },
+    },
+    {
+      isMock: true,
+      method: 'get',
+      router: '/action/sc/receiptBill/queryGasOilModelHistoryPage',
+      result(params) {
+        return {
+          ...body,
+          data: {
+            pageTotal: 100 / params.pageSize,
+            itemCount: 100,
+            pageSize: 10,
+            'list|1-10': [priceApplyList],
+          },
+        };
+      },
+    },
+    {
+      isMock: true,
+      method: 'post',
+      router: '/action/sc/receiptBill/updateGasOilModel',
+      result() {
+        return {
+          ...body,
         };
       },
     },
