@@ -6,6 +6,18 @@ import services from '@/services';
 const namespace = 'gasForm';
 const selectState = state => state[namespace];
 
+const deleteNullChildren = list => {
+  list.forEach(item => {
+    if (item.children) {
+      if (item.children.length === 0) {
+        delete item.children;
+      } else {
+        deleteNullChildren(item.children);
+      }
+    }
+  });
+};
+
 const defaultFormData = {
   oilModelId: undefined,
   oilModelName: null,
@@ -35,6 +47,7 @@ export default {
       const response = yield call(services.gasDict);
       switch (response.code) {
         case dict.SUCCESS:
+          deleteNullChildren(response.data.provinceList);
           yield put({
             type: 'overrideStateProps',
             payload: {
