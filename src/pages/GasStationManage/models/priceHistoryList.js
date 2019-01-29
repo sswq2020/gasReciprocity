@@ -7,7 +7,7 @@ const namespace = 'priceHistoryList';
 const selectState = state => state[namespace];
 
 const defaultListParams = {
-  id: null, // 油品名称
+  id: null, // 主键id
   currentPage: 1,
 };
 
@@ -27,7 +27,7 @@ export default {
   effects: {
     *getList(_, { call, put, select }) {
       const { listParams } = yield select(selectState);
-      const response = yield call(services.priceApplyList, listParams);
+      const response = yield call(services.priceHisList, listParams);
       switch (response.code) {
         case dict.SUCCESS:
           yield put({

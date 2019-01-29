@@ -28,11 +28,11 @@ export default class CustomizeComponent extends PureComponent {
     return (
       <Form style={{ marginBottom: -24 }}>
         <FormItem {...formItemLayout} label="油品名称">
-          {data.fuelName}
+          {data.oilModelName}
         </FormItem>
         <FormItem {...formItemLayout} label="零售价">
-          {getFieldDecorator('priceApply.retailPrice', {
-            initialValue: data.b,
+          {getFieldDecorator('oilRetailPrice', {
+            initialValue: data.oilRetailPrice,
             rules: [
               {
                 required: true,
@@ -47,14 +47,14 @@ export default class CustomizeComponent extends PureComponent {
           })(<Input placeholder="请填写零售价" autoComplete="off" />)}
         </FormItem>
         <FormItem {...formItemLayout} label="会员折扣">
-          {data.c}
+          {data.oilMemberAgio}
         </FormItem>
         <FormItem {...formItemLayout} label="会员价">
-          {data.d}
+          {data.oilMemberPrice}
         </FormItem>
         <FormItem {...formItemLayout} label="生效日期">
-          {getFieldDecorator('priceApply.effectDate', {
-            initialValue: moment(data.f),
+          {getFieldDecorator('effectTime', {
+            initialValue: moment(data.effectTime),
           })(<DatePicker showTime format={dateFormat} />)}
         </FormItem>
       </Form>
