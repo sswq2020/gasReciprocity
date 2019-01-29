@@ -2,6 +2,7 @@ import { message } from 'antd';
 import { reducers } from '@/utils/utils';
 import dict from '@/utils/dict';
 import services from '@/services';
+import { routerRedux } from 'dva/router';
 
 const namespace = 'createInvoice';
 const selectState = store => store[namespace];
