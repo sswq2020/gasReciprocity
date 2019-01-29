@@ -444,4 +444,36 @@ export default {
       params,
     });
   },
+  /**
+   * @author sswq
+   * @description 票务管理/开票收票地址信息查询
+   */
+  getInvoiceAddress() {
+    return request({
+      host: BASEURL,
+      url: '/action/sc/receiptBill/getInvoiceAddress',
+    });
+  },
+  /**
+   * @author sswq
+   * @description 票务管理/编辑更新开票收票地址信息
+   */
+  invoiceAddressUpdate(params) {
+    return request({
+      host: BASEURL,
+      url: '/action/sc/receiptBill/updateInvoiceAddress',
+      params,
+    });
+  },
+  /**
+   * @author sswq
+   * @description 票务管理/新增开票收票地址信息
+   */
+  invoiceAddressCreate(params) {
+    return request({
+      host: BASEURL,
+      url: '/action/sc/receiptBill/insertInvoiceAddress',
+      params,
+    });
+  },
 };

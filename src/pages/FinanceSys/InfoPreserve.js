@@ -15,14 +15,19 @@ const formItemWidth = {
 const FormItem = Form.Item;
 @connect(({ infoPreserve, loading }) => ({
   infoPreserve,
-  getListIsLoading: loading.effects['infoPreserve/getList'],
+  getListIsLoading: loading.effects['infoPreserve/getInvoiceAddress'],
 }))
 @Form.create()
 class Page extends PureComponent {
+  componentDidMount() {
+    const { dispatch } = this.props;
+    dispatch({ type: 'infoPreserve/getInvoiceAddress' });
+  }
+
   render() {
     const {
       dispatch,
-      infoPreserve: { formData },
+      infoPreserve: { invoiceDto, receiveAddressDto },
       form: { getFieldDecorator, resetFields, getFieldsValue, validateFields },
     } = this.props;
     return (
@@ -33,8 +38,8 @@ class Page extends PureComponent {
             <Row>
               <Col {...formItemWidth}>
                 <FormItem label="名称">
-                  {getFieldDecorator('formData.name', {
-                    initialValue: formData.name,
+                  {getFieldDecorator('_invoiceDto_.invoiceName', {
+                    initialValue: invoiceDto.invoiceName,
                     rules: [
                       {
                         required: true,
@@ -47,8 +52,8 @@ class Page extends PureComponent {
               </Col>
               <Col {...formItemWidth}>
                 <FormItem label="纳税人识别号:">
-                  {getFieldDecorator('formData.taxPayerIdNum', {
-                    initialValue: formData.taxPayerIdNum,
+                  {getFieldDecorator('_invoiceDto_.invoiceTaxpayer', {
+                    initialValue: invoiceDto.invoiceTaxpayer,
                     rules: [
                       {
                         required: true,
@@ -61,8 +66,8 @@ class Page extends PureComponent {
               </Col>
               <Col {...formItemWidth}>
                 <FormItem label="地址:">
-                  {getFieldDecorator('formData.adress', {
-                    initialValue: formData.adress,
+                  {getFieldDecorator('_invoiceDto_.invoiceAddress', {
+                    initialValue: invoiceDto.invoiceAddress,
                     rules: [
                       {
                         required: true,
@@ -75,8 +80,8 @@ class Page extends PureComponent {
               </Col>
               <Col {...formItemWidth}>
                 <FormItem label="电话:">
-                  {getFieldDecorator('formData.tel', {
-                    initialValue: formData.tel,
+                  {getFieldDecorator('_invoiceDto_.invoiceTel', {
+                    initialValue: invoiceDto.invoiceTel,
                     rules: [
                       {
                         required: true,
@@ -89,8 +94,8 @@ class Page extends PureComponent {
               </Col>
               <Col {...formItemWidth}>
                 <FormItem label="开户行:">
-                  {getFieldDecorator('formData.bank', {
-                    initialValue: formData.bank,
+                  {getFieldDecorator('_invoiceDto_.invoiceBank', {
+                    initialValue: invoiceDto.invoiceBank,
                     rules: [
                       {
                         required: true,
@@ -103,8 +108,8 @@ class Page extends PureComponent {
               </Col>
               <Col {...formItemWidth}>
                 <FormItem label="账号:">
-                  {getFieldDecorator('formData.account', {
-                    initialValue: formData.account,
+                  {getFieldDecorator('_invoiceDto_.invoiceBankCode', {
+                    initialValue: invoiceDto.invoiceBankCode,
                     rules: [
                       {
                         required: true,
@@ -120,8 +125,8 @@ class Page extends PureComponent {
             <Row>
               <Col {...formItemWidth}>
                 <FormItem label="收票人:">
-                  {getFieldDecorator('formData.ticketer', {
-                    initialValue: formData.ticketer,
+                  {getFieldDecorator('_receiveAddressDto_.receivingAddressPerson', {
+                    initialValue: receiveAddressDto.receivingAddressPerson,
                     rules: [
                       {
                         required: true,
@@ -134,8 +139,8 @@ class Page extends PureComponent {
               </Col>
               <Col {...formItemWidth}>
                 <FormItem label="收票人联系电话:">
-                  {getFieldDecorator('formData.ticketerTel', {
-                    initialValue: formData.ticketerTel,
+                  {getFieldDecorator('_receiveAddressDto_.receivingAddressTel', {
+                    initialValue: receiveAddressDto.receivingAddressTel,
                     rules: [
                       {
                         required: true,
@@ -148,8 +153,8 @@ class Page extends PureComponent {
               </Col>
               <Col {...formItemWidth}>
                 <FormItem label="寄票地址:">
-                  {getFieldDecorator('formData.adress2', {
-                    initialValue: formData.adress2,
+                  {getFieldDecorator('_receiveAddressDto_.receivingAddress', {
+                    initialValue: receiveAddressDto.receivingAddress,
                     rules: [
                       {
                         required: true,
