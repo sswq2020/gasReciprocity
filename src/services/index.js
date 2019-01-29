@@ -353,15 +353,41 @@ export default {
   priceApplyList(params) {
     return request({
       host: BASEURL,
-      url: '/priceApplyList',
+      url: '/action/sc/receiptBill/queryGasOilModelPage',
       params: {
-        page: 1,
-        size: 10,
+        currentPage: 1,
+        pageSize: 10,
         ...params,
       },
     });
   },
-
+  /**
+   * @author sswq
+   * @description 加油站管理/调价历史列表
+   * */
+  priceHisList(id) {
+    return request({
+      host: BASEURL,
+      url: '/action/sc/receiptBill/queryGasOilModelHistoryPage',
+      params: {
+        currentPage: 1,
+        pageSize: 10,
+        id,
+      },
+    });
+  },
+  /**
+   * @author sswq
+   * @description 加油站管理/调价申请提交
+   * */
+  priceApplyUpdate(params) {
+    return request({
+      host: BASEURL,
+      url: '/action/sc/receiptBill/updateGasOilModel',
+      method: 'post',
+      params,
+    });
+  },
   /**
    * @author sswq
    * @description 加油站管理/票据列表

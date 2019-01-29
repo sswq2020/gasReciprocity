@@ -21,39 +21,43 @@ class CustomizeComponent extends PureComponent {
       columns: [
         {
           title: '油品名称',
-          key: 'fuelName',
+          key: 'oilModelName',
           width: 100,
-          render: (text, record) => <Fragment>{record.fuelName}</Fragment>,
+          render: (text, record) => <Fragment>{record.oilModelName}</Fragment>,
         },
         {
           title: '零售价',
-          key: 'retailPrice',
+          key: 'oilRetailPrice',
           width: 100,
-          render: (text, record) => <Fragment>￥{parseFloat(record.b).toFixed(2)}</Fragment>,
+          render: (text, record) => (
+            <Fragment>￥{parseFloat(record.oilRetailPrice).toFixed(2)}</Fragment>
+          ),
         },
         {
           title: '会员折扣(%)',
-          key: 'memberDiscount',
+          key: 'oilMemberAgio',
           width: 100,
-          render: (text, record) => <Fragment>{record.c}%</Fragment>,
+          render: (text, record) => <Fragment>{record.oilMemberAgio}%</Fragment>,
         },
         {
           title: '会员价',
-          key: 'memberPrice',
+          key: 'oilMemberPrice',
           width: 100,
-          render: (text, record) => <Fragment>￥{parseFloat(record.d).toFixed(2)}</Fragment>,
+          render: (text, record) => (
+            <Fragment>￥{parseFloat(record.oilMemberPrice).toFixed(2)}</Fragment>
+          ),
         },
         {
           title: '生效时间',
           key: 'effectTime',
           width: 120,
-          render: (text, record) => <Fragment>￥{record.f}</Fragment>,
+          render: (text, record) => <Fragment>￥{record.effectTime}</Fragment>,
         },
         {
           title: '调价申请时间',
           key: 'HisTime',
           width: 120,
-          render: (text, record) => <Fragment>￥{record.f}</Fragment>,
+          render: (text, record) => <Fragment>￥{record.createTime}</Fragment>,
         },
       ],
       rowKey: 'id',
@@ -68,9 +72,9 @@ class CustomizeComponent extends PureComponent {
       },
       onChange: pagination => {
         dispatch({
-          type: 'priceApply/changeListParams',
+          type: 'priceHistoryList/changeListParams',
           payload: {
-            pagcurrentPagee: pagination.current,
+            currentPage: pagination.current,
           },
         });
       },

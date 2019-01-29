@@ -2,21 +2,22 @@ import { message } from 'antd';
 import { reducers } from '@/utils/utils';
 import dict from '@/utils/dict';
 import services from '@/services';
+import moment from 'moment';
 
 const namespace = 'priceApply';
 const selectState = state => state[namespace];
 
 const defaultListParams = {
-  fuelName: null, // 油品名称
+  oilModelName: null, // 油品名称
   currentPage: 1,
 };
 
 const defaultFormData = {
-  fuelName: null,
-  retailPrice: null,
-  memberDiscount: null,
-  memberPrice: null,
-  effectDate: null,
+  oilModelName: null,
+  oilRetailPrice: null,
+  oilMemberAgio: null,
+  oilMemberPrice: null,
+  effectTime: null,
 };
 
 export default {
@@ -104,7 +105,8 @@ export default {
     *applyPrice({ payload }, { call, put, select }) {
       const { id } = yield select(selectState);
       const { data } = payload;
-      const response = yield call(services.priceApplyList, { id, data });
+      data.effectTime = moment(data.effectTime).format('YYYY-MM-DD HH:mm:ss');
+      const response = yield call(services.priceApplyUpdate, { id, ...data });
       switch (response.code) {
         case dict.SUCCESS:
           message.success('调价申请成功！');
