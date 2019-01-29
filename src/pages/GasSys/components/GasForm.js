@@ -319,7 +319,7 @@ class CustomizeComponent extends PureComponent {
                   <div className={styles.imgBox}>
                     <ImageUpload
                       onSuccess={file => {
-                        fileList.push(file);
+                        fileList.unshift(file);
                         setFieldsValue({
                           'gas.fileList': fileList,
                         });
