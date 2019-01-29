@@ -474,6 +474,7 @@ class CustomizeComponent extends PureComponent {
                 <Cascader
                   placeholder="请选择所在地区"
                   allowClear={false}
+                  title={areaList.map(item => item.name).join(' / ')}
                   value={areaList.map(item => item.id)}
                   fieldNames={{
                     label: 'name',
