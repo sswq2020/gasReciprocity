@@ -333,12 +333,12 @@ export default {
   },
   /**
    * @author sswq
-   * @description 加油站管理/加油明细列表
+   * @description 加油站管理端/加油明细查询
    * */
   refuelDetailList(params) {
     return request({
       host: BASEURL,
-      url: '/action/jy/queryRefuelingDetails',
+      url: '/action/jy/queryRefuelingDetailsForGS',
       method: 'post',
       params: {
         currentPage: 1,
@@ -349,7 +349,7 @@ export default {
   },
   /**
    * @author sswq
-   * @description 加油站管理/调价申请列表
+   * @description 加油站管理端/调价申请列表
    * */
   priceApplyList(params) {
     return request({
@@ -364,7 +364,7 @@ export default {
   },
   /**
    * @author sswq
-   * @description 加油站管理/调价历史列表
+   * @description 加油站管理端/调价历史列表
    * */
   priceHisList(id) {
     return request({
@@ -379,7 +379,7 @@ export default {
   },
   /**
    * @author sswq
-   * @description 加油站管理/调价申请提交
+   * @description 加油站管理端/调价申请提交
    * */
   priceApplyUpdate(params) {
     return request({
@@ -391,7 +391,7 @@ export default {
   },
   /**
    * @author sswq
-   * @description 加油站管理/票据列表
+   * @description 加油站管理端/票据列表
    * */
   billCheckList(params) {
     return request({
@@ -406,7 +406,7 @@ export default {
   },
   /**
    * @author sswq
-   * @description 加油站管理/开票信息
+   * @description 加油站管理端/开票信息
    * */
   billInfo() {
     return request({
@@ -417,6 +417,22 @@ export default {
       //   size: 10,
       //   ...params,
       // },
+    });
+  },
+  /**
+   * @author sswq
+   * @description 票务管理/加油明细查询
+   * */
+  hlRefuelDetailList(params) {
+    return request({
+      host: BASEURL,
+      url: '/action/jy/queryRefuelingDetailsForHL',
+      method: 'post',
+      params: {
+        currentPage: 1,
+        pageSize: 10,
+        ...params,
+      },
     });
   },
   /**
@@ -441,11 +457,24 @@ export default {
   invoiceDisannul(id) {
     return request({
       host: BASEURL,
+      method: 'post',
       url: '/action/sc/receiptBill/updateReceiptBill',
       params: {
         id,
         status: 1,
       },
+    });
+  },
+  /**
+   * @author sswq
+   * @description 票务管理/新增发票
+   */
+  invoiceCreate(params) {
+    return request({
+      host: BASEURL,
+      method: 'post',
+      url: '/action/sc/receiptBill/insertReceiptBill',
+      params,
     });
   },
   /**
@@ -457,17 +486,6 @@ export default {
       host: BASEURL,
       url: '/getshouldSum',
       method: 'post',
-      params,
-    });
-  },
-  /**
-   * @author sswq
-   * @description 票务管理/新增发票
-   */
-  invoiceCreate(params) {
-    return request({
-      host: BASEURL,
-      url: '/action/sc/receiptBill/insertReceiptBill',
       params,
     });
   },

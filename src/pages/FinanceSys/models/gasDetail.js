@@ -9,7 +9,7 @@ const selectState = state => state[namespace];
 
 const defaultListParams = {
   queryYears: moment(new Date(), 'YYYY-MM'),
-  gasStation: '', // 加油站名称
+  gsId: '', // 加油站id
   currentPage: 1,
 };
 
@@ -36,7 +36,7 @@ export default {
       const queryParams = Object.assign({}, listParams, {
         queryYears: moment(listParams.queryYears).format('YYYY-MM'),
       });
-      const response = yield call(services.refuelDetailList, queryParams);
+      const response = yield call(services.hlRefuelDetailList, queryParams);
       switch (response.code) {
         case dict.SUCCESS:
           yield put({
