@@ -132,7 +132,7 @@ class CustomizeComponent extends PureComponent {
     const fileList = getFieldValue('gas.fileList') || data.fileList;
     const gasOilModelList = getFieldValue('gas.gasOilModelList') || data.gasOilModelList;
     const areaList = getFieldValue('gas.areaList') || data.areaList;
-
+    console.log(areaList);
     const gasListProps = {
       style: {
         marginTop: -24,
@@ -475,7 +475,7 @@ class CustomizeComponent extends PureComponent {
                 <Cascader
                   placeholder="请选择所在地区"
                   allowClear={false}
-                  defaultValue={areaList.map(item => item.id)}
+                  value={areaList.map(item => item.id)}
                   fieldNames={{
                     label: 'name',
                     value: 'id',
