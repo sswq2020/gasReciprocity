@@ -35,6 +35,7 @@ module.exports = {
     'global-require': [1],
     'import/prefer-default-export': [0],
     'react/jsx-no-bind': [0],
+    'react/no-did-mount-set-state': [0],
     'react/prop-types': [0],
     'react/prefer-stateless-function': [0],
     'no-else-return': [0],
