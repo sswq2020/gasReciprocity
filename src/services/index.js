@@ -167,7 +167,7 @@ export default {
       url: '/action/gs/queryGasStationInfoPage',
       params: {
         currentPage: 1,
-        size: 10,
+        pageSize: 10,
         ...params,
       },
     });
@@ -210,7 +210,7 @@ export default {
       url: '/action/bs/queryFeatureServiceInfoPage',
       params: {
         currentPage: 1,
-        size: 10,
+        pageSize: 10,
         ...params,
       },
     });
@@ -264,7 +264,7 @@ export default {
       url: '/action/bs/queryOilModelInfoPage',
       params: {
         currentPage: 1,
-        size: 10,
+        pageSize: 10,
         ...params,
       },
     });
@@ -398,8 +398,8 @@ export default {
       host: BASEURL,
       url: '/billCheckList',
       params: {
-        page: 1,
-        size: 10,
+        currentPage: 1,
+        pageSize: 10,
         ...params,
       },
     });
@@ -413,8 +413,8 @@ export default {
       host: BASEURL,
       url: '/billInfo',
       // params: {
-      //   page: 1,
-      //   size: 10,
+      //   currentPage: 1,
+      //   pageSize: 10,
       //   ...params,
       // },
     });

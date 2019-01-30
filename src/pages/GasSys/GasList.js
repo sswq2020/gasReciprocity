@@ -313,6 +313,7 @@ class Page extends PureComponent {
       // style: {
       //   marginTop: 24,
       // },
+      // autoHeight: false,
       pagination: {
         total: totalItemCount,
         current: currentPage,

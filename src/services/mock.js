@@ -12,8 +12,8 @@ const body = {
 };
 
 export const hostList = {
-  dev: '192.168.4.16:25092/hhgs', // 易凯
-  // dev: '192.168.4.16:25084/hhgs', // 周扬
+  // dev: '192.168.4.16:25092/hhgs', // 易凯
+  dev: '192.168.4.16:25084/hhgs', // 周扬
   test: 'test.hletong.com/hhgs',
   pro: 'api.demo.com',
 };
@@ -403,7 +403,7 @@ const mockRouterMap = {
         return {
           ...body,
           result: {
-            totalPageCount: 100 / params.size,
+            totalPageCount: 100 / params.pageSize,
             totalItemCount: 100,
             'data|1-10': [application],
           },
@@ -429,7 +429,7 @@ const mockRouterMap = {
         return {
           ...body,
           data: {
-            totalPageCount: 100 / params.size,
+            totalPageCount: 100 / params.pageSize,
             totalItemCount: 100,
             'data|1-10': [gasLite],
           },
@@ -444,7 +444,7 @@ const mockRouterMap = {
         return {
           ...body,
           data: {
-            totalPageCount: 100 / params.size,
+            totalPageCount: 100 / params.pageSize,
             itemCount: 100,
             'list|1-10': [serviceLite],
           },
@@ -459,7 +459,7 @@ const mockRouterMap = {
         return {
           ...body,
           data: {
-            totalPageCount: 100 / params.size,
+            totalPageCount: 100 / params.pageSize,
             itemCount: 100,
             'list|1-10': [oilLite],
           },
@@ -556,7 +556,7 @@ const mockRouterMap = {
         return {
           ...body,
           data: {
-            totalPageCount: 100 / params.size,
+            totalPageCount: 100 / params.pageSize,
             totalItemCount: 100,
             'data|1-10': [billCheckList],
           },
@@ -660,7 +660,7 @@ const mockRouterMap = {
         return {
           ...body,
           result: {
-            totalPageCount: 100 / params.size,
+            totalPageCount: 100 / params.pageSize,
             totalItemCount: 100,
             'data|1-10': [licenseList],
           },
@@ -675,7 +675,7 @@ const mockRouterMap = {
         return {
           ...body,
           result: {
-            totalPageCount: 100 / params.size,
+            totalPageCount: 100 / params.pageSize,
             totalItemCount: 100,
             'data|1-10': [record],
           },
@@ -701,7 +701,7 @@ const mockRouterMap = {
         return {
           ...body,
           result: {
-            totalPageCount: 100 / params.size,
+            totalPageCount: 100 / params.pageSize,
             totalItemCount: 100,
             'data|1-10': [officer],
           },
@@ -793,7 +793,7 @@ const mockRouterMap = {
         return {
           ...body,
           result: {
-            totalPageCount: 100 / params.size,
+            totalPageCount: 100 / params.pageSize,
             totalItemCount: 100,
             'data|1-10': [app],
           },
@@ -855,7 +855,7 @@ const mockRouterMap = {
         return {
           ...body,
           result: {
-            totalPageCount: 100 / params.size,
+            totalPageCount: 100 / params.pageSize,
             totalItemCount: 100,
             'data|1-10': [admin],
           },
