@@ -396,10 +396,8 @@ export default {
   billCheckList(params) {
     return request({
       host: BASEURL,
-      url: '/billCheckList',
+      url: '/action/sc/receiptBill/getBillCheckList',
       params: {
-        currentPage: 1,
-        pageSize: 10,
         ...params,
       },
     });

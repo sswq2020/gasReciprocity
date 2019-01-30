@@ -128,4 +128,11 @@ dict.billStatus = {
   [dict.billIsDisannultStatus]: '作废',
 };
 
+dict.billIsNullCheckedStatus = '0';
+dict.billIsCheckedStatus = '1';
+dict.billCheckedStatus = {
+  [dict.billIsNullCheckedStatus]: '否',
+  [dict.billIsCheckedStatus]: '是',
+};
+
 export default dict;

@@ -3,6 +3,7 @@ import React, { PureComponent, Fragment } from 'react';
 import { connect } from 'dva';
 // import router from 'umi/router';
 // import Link from 'umi/link';
+import dict from '@/utils/dict';
 import { Row, Col, Form, Button, Card, DatePicker } from 'antd';
 import PageHeaderWrapper from '@/components/PageHeaderWrapper';
 import TableList from '@/components/TableList';
@@ -88,39 +89,30 @@ class Page extends PureComponent {
 
   render() {
     const {
-      dispatch,
       getListIsLoading,
-      billCheck: {
-        listParams: { page },
-        list: { data: listData, totalItemCount },
-      },
+      billCheck: { data: listData },
     } = this.props;
     const listProps = {
       columns: [
         {
-          title: '序号',
-          key: '#',
-          width: 60,
+          title: '月份',
+          key: 'month',
           align: 'center',
-          render: (text, record, index) => <Fragment>{(page - 1) * 10 + index + 1}</Fragment>,
-        },
-        {
-          title: '年份',
-          key: 'year',
-          align: 'center',
-          render: (text, record) => <Fragment>{record.year}</Fragment>,
+          render: (text, record) => <Fragment>{record.month}</Fragment>,
         },
         {
           title: '发票金额',
-          key: 'invoiceAmount',
+          key: 'billSum',
           align: 'center',
-          render: (text, record) => <Fragment>{record.invoiceAmount}</Fragment>,
+          render: (text, record) => <Fragment>{record.billSum}</Fragment>,
         },
         {
           title: '到票确认',
-          key: 'invoiceConfirm',
+          key: 'check',
           align: 'center',
-          render: (text, record) => <Fragment>{record.invoiceConfirm}</Fragment>,
+          render: (text, record) => {
+            return <Fragment>{dict.billCheckedStatus[record.check]}</Fragment>;
+          },
         },
       ],
       rowKey: 'id',
@@ -129,18 +121,7 @@ class Page extends PureComponent {
       style: {
         marginTop: 24,
       },
-      pagination: {
-        total: totalItemCount,
-        current: page,
-      },
-      onChange: pagination => {
-        dispatch({
-          type: 'billCheck/changeListParams',
-          payload: {
-            page: pagination.current,
-          },
-        });
-      },
+      pagination: false,
     };
     return (
       <PageHeaderWrapper>

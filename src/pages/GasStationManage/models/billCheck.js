@@ -9,7 +9,6 @@ const selectState = state => state[namespace];
 
 const defaultListParams = {
   year: moment(new Date(), 'YYYY').valueOf(), // 统一时间戳
-  page: 1,
 };
 
 export default {
@@ -18,10 +17,7 @@ export default {
     listParams: {
       ...defaultListParams,
     },
-    list: {
-      data: [],
-      totalItemCount: 0,
-    },
+    data: [],
   },
   reducers,
   effects: {
@@ -33,7 +29,7 @@ export default {
           yield put({
             type: 'overrideStateProps',
             payload: {
-              list: response.data,
+              data: response.data.data,
             },
           });
           break;
