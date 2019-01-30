@@ -4,7 +4,7 @@ import { Row, Col, Form, Button, Card, DatePicker, Input } from 'antd';
 import PageHeaderWrapper from '@/components/PageHeaderWrapper';
 import TableList from '@/components/TableList';
 import ListHeaderForm from '@/components/ListHeaderForm';
-import GasStationPop from './components/GasStationPop';
+import GasStationPop from '@/components/GasStationPop/index';
 
 const SearCh = Input.Search;
 const { MonthPicker } = DatePicker;
