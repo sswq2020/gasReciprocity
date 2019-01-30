@@ -3,6 +3,7 @@ import { connect } from 'dva';
 import router from 'umi/router';
 import { Form, Row, Col, Input, Select, Cascader, Button, Modal } from 'antd';
 import regexps from '@/utils/regexps';
+import { hostList } from '@/services/mock';
 import FormItemHead from '@/components/FormItemHead';
 import TableList from '@/components/TableList';
 import ImageBox from '@/components/ImageBox';
@@ -11,6 +12,7 @@ import HLModal from '@/components/Modal';
 import OilSelectForm from './OilSelectForm';
 import styles from './gasForm.less';
 
+const imgUrl = `//${hostList[ENV]}/action/hletong/file/gasDownload?file_id=`;
 const FormItem = Form.Item;
 const formItemWidth = {
   lg: 8,
@@ -143,6 +145,7 @@ class CustomizeComponent extends PureComponent {
           key: '#',
           align: 'center',
           width: 60,
+          fixed: 'left',
           render: (text, record, index) => <Fragment>{index + 1}</Fragment>,
         },
         {
@@ -224,7 +227,7 @@ class CustomizeComponent extends PureComponent {
       return (
         <div key={file.fileId} className={styles.imgBox}>
           <ImageBox
-            url={file.url}
+            url={`${imgUrl}${file.fileId}`}
             onDelete={() => {
               fileList.splice(index, 1);
               setFieldsValue({
@@ -308,7 +311,7 @@ class CustomizeComponent extends PureComponent {
                 </Col>
                 <Col lg={8} md={24} sm={24}>
                   <FormItem label="二维码">
-                    <ImageBox url={data.gsQrCode} />
+                    <ImageBox url={`${imgUrl}${data.gsQrCode}`} />
                   </FormItem>
                 </Col>
               </Fragment>

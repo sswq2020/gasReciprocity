@@ -1,12 +1,14 @@
 import React, { PureComponent, Fragment } from 'react';
 import { connect } from 'dva';
 import { Row, Col, Input, Form, Button, Modal } from 'antd';
+import { hostList } from '@/services/mock';
 import HLModal from '@/components/Modal';
 import PageHeaderWrapper from '@/components/PageHeaderWrapper';
 import TableList from '@/components/TableList';
 import ListHeaderForm from '@/components/ListHeaderForm';
 import ServiceForm from './components/ServiceForm';
 
+const imgUrl = `//${hostList[ENV]}/action/hletong/file/gasDownload?file_id=`;
 const FormItem = Form.Item;
 const formItemWidth = {
   lg: 8,
@@ -127,10 +129,10 @@ class Page extends PureComponent {
           width: 150,
           align: 'center',
           render: (text, record) => {
-            return record.fsIcon.url ? (
+            return record.fsIcon.fileId ? (
               <img
                 style={{ height: 48 }}
-                src={record.fsIcon.url}
+                src={`${imgUrl}${record.fsIcon.fileId}`}
                 alt={record.fsName}
                 title={record.fsName}
               />

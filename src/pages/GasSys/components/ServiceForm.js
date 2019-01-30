@@ -1,8 +1,10 @@
 import React, { PureComponent } from 'react';
 import { Form, Input } from 'antd';
+import { hostList } from '@/services/mock';
 import ImageUpload from '@/components/ImageUpload';
 import ImageBox from '@/components/ImageBox';
 
+const imgUrl = `//${hostList[ENV]}/action/hletong/file/gasDownload?file_id=`;
 const FormItem = Form.Item;
 const formItemLayout = {
   labelCol: {
@@ -36,13 +38,12 @@ export default class CustomizeComponent extends PureComponent {
             //   },
             // ],
           })(
-            iconFile.url ? (
+            iconFile.fileId ? (
               <ImageBox
-                url={iconFile.url}
+                url={`${imgUrl}${file.fileId}`}
                 onDelete={() => {
                   setFieldsValue({
                     'service.fsIcon': {
-                      url: null,
                       fileName: null,
                       groupId: null,
                     },

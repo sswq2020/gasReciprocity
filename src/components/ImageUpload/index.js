@@ -12,9 +12,9 @@ function beforeUpload(file, maxSize) {
   return isLtMaxSize;
 }
 
-const hostName = hostList[ENV];
-const actionUrl = `//${hostName}/action/hletong/file/gasUpload`;
-const imgUrl = `//${hostName}/action/hletong/file/gasDownload?file_id=`;
+// const hostName = hostList[ENV];
+const actionUrl = `//${hostList[ENV]}/action/hletong/file/gasUpload`;
+// const imgUrl = `//${hostName}/action/hletong/file/gasDownload?file_id=`;
 
 export default class CustomizeComponent extends PureComponent {
   state = {
@@ -46,7 +46,7 @@ export default class CustomizeComponent extends PureComponent {
           switch (info.file.response.code) {
             case dict.SUCCESS:
               onSuccess({
-                url: `${imgUrl}${info.file.response.data.file_info.file_id}`,
+                // url: `${imgUrl}${info.file.response.data.file_info.file_id}`,
                 fileId: info.file.response.data.file_info.file_id,
                 groupId: info.file.response.data.file_info.file_group_id,
               });
