@@ -1,6 +1,8 @@
 import React, { PureComponent, Fragment } from 'react';
 import { connect } from 'dva';
 import router from 'umi/router';
+import { hostList } from '@/services/mock';
+
 // import Link from 'umi/link';
 import { Row, Col, Input, Form, Button, Modal } from 'antd';
 import dict from '@/utils/dict';
@@ -10,6 +12,8 @@ import ListHeaderForm from '@/components/ListHeaderForm';
 import PreviewImage from '@/components/PreviewImage';
 import Select from '@/components/Select';
 
+// const hostName = hostList[ENV];
+const imgUrl = `//${hostList[ENV]}/action/hletong/file/gasDownload?file_id=`;
 const FormItem = Form.Item;
 const formItemWidth = {
   lg: 8,
@@ -132,7 +136,7 @@ class Page extends PureComponent {
         {
           title: '会员名',
           key: 'memberName',
-          width: 100,
+          width: 120,
           align: 'center',
           fixed: 'left',
           render: (text, record) => {
@@ -225,7 +229,8 @@ class Page extends PureComponent {
           render: (text, record) => (
             <a
               onClick={() => {
-                previewImage.open(record.gsQrCode);
+                previewImage.open(`${imgUrl}${record.gsQrCode}`);
+                // previewImage.open(`${imgUrl}C8113431CFA4481F8E9703C21CC88C38`);
               }}
             >
               点击查看
@@ -297,7 +302,7 @@ class Page extends PureComponent {
                 </span>
                 <a
                   onClick={() => {
-                    // window.open(record.gsQrCode);
+                    window.open(`${imgUrl}${record.gsQrCode}`);
                   }}
                 >
                   下载二维码
