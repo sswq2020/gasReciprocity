@@ -1,43 +1,34 @@
 import { message } from 'antd';
 import { reducers } from '@/utils/utils';
 import dict from '@/utils/dict';
-import moment from 'moment';
 import services from '@/services';
 
-const namespace = 'getDetailes';
+const namespace = 'gasStationPop';
 const selectState = state => state[namespace];
 
 const defaultListParams = {
-  queryYears: moment(new Date(), 'YYYY-MM'),
-  gsId: '', // 加油站id
+  gsName: null, // 加油站名称
   currentPage: 1,
+  pageSize: 5,
 };
 
 export default {
   namespace,
   state: {
-    gas: { id: null, gsName: null },
+    visible: false,
     listParams: {
       ...defaultListParams,
     },
     list: {
-      orderDtoList: [],
+      list: [],
       itemCount: 0,
-      pageTotal: 0,
-      subtotal: 0,
-      fuelVSubTotal: 0,
-      total: 0,
-      fuelVTotal: 0,
     },
   },
   reducers,
   effects: {
     *getList(_, { call, put, select }) {
       const { listParams } = yield select(selectState);
-      const queryParams = Object.assign({}, listParams, {
-        queryYears: moment(listParams.queryYears).format('YYYY-MM'),
-      });
-      const response = yield call(services.hlRefuelDetailList, queryParams);
+      const response = yield call(services.gasList, listParams);
       switch (response.code) {
         case dict.SUCCESS:
           yield put({
@@ -48,7 +39,7 @@ export default {
           });
           break;
         default:
-          message.warning('加油明细列表获取失败，请稍后重试！');
+          message.warning('加油站列表获取失败，请稍后重试！');
           break;
       }
     },
@@ -77,6 +68,25 @@ export default {
       });
       yield put({
         type: 'getList',
+      });
+    },
+    *openPopup(_, { put }) {
+      yield put({
+        type: 'overrideStateProps',
+        payload: {
+          visible: true,
+        },
+      });
+      yield put({
+        type: 'resetListParams',
+      });
+    },
+    *closePopup(_, { put }) {
+      yield put({
+        type: 'overrideStateProps',
+        payload: {
+          visible: false,
+        },
       });
     },
   },

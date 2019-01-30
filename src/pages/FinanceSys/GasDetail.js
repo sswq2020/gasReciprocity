@@ -4,7 +4,9 @@ import { Row, Col, Form, Button, Card, DatePicker, Input } from 'antd';
 import PageHeaderWrapper from '@/components/PageHeaderWrapper';
 import TableList from '@/components/TableList';
 import ListHeaderForm from '@/components/ListHeaderForm';
+import GasStationPop from '@/components/GasStationPop/index';
 
+const SearCh = Input.Search;
 const { MonthPicker } = DatePicker;
 const FormItem = Form.Item;
 const formItemWidth = {
@@ -53,12 +55,18 @@ class Page extends PureComponent {
     });
   };
 
+  openPop = () => {
+    const { dispatch } = this.props;
+    dispatch({
+      type: 'gasStationPop/openPopup',
+    });
+  };
+
   renderAdvancedForm() {
     const {
       form: { getFieldDecorator },
-      getDetailes: { queryYears },
+      getDetailes: { queryYears, gas },
     } = this.props;
-
     const dateFormat = 'YYYY-MM';
 
     return (
@@ -73,7 +81,15 @@ class Page extends PureComponent {
           </Col>
           <Col {...formItemWidth}>
             <FormItem label="加油站名称">
-              {getFieldDecorator('gasStation')(<Input placeholder="请输入" autoComplete="off" />)}
+              {getFieldDecorator('gsId')(<Input type="hidden" />)}
+              <SearCh
+                enterButton
+                value={gas.gsName}
+                readOnly
+                onSearch={this.openPop}
+                placeholder="请点击"
+                autoComplete="off"
+              />
             </FormItem>
           </Col>
           <Col {...formItemWidth}>
@@ -93,6 +109,7 @@ class Page extends PureComponent {
     const {
       dispatch,
       getListIsLoading,
+      form: { setFieldsValue },
       getDetailes: {
         listParams: { currentPage },
         list: {
@@ -228,6 +245,19 @@ class Page extends PureComponent {
           <ListHeaderForm>{this.renderAdvancedForm()}</ListHeaderForm>
           <TableList {...listProps} />
         </Card>
+        <GasStationPop
+          onOk={data => {
+            dispatch({
+              type: 'getDetailes/overrideStateProps',
+              payload: {
+                gas: data || { id: null, gsName: null },
+              },
+            });
+            setFieldsValue({
+              gsId: data.id,
+            });
+          }}
+        />
       </PageHeaderWrapper>
     );
   }
