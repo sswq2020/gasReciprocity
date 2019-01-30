@@ -12,8 +12,8 @@ const body = {
 };
 
 export const hostList = {
-  // dev: '192.168.4.16:25092/hhgs', // 易凯
-  dev: '192.168.4.16:25084/hhgs', // 周扬
+  dev: '192.168.4.16:25092/hhgs', // 易凯
+  // dev: '192.168.4.16:25084/hhgs', // 周扬
   // dev: '192.168.4.16:25091/hhgs', // 佘慧   13888888888   888888       admin 888888
   test: 'test.hletong.com/hhgs',
   pro: 'api.demo.com',
@@ -157,9 +157,9 @@ const priceApplyList = {
  */
 const billCheckList = {
   'id|+1': 1,
-  year: '@INTEGER(1,12)', // 月份
-  invoiceAmount: '￥@INTEGER(10000,30000)', // 发票金额
-  invoiceConfirm: '@PICK("是", "否","------")',
+  month: '@INTEGER(1,12)', // 月份
+  billSum: '￥@INTEGER(10000,30000)', // 发票金额
+  check: '@PICK("0", "1")',
 };
 
 /**
@@ -552,13 +552,11 @@ const mockRouterMap = {
     {
       isMock: true,
       method: 'get',
-      router: '/billCheckList',
-      result(params) {
+      router: '/action/sc/receiptBill/getBillCheckList',
+      result() {
         return {
           ...body,
           data: {
-            totalPageCount: 100 / params.pageSize,
-            totalItemCount: 100,
             'data|1-10': [billCheckList],
           },
         };
