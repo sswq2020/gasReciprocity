@@ -18,7 +18,6 @@
     "lodash-decorators": "^6.0.0",
     "memoize-one": "^4.0.0",
     "moment": "^2.22.2",
-    "npm-zepto": "^1.1.7",
     "path-to-regexp": "^2.4.0",
     "rc-animate": "^2.4.4",
     "react": "^16.5.1",
