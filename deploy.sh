@@ -20,6 +20,7 @@ if [ $1 = 't' ]; then
 elif [ $1 = 'p' ]; then
     echo $split_line
     echo 'Production deploy:'
+    echo $split_line
     npm run build
     cmd=zip
 else
