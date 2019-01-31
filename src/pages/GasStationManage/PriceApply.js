@@ -1,11 +1,10 @@
 import React, { PureComponent, Fragment } from 'react';
 import { connect } from 'dva';
-import { Row, Col, Form, Button } from 'antd';
+import { Row, Col, Form, Button, Input } from 'antd';
 import PageHeaderWrapper from '@/components/PageHeaderWrapper';
 import TableList from '@/components/TableList';
 import HLModal from '@/components/Modal';
 import ListHeaderForm from '@/components/ListHeaderForm';
-import Select from '@/components/Select';
 import PriceApplyForm from './components/PriceApplyForm';
 import PriceHistoryList from './components/PriceHistoryList';
 
@@ -81,7 +80,7 @@ class Page extends PureComponent {
             <FormItem label="油品名称">
               {getFieldDecorator('oilModelName', {
                 initialValue: null,
-              })(<Select hasAll placeholder="请选择" style={{ width: '100%' }} data={[]} />)}
+              })(<Input placeholder="请选择" style={{ width: '100%' }} />)}
             </FormItem>
           </Col>
           <Col className="submitButtons" {...formItemWidth}>
