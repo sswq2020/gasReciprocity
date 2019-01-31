@@ -22,46 +22,50 @@ class CustomizeComponent extends PureComponent {
         {
           title: '油品名称',
           key: 'oilModelName',
-          width: 200,
           render: (text, record) => <Fragment>{record.oilModelName}</Fragment>,
         },
         {
           title: '零售价',
           key: 'oilRetailPrice',
-          width: 100,
+          align: 'center',
+          width: 150,
           render: (text, record) => (
-            <Fragment>￥{parseFloat(record.oilRetailPrice).toFixed(2)}</Fragment>
+            <Fragment>{parseFloat(record.oilRetailPrice).toFixed(2)} L/元</Fragment>
           ),
         },
         {
           title: '会员折扣(%)',
           key: 'oilMemberAgio',
-          width: 100,
-          render: (text, record) => <Fragment>{record.oilMemberAgio}%</Fragment>,
+          align: 'center',
+          width: 150,
+          render: (text, record) => <Fragment>{record.oilMemberAgio} %</Fragment>,
         },
         {
           title: '会员价',
           key: 'oilMemberPrice',
-          width: 100,
+          align: 'center',
+          width: 150,
           render: (text, record) => (
-            <Fragment>￥{parseFloat(record.oilMemberPrice).toFixed(2)}</Fragment>
+            <Fragment>￥{parseFloat(record.oilMemberPrice).toFixed(2)} L/元</Fragment>
           ),
         },
         {
           title: '生效时间',
           key: 'effectTime',
-          width: 120,
-          render: (text, record) => <Fragment>￥{record.effectTime}</Fragment>,
+          align: 'center',
+          width: 180,
+          render: (text, record) => <Fragment>{record.effectTime}</Fragment>,
         },
         {
           title: '调价申请时间',
           key: 'HisTime',
-          width: 120,
-          render: (text, record) => <Fragment>￥{record.createTime}</Fragment>,
+          align: 'center',
+          width: 180,
+          render: (text, record) => <Fragment>{record.createTime}</Fragment>,
         },
       ],
       rowKey: 'id',
-      scroll: { x: 'max-content' },
+      // scroll: { x: 'max-content' },
       dataSource: listData,
       style: {
         marginTop: 24,

@@ -115,7 +115,6 @@ class Page extends PureComponent {
           title: '序号',
           key: '#',
           width: 60,
-          fixed: 'left',
           align: 'center',
           render: (text, record, index) => (
             <Fragment>{(currentPage - 1) * 10 + index + 1}</Fragment>
@@ -124,33 +123,31 @@ class Page extends PureComponent {
         {
           title: '油品名称',
           key: 'oilModelName',
-          width: 200,
-          align: 'center',
           render: (text, record) => <Fragment>{record.oilModelName}</Fragment>,
         },
         {
           title: '零售价',
           key: 'oilRetailPrice',
-          width: 120,
+          width: 150,
           align: 'center',
-          render: (text, record) => <Fragment>￥{record.oilRetailPrice}</Fragment>,
+          render: (text, record) => <Fragment>{record.oilRetailPrice} L/元</Fragment>,
         },
         {
           title: '会员折扣(%)',
           key: 'memberDiscount',
-          width: 120,
+          width: 150,
           align: 'center',
-          render: (text, record) => <Fragment>{record.oilMemberAgio}%</Fragment>,
+          render: (text, record) => <Fragment>{record.oilMemberAgio} %</Fragment>,
         },
         {
           title: '会员价',
           key: 'memberPrice',
-          width: 120,
+          width: 150,
           align: 'center',
-          render: (text, record) => <Fragment>￥{record.oilMemberPrice}</Fragment>,
+          render: (text, record) => <Fragment>{record.oilMemberPrice} L/元</Fragment>,
         },
         {
-          title: <div style={{ textAlign: 'center' }}>操作</div>,
+          title: '操作',
           key: 'operating',
           width: 200,
           align: 'center',
@@ -181,7 +178,7 @@ class Page extends PureComponent {
         },
       ],
       rowKey: 'id',
-      scroll: { x: 'max-content' },
+      // scroll: { x: 'max-content' },
       dataSource: listData,
       loading: getListIsLoading,
       style: {

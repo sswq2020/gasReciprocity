@@ -114,7 +114,7 @@ class Page extends PureComponent {
         {
           title: '会员名',
           key: 'userName',
-          width: 200,
+          width: 100,
           fixed: 'left',
           align: 'center',
           render: (text, record) => {
@@ -124,7 +124,7 @@ class Page extends PureComponent {
         {
           title: '车牌号',
           key: 'userPlate',
-          width: 120,
+          width: 200,
           align: 'center',
           render: (text, record) => <Fragment>{record.userPlate}</Fragment>,
         },
@@ -140,34 +140,33 @@ class Page extends PureComponent {
           key: 'oilRetailPrice',
           width: 120,
           align: 'center',
-          render: (text, record) => <Fragment>{record.oilRetailPrice}</Fragment>,
+          render: (text, record) => <Fragment>{record.oilRetailPrice} L/元</Fragment>,
         },
         {
           title: '惠龙价',
           key: 'oilMemberPrice',
           width: 120,
           align: 'center',
-          render: (text, record) => <Fragment>{record.oilMemberPrice}</Fragment>,
+          render: (text, record) => <Fragment>{record.oilMemberPrice} L/元</Fragment>,
         },
         {
           title: '加油量',
           key: 'fuelVolume',
           width: 100,
           align: 'center',
-          render: (text, record) => <Fragment>{record.fuelVolume}</Fragment>,
+          render: (text, record) => <Fragment>{record.fuelVolume} L</Fragment>,
         },
         {
           title: '加油金额',
           key: 'totalPrice',
           width: 100,
           align: 'center',
-          render: (text, record) => <Fragment>{record.totalPrice}</Fragment>,
+          render: (text, record) => <Fragment>{record.totalPrice} 元</Fragment>,
         },
         {
           title: '日期',
           key: 'orderTime',
           width: 200,
-          fixed: 'right',
           align: 'center',
           render: (text, record) => <Fragment>{record.orderTime}</Fragment>,
         },
@@ -200,19 +199,19 @@ class Page extends PureComponent {
           >
             <div>
               当前页加油量小计
-              <span style={{ color: 'red', fontSize: '1.2rem' }}>{subtotal}</span>L
+              <span style={{ color: 'red', fontSize: '1.2rem' }}>{subtotal}</span> L
             </div>
             <div>
-              当前页加油金额小计￥
-              <span style={{ color: 'red', fontSize: '1.2rem' }}>{total}</span>
+              当前页加油金额小计
+              <span style={{ color: 'red', fontSize: '1.2rem' }}>{total}</span> 元
             </div>
             <div>
               总页加油量合计
-              <span style={{ color: 'red', fontSize: '1.2rem' }}>{fuelVSubTotal}</span>L
+              <span style={{ color: 'red', fontSize: '1.2rem' }}>{fuelVSubTotal}</span> L
             </div>
             <div>
-              总页加油金额合计￥
-              <span style={{ color: 'red', fontSize: '1.2rem' }}>{fuelVTotal}</span>
+              总页加油金额合计
+              <span style={{ color: 'red', fontSize: '1.2rem' }}>{fuelVTotal}</span> 元
             </div>
           </div>
         );
