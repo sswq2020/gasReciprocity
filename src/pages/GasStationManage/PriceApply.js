@@ -124,7 +124,7 @@ class Page extends PureComponent {
         {
           title: '油品名称',
           key: 'oilModelName',
-          width: 120,
+          width: 200,
           align: 'center',
           render: (text, record) => <Fragment>{record.oilModelName}</Fragment>,
         },
