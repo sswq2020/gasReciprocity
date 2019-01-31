@@ -29,7 +29,7 @@ export default {
           yield put({
             type: 'overrideStateProps',
             payload: {
-              data: response.data.data,
+              data: response.data,
             },
           });
           break;

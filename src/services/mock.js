@@ -562,10 +562,10 @@ const mockRouterMap = {
       router: '/action/sc/receiptBill/getBillCheckList',
       result() {
         return {
-          ...body,
-          data: {
-            'data|1-10': [billCheckList],
-          },
+          code: dict.SUCCESS, // 状态码
+          msg: '成功', // 消息 字符串 可以为空
+          timestamp: new Date().getTime(),
+          'data|1-10': [billCheckList],
         };
       },
     },
