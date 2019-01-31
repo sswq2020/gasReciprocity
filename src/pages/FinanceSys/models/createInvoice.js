@@ -10,11 +10,11 @@ const namespace = 'createInvoice';
 
 const defaultFormData = {
   yearMonth: null,
-  billType: null,
+  billType: undefined,
   billCode: null,
   billName: null,
-  billTaxRate: null,
-  billAmt: '', // 应开金额
+  billTaxRate: undefined,
+  billAmt: null, // 应开金额
   billActualAmt: null,
   photo: {
     url: null,
