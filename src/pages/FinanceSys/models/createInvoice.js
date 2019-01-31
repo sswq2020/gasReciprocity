@@ -61,11 +61,14 @@ export default {
     },
 
     *changeYear({ payload }, { call }) {
-      const { date } = payload;
-      const response = yield call(services.getshouldSum, date);
+      const { yearMonth, gsId } = payload;
+      if (!(yearMonth && gsId)) return;
+      const time = moment(yearMonth).format('YYYY-MM');
+      const params = { yearMonth: time, gsId };
+      const response = yield call(services.billCheckList, params);
       switch (response.code) {
         case dict.SUCCESS:
-          return response.data.shouldsum.shouldsum;
+          return response.data[0].billSum;
         // break;
         default:
           message.warning('应开金额失败，请稍后重试！');
