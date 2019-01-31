@@ -3,13 +3,13 @@ import { reducers } from '@/utils/utils';
 import dict from '@/utils/dict';
 import services from '@/services';
 import { routerRedux } from 'dva/router';
+import moment from 'moment';
 
 const namespace = 'createInvoice';
-const selectState = store => store[namespace];
+// const selectState = store => store[namespace];
 
 const defaultFormData = {
-  createTime: null,
-  gsName: null,
+  yearMonth: null,
   billType: null,
   billCode: null,
   billName: null,
@@ -24,15 +24,20 @@ const defaultFormData = {
 export default {
   namespace,
   state: {
-    formData: {
-      ...defaultFormData,
-    },
+    ...defaultFormData,
   },
   reducers,
   effects: {
     *save({ payload }, { call, put }) {
-      const { formData } = payload;
-      const response = yield call(services.invoiceCreate, formData);
+      const { resetFields } = payload;
+      const params = {};
+      Object.keys(defaultFormData).forEach(keys => {
+        if (!params[keys]) {
+          params[keys] = payload[keys];
+        }
+      });
+      params.yearMonth = moment(params.yearMonth).format('YYYY-MM');
+      const response = yield call(services.invoiceCreate, { ...params });
       switch (response.code) {
         case dict.SUCCESS:
           message.success('新增发票创建成功！');
@@ -49,8 +54,7 @@ export default {
       }
     },
 
-    *changeYear({ payload }, { call, put, select }) {
-      const { formData } = yield select(selectState);
+    *changeYear({ payload }, { call, put }) {
       const { date } = payload;
       const response = yield call(services.getshouldSum, date);
       switch (response.code) {
@@ -58,12 +62,11 @@ export default {
           yield put({
             type: 'overrideStateProps',
             payload: {
-              formData: Object.assign({}, formData, {
-                shouldsum: response.data.shouldsum.shouldsum,
-              }),
+              billAmt: response.data.shouldsum.shouldsum,
             },
           });
-          break;
+          return response.data.shouldsum.shouldsum;
+        // break;
         default:
           message.warning('应开金额失败，请稍后重试！');
           break;

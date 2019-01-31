@@ -9,6 +9,9 @@ import ImageBox from '@/components/ImageBox';
 import ImageUpload from '@/components/ImageUpload';
 import moment from 'moment';
 import styles from './components/financeForm.less';
+import GasStationPop from '@/components/GasStationPop/index';
+
+const SearCh = Input.Search;
 
 const children = [];
 for (let i = 10; i < 36; i++) {
@@ -28,13 +31,20 @@ const formItemWidth = {
 }))
 @Form.create()
 class Page extends PureComponent {
+  openPop = () => {
+    const { dispatch } = this.props;
+    dispatch({
+      type: 'gasStationPop/openPopup',
+    });
+  };
+
   render() {
     const {
       dispatch,
-      createInvoice: { formData },
-      form: { getFieldDecorator, resetFields, getFieldsValue, validateFields },
+      createInvoice,
+      form: { getFieldDecorator, setFieldsValue, resetFields, getFieldsValue, validateFields },
     } = this.props;
-
+    getFieldDecorator('gsId');
     return (
       <PageHeaderWrapper>
         <Fragment>
@@ -43,8 +53,8 @@ class Page extends PureComponent {
             <Row>
               <Col lg={24} md={24} sm={24}>
                 <FormItem label="发票照片">
-                  {getFieldDecorator('formData.photo', {
-                    initialValue: formData.photo,
+                  {getFieldDecorator('photo', {
+                    initialValue: createInvoice.photo,
                     rules: [
                       {
                         required: true,
@@ -52,7 +62,7 @@ class Page extends PureComponent {
                       },
                     ],
                   })(
-                    formData.photo.fileId ? (
+                    createInvoice.photo.fileId ? (
                       <ImageBox
                         src="sdf"
                         onDelete={() => {
@@ -83,13 +93,16 @@ class Page extends PureComponent {
               </Col>
               <Col {...formItemWidth}>
                 <FormItem label="年月">
-                  {getFieldDecorator('formData.createTime', {
-                    initialValue: formData.createTime,
+                  {getFieldDecorator('yearMonth', {
                     getValueFromEvent: value => {
                       const date = moment(value).format('YYYY-MM');
                       dispatch({
                         type: 'createInvoice/changeYear',
                         payload: { date },
+                      }).then(res => {
+                        setFieldsValue({
+                          billAmt: res,
+                        });
                       });
                       return value;
                     },
@@ -104,27 +117,21 @@ class Page extends PureComponent {
               </Col>
               <Col {...formItemWidth}>
                 <FormItem label="加油站名称">
-                  {getFieldDecorator('formData.gsName', {
-                    initialValue: formData.gsName,
-                    rules: [
-                      {
-                        required: true,
-                        whitespace: true,
-                        message: '请填写加油站名称',
-                      },
-                      {
-                        whitespace: true,
-                        max: 20,
-                        message: '最多20个字符',
-                      },
-                    ],
-                  })(<Input placeholder="请输入加油站名称" autoComplete="off" />)}
+                  {getFieldDecorator('gsName')(
+                    <SearCh
+                      enterButton
+                      readOnly
+                      onSearch={this.openPop}
+                      placeholder="请点击"
+                      autoComplete="off"
+                    />
+                  )}
                 </FormItem>
               </Col>
               <Col {...formItemWidth}>
                 <FormItem label="发票类型">
-                  {getFieldDecorator('formData.billType', {
-                    initialValue: formData.billType,
+                  {getFieldDecorator('billType', {
+                    initialValue: createInvoice.billType,
                     rules: [
                       {
                         required: true,
@@ -141,8 +148,8 @@ class Page extends PureComponent {
               </Col>
               <Col {...formItemWidth}>
                 <FormItem label="发票号码">
-                  {getFieldDecorator('formData.billCode', {
-                    initialValue: formData.billCode,
+                  {getFieldDecorator('billCode', {
+                    initialValue: createInvoice.billCode,
                     rules: [
                       {
                         required: true,
@@ -164,8 +171,8 @@ class Page extends PureComponent {
               </Col>
               <Col {...formItemWidth}>
                 <FormItem label="开票房名称">
-                  {getFieldDecorator('formData.billName', {
-                    initialValue: formData.billName,
+                  {getFieldDecorator('billName', {
+                    initialValue: createInvoice.billName,
                     rules: [
                       {
                         required: true,
@@ -178,8 +185,8 @@ class Page extends PureComponent {
               </Col>
               <Col {...formItemWidth}>
                 <FormItem label="税率">
-                  {getFieldDecorator('formData.billTaxRate', {
-                    initialValue: formData.billTaxRate,
+                  {getFieldDecorator('billTaxRate', {
+                    initialValue: createInvoice.billTaxRate,
                     rules: [
                       {
                         required: true,
@@ -195,12 +202,14 @@ class Page extends PureComponent {
                 </FormItem>
               </Col>
               <Col {...formItemWidth}>
-                <FormItem label="应开金额">{formData.billAmt}</FormItem>
+                <FormItem label="应开金额">
+                  {getFieldDecorator('billAmt')(<Input readOnly autoComplete="off" />)}
+                </FormItem>
               </Col>
               <Col {...formItemWidth}>
                 <FormItem label="实开金额">
-                  {getFieldDecorator('formData.billActualAmt', {
-                    initialValue: formData.billActualAmt,
+                  {getFieldDecorator('billActualAmt', {
+                    initialValue: createInvoice.billActualAmt,
                     rules: [
                       {
                         required: true,
@@ -242,6 +251,15 @@ class Page extends PureComponent {
             </Button>
           </div>
         </Fragment>
+        <GasStationPop
+          onOk={data => {
+            data = data || { id: null, gsName: null };
+            setFieldsValue({
+              gsId: data.id,
+              gsName: data.gsName,
+            });
+          }}
+        />
       </PageHeaderWrapper>
     );
   }
