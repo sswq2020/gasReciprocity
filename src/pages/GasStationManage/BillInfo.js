@@ -26,7 +26,7 @@ class Page extends PureComponent {
 
   render() {
     const {
-      billInfo: { detail },
+      billInfo: { invoiceDto, receiveAddressDto },
     } = this.props;
     return (
       <PageHeaderWrapper>
@@ -35,34 +35,34 @@ class Page extends PureComponent {
             <FormItemHead>开票信息</FormItemHead>
             <Row>
               <Col {...formItemWidth}>
-                <FormItem label="名称:">{detail.name}</FormItem>
+                <FormItem label="名称:">{invoiceDto.invoiceName}</FormItem>
               </Col>
               <Col {...formItemWidth}>
-                <FormItem label="纳税人识别号:">{detail.taxPayerIdNum}</FormItem>
+                <FormItem label="纳税人识别号:">{invoiceDto.invoiceTaxpayer}</FormItem>
               </Col>
               <Col {...formItemWidth}>
-                <FormItem label="地址:">{detail.adress}</FormItem>
+                <FormItem label="地址:">{invoiceDto.invoiceAddress}</FormItem>
               </Col>
               <Col {...formItemWidth}>
-                <FormItem label="电话:">{detail.tel}</FormItem>
+                <FormItem label="电话:">{invoiceDto.invoiceTel}</FormItem>
               </Col>
               <Col {...formItemWidth}>
-                <FormItem label="开户行:">{detail.bank}</FormItem>
+                <FormItem label="开户行:">{invoiceDto.invoiceBank}</FormItem>
               </Col>
               <Col {...formItemWidth}>
-                <FormItem label="账号:">{detail.account}</FormItem>
+                <FormItem label="账号:">{invoiceDto.invoiceBankCode}</FormItem>
               </Col>
             </Row>
             <FormItemHead>收票地址信息</FormItemHead>
             <Row>
               <Col {...formItemWidth}>
-                <FormItem label="收票人:">{detail.ticketer}</FormItem>
+                <FormItem label="收票人:">{receiveAddressDto.receivingAddressPerson}</FormItem>
               </Col>
               <Col {...formItemWidth}>
-                <FormItem label="收票人联系电话:">{detail.ticketerTel}</FormItem>
+                <FormItem label="收票人联系电话:">{receiveAddressDto.receivingAddressTel}</FormItem>
               </Col>
               <Col lg={12} md={24} sm={24}>
-                <FormItem label="寄票地址:">{detail.adress2}</FormItem>
+                <FormItem label="寄票地址:">{receiveAddressDto.receivingAddress}</FormItem>
               </Col>
             </Row>
           </Form>
