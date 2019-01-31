@@ -98,10 +98,10 @@ class Page extends PureComponent {
                 <FormItem label="年月">
                   {getFieldDecorator('yearMonth', {
                     getValueFromEvent: value => {
-                      const date = moment(value).format('YYYY-MM');
+                      const yearMonth = moment(value);
                       dispatch({
                         type: 'createInvoice/changeYear',
-                        payload: { date },
+                        payload: { ...getFieldsValue(), yearMonth },
                       }).then(res => {
                         setFieldsValue({
                           billAmt: res,
@@ -264,6 +264,14 @@ class Page extends PureComponent {
             setFieldsValue({
               gsId: data.id,
               gsName: data.gsName,
+            });
+            dispatch({
+              type: 'createInvoice/changeYear',
+              payload: { ...getFieldsValue() },
+            }).then(res => {
+              setFieldsValue({
+                billAmt: res,
+              });
             });
           }}
         />
