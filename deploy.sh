@@ -21,6 +21,7 @@ elif [ $1 = 'p' ]; then
     echo $split_line
     echo 'Production deploy:'
     npm run build
+    cmd=zip
 else
     echo $usage
     exit 1
@@ -29,15 +30,13 @@ fi
 echo $split_line
 if [ $1 = 't' ]; then
     echo 'copy to test server'
-    # echo 'zip to hhgs_test_'${now}'.zip'
     echo $split_line
     $cmd -r dist/* $website_path
     rm ./dist -rf
-    # zip -m -r -q hhgs_test_$now.zip ./dist
 elif [ $1 = 'p' ]; then
     echo 'zip to hhgs_pro_'${now}'.zip'
     echo $split_line
-    zip -m -r -q hhgs_pro_$now.zip ./dist
+    $cmd -m -r -q hhgs_pro_$now.zip ./dist
 else
     echo $usage
     exit 1
