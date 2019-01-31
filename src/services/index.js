@@ -377,7 +377,7 @@ export default {
   priceHisList(id) {
     return request({
       host: BASEURL,
-      url: '/action/sc/receiptBill/queryGasOilModelHistoryPage',
+      url: '/action/gs/gasOilModel/queryGasOilModelHistoryPage',
       params: {
         currentPage: 1,
         pageSize: 5,

@@ -205,6 +205,7 @@ class Page extends PureComponent {
         <HLModal
           title="调价申请"
           visible={visible}
+          destroyOnClose
           confirmLoading={applyPriceIsLoading}
           onClose={() => {
             dispatch({
