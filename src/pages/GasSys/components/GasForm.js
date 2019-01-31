@@ -259,7 +259,13 @@ class CustomizeComponent extends PureComponent {
                       message: '请填写正确的手机号',
                     },
                   ],
-                })(<Input placeholder="请输入手机号" autoComplete="off" />)}
+                })(
+                  <Input
+                    readOnly={data.gsCode !== undefined}
+                    placeholder="请输入手机号"
+                    autoComplete="off"
+                  />
+                )}
               </FormItem>
             </Col>
             <Col {...formItemWidth}>
