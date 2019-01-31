@@ -44,6 +44,7 @@ export default class CustomizeComponent extends PureComponent {
       data,
     });
   }
+
   render() {
     const { data } = this.state;
     const {
@@ -93,7 +94,16 @@ export default class CustomizeComponent extends PureComponent {
         <FormItem {...formItemLayout} label="生效日期">
           {getFieldDecorator('effectTime', {
             initialValue: moment(data.effectTime),
-          })(<DatePicker showTime format="YYYY-MM-DD HH:mm:ss" />)}
+          })(
+            <DatePicker
+              allowClear={false}
+              showTime
+              format="YYYY-MM-DD HH:mm:ss"
+              disabledDate={current => {
+                return current && current.valueOf() < new Date().setDate(new Date().getDate() - 1);
+              }}
+            />
+          )}
         </FormItem>
       </Form>
     );
