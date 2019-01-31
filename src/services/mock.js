@@ -3,8 +3,8 @@ import mockjs from 'mockjs';
 import dict from '@/utils/dict';
 
 export const hostList = {
-  // dev: '192.168.4.16:25092/hhgs', // 易凯
-  dev: '192.168.4.16:25084/hhgs', // 周扬
+  dev: '192.168.4.16:25092/hhgs', // 易凯
+  // dev: '192.168.4.16:25084/hhgs', // 周扬
   // dev: '192.168.4.16:25091/hhgs', // 佘慧   13888888888   888888       admin 888888
   test: 'test.hletong.com/hhgs',
   pro: 'api.demo.com',
@@ -139,8 +139,8 @@ const refuelDetailList = {
   userName: '@INTEGER(13000000000,18999999999)', // 会员名
   userPlate: '苏L@INTEGER(1000,9999)', // 车牌号
   oilModelName: '0#', // 油品名称
-  oilRetailPrice: '￥@float(5,8)', // 零售价
-  oilMemberPrice: '￥@float(5,8)', // 惠龙价
+  oilRetailPrice: '￥@INTEGER(1000,9999).@INTEGER(10,99)', // 零售价
+  oilMemberPrice: '￥@INTEGER(1000,9999).@INTEGER(10,99)', // 惠龙价
   fuelVolume: '@INTEGER(10,100)L', // 加油量
   totalPrice: '￥@float(400,2000)', // 加油金额
   orderTime: '@DATE("yyyy-MM-dd HH:mm:ss")', // 日期
@@ -152,9 +152,9 @@ const refuelDetailList = {
 const priceApplyList = {
   'id|+1': 1,
   oilModelName: '0#(V)', // 油品名称
-  oilRetailPrice: '@float(5,8)', // 零售价
+  oilRetailPrice: '@INTEGER(1000,9999).@INTEGER(10,99)', // 零售价
   oilMemberAgio: '@INTEGER(1,2)', // 会员折扣(%)
-  oilMemberPrice: '@float(5,8)', // 会员价
+  oilMemberPrice: '@INTEGER(1000,9999).@INTEGER(10,99)', // 会员价
   effectTime: '@DATE("yyyy-MM-dd HH:mm:ss")', // 生效时间
   createTime: '@DATE("yyyy-MM-dd HH:mm:ss")', // 调价历史
 };
@@ -515,9 +515,9 @@ const mockRouterMap = {
       },
     },
     {
-      isMock: true,
+      // isMock: true,
       method: 'get',
-      router: '/action/sc/receiptBill/queryGasOilModelPage',
+      router: '/action/gs/gasOilModel/queryGasOilModelPage',
       result(params) {
         return {
           ...body,
@@ -531,7 +531,7 @@ const mockRouterMap = {
       },
     },
     {
-      isMock: true,
+      // isMock: true,
       method: 'get',
       router: '/action/sc/receiptBill/queryGasOilModelHistoryPage',
       result(params) {

@@ -362,7 +362,7 @@ export default {
   priceApplyList(params) {
     return request({
       host: BASEURL,
-      url: '/action/sc/receiptBill/queryGasOilModelPage',
+      url: '/action/gs/gasOilModel/queryGasOilModelPage',
       params: {
         currentPage: 1,
         pageSize: 10,
@@ -380,7 +380,7 @@ export default {
       url: '/action/sc/receiptBill/queryGasOilModelHistoryPage',
       params: {
         currentPage: 1,
-        pageSize: 10,
+        pageSize: 5,
         id,
       },
     });
