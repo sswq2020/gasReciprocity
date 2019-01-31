@@ -18,6 +18,8 @@ const defaultFormData = {
   billActualAmt: null,
   photo: {
     url: null,
+    fileName: null,
+    groupId: null,
   },
 };
 
@@ -37,6 +39,7 @@ export default {
         }
       });
       params.yearMonth = moment(params.yearMonth).format('YYYY-MM');
+      params.billFileId = params.photo;
       const response = yield call(services.invoiceCreate, { ...params });
       switch (response.code) {
         case dict.SUCCESS:
@@ -54,17 +57,11 @@ export default {
       }
     },
 
-    *changeYear({ payload }, { call, put }) {
+    *changeYear({ payload }, { call }) {
       const { date } = payload;
       const response = yield call(services.getshouldSum, date);
       switch (response.code) {
         case dict.SUCCESS:
-          yield put({
-            type: 'overrideStateProps',
-            payload: {
-              billAmt: response.data.shouldsum.shouldsum,
-            },
-          });
           return response.data.shouldsum.shouldsum;
         // break;
         default:

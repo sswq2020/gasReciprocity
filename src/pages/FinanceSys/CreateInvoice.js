@@ -5,12 +5,14 @@ import { Form, Row, Col, Input, Select, Button, DatePicker } from 'antd';
 import regexps from '@/utils/regexps';
 import PageHeaderWrapper from '@/components/PageHeaderWrapper';
 import FormItemHead from '@/components/FormItemHead';
-import ImageBox from '@/components/ImageBox';
+import { hostList } from '@/services/mock';
 import ImageUpload from '@/components/ImageUpload';
+import ImageBox from '@/components/ImageBox';
 import moment from 'moment';
 import styles from './components/financeForm.less';
 import GasStationPop from '@/components/GasStationPop/index';
 
+const imgUrl = `//${hostList[ENV]}/action/hletong/file/gasDownload?file_id=`;
 const SearCh = Input.Search;
 
 const children = [];
@@ -42,9 +44,17 @@ class Page extends PureComponent {
     const {
       dispatch,
       createInvoice,
-      form: { getFieldDecorator, setFieldsValue, resetFields, getFieldsValue, validateFields },
+      form: {
+        getFieldDecorator,
+        setFieldsValue,
+        resetFields,
+        getFieldsValue,
+        getFieldValue,
+        validateFields,
+      },
     } = this.props;
     getFieldDecorator('gsId');
+    const photo = getFieldValue('photo') || createInvoice.photo;
     return (
       <PageHeaderWrapper>
         <Fragment>
@@ -58,31 +68,28 @@ class Page extends PureComponent {
                     rules: [
                       {
                         required: true,
-                        message: '请上传发票照片',
+                        message: '请上传特色服务ICON',
                       },
                     ],
                   })(
-                    createInvoice.photo.fileId ? (
+                    photo.fileId ? (
                       <ImageBox
-                        src="sdf"
+                        url={`${imgUrl}${photo.fileId}`}
                         onDelete={() => {
-                          dispatch({
-                            type: 'createInvoice/updateStateProps',
-                            payload: {
-                              name: 'photo',
-                              value: null,
+                          setFieldsValue({
+                            photo: {
+                              fileName: null,
+                              groupId: null,
                             },
                           });
                         }}
                       />
                     ) : (
                       <ImageUpload
-                        onSuccess={response => {
-                          dispatch({
-                            type: 'createInvoice/updateStateProps',
-                            payload: {
-                              name: 'photo',
-                              value: response,
+                        onSuccess={file => {
+                          setFieldsValue({
+                            photo: {
+                              ...file,
                             },
                           });
                         }}
