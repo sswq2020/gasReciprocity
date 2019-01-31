@@ -61,8 +61,11 @@ export default {
     },
 
     *changeYear({ payload }, { call }) {
-      const { date } = payload;
-      const response = yield call(services.getshouldSum, date);
+      const { yearMonth, gsId } = payload;
+      if (!(yearMonth && gsId)) return;
+      const time = moment(yearMonth).format('YYYY-MM');
+      const params = { yearMonth: time, gsId };
+      const response = yield call(services.getshouldSum, params);
       switch (response.code) {
         case dict.SUCCESS:
           return response.data.shouldsum.shouldsum;
