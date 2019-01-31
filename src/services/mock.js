@@ -533,7 +533,7 @@ const mockRouterMap = {
     {
       // isMock: true,
       method: 'get',
-      router: '/action/sc/receiptBill/queryGasOilModelHistoryPage',
+      router: '/action/gs/gasOilModel/queryGasOilModelHistoryPage',
       result(params) {
         return {
           ...body,
