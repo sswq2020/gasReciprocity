@@ -41,7 +41,7 @@ export default {
         }
       });
       params.yearMonth = moment(params.yearMonth).format('YYYY-MM');
-      params.billFileId = [params.photo.fileid];
+      params.billFileId = [params.photo.fileId];
       delete params.photo;
       const response = yield call(services.invoiceCreate, { ...params });
       switch (response.code) {
