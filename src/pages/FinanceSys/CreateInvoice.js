@@ -1,7 +1,8 @@
 import React, { PureComponent, Fragment } from 'react';
 import { connect } from 'dva';
 import router from 'umi/router';
-import { Form, Row, Col, Input, Select, Button, DatePicker } from 'antd';
+import { Form, Row, Col, Input, Button, DatePicker } from 'antd';
+import MySelect from '@/components/Select';
 import regexps from '@/utils/regexps';
 import PageHeaderWrapper from '@/components/PageHeaderWrapper';
 import FormItemHead from '@/components/FormItemHead';
@@ -14,11 +15,6 @@ import GasStationPop from '@/components/GasStationPop/index';
 
 const imgUrl = `//${hostList[ENV]}/action/hletong/file/gasDownload?file_id=`;
 const SearCh = Input.Search;
-
-const children = [];
-for (let i = 10; i < 36; i++) {
-  children.push(<Select.Option key={i.toString(36) + i}>{i.toString(36) + i}</Select.Option>);
-}
 
 const { MonthPicker } = DatePicker;
 const FormItem = Form.Item;
@@ -147,9 +143,11 @@ class Page extends PureComponent {
                       },
                     ],
                   })(
-                    <Select placeholder="请选择" style={{ width: '100%' }}>
-                      {children}
-                    </Select>
+                    <MySelect
+                      placeholder="请选择"
+                      style={{ width: '100%' }}
+                      type="hhgs_bill_type"
+                    />
                   )}
                 </FormItem>
               </Col>
@@ -202,9 +200,11 @@ class Page extends PureComponent {
                       },
                     ],
                   })(
-                    <Select placeholder="请选择" style={{ width: '100%' }}>
-                      {children}
-                    </Select>
+                    <MySelect
+                      placeholder="请选择"
+                      style={{ width: '100%' }}
+                      type="hhgs_bill_tax_rate"
+                    />
                   )}
                 </FormItem>
               </Col>
