@@ -32,6 +32,7 @@ if [ $1 = 't' ]; then
     # echo 'zip to hhgs_test_'${now}'.zip'
     echo $split_line
     $cmd -r dist/* $website_path
+    rm ./dist -rf
     # zip -m -r -q hhgs_test_$now.zip ./dist
 elif [ $1 = 'p' ]; then
     echo 'zip to hhgs_pro_'${now}'.zip'
