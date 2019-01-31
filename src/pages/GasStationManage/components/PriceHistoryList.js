@@ -22,7 +22,7 @@ class CustomizeComponent extends PureComponent {
         {
           title: '油品名称',
           key: 'oilModelName',
-          width: 100,
+          width: 200,
           render: (text, record) => <Fragment>{record.oilModelName}</Fragment>,
         },
         {
