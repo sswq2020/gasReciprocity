@@ -1,6 +1,5 @@
 import React, { PureComponent } from 'react';
-import { Form, Input, DatePicker } from 'antd';
-import regexps from '@/utils/regexps';
+import { Form, InputNumber, DatePicker } from 'antd';
 import moment from 'moment';
 
 const FormItem = Form.Item;
@@ -18,13 +17,39 @@ const formItemLayout = {
   },
 };
 
+const setMemberPrice = (price, agio) => {
+  let mP = 0;
+  // console.log(price, agio);
+  // console.log(Number(price), Number(agio));
+  const nP = Number(price);
+  const nA = Number(agio);
+  if (!!nP && !!nA) {
+    mP = nP && nA ? ((nP * 100 * nA) / 10000).toFixed(2) : 0;
+  }
+
+  return mP;
+};
+
 export default class CustomizeComponent extends PureComponent {
-  render() {
-    const {
+  constructor() {
+    super();
+    this.state = {
+      data: {},
+    };
+  }
+
+  componentWillMount() {
+    const { data } = this.props;
+    this.setState({
       data,
+    });
+  }
+  render() {
+    const { data } = this.state;
+    const {
       form: { getFieldDecorator },
     } = this.props;
-    const dateFormat = 'YYYY-MM-DD HH:mm:ss';
+
     return (
       <Form style={{ marginBottom: -24 }}>
         <FormItem {...formItemLayout} label="油品名称">
@@ -33,21 +58,34 @@ export default class CustomizeComponent extends PureComponent {
         <FormItem {...formItemLayout} label="零售价">
           {getFieldDecorator('oilRetailPrice', {
             initialValue: data.oilRetailPrice,
+            getValueFromEvent: value => {
+              this.setState({
+                data: {
+                  ...data,
+                  oilMemberPrice: setMemberPrice(value, data.oilMemberAgio),
+                },
+              });
+              return value;
+            },
             rules: [
               {
                 required: true,
-                whitespace: true,
                 message: '请填写零售价',
               },
-              {
-                pattern: regexps.decimal2,
-                message: '小数位必须2位',
-              },
             ],
-          })(<Input placeholder="请填写零售价" autoComplete="off" />)}
+          })(
+            <InputNumber
+              placeholder="请填写零售价"
+              autoComplete="off"
+              min={0}
+              step={1}
+              precision={2}
+              style={{ width: '100%' }}
+            />
+          )}
         </FormItem>
         <FormItem {...formItemLayout} label="会员折扣">
-          {data.oilMemberAgio}
+          {data.oilMemberAgio} %
         </FormItem>
         <FormItem {...formItemLayout} label="会员价">
           {data.oilMemberPrice}
@@ -55,7 +93,7 @@ export default class CustomizeComponent extends PureComponent {
         <FormItem {...formItemLayout} label="生效日期">
           {getFieldDecorator('effectTime', {
             initialValue: moment(data.effectTime),
-          })(<DatePicker showTime format={dateFormat} />)}
+          })(<DatePicker showTime format="YYYY-MM-DD HH:mm:ss" />)}
         </FormItem>
       </Form>
     );
