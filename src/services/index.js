@@ -501,7 +501,7 @@ export default {
   getInvoiceAddress() {
     return request({
       host: BASEURL,
-      url: '/action/sc/receiptBill/getInvoiceAddress',
+      url: '/action/sc/invoiceAddress/getInvoiceAddress',
     });
   },
   /**
@@ -511,7 +511,7 @@ export default {
   invoiceAddressUpdate(params) {
     return request({
       host: BASEURL,
-      url: '/action/sc/receiptBill/updateInvoiceAddress',
+      url: '/action/sc/invoiceAddress/updateInvoiceAddress',
       params,
     });
   },
@@ -522,7 +522,7 @@ export default {
   invoiceAddressCreate(params) {
     return request({
       host: BASEURL,
-      url: '/action/sc/receiptBill/insertInvoiceAddress',
+      url: '/action/sc/invoiceAddress/insertInvoiceAddress',
       params,
     });
   },
