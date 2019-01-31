@@ -40,7 +40,7 @@ export default class CustomizeComponent extends PureComponent {
           })(
             iconFile.fileId ? (
               <ImageBox
-                url={`${imgUrl}${file.fileId}`}
+                url={`${imgUrl}${iconFile.fileId}`}
                 onDelete={() => {
                   setFieldsValue({
                     'service.fsIcon': {

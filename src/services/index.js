@@ -33,10 +33,9 @@ axios.interceptors.response.use(
     }
   },
   // Do something with response
-  error => {
+  () => {
     // message.error('网络错误，请稍后重试！！');
     // Promise.reject(error);
-    console.log(error);
     return new Promise(resolve => {
       resolve({
         code: dict.EXCEPTION,
@@ -136,10 +135,13 @@ export default {
       method: 'POST',
     });
   },
-  gasDict() {
+  gasDict(type) {
     return request({
       host: BASEURL,
-      url: '/action/gs/getGasBaseData',
+      url: '/action/public/sys/dict/itmes/get',
+      params: {
+        entryCodes: type,
+      },
     });
   },
   gasCreate(params) {
