@@ -490,8 +490,7 @@ export default {
   getshouldSum(params) {
     return request({
       host: BASEURL,
-      url: '/getshouldSum',
-      method: 'post',
+      url: '/action/sc/receiptBill/getBillCheck',
       params,
     });
   },

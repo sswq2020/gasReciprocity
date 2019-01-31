@@ -8,6 +8,7 @@ import TableList from '@/components/TableList';
 import ListHeaderForm from '@/components/ListHeaderForm';
 import PreviewImage from '@/components/PreviewImage';
 import dict from '@/utils/dict';
+import moment from 'moment';
 
 const imgUrl = `//${hostList[ENV]}/action/hletong/file/gasDownload?file_id=`;
 const { MonthPicker } = DatePicker;
@@ -122,9 +123,11 @@ class Page extends PureComponent {
         {
           title: '年月',
           key: 'createTime',
-          width: 120,
+          width: 200,
           align: 'center',
-          render: (text, record) => <Fragment>{record.createTime}</Fragment>,
+          render: (text, record) => (
+            <Fragment>{moment(record.createTime).format('YYYY/MM/DD hh:mm:ss')}</Fragment>
+          ),
         },
         {
           title: '发票号码',
@@ -145,7 +148,7 @@ class Page extends PureComponent {
           key: 'billType',
           width: 150,
           align: 'center',
-          render: (text, record) => <Fragment>{record.billType}</Fragment>,
+          render: (text, record) => <Fragment>{dict.hhgsBillType[record.billType]}</Fragment>,
         },
         {
           title: '应开金额',

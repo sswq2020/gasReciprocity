@@ -135,4 +135,11 @@ dict.billCheckedStatus = {
   [dict.billIsCheckedStatus]: '是',
 };
 
+dict.hhgsBillSpecialType = '1';
+dict.hhgsBillNormalType = '2';
+dict.hhgsBillType = {
+  [dict.hhgsBillSpecialType]: '增值税专用发票',
+  [dict.hhgsBillNormalType]: '增值税普通发票',
+};
+
 export default dict;

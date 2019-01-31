@@ -65,11 +65,10 @@ export default {
       if (!(yearMonth && gsId)) return;
       const time = moment(yearMonth).format('YYYY-MM');
       const params = { yearMonth: time, gsId };
-      const response = yield call(services.billCheckList, params);
+      const response = yield call(services.getshouldSum, params);
       switch (response.code) {
         case dict.SUCCESS:
-          return response.data[0].billSum;
-        // break;
+          return response.data && response.data.billSum ? response.data.billSum : 0;
         default:
           message.warning('应开金额失败，请稍后重试！');
           break;
