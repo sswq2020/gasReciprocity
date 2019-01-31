@@ -1,6 +1,7 @@
 import React, { PureComponent, Fragment } from 'react';
 import { connect } from 'dva';
 import router from 'umi/router';
+import { hostList } from '@/services/mock';
 import { Row, Col, Input, Form, Button, Modal, DatePicker } from 'antd';
 import PageHeaderWrapper from '@/components/PageHeaderWrapper';
 import TableList from '@/components/TableList';
@@ -8,6 +9,7 @@ import ListHeaderForm from '@/components/ListHeaderForm';
 import PreviewImage from '@/components/PreviewImage';
 import dict from '@/utils/dict';
 
+const imgUrl = `//${hostList[ENV]}/action/hletong/file/gasDownload?file_id=`;
 const { MonthPicker } = DatePicker;
 const FormItem = Form.Item;
 const formItemWidth = {
@@ -164,15 +166,18 @@ class Page extends PureComponent {
           key: 'invoicePhoto',
           align: 'center',
           width: 110,
-          render: () => (
-            <a
-              onClick={() => {
-                previewImage.open('//lorempixel.com/450/250/');
-              }}
-            >
-              查看
-            </a>
-          ),
+          render: (text, record) =>
+            record.billFileId && record.billFileId.length > 0 ? (
+              <a
+                onClick={() => {
+                  previewImage.open(`${imgUrl}${record.billFileId[0]}`);
+                }}
+              >
+                查看
+              </a>
+            ) : (
+              <span>暂无</span>
+            ),
         },
         {
           title: '发票状态',
