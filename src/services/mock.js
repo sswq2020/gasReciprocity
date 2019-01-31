@@ -997,7 +997,7 @@ const mockRouterMap = {
       },
     },
     {
-      isMock: true,
+      // isMock: true,
       method: 'get',
       router: '/action/public/sys/dict/itmes/get',
       result(params) {
