@@ -26,7 +26,7 @@ export default {
     },
 
     *getSelectData({ payload }, { put, call }) {
-      const response = yield call(services.gasDict, payload);
+      const response = yield call(services.getSelectData, payload);
       switch (response.code) {
         case dict.SUCCESS:
           if (response.data.length > 0) {
