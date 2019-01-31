@@ -2,15 +2,6 @@ import pathToRegexp from 'path-to-regexp';
 import mockjs from 'mockjs';
 import dict from '@/utils/dict';
 
-const body = {
-  code: dict.SUCCESS, // 状态码
-  msg: '成功', // 消息 字符串 可以为空
-  timestamp: new Date().getTime(),
-  data: {
-    // 返回结果 result 必须为对象
-  },
-};
-
 export const hostList = {
   // dev: '192.168.4.16:25092/hhgs', // 易凯
   dev: '192.168.4.16:25084/hhgs', // 周扬
@@ -29,6 +20,22 @@ export const hostList = {
 //   createTime: '@DATE("T")',
 //   editTime: '@DATE("T")'
 // };
+const body = {
+  code: dict.SUCCESS, // 状态码
+  msg: '成功', // 消息 字符串 可以为空
+  timestamp: new Date().getTime(),
+  data: {
+    // 返回结果 result 必须为对象
+  },
+};
+
+const dictKeyValue = {
+  itemCode: '@INTEGER(1,9999)',
+  itemName: 'mock @CTITLE(2,10)',
+};
+const dictItems = {
+  'items|1-10': [dictKeyValue],
+};
 
 const pic = {
   path: '/path/2.png',
@@ -988,6 +995,22 @@ const mockRouterMap = {
             shouldsum,
             ...params,
           },
+        };
+      },
+    },
+    {
+      isMock: true,
+      method: 'get',
+      router: '/action/public/sys/dict/itmes/get',
+      result(params) {
+        return {
+          ...body,
+          data: [
+            {
+              ...dictItems,
+              entryCode: params.entryCodes,
+            },
+          ],
         };
       },
     },

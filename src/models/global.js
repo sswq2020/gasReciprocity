@@ -1,18 +1,9 @@
 import { reducers } from '@/utils/utils';
+import dict from '@/utils/dict';
 import services from '@/services';
 
 const namespace = 'global';
 // const selectState = state => state[namespace];
-
-// select数据源元素的适配器
-const selectAdapter = {
-  app(row) {
-    return { itemCode: row.id, itemName: row.appKey };
-  },
-  officer(row) {
-    return { itemCode: row.id, itemName: row.username };
-  },
-};
 
 export default {
   namespace,
@@ -35,18 +26,21 @@ export default {
     },
 
     *getSelectData({ payload }, { put, call }) {
-      const response = yield call(services[`${payload}Select`]);
+      const response = yield call(services.gasDict, payload);
       switch (response.code) {
-        case 0:
-          yield put({
-            type: 'updateStateProps',
-            payload: {
-              name: 'selectList',
-              value: {
-                [payload]: response.result.data.map(selectAdapter[payload]),
+        case dict.SUCCESS:
+          if (response.data.length > 0) {
+            const dictTemp = response.data.filter(item => item.entryCode === payload);
+            yield put({
+              type: 'updateStateProps',
+              payload: {
+                name: 'selectList',
+                value: {
+                  [payload]: dictTemp.length > 0 ? dictTemp[0].items : null,
+                },
               },
-            },
-          });
+            });
+          }
           break;
         default:
           message.warning('数据获取失败，请稍后重试！');
