@@ -380,7 +380,7 @@ export default {
       url: '/action/sc/receiptBill/queryGasOilModelHistoryPage',
       params: {
         currentPage: 1,
-        pageSize: 10,
+        pageSize: 5,
         id,
       },
     });
