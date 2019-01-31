@@ -181,7 +181,6 @@ class CustomizeComponent extends PureComponent {
       },
       rowSelection: {
         type: 'radio',
-        fixed: true,
         onSelect: record => {
           // const {id,gsName} = record;
           gas = record;
