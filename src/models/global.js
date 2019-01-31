@@ -26,7 +26,7 @@ export default {
     },
 
     *getSelectData({ payload }, { put, call }) {
-      const response = yield call(services.gasDict, payload);
+      const response = yield call(services.getSelectData, payload);
       if (response.success === true && response.body.length > 0) {
         const dictTemp = response.body.filter(item => item.entryCode === payload);
         yield put({

@@ -40,6 +40,7 @@ export default {
       });
       params.yearMonth = moment(params.yearMonth).format('YYYY-MM');
       params.billFileId = params.photo;
+      delete params.photo;
       const response = yield call(services.invoiceCreate, { ...params });
       switch (response.code) {
         case dict.SUCCESS:

@@ -135,7 +135,13 @@ export default {
       method: 'POST',
     });
   },
-  gasDict(type) {
+  gasDict() {
+    return request({
+      host: BASEURL,
+      url: '/action/gs/getGasBaseData',
+    });
+  },
+  getSelectData(type) {
     return request({
       host: BASEURL,
       url: '/action/public/sys/dict/itmes/get',

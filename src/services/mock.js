@@ -581,7 +581,7 @@ const mockRouterMap = {
       },
     },
     {
-      isMock: true,
+      // isMock: true,
       method: 'get',
       router: '/action/sc/receiptBill/queryReceiptBillPage',
       result(params) {
@@ -607,7 +607,7 @@ const mockRouterMap = {
       },
     },
     {
-      isMock: true,
+      // isMock: true,
       method: 'get',
       router: '/action/sc/receiptBill/insertReceiptBill',
       result() {
