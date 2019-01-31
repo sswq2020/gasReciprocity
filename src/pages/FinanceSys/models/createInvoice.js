@@ -16,6 +16,8 @@ const defaultFormData = {
   billTaxRate: undefined,
   billAmt: null, // 应开金额
   billActualAmt: null,
+  gsId: null,
+  gsName: null,
   photo: {
     url: null,
     fileName: null,
@@ -39,7 +41,7 @@ export default {
         }
       });
       params.yearMonth = moment(params.yearMonth).format('YYYY-MM');
-      params.billFileId = params.photo;
+      params.billFileId = [params.photo.fileid];
       delete params.photo;
       const response = yield call(services.invoiceCreate, { ...params });
       switch (response.code) {

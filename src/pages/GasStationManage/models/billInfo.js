@@ -6,24 +6,41 @@ import services from '@/services';
 const namespace = 'billInfo';
 // const selectState = state => state[namespace];
 
+const defaultInvoiceDtoParams = {
+  id: null,
+  invoiceName: null,
+  invoiceTaxpayer: null,
+  invoiceAddress: null,
+  invoiceTel: null,
+  invoiceBank: null,
+  invoiceBankCode: null,
+};
+const defaultReceiveAddressDtoParams = {
+  id: null,
+  receivingAddressPerson: null,
+  receivingAddressTel: null,
+  receivingAddress: null,
+};
+
 export default {
   namespace,
   state: {
-    BillId: null,
-    detail: {},
+    invoiceDto: { ...defaultInvoiceDtoParams },
+    receiveAddressDto: { ...defaultReceiveAddressDtoParams },
   },
 
   reducers,
 
   effects: {
-    *getDetail({ payload }, { call, put }) {
-      const response = yield call(services.billInfo, payload);
+    *getDetail(_, { call, put }) {
+      const response = yield call(services.getInvoiceAddress);
       switch (response.code) {
         case dict.SUCCESS:
           yield put({
             type: 'overrideStateProps',
             payload: {
-              detail: response.data,
+              invoiceDto: response.data.invoiceDto,
+              receiveAddressDto: response.data.receiveAddressDto,
             },
           });
           break;
