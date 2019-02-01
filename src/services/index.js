@@ -392,7 +392,7 @@ export default {
   priceApplyUpdate(params) {
     return request({
       host: BASEURL,
-      url: '/action/sc/receiptBill/updateGasOilModel',
+      url: '/action/gs/gasOilModel/updateGasOilModel',
       method: 'post',
       params,
     });
