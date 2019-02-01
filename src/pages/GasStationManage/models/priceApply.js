@@ -105,7 +105,7 @@ export default {
     *applyPrice({ payload }, { call, put, select }) {
       const { id } = yield select(selectState);
       const { data } = payload;
-      data.effectTime = moment(data.effectTime).format('YYYY-MM-DD HH:mm:ss');
+      data.effectTime = moment(data.effectTime).format('YYYY-MM-DD');
       const response = yield call(services.priceApplyUpdate, { id, ...data });
       switch (response.code) {
         case dict.SUCCESS:

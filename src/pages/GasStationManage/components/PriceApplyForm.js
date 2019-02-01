@@ -97,8 +97,7 @@ export default class CustomizeComponent extends PureComponent {
           })(
             <DatePicker
               allowClear={false}
-              showTime
-              format="YYYY-MM-DD HH:mm:ss"
+              format="YYYY-MM-DD"
               disabledDate={current => {
                 return current && current.valueOf() < new Date().setDate(new Date().getDate());
               }}
