@@ -547,7 +547,7 @@ const mockRouterMap = {
       },
     },
     {
-      isMock: true,
+      //  isMock: true,
       method: 'post',
       router: '/action/sc/receiptBill/updateGasOilModel',
       result() {
@@ -557,7 +557,7 @@ const mockRouterMap = {
       },
     },
     {
-      isMock: true,
+      //  isMock: true,
       method: 'get',
       router: '/action/sc/receiptBill/getBillCheckList',
       result() {
@@ -570,7 +570,7 @@ const mockRouterMap = {
       },
     },
     {
-      isMock: true,
+      //  isMock: true,
       method: 'get',
       router: '/billInfo',
       result() {
@@ -597,7 +597,7 @@ const mockRouterMap = {
       },
     },
     {
-      isMock: true,
+      //  isMock: true,
       method: 'get',
       router: '/action/sc/receiptBill/updateReceiptBill',
       result() {
@@ -628,7 +628,7 @@ const mockRouterMap = {
       },
     },
     {
-      isMock: true,
+      //  isMock: true,
       method: 'get',
       router: '/action/sc/receiptBill/updateInvoiceAddress',
       result() {
@@ -638,7 +638,7 @@ const mockRouterMap = {
       },
     },
     {
-      isMock: true,
+      //  isMock: true,
       method: 'get',
       router: '/action/sc/receiptBill/insertInvoiceAddress',
       result() {
