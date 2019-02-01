@@ -1,4 +1,5 @@
 import React, { PureComponent, Fragment } from 'react';
+import moment from 'moment';
 import { connect } from 'dva';
 import { Modal } from 'antd';
 import TableList from '@/components/TableList';
@@ -54,14 +55,18 @@ class CustomizeComponent extends PureComponent {
           key: 'effectTime',
           align: 'center',
           width: 180,
-          render: (text, record) => <Fragment>{record.effectTime}</Fragment>,
+          render: (text, record) => (
+            <Fragment>{moment(new Date(record.effectTime)).format('YYYY-MM-DD')}</Fragment>
+          ),
         },
         {
           title: '调价申请时间',
           key: 'HisTime',
           align: 'center',
           width: 180,
-          render: (text, record) => <Fragment>{record.createTime}</Fragment>,
+          render: (text, record) => (
+            <Fragment>{moment(new Date(record.editTime)).format('YYYY-MM-DD')}</Fragment>
+          ),
         },
       ],
       rowKey: 'id',
