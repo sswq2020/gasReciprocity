@@ -98,7 +98,7 @@ function request({ host = '', version = '', url, params, method = 'get' }) {
         // TODO 这里做数据的验证
         if (response && response.data) {
           switch (response.data.code) {
-            case '550':
+            case dict.LOGIN_REQUIRED:
               window.localStorage.removeItem('xAuthToken');
               window.localStorage.removeItem('authority');
               router.push('/account/login');

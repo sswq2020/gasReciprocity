@@ -8,7 +8,7 @@ dict.EXCEPTION = '-1';
 dict.PERMISSION_INVALID = 200;
 
 // 未登录
-dict.LOGIN_REQUIRED = 210;
+dict.LOGIN_REQUIRED = '550';
 
 // 数据不正确
 dict.DATA_INVALID = 300;
