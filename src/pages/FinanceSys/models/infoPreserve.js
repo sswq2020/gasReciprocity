@@ -49,18 +49,14 @@ export default {
     *save({ payload }, { call, put, select }) {
       const { _invoiceDto_, _receiveAddressDto_ } = payload; // 双向绑定的更改值
       const { invoiceDto, receiveAddressDto } = yield select(selectState); // state里获取的id
-      const { id: invoiceDtoId } = invoiceDto;
-      const { id: receiveAddressDtoId } = receiveAddressDto;
       const data = {
-        invoiceDto: { invoiceDto, ..._invoiceDto_ },
-        receiveAddressDto: { receiveAddressDto, ..._receiveAddressDto_ },
+        invoiceDto: Object.assign({}, invoiceDto, _invoiceDto_),
+        receiveAddressDto: Object.assign({}, receiveAddressDto, _receiveAddressDto_),
       };
-      const flag = !!(invoiceDtoId && receiveAddressDtoId);
-      const servicesUrl = flag ? services.invoiceAddressUpdate : services.invoiceAddressCreate;
-      const response = yield call(servicesUrl, data);
+      const response = yield call(services.invoiceAddressUpdate, data);
       switch (response.code) {
         case dict.SUCCESS:
-          message.success(`开票、收票地址信息${flag ? '编辑' : '创建'}成功！`);
+          message.success('开票、收票地址信息编辑成功！');
           yield put(
             routerRedux.push({
               pathname: '/financeSys',
