@@ -501,7 +501,7 @@ export default {
   getInvoiceAddress() {
     return request({
       host: BASEURL,
-      url: '/action/sc/receiptBill/getInvoiceAddress',
+      url: '/action/sc/invoiceAddress/getInvoiceAddress',
     });
   },
   /**

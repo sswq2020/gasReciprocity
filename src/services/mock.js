@@ -3,8 +3,8 @@ import mockjs from 'mockjs';
 import dict from '@/utils/dict';
 
 export const hostList = {
-  // dev: '192.168.4.16:25092/hhgs', // 易凯
-  dev: '192.168.4.16:25084/hhgs', // 周扬
+  dev: '192.168.4.16:25092/hhgs', // 易凯
+  // dev: '192.168.4.16:25084/hhgs', // 周扬
   // dev: '192.168.4.16:25091/hhgs', // 佘慧   13888888888   888888       admin 888888
   test: 'test.hletong.com/hhgs',
   pro: 'api.demo.com',
@@ -617,9 +617,9 @@ const mockRouterMap = {
       },
     },
     {
-      isMock: true,
+      // isMock: true,
       method: 'get',
-      router: '/action/sc/receiptBill/getInvoiceAddress',
+      router: '/action/sc/invoiceAddress/getInvoiceAddress',
       result() {
         return {
           ...body,

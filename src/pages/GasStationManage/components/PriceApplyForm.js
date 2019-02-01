@@ -100,7 +100,7 @@ export default class CustomizeComponent extends PureComponent {
               showTime
               format="YYYY-MM-DD HH:mm:ss"
               disabledDate={current => {
-                return current && current.valueOf() < new Date().setDate(new Date().getDate() - 1);
+                return current && current.valueOf() < new Date().setDate(new Date().getDate() + 1);
               }}
             />
           )}

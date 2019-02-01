@@ -10,6 +10,7 @@ import TableList from '@/components/TableList';
 import ListHeaderForm from '@/components/ListHeaderForm';
 // import Select from '@/components/Select';
 
+const { MonthPicker } = DatePicker;
 const FormItem = Form.Item;
 const formItemWidth = {
   lg: 8,
@@ -70,7 +71,7 @@ class Page extends PureComponent {
           <Col {...formItemWidth}>
             <FormItem label="年份">
               {getFieldDecorator('year')(
-                <DatePicker style={{ width: '100%' }} format={dateFormat} />
+                <MonthPicker style={{ width: '100%' }} format={dateFormat} />
               )}
             </FormItem>
           </Col>
@@ -104,14 +105,18 @@ class Page extends PureComponent {
           title: '发票金额',
           key: 'billSum',
           align: 'center',
-          render: (text, record) => <Fragment>{record.billSum}</Fragment>,
+          render: (text, record) => <Fragment>{record.billSum} 元</Fragment>,
         },
         {
           title: '到票确认',
           key: 'check',
           align: 'center',
           render: (text, record) => {
-            return <Fragment>{dict.billCheckedStatus[record.check]}</Fragment>;
+            return (
+              <span className={record.check === '1' ? 'success_text' : 'error_text'}>
+                {dict.billCheckedStatus[record.check]}
+              </span>
+            );
           },
         },
       ],
