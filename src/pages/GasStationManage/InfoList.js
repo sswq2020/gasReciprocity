@@ -104,7 +104,7 @@ class Page extends PureComponent {
         {
           title: '序号',
           key: '#',
-          width: 60,
+          width: 100,
           fixed: 'left',
           align: 'center',
           render: (text, record, index) => (
@@ -114,7 +114,7 @@ class Page extends PureComponent {
         {
           title: '会员名',
           key: 'userName',
-          width: 100,
+          width: 200,
           fixed: 'left',
           align: 'center',
           render: (text, record) => {
@@ -138,28 +138,28 @@ class Page extends PureComponent {
         {
           title: '零售价',
           key: 'oilRetailPrice',
-          width: 120,
+          width: 150,
           align: 'center',
           render: (text, record) => <Fragment>{record.oilRetailPrice} L/元</Fragment>,
         },
         {
           title: '惠龙价',
           key: 'oilMemberPrice',
-          width: 120,
+          width: 150,
           align: 'center',
           render: (text, record) => <Fragment>{record.oilMemberPrice} L/元</Fragment>,
         },
         {
           title: '加油量',
           key: 'fuelVolume',
-          width: 100,
+          width: 150,
           align: 'center',
           render: (text, record) => <Fragment>{record.fuelVolume} L</Fragment>,
         },
         {
           title: '加油金额',
           key: 'totalPrice',
-          width: 100,
+          width: 300,
           align: 'center',
           render: (text, record) => <Fragment>{record.totalPrice} 元</Fragment>,
         },

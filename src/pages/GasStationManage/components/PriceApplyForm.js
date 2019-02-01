@@ -93,13 +93,14 @@ export default class CustomizeComponent extends PureComponent {
         </FormItem>
         <FormItem {...formItemLayout} label="生效日期">
           {getFieldDecorator('effectTime', {
-            initialValue: moment(data.effectTime),
+            initialValue: moment(),
           })(
             <DatePicker
               allowClear={false}
+              style={{ width: '100%' }}
               format="YYYY-MM-DD"
               disabledDate={current => {
-                return current && current.valueOf() < new Date().setDate(new Date().getDate());
+                return current && current.valueOf() < new Date().setDate(new Date().getDate() - 1);
               }}
             />
           )}
