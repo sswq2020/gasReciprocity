@@ -93,7 +93,7 @@ class Page extends PureComponent {
           title: '月份',
           key: 'month',
           align: 'center',
-          render: (text, record) => <Fragment>{record.month}</Fragment>,
+          render: (text, record) => <Fragment>{record.month} 月</Fragment>,
         },
         {
           title: '发票金额',

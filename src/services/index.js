@@ -1,6 +1,6 @@
 import axios from 'axios';
 import router from 'umi/router';
-// import { message } from 'antd';
+import { message } from 'antd';
 import dict from '@/utils/dict';
 import { isMock, hostList } from './mock';
 
@@ -34,7 +34,7 @@ axios.interceptors.response.use(
   },
   // Do something with response
   () => {
-    // message.error('网络错误，请稍后重试！！');
+    message.error('网络错误，请稍后重试！！');
     // Promise.reject(error);
     return new Promise(resolve => {
       resolve({
@@ -97,7 +97,16 @@ function request({ host = '', version = '', url, params, method = 'get' }) {
       .then(response => {
         // TODO 这里做数据的验证
         if (response && response.data) {
-          resolve(response.data);
+          switch (response.data.code) {
+            case dict.LOGIN_REQUIRED:
+              window.localStorage.removeItem('xAuthToken');
+              window.localStorage.removeItem('authority');
+              router.push('/account/login');
+              break;
+            default:
+              resolve(response.data);
+              break;
+          }
         }
       })
       .catch(error => Promise.reject(error));
