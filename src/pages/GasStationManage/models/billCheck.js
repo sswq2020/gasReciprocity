@@ -8,7 +8,7 @@ const namespace = 'billCheck';
 const selectState = state => state[namespace];
 
 const defaultListParams = {
-  year: moment(new Date(), 'YYYY').valueOf(), // 统一时间戳
+  year: moment().format('YYYY'), // 统一时间戳
 };
 
 export default {

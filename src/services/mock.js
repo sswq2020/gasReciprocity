@@ -617,9 +617,9 @@ const mockRouterMap = {
       },
     },
     {
-      isMock: true,
+      // isMock: true,
       method: 'get',
-      router: '/action/sc/receiptBill/getInvoiceAddress',
+      router: '/action/sc/invoiceAddress/getInvoiceAddress',
       result() {
         return {
           ...body,
