@@ -195,7 +195,7 @@ export default {
       url: '/action/gs/activeGasStationInfo',
       method: 'post',
       params: {
-        isBan: '1',
+        isBan: '0',
         id,
       },
     });
@@ -206,7 +206,7 @@ export default {
       url: '/action/gs/activeGasStationInfo',
       method: 'post',
       params: {
-        isBan: '0',
+        isBan: '1',
         id,
       },
     });

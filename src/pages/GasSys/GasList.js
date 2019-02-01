@@ -117,7 +117,7 @@ class Page extends PureComponent {
       getListIsLoading,
       gasList: {
         listParams: { currentPage },
-        list: { list: listData, totalItemCount },
+        list: { list: listData, itemCount: totalItemCount },
       },
     } = this.props;
 
