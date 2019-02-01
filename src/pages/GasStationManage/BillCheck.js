@@ -1,6 +1,5 @@
 import React, { PureComponent, Fragment } from 'react';
 import { connect } from 'dva';
-import moment from 'moment';
 import { Row, Col, Form, Button, Card } from 'antd';
 import dict from '@/utils/dict';
 import PageHeaderWrapper from '@/components/PageHeaderWrapper';
@@ -66,7 +65,7 @@ class Page extends PureComponent {
           <Col {...formItemWidth}>
             <FormItem label="年份">
               {getFieldDecorator('year', {
-                initialValue: moment().format('YYYY'),
+                initialValue: new Date().getFullYear(),
               })(<YearSelect before={40} />)}
             </FormItem>
           </Col>
