@@ -1,16 +1,13 @@
 import React, { PureComponent, Fragment } from 'react';
-// import moment from 'moment';
 import { connect } from 'dva';
-// import router from 'umi/router';
-// import Link from 'umi/link';
+import moment from 'moment';
+import { Row, Col, Form, Button, Card } from 'antd';
 import dict from '@/utils/dict';
-import { Row, Col, Form, Button, Card, DatePicker } from 'antd';
 import PageHeaderWrapper from '@/components/PageHeaderWrapper';
 import TableList from '@/components/TableList';
 import ListHeaderForm from '@/components/ListHeaderForm';
-// import Select from '@/components/Select';
+import YearSelect from '@/components/YearSelect';
 
-const { MonthPicker } = DatePicker;
 const FormItem = Form.Item;
 const formItemWidth = {
   lg: 8,
@@ -63,16 +60,14 @@ class Page extends PureComponent {
       form: { getFieldDecorator },
     } = this.props;
 
-    const dateFormat = 'YYYY';
-
     return (
       <Form onSubmit={this.changeListParams} layout="inline">
         <Row gutter={{ md: 8, lg: 24, xl: 48 }}>
           <Col {...formItemWidth}>
             <FormItem label="年份">
-              {getFieldDecorator('year')(
-                <MonthPicker style={{ width: '100%' }} format={dateFormat} />
-              )}
+              {getFieldDecorator('year', {
+                initialValue: moment().format('YYYY'),
+              })(<YearSelect before={40} />)}
             </FormItem>
           </Col>
           <Col className="submitButtons" {...formItemWidth}>
