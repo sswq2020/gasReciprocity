@@ -512,17 +512,7 @@ export default {
     return request({
       host: BASEURL,
       url: '/action/sc/invoiceAddress/updateInvoiceAddress',
-      params,
-    });
-  },
-  /**
-   * @author sswq
-   * @description 票务管理/新增开票收票地址信息
-   */
-  invoiceAddressCreate(params) {
-    return request({
-      host: BASEURL,
-      url: '/action/sc/invoiceAddress/insertInvoiceAddress',
+      method: 'post',
       params,
     });
   },

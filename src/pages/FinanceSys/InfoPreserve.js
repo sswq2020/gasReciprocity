@@ -5,6 +5,7 @@ import { connect } from 'dva';
 import PageHeaderWrapper from '@/components/PageHeaderWrapper';
 import FormItemHead from '@/components/FormItemHead';
 import styles from './components/financeForm.less';
+import regexps from '@/utils/regexps';
 
 const formItemWidth = {
   lg: 8,
@@ -44,7 +45,12 @@ class Page extends PureComponent {
                       {
                         required: true,
                         whitespace: true,
+                        max: 20,
                         message: '请填写名称',
+                      },
+                      {
+                        pattern: regexps.china,
+                        message: '输入中文',
                       },
                     ],
                   })(<Input placeholder="请输入名称" autoComplete="off" />)}
@@ -58,6 +64,7 @@ class Page extends PureComponent {
                       {
                         required: true,
                         whitespace: true,
+                        max: 20,
                         message: '请填写纳税人识别号',
                       },
                     ],
@@ -72,6 +79,7 @@ class Page extends PureComponent {
                       {
                         required: true,
                         whitespace: true,
+                        max: 20,
                         message: '请填写地址',
                       },
                     ],
@@ -86,6 +94,7 @@ class Page extends PureComponent {
                       {
                         required: true,
                         whitespace: true,
+                        max: 20,
                         message: '请填写电话',
                       },
                     ],
@@ -114,6 +123,7 @@ class Page extends PureComponent {
                       {
                         required: true,
                         whitespace: true,
+                        max: 20,
                         message: '请填写账号',
                       },
                     ],
@@ -131,6 +141,7 @@ class Page extends PureComponent {
                       {
                         required: true,
                         whitespace: true,
+                        max: 20,
                         message: '请填写收票人',
                       },
                     ],
@@ -147,6 +158,10 @@ class Page extends PureComponent {
                         whitespace: true,
                         message: '请填写收票人联系电话',
                       },
+                      {
+                        pattern: regexps.mobPhone,
+                        message: '不符合手机格式',
+                      },
                     ],
                   })(<Input placeholder="请输入收票人联系电话" autoComplete="off" />)}
                 </FormItem>
@@ -159,6 +174,7 @@ class Page extends PureComponent {
                       {
                         required: true,
                         whitespace: true,
+                        max: 50,
                         message: '请填写寄票地址',
                       },
                     ],
