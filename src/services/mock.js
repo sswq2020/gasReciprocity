@@ -638,16 +638,6 @@ const mockRouterMap = {
       },
     },
     {
-      //  isMock: true,
-      method: 'get',
-      router: '/action/sc/receiptBill/insertInvoiceAddress',
-      result() {
-        return {
-          ...body,
-        };
-      },
-    },
-    {
       isMock: true,
       method: 'get',
       router: '/machine/:id',

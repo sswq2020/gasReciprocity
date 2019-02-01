@@ -22,6 +22,8 @@ export default {
   number: /^\d+$/,
   /* 数值类型小数位只能输入第2位 */
   decimal2: /^[0-9]+(.[0-9]{2})?$/,
+  /* 只能是中文 */
+  china: /^[\u2E80-\u9FFF]+$/,
   unEmpty: /^\S+$/,
   username: /^[a-z_0-9]{2,16}$/,
   password: /^[a-zA-Z_0-9]{6,32}$/,
