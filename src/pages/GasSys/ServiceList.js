@@ -8,7 +8,7 @@ import TableList from '@/components/TableList';
 import ListHeaderForm from '@/components/ListHeaderForm';
 import ServiceForm from './components/ServiceForm';
 
-const imgUrl = `//${hostList[ENV]}/action/hletong/file/gasDownload?file_id=`;
+const imgUrl = `${hostList[ENV]}/action/hletong/file/gasDownload?file_id=`;
 const FormItem = Form.Item;
 const formItemWidth = {
   lg: 8,

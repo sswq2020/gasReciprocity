@@ -35,7 +35,7 @@ export default {
                 },
               },
             });
-            window.location.href = '/';
+            window.location.href = window.location.origin + window.location.pathname;
           } else {
             message.warning('账号或密码错误！');
           }

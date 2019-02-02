@@ -16,7 +16,7 @@ if [ $1 = 't' ]; then
     echo $split_line
     npm run test
     cmd=scp
-    website_path=root@10.20.129.28:/home/hhgs
+    website_path=root@10.20.129.28:/home/hhgs/dist
 elif [ $1 = 'p' ]; then
     echo $split_line
     echo 'Production deploy:'

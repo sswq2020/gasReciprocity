@@ -10,7 +10,7 @@ import PreviewImage from '@/components/PreviewImage';
 import dict from '@/utils/dict';
 import moment from 'moment';
 
-const imgUrl = `//${hostList[ENV]}/action/hletong/file/gasDownload?file_id=`;
+const imgUrl = `${hostList[ENV]}/action/hletong/file/gasDownload?file_id=`;
 const { MonthPicker } = DatePicker;
 const FormItem = Form.Item;
 const formItemWidth = {

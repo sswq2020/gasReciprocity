@@ -13,7 +13,7 @@ import ImageBox from '@/components/ImageBox';
 import GasStationPop from '@/components/GasStationPop/index';
 import styles from './components/financeForm.less';
 
-const imgUrl = `//${hostList[ENV]}/action/hletong/file/gasDownload?file_id=`;
+const imgUrl = `${hostList[ENV]}/action/hletong/file/gasDownload?file_id=`;
 const SearCh = Input.Search;
 
 const { MonthPicker } = DatePicker;

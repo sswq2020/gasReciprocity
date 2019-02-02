@@ -12,7 +12,7 @@ import HLModal from '@/components/Modal';
 import OilSelectForm from './OilSelectForm';
 import styles from './gasForm.less';
 
-const imgUrl = `//${hostList[ENV]}/action/hletong/file/gasDownload?file_id=`;
+const imgUrl = `${hostList[ENV]}/action/hletong/file/gasDownload?file_id=`;
 const FormItem = Form.Item;
 const formItemWidth = {
   lg: 8,
