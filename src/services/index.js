@@ -93,7 +93,7 @@ function request({ host = '', version = '', url, params, method = 'get' }) {
     } else {
       urlStr += `?_=${tk}`;
     }
-    axios[methodStr](host === '' ? urlStr : `http://${host}${urlStr}`, data)
+    axios[methodStr](host === '' ? urlStr : `${host}${urlStr}`, data)
       .then(response => {
         // TODO 这里做数据的验证
         if (response && response.data) {

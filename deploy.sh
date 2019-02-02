@@ -16,7 +16,7 @@ if [ $1 = 't' ]; then
     echo $split_line
     npm run test
     cmd=scp
-    website_path=root@10.20.129.28:/home/hhgs/dist
+    website_path=root@10.20.129.28:/home/hhgs
 elif [ $1 = 'p' ]; then
     echo $split_line
     echo 'Production deploy:'
@@ -33,7 +33,7 @@ if [ $1 = 't' ]; then
     echo 'copy to test server'
     echo $split_line
     $cmd -r dist/* $website_path
-    rm ./dist -rf
+    # rm ./dist -rf
 elif [ $1 = 'p' ]; then
     echo 'zip to hhgs_pro_'${now}'.zip'
     echo $split_line
