@@ -2,10 +2,10 @@ import React, { PureComponent, Fragment } from 'react';
 import { Form, Row, Col, Input, Button } from 'antd';
 import router from 'umi/router';
 import { connect } from 'dva';
+import regexps from '@/utils/regexps';
 import PageHeaderWrapper from '@/components/PageHeaderWrapper';
 import FormItemHead from '@/components/FormItemHead';
 import styles from './components/financeForm.less';
-import regexps from '@/utils/regexps';
 
 const formItemWidth = {
   lg: 8,
