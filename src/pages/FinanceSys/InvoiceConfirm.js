@@ -116,7 +116,6 @@ class Page extends PureComponent {
         {
           title: '加油站名称',
           key: 'gsName',
-          width: 200,
           align: 'center',
           render: (text, record) => <Fragment>{record.gsName}</Fragment>,
         },

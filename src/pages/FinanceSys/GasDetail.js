@@ -137,7 +137,6 @@ class Page extends PureComponent {
         {
           title: '会员名',
           key: 'userName',
-          width: 200,
           align: 'center',
           render: (text, record) => {
             return <Fragment>{record.userName}</Fragment>;
