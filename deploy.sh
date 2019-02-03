@@ -33,7 +33,7 @@ if [ $1 = 't' ]; then
     echo 'copy to test server'
     echo $split_line
     $cmd -r dist/* $website_path
-    # rm ./dist -rf
+    rm ./dist -rf
 elif [ $1 = 'p' ]; then
     echo 'zip to hhgs_pro_'${now}'.zip'
     echo $split_line
