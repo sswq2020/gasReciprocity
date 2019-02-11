@@ -19,6 +19,7 @@ export default {
     listParams: {
       ...defaultListParams,
     },
+    gas: null,
     list: {
       list: [],
       itemCount: 0,
@@ -75,6 +76,7 @@ export default {
         type: 'overrideStateProps',
         payload: {
           visible: true,
+          gas: null,
         },
       });
       yield put({

@@ -252,10 +252,11 @@ class Page extends PureComponent {
         </Card>
         <GasStationPop
           onOk={data => {
+            data = data || { id: null, gsName: null };
             dispatch({
               type: 'getDetailes/overrideStateProps',
               payload: {
-                gas: data || { id: null, gsName: null },
+                gas: data,
               },
             });
             setFieldsValue({
