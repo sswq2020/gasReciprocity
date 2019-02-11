@@ -3,7 +3,7 @@ import { connect } from 'dva';
 import router from 'umi/router';
 import { Form, Row, Col, Input, Select, Cascader, Button, Modal } from 'antd';
 import regexps from '@/utils/regexps';
-import { hostList } from '@/services/mock';
+import { imgHost } from '@/services/mock';
 import FormItemHead from '@/components/FormItemHead';
 import TableList from '@/components/TableList';
 import ImageBox from '@/components/ImageBox';
@@ -12,7 +12,7 @@ import HLModal from '@/components/Modal';
 import OilSelectForm from './OilSelectForm';
 import styles from './gasForm.less';
 
-const imgUrl = `${hostList[ENV]}/action/hletong/file/gasDownload?file_id=`;
+const imgUrl = `${imgHost[ENV]}/action/hletong/file/gasDownload?file_id=`;
 const FormItem = Form.Item;
 const formItemWidth = {
   lg: 8,

@@ -14,7 +14,7 @@ function beforeUpload(file, maxSize) {
 
 // const hostName = hostList[ENV];
 const actionUrl = `${hostList[ENV]}/action/hletong/file/gasUpload`;
-// const imgUrl = `//${hostName}/action/hletong/file/gasDownload?file_id=`;
+// const imgUrl = `//${imgHost[ENV]}/action/hletong/file/gasDownload?file_id=`;
 
 export default class CustomizeComponent extends PureComponent {
   state = {

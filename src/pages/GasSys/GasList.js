@@ -1,7 +1,7 @@
 import React, { PureComponent, Fragment } from 'react';
 import { connect } from 'dva';
 import router from 'umi/router';
-import { hostList } from '@/services/mock';
+import { imgHost } from '@/services/mock';
 
 // import Link from 'umi/link';
 import { Row, Col, Input, Form, Button, Modal } from 'antd';
@@ -13,7 +13,7 @@ import PreviewImage from '@/components/PreviewImage';
 import Select from '@/components/Select';
 
 // const hostName = hostList[ENV];
-const imgUrl = `${hostList[ENV]}/action/hletong/file/gasDownload?file_id=`;
+const imgUrl = `${imgHost[ENV]}/action/hletong/file/gasDownload?file_id=`;
 const FormItem = Form.Item;
 const formItemWidth = {
   lg: 8,

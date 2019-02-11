@@ -1,7 +1,7 @@
 import React, { PureComponent, Fragment } from 'react';
 import { connect } from 'dva';
 import router from 'umi/router';
-import { hostList } from '@/services/mock';
+import { imgHost } from '@/services/mock';
 import { Row, Col, Input, Form, Button, Modal, DatePicker } from 'antd';
 import PageHeaderWrapper from '@/components/PageHeaderWrapper';
 import TableList from '@/components/TableList';
@@ -10,7 +10,7 @@ import PreviewImage from '@/components/PreviewImage';
 import dict from '@/utils/dict';
 import moment from 'moment';
 
-const imgUrl = `${hostList[ENV]}/action/hletong/file/gasDownload?file_id=`;
+const imgUrl = `${imgHost[ENV]}/action/hletong/file/gasDownload?file_id=`;
 const { MonthPicker } = DatePicker;
 const FormItem = Form.Item;
 const formItemWidth = {
