@@ -1,6 +1,6 @@
 import React, { PureComponent, Fragment } from 'react';
 import { connect } from 'dva';
-import { Row, Col, Input, Form, Button, Modal } from 'antd';
+import { Row, Col, Input, Form, Button, Modal, message } from 'antd';
 import dict from '@/utils/dict';
 import TableList from '@/components/TableList';
 import ListHeaderForm from '@/components/ListHeaderForm';
@@ -11,7 +11,7 @@ const formItemWidth = {
   md: 12,
   sm: 24,
 };
-let gas = null;
+
 @connect(({ gasStationPop, loading }) => ({
   gasStationPop,
   getListIsLoading: loading.effects['gasStationPop/getList'],
@@ -86,6 +86,7 @@ class CustomizeComponent extends PureComponent {
         visible,
         listParams: { currentPage },
         list: { list: listData, itemCount: totalItemCount },
+        gas,
       },
     } = this.props;
     const listProps = {
@@ -182,12 +183,12 @@ class CustomizeComponent extends PureComponent {
       rowSelection: {
         type: 'radio',
         onSelect: record => {
-          // const {id,gsName} = record;
-          gas = record;
-          // dispatch({
-          //   type: 'gasStationPop/selectRow',
-          //   payload:{id,gsName}
-          // });
+          dispatch({
+            type: 'gasStationPop/overrideStateProps',
+            payload: {
+              gas: record,
+            },
+          });
         },
       },
     };
@@ -198,6 +199,10 @@ class CustomizeComponent extends PureComponent {
         visible={visible}
         destroyOnClose
         onOk={() => {
+          if (!gas) {
+            message.warning('请选择一个加油站');
+            return;
+          }
           onOk(gas);
           dispatch({
             type: 'gasStationPop/closePopup',
