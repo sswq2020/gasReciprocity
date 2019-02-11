@@ -1,6 +1,6 @@
 import React, { PureComponent, Fragment } from 'react';
 import { Form, Row, Col, Input, Button } from 'antd';
-import router from 'umi/router';
+// import router from 'umi/router';
 import { connect } from 'dva';
 import regexps from '@/utils/regexps';
 import FormItemHead from '@/components/FormItemHead';
@@ -182,13 +182,13 @@ class Page extends PureComponent {
           </Row>
         </Form>
         <div className={styles.footer}>
-          <Button
+          {/* <Button
             onClick={() => {
               router.goBack();
             }}
           >
             取消
-          </Button>
+          </Button> */}
           <Button
             onClick={() => {
               validateFields(errors => {
