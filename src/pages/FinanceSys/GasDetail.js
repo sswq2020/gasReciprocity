@@ -51,6 +51,12 @@ class Page extends PureComponent {
     } = this.props;
     resetFields();
     dispatch({
+      type: 'getDetailes/overrideStateProps',
+      payload: {
+        gas: { gsName: null },
+      },
+    });
+    dispatch({
       type: 'getDetailes/resetListParams',
     });
   };
@@ -76,7 +82,7 @@ class Page extends PureComponent {
             <FormItem label="日期">
               {getFieldDecorator('queryYears', {
                 initialValue: queryYears,
-              })(<MonthPicker style={{ width: '100%' }} format={dateFormat} />)}
+              })(<MonthPicker autoComplete="off" style={{ width: '100%' }} format={dateFormat} />)}
             </FormItem>
           </Col>
           <Col {...formItemWidth}>
