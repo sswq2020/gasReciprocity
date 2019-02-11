@@ -6,13 +6,13 @@ import { Form, Row, Col, Input, Button, DatePicker } from 'antd';
 import MySelect from '@/components/Select';
 import regexps from '@/utils/regexps';
 import FormItemHead from '@/components/FormItemHead';
-import { hostList } from '@/services/mock';
+import { imgHost } from '@/services/mock';
 import ImageUpload from '@/components/ImageUpload';
 import ImageBox from '@/components/ImageBox';
 import GasStationPop from '@/components/GasStationPop/index';
 import styles from './components/financeForm.less';
 
-const imgUrl = `${hostList[ENV]}/action/hletong/file/gasDownload?file_id=`;
+const imgUrl = `${imgHost[ENV]}/action/hletong/file/gasDownload?file_id=`;
 const SearCh = Input.Search;
 
 const { MonthPicker } = DatePicker;

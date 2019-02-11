@@ -1,10 +1,10 @@
 import React, { PureComponent } from 'react';
 import { Form, Input } from 'antd';
-import { hostList } from '@/services/mock';
+import { imgHost } from '@/services/mock';
 import ImageUpload from '@/components/ImageUpload';
 import ImageBox from '@/components/ImageBox';
 
-const imgUrl = `${hostList[ENV]}/action/hletong/file/gasDownload?file_id=`;
+const imgUrl = `${imgHost[ENV]}/action/hletong/file/gasDownload?file_id=`;
 const FormItem = Form.Item;
 const formItemLayout = {
   labelCol: {

@@ -17,6 +17,12 @@ if [ $1 = 't' ]; then
     npm run test
     cmd=scp
     website_path=root@10.20.129.28:/home/hhgs/dist
+elif [ $1 = 'tz' ]; then
+    echo $split_line
+    echo 'Testing deploy:'
+    echo $split_line
+    npm run build
+    cmd=zip
 elif [ $1 = 'p' ]; then
     echo $split_line
     echo 'Production deploy:'
@@ -34,6 +40,10 @@ if [ $1 = 't' ]; then
     echo $split_line
     $cmd -r dist/* $website_path
     rm ./dist -rf
+elif [ $1 = 'tz' ]; then
+    echo 'zip to hhgs_test_'${now}'.zip'
+    echo $split_line
+    $cmd -m -r -q hhgs_test_$now.zip ./dist
 elif [ $1 = 'p' ]; then
     echo 'zip to hhgs_pro_'${now}'.zip'
     echo $split_line
