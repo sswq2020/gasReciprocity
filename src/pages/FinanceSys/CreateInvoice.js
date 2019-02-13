@@ -62,7 +62,12 @@ class Page extends PureComponent {
                   rules: [
                     {
                       required: true,
-                      message: '发票照片',
+                      validator: (rule, value, callback) => {
+                        if (value.fileName === null) {
+                          callback('请上传发票照片');
+                        }
+                        callback();
+                      },
                     },
                   ],
                 })(
