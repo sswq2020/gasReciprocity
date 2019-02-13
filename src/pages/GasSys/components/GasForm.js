@@ -120,6 +120,7 @@ class CustomizeComponent extends PureComponent {
         formData,
         visible,
         isEdit,
+        gasIndexOf,
       },
       form: {
         getFieldDecorator,
@@ -195,6 +196,7 @@ class CustomizeComponent extends PureComponent {
                       payload: {
                         isEdit: true,
                         visible: true,
+                        gasIndexOf: index,
                         formData: {
                           ...record,
                         },
@@ -621,7 +623,11 @@ class CustomizeComponent extends PureComponent {
           title={`${isEdit === false ? '新增' : '编辑'}油品信息`}
           visible={visible}
           onOk={fData => {
-            gasOilModelList.push(fData.oilSelect);
+            if (isEdit === false) {
+              gasOilModelList.push(fData.oilSelect);
+            } else {
+              gasOilModelList[gasIndexOf] = fData.oilSelect;
+            }
             setFieldsValue({
               'gas.gasOilModelList': gasOilModelList,
             });

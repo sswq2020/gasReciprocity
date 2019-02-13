@@ -33,6 +33,7 @@ export default {
     formData: {
       ...defaultFormData,
     },
+    gasIndexOf: null,
     visible: false,
     isEdit: false,
     provinceList: [],

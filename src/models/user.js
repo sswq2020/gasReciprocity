@@ -44,7 +44,7 @@ export default {
 
           break;
         default:
-          message.warning('退出登陆失败，请稍后重试！');
+          message.warning('退出登录失败，请稍后重试！');
           break;
       }
     },
