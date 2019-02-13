@@ -74,7 +74,7 @@ export default {
           }
           break;
         default:
-          message.warning(`${response.errMsg}，请稍后重试！`);
+          message.warning(`${response.mesg}，请稍后重试！`);
           break;
       }
     },
@@ -88,7 +88,7 @@ export default {
           yield put({ type: 'closeForm' });
           break;
         default:
-          message.warning(`${response.errMsg}，请稍后重试！`);
+          message.warning(`${response.mesg}，请稍后重试！`);
           break;
       }
     },
@@ -192,7 +192,7 @@ export default {
           yield put({ type: 'getList' });
           break;
         default:
-          message.warning(`${response.errMsg}，请稍后重试！`);
+          message.warning(`${response.mesg}，请稍后重试！`);
           break;
       }
     },
