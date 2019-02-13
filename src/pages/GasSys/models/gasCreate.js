@@ -50,7 +50,7 @@ export default {
           );
           break;
         default:
-          message.warning('加油站创建失败，请稍后重试！');
+          message.warning(`${response.mesg}，请稍后重试！`);
           break;
       }
     },
