@@ -55,7 +55,7 @@ export default {
           );
           break;
         default:
-          message.warning('新增发票创建失败，请稍后重试！');
+          message.warning(`${response.mesg}，请稍后重试！`);
           break;
       }
     },
@@ -70,7 +70,7 @@ export default {
         case dict.SUCCESS:
           return response.data && response.data.billSum ? response.data.billSum : 0;
         default:
-          message.warning('应开金额失败，请稍后重试！');
+          message.warning('应开金额获取失败，请稍后重试！');
           break;
       }
     },

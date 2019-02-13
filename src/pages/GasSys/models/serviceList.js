@@ -104,7 +104,7 @@ export default {
           yield put({ type: 'closeForm' });
           break;
         default:
-          message.warning('特色服务编辑失败，请稍后重试！');
+          message.warning(`${response.mesg}，请稍后重试！`);
           break;
       }
     },
@@ -118,7 +118,7 @@ export default {
           yield put({ type: 'getList' });
           break;
         default:
-          message.warning('特色服务激活失败，请稍后重试！');
+          message.warning(`${response.mesg}，请稍后重试！`);
           break;
       }
     },
@@ -132,7 +132,7 @@ export default {
           yield put({ type: 'getList' });
           break;
         default:
-          message.warning('特色服务禁用失败，请稍后重试！');
+          message.warning(`${response.mesg}，请稍后重试！`);
           break;
       }
     },

@@ -92,7 +92,7 @@ export default {
           yield put({ type: 'getList' });
           break;
         default:
-          message.warning('油品分类删除失败，请稍后重试！');
+          message.warning(`${response.mesg}，请稍后重试！`);
           break;
       }
     },
@@ -108,7 +108,7 @@ export default {
           yield put({ type: 'closeForm' });
           break;
         default:
-          message.warning('油品分类编辑失败，请稍后重试！');
+          message.warning(`${response.mesg}，请稍后重试！`);
           break;
       }
     },
@@ -122,7 +122,7 @@ export default {
           yield put({ type: 'getList' });
           break;
         default:
-          message.warning('油品分类启用失败，请稍后重试！');
+          message.warning(`${response.mesg}，请稍后重试！`);
           break;
       }
     },
@@ -136,7 +136,7 @@ export default {
           yield put({ type: 'getList' });
           break;
         default:
-          message.warning('油品分类禁用失败，请稍后重试！');
+          message.warning(`${response.mesg}，请稍后重试！`);
           break;
       }
     },
@@ -150,7 +150,7 @@ export default {
           yield put({ type: 'getList' });
           break;
         default:
-          message.warning('油品分类设为默认展示失败，请稍后重试！');
+          message.warning(`${response.mesg}，请稍后重试！`);
           break;
       }
     },
