@@ -1,13 +1,14 @@
 import { message } from 'antd';
 import { reducers } from '@/utils/utils';
 import dict from '@/utils/dict';
+import moment from 'moment';
 import services from '@/services';
 
 const namespace = 'invoiceConfirm';
 const selectState = state => state[namespace];
 
 const defaultListParams = {
-  createTime: '', // 年月
+  yearMonth: moment(new Date(), 'YYYY-MM'), // 年月
   gsName: '', // 加油站名称
   currentPage: 1,
 };
@@ -29,7 +30,10 @@ export default {
   effects: {
     *getList(_, { call, put, select }) {
       const { listParams } = yield select(selectState);
-      const response = yield call(services.invoiceConfirmList, listParams);
+      const queryParams = Object.assign({}, listParams, {
+        yearMonth: moment(listParams.yearMonth).format('YYYY-MM'),
+      });
+      const response = yield call(services.invoiceConfirmList, queryParams);
       switch (response.code) {
         case dict.SUCCESS:
           yield put({

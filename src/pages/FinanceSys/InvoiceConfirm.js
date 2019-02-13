@@ -8,7 +8,6 @@ import TableList from '@/components/TableList';
 import ListHeaderForm from '@/components/ListHeaderForm';
 import PreviewImage from '@/components/PreviewImage';
 import dict from '@/utils/dict';
-import moment from 'moment';
 
 const imgUrl = `${imgHost[ENV]}/action/hletong/file/gasDownload?file_id=`;
 const { MonthPicker } = DatePicker;
@@ -70,7 +69,7 @@ class Page extends PureComponent {
         <Row gutter={{ md: 8, lg: 24, xl: 48 }}>
           <Col {...formItemWidth}>
             <FormItem label="年月">
-              {getFieldDecorator('createTime')(<MonthPicker style={{ width: '100%' }} />)}
+              {getFieldDecorator('yearMonth')(<MonthPicker style={{ width: '100%' }} />)}
             </FormItem>
           </Col>
           <Col {...formItemWidth}>
@@ -121,12 +120,10 @@ class Page extends PureComponent {
         },
         {
           title: '年月',
-          key: 'createTime',
+          key: 'yearMonth',
           width: 200,
           align: 'center',
-          render: (text, record) => (
-            <Fragment>{moment(record.createTime).format('YYYY/MM/DD hh:mm:ss')}</Fragment>
-          ),
+          render: (text, record) => <Fragment>{record.yearMonth}</Fragment>,
         },
         {
           title: '发票号码',
