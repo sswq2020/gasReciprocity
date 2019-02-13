@@ -31,12 +31,17 @@ export default class CustomizeComponent extends PureComponent {
         <FormItem {...formItemLayout} label="特色服务ICON">
           {getFieldDecorator('service.fsIcon', {
             initialValue: data.fsIcon,
-            // rules: [
-            //   {
-            //     required: true,
-            //     message: '请上传特色服务ICON',
-            //   },
-            // ],
+            rules: [
+              {
+                required: true,
+                validator: (rule, value, callback) => {
+                  if (value.fileName === null) {
+                    callback('请上传特色服务ICON');
+                  }
+                  callback();
+                },
+              },
+            ],
           })(
             iconFile.fileId ? (
               <ImageBox
