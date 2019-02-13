@@ -62,7 +62,7 @@ class Page extends PureComponent {
                   rules: [
                     {
                       required: true,
-                      message: '请上传特色服务ICON',
+                      message: '发票照片',
                     },
                   ],
                 })(
@@ -118,7 +118,14 @@ class Page extends PureComponent {
             </Col>
             <Col {...formItemWidth}>
               <FormItem label="加油站名称">
-                {getFieldDecorator('gsName')(
+                {getFieldDecorator('gsName', {
+                  rules: [
+                    {
+                      required: true,
+                      message: '请点击搜索按钮',
+                    },
+                  ],
+                })(
                   <SearCh
                     enterButton
                     readOnly
@@ -257,6 +264,7 @@ class Page extends PureComponent {
             setFieldsValue({
               gsId: data.id,
               gsName: data.gsName,
+              billName: data.gsName,
             });
             dispatch({
               type: 'createInvoice/changeYear',
