@@ -169,17 +169,17 @@ class Page extends PureComponent {
               </FormItem>
             </Col>
             <Col {...formItemWidth}>
-              <FormItem label="开票房名称">
+              <FormItem label="开票方名称">
                 {getFieldDecorator('billName', {
                   initialValue: createInvoice.billName,
                   rules: [
                     {
                       required: true,
                       whitespace: true,
-                      message: '请填写开票房名称',
+                      message: '请填写开票方名称',
                     },
                   ],
-                })(<Input placeholder="请输入开票房名称" autoComplete="off" />)}
+                })(<Input placeholder="请输入开票方名称" autoComplete="off" />)}
               </FormItem>
             </Col>
             <Col {...formItemWidth}>
