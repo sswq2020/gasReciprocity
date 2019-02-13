@@ -41,7 +41,7 @@ class Page extends PureComponent {
     return (
       <div className={styles.container}>
         <div className={styles.loginCon}>
-          <div className={styles.loginTitle}>会员登陆</div>
+          <div className={styles.loginTitle}>会员登录</div>
           <Form>
             <FormItem>
               {getFieldDecorator('loginName', {
@@ -85,7 +85,7 @@ class Page extends PureComponent {
                 />
               )}
             </FormItem>
-            {/* <div>{getFieldDecorator('autoLogin', {})(<Checkbox>自动登陆</Checkbox>)}</div> */}
+            {/* <div>{getFieldDecorator('autoLogin', {})(<Checkbox>自动登录</Checkbox>)}</div> */}
             <Button
               block
               type="primary"
@@ -96,7 +96,7 @@ class Page extends PureComponent {
               }}
               className={styles.submit}
             >
-              登陆
+              登录
             </Button>
           </Form>
         </div>

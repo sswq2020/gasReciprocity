@@ -5,11 +5,15 @@ import { hostList } from '@/services/mock';
 import styles from './index.less';
 
 function beforeUpload(file, maxSize) {
-  const isLtMaxSize = file.size / 1024 / 1024 < maxSize;
-  if (isLtMaxSize === false) {
-    Message.warning(`图片请在${maxSize}MB以下！`);
+  if (file.type.indexOf('image') === -1) {
+    Message.warning('请上传图片文件！');
+    return false;
   }
-  return isLtMaxSize;
+  if (file.size / 1024 / 1024 > maxSize) {
+    Message.warning(`图片请在${maxSize}MB以下！`);
+    return false;
+  }
+  return true;
 }
 
 // const hostName = hostList[ENV];

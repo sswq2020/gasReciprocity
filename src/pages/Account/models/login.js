@@ -49,7 +49,7 @@ export default {
           message.warning('账号或密码错误！');
           break;
         default:
-          message.warning('登陆失败，请稍后重试！');
+          message.warning('登录失败，请稍后重试！');
           break;
       }
     },

@@ -63,7 +63,7 @@ export default class GlobalHeaderRight extends PureComponent {
         <Menu.Divider /> */}
         <Menu.Item key="logout">
           <Icon type="logout" />
-          退出登陆
+          退出登录
         </Menu.Item>
       </Menu>
     );
