@@ -69,7 +69,7 @@ class Page extends PureComponent {
         <Row gutter={{ md: 8, lg: 24, xl: 48 }}>
           <Col {...formItemWidth}>
             <FormItem label="年月">
-              {getFieldDecorator('createTime')(<MonthPicker style={{ width: '100%' }} />)}
+              {getFieldDecorator('yearMonth')(<MonthPicker style={{ width: '100%' }} />)}
             </FormItem>
           </Col>
           <Col {...formItemWidth}>
