@@ -55,7 +55,7 @@ export default {
           );
           break;
         default:
-          message.warning(`${response.mesg}，请稍后重试！`);
+          message.warning(response.mesg);
           break;
       }
     },
