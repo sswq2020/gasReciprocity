@@ -11,7 +11,7 @@ const selectState = state => state[namespace];
 const defaultListParams = {
   memberName: '',
   gsName: '',
-  isban: null,
+  isBan: null,
   currentPage: 1,
 };
 
@@ -46,7 +46,7 @@ export default {
           });
           break;
         default:
-          message.warning(`${response.mesg}，请稍后重试！`);
+          message.warning(response.mesg);
           break;
       }
     },
@@ -60,7 +60,7 @@ export default {
           yield put({ type: 'getList' });
           break;
         default:
-          message.warning(`${response.mesg}，请稍后重试！`);
+          message.warning(response.mesg);
           break;
       }
     },
@@ -74,7 +74,7 @@ export default {
           yield put({ type: 'getList' });
           break;
         default:
-          message.warning(`${response.mesg}，请稍后重试！`);
+          message.warning(response.mesg);
           break;
       }
     },

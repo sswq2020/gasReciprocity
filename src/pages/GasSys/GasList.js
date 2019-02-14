@@ -66,6 +66,9 @@ class Page extends PureComponent {
 
   renderAdvancedForm() {
     const {
+      gasList: {
+        listParams: { memberName, gsName, isBan },
+      },
       form: { getFieldDecorator },
     } = this.props;
 
@@ -74,18 +77,22 @@ class Page extends PureComponent {
         <Row gutter={{ md: 16, lg: 24, xl: 48 }}>
           <Col {...formItemWidth}>
             <FormItem label="会员名">
-              {getFieldDecorator('memberName')(<Input placeholder="请输入" autoComplete="off" />)}
+              {getFieldDecorator('memberName', {
+                initialValue: memberName,
+              })(<Input placeholder="请输入" autoComplete="off" />)}
             </FormItem>
           </Col>
           <Col {...formItemWidth}>
             <FormItem label="加油站名称">
-              {getFieldDecorator('gsName')(<Input placeholder="请输入" autoComplete="off" />)}
+              {getFieldDecorator('gsName', {
+                initialValue: gsName,
+              })(<Input placeholder="请输入" autoComplete="off" />)}
             </FormItem>
           </Col>
           <Col {...formItemWidth}>
             <FormItem label="加油站状态">
               {getFieldDecorator('isBan', {
-                initialValue: null,
+                initialValue: isBan,
               })(
                 <Select
                   hasAll
