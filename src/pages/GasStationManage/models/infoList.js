@@ -8,7 +8,7 @@ const namespace = 'infoList';
 const selectState = state => state[namespace];
 
 const defaultListParams = {
-  queryYears: moment(new Date(), 'YYYY-MM'), // 统一时间戳
+  queryYears: moment(), // 统一时间戳
   currentPage: 1,
 };
 
@@ -33,7 +33,7 @@ export default {
     *getList(_, { call, put, select }) {
       const { listParams } = yield select(selectState);
       const queryParams = Object.assign({}, listParams, {
-        queryYears: moment(listParams.queryYears).format('YYYY-MM'),
+        queryYears: listParams.queryYears ? moment(listParams.queryYears).format('YYYY-MM') : null,
       });
       const response = yield call(services.refuelDetailList, queryParams);
       switch (response.code) {
