@@ -63,13 +63,18 @@ class Page extends PureComponent {
   renderAdvancedForm() {
     const {
       form: { getFieldDecorator },
+      invoiceConfirm: {
+        listParams: { yearMonth },
+      },
     } = this.props;
     return (
       <Form onSubmit={this.changeListParams} layout="inline">
         <Row gutter={{ md: 8, lg: 24, xl: 48 }}>
           <Col {...formItemWidth}>
             <FormItem label="年月">
-              {getFieldDecorator('yearMonth')(<MonthPicker style={{ width: '100%' }} />)}
+              {getFieldDecorator('yearMonth', {
+                initialValue: yearMonth,
+              })(<MonthPicker style={{ width: '100%' }} />)}
             </FormItem>
           </Col>
           <Col {...formItemWidth}>
