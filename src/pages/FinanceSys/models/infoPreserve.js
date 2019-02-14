@@ -2,7 +2,6 @@ import { message } from 'antd';
 import { reducers } from '@/utils/utils';
 import dict from '@/utils/dict';
 import services from '@/services';
-import { routerRedux } from 'dva/router';
 
 const namespace = 'infoPreserve';
 const selectState = state => state[namespace];
@@ -46,7 +45,7 @@ export default {
           message.warning('收票地址查询失败，请稍后重试！');
       }
     },
-    *save({ payload }, { call, put, select }) {
+    *save({ payload }, { call, select }) {
       const { _invoiceDto_, _receiveAddressDto_ } = payload; // 双向绑定的更改值
       const { invoiceDto, receiveAddressDto } = yield select(selectState); // state里获取的id
       const data = {
@@ -57,11 +56,6 @@ export default {
       switch (response.code) {
         case dict.SUCCESS:
           message.success('开票、收票地址信息编辑成功！');
-          yield put(
-            routerRedux.push({
-              pathname: '/financeSys',
-            })
-          );
           break;
         default:
           message.warning('开票、收票地址信息创建失败，请稍后重试！');

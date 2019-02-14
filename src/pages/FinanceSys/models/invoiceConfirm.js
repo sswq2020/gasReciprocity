@@ -8,7 +8,7 @@ const namespace = 'invoiceConfirm';
 const selectState = state => state[namespace];
 
 const defaultListParams = {
-  yearMonth: moment(new Date(), 'YYYY-MM'), // 年月
+  yearMonth: moment(), // 年月
   gsName: '', // 加油站名称
   currentPage: 1,
 };
@@ -31,7 +31,7 @@ export default {
     *getList(_, { call, put, select }) {
       const { listParams } = yield select(selectState);
       const queryParams = Object.assign({}, listParams, {
-        yearMonth: moment(listParams.yearMonth).format('YYYY-MM'),
+        yearMonth: listParams.yearMonth ? moment(listParams.yearMonth).format('YYYY-MM') : null,
       });
       const response = yield call(services.invoiceConfirmList, queryParams);
       switch (response.code) {
