@@ -8,7 +8,7 @@ const namespace = 'getDetailes';
 const selectState = state => state[namespace];
 
 const defaultListParams = {
-  queryYears: moment(new Date(), 'YYYY-MM'),
+  queryYears: moment(),
   gsId: '', // 加油站id
   currentPage: 1,
 };
@@ -35,7 +35,7 @@ export default {
     *getList(_, { call, put, select }) {
       const { listParams } = yield select(selectState);
       const queryParams = Object.assign({}, listParams, {
-        queryYears: moment(listParams.queryYears).format('YYYY-MM'),
+        queryYears: listParams.queryYears ? moment(listParams.queryYears).format('YYYY-MM') : null,
       });
       const response = yield call(services.hlRefuelDetailList, queryParams);
       switch (response.code) {

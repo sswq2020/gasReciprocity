@@ -71,7 +71,10 @@ class Page extends PureComponent {
   renderAdvancedForm() {
     const {
       form: { getFieldDecorator },
-      getDetailes: { queryYears, gas },
+      getDetailes: {
+        listParams: { queryYears },
+        gas,
+      },
     } = this.props;
     const dateFormat = 'YYYY-MM';
 
