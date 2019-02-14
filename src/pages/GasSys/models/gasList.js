@@ -46,7 +46,7 @@ export default {
           });
           break;
         default:
-          message.warning('加油站列表获取失败，请稍后重试！');
+          message.warning(`${response.mesg}，请稍后重试！`);
           break;
       }
     },
@@ -60,7 +60,7 @@ export default {
           yield put({ type: 'getList' });
           break;
         default:
-          message.warning('加油站启用失败，请稍后重试！');
+          message.warning(`${response.mesg}，请稍后重试！`);
           break;
       }
     },
@@ -74,7 +74,7 @@ export default {
           yield put({ type: 'getList' });
           break;
         default:
-          message.warning('加油站禁用失败，请稍后重试！');
+          message.warning(`${response.mesg}，请稍后重试！`);
           break;
       }
     },
