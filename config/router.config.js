@@ -8,6 +8,10 @@ export default [
       { path: '/account/login', component: './Account/Login' },
     ],
   },
+  {
+    path: '/guidebook',
+    component: './GuideBook',
+  },
   // app
   {
     path: '/',
