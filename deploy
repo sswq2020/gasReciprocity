@@ -130,7 +130,7 @@ if (options.tz !== undefined) {
   return;
 }
 
-if (options.p !== undefined) {
+if (options.pz !== undefined) {
   productZipDeploy(oldVersion);
   return;
 }
