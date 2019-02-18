@@ -67,9 +67,6 @@ function command(cmd) {
   if (shell.exec(cmd).code !== 0) {
     shell.echo(`Error: ${cmd}`);
     shell.exit(1);
-  } else {
-    shell.echo(`Success: ${cmd}`);
-    return command;
   }
 }
 
