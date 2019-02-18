@@ -107,7 +107,7 @@ export default {
   hash: true,
   // chainWebpack: webpackPlugin,
   history: 'hash',
-  publicPath: process.env.ENV === 'test' ? '/hhgs/' : '/',
+  publicPath: process.env.ENV === 'test' ? `/hhgs/${version}/` : `/${version}/`,
   base: process.env.ENV === 'test' ? '/hhgs' : '/',
-  // outputPath:`./dist/${packageJson.version}`,
+  outputPath: `./dist/${version}`,
 };
