@@ -143,12 +143,12 @@ function updateVersion() {
 }
 
 if (options.t !== undefined) {
-  testDeploy(jData.version);
+  testDeploy(oldVersion);
   return;
 }
 
 if (options.tz !== undefined) {
-  testZipDeploy(jData.version);
+  testZipDeploy(oldVersion);
   return;
 }
 
