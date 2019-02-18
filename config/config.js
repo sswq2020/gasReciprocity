@@ -1,5 +1,6 @@
 import os from 'os';
 import pageRoutes from './router.config';
+import { version } from '../package.json';
 // import webpackPlugin from './plugin.config';
 
 const plugins = [
@@ -53,6 +54,7 @@ export default {
     APP_TYPE: process.env.APP_TYPE || '', // 应用类型
     NODE_ENV: process.env.NODE_ENV, // 执行环境
     ENV: process.env.ENV, // 执行环境
+    VERSION: version,
   },
   // 路由配置
   routes: pageRoutes,
@@ -105,6 +107,7 @@ export default {
   hash: true,
   // chainWebpack: webpackPlugin,
   history: 'hash',
-  publicPath: process.env.ENV === 'test' ? '/hhgs/' : '/',
+  publicPath: process.env.ENV === 'test' ? `/hhgs/${version}/` : `/${version}/`,
   base: process.env.ENV === 'test' ? '/hhgs' : '/',
+  outputPath: `./dist/${version}`,
 };

@@ -84,40 +84,46 @@ const oldVersion = jData.version || '0.0.0';
 const splitLine = '==================================';
 const now = moment().format('YYYY-MM-DD_HH-mm-ss');
 
-function testDeploy() {
+function testDeploy(version) {
   shell.echo(splitLine);
   shell.echo('Testing deploy:');
   shell.echo(splitLine);
   command('npm run test');
+  command(`cp ./dist/${version}/index.html ./dist/`);
+  command(`rm ./dist/${version}/index.html`);
   shell.echo('copy to test server');
   shell.echo(splitLine);
   command('scp -r dist/*  root@10.20.129.28:/home/hhgs/dist');
   command('rm ./dist -rf');
 }
 
-function testZipDeploy() {
+function testZipDeploy(version) {
   const zipName = `hhgs_test_${now}.zip`;
   shell.echo(splitLine);
   shell.echo('Testing zip deploy:');
   shell.echo(splitLine);
   command('npm run test');
+  command(`cp ./dist/${version}/index.html ./dist/`);
+  command(`rm ./dist/${version}/index.html`);
   shell.echo(`zip to ${zipName}`);
   shell.echo(splitLine);
   command(`zip -m -r -q ${zipName} ./dist`);
 }
 
-function productZipDeploy(ver) {
-  const zipName = `hhgs_production_v${ver}_${now}.zip`;
+function productZipDeploy(version) {
+  const zipName = `hhgs_production_v${version}_${now}.zip`;
   shell.echo(splitLine);
   shell.echo('Production deploy:');
   shell.echo(splitLine);
   command('npm run build');
+  command(`cp ./dist/${version}/index.html ./dist/`);
+  command(`rm ./dist/${version}/index.html`);
   shell.echo(`zip to ${zipName}`);
   shell.echo(splitLine);
   command(`zip -m -r -q ${zipName} ./dist`);
 }
 
-function updateVersion(){
+function updateVersion() {
   let version = bigVersion(oldVersion, options.tag || ''); // 强制新版本
   const type = options.type || 'release'; // 提交类型
 
@@ -137,12 +143,12 @@ function updateVersion(){
 }
 
 if (options.t !== undefined) {
-  testDeploy();
+  testDeploy(jData.version);
   return;
 }
 
 if (options.tz !== undefined) {
-  testZipDeploy();
+  testZipDeploy(jData.version);
   return;
 }
 
