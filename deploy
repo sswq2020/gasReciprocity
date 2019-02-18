@@ -134,12 +134,13 @@ if (options.pz !== undefined) {
 
 let version = bigVersion(oldVersion, options.tag || ''); // 强制新版本
 const type = options.type || 'release'; // 提交类型
-const message = options.message || `v${version} for ${type}`;
 
 if (version === oldVersion) {
   version = handleType(oldVersion, type);
 }
 jData.version = version;
+const message = options.message || `v${version} for ${type}`;
+
 fs.writeFileSync('package.json', JSON.stringify(jData, null, 2));
 shell.echo(`项目版本更新为：${version}`);
 command('git add .');
