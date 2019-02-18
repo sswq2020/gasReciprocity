@@ -154,7 +154,7 @@ if (options.tz !== undefined) {
 
 if (options.pz !== undefined) {
   productZipDeploy(oldVersion);
-
+  return;
 }
 
 updateVersion();
