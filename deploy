@@ -117,6 +117,25 @@ function productZipDeploy(ver) {
   command(`zip -m -r -q ${zipName} ./dist`);
 }
 
+function updateVersion(){
+  let version = bigVersion(oldVersion, options.tag || ''); // 强制新版本
+  const type = options.type || 'release'; // 提交类型
+
+  if (version === oldVersion) {
+    version = handleType(oldVersion, type);
+  }
+  jData.version = version;
+  const message = options.message || `v${version} for ${type}`;
+
+  fs.writeFileSync('package.json', JSON.stringify(jData, null, 2));
+  shell.echo(`项目版本更新为：${version}`);
+  command('git add .');
+  command(`git commit -m 'create new tag v${version} ${message}'`);
+  command(`git tag -a v${version} -m '${message}'`);
+  command(`git push team v${version}`);
+  productZipDeploy(version);
+}
+
 if (options.t !== undefined) {
   testDeploy();
   return;
@@ -129,22 +148,7 @@ if (options.tz !== undefined) {
 
 if (options.pz !== undefined) {
   productZipDeploy(oldVersion);
-  return;
+
 }
 
-let version = bigVersion(oldVersion, options.tag || ''); // 强制新版本
-const type = options.type || 'release'; // 提交类型
-
-if (version === oldVersion) {
-  version = handleType(oldVersion, type);
-}
-jData.version = version;
-const message = options.message || `v${version} for ${type}`;
-
-fs.writeFileSync('package.json', JSON.stringify(jData, null, 2));
-shell.echo(`项目版本更新为：${version}`);
-command('git add .');
-command(`git commit -m 'create new tag v${version} ${message}'`);
-command(`git tag -a v${version} -m '${message}'`);
-command(`git push team v${version}`);
-productZipDeploy(version);
+updateVersion();
