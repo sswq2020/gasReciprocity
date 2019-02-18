@@ -148,4 +148,5 @@ shell.echo(`项目版本更新为：${version}`);
 command('git add .');
 command(`git commit -m 'create new tag v${version} ${message}'`);
 command(`git tag -a v${version} -m '${message}'`);
+command(`git push team v${version}`);
 productZipDeploy(version);
