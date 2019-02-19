@@ -20,7 +20,7 @@ const defaultFormData = {
   gsName: null,
   photo: {
     url: null,
-    fileName: null,
+    fileId: null,
     groupId: null,
   },
 };
