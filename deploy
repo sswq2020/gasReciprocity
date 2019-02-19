@@ -95,10 +95,12 @@ function testDeploy(version) {
   shell.echo(splitLine);
   command('scp -r dist/*  root@10.20.129.28:/home/hhgs/dist');
   command('rm ./dist -rf');
+  shell.echo('Deployed!');
 }
 
 function testZipDeploy(version) {
   const zipName = `hhgs_test_${now}.zip`;
+
   shell.echo(splitLine);
   shell.echo('Testing zip deploy:');
   shell.echo(splitLine);
@@ -108,12 +110,14 @@ function testZipDeploy(version) {
   shell.echo(`zip to ${zipName}`);
   shell.echo(splitLine);
   command(`zip -m -r -q ${zipName} ./dist`);
+  shell.echo('Deployed!');
 }
 
 function productZipDeploy(version) {
   const zipName = `hhgs_production_v${version}_${now}.zip`;
+
   shell.echo(splitLine);
-  shell.echo('Production deploy:');
+  shell.echo('Production zip deploy:');
   shell.echo(splitLine);
   command('npm run build');
   command(`cp ./dist/${version}/index.html ./dist/`);
@@ -121,6 +125,7 @@ function productZipDeploy(version) {
   shell.echo(`zip to ${zipName}`);
   shell.echo(splitLine);
   command(`zip -m -r -q ${zipName} ./dist`);
+  shell.echo('Deployed!');
 }
 
 function updateVersion() {
