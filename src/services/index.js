@@ -33,7 +33,13 @@ axios.interceptors.response.use(
     }
   },
   // Do something with response
-  () => {
+  error => {
+    if (error.toString().indexOf('550') !== -1) {
+      window.localStorage.removeItem('xAuthToken');
+      window.localStorage.removeItem('authority');
+      router.push('/account/login');
+      return;
+    }
     message.error('网络错误，请稍后重试！！');
     // Promise.reject(error);
     return new Promise(resolve => {
