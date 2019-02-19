@@ -35,7 +35,7 @@ export default class CustomizeComponent extends PureComponent {
               {
                 required: true,
                 validator: (rule, value, callback) => {
-                  if (value.fileName === null) {
+                  if (value.fileId === null) {
                     callback('请上传特色服务ICON');
                   }
                   callback();
@@ -49,7 +49,7 @@ export default class CustomizeComponent extends PureComponent {
                 onDelete={() => {
                   setFieldsValue({
                     'service.fsIcon': {
-                      fileName: null,
+                      fileId: null,
                       groupId: null,
                     },
                   });

@@ -15,7 +15,7 @@ const defaultFormData = {
   fsName: '',
   fsIcon: {
     url: null,
-    fileName: null,
+    fileId: null,
     groupId: null,
   },
 };
