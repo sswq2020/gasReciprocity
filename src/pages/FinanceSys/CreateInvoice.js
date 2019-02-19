@@ -77,7 +77,7 @@ class Page extends PureComponent {
                       onDelete={() => {
                         setFieldsValue({
                           photo: {
-                            fileName: null,
+                            fileId: null,
                             groupId: null,
                           },
                         });
