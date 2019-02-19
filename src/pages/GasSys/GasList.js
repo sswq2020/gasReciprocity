@@ -198,6 +198,19 @@ class Page extends PureComponent {
           ),
         },
         {
+          title: '是否开通E商贸通',
+          key: 'isMemberOnline',
+          align: 'center',
+          width: 150,
+          render: (text, record) => {
+            return (
+              <span className={record.isMemberOnline === '0' ? 'success_text' : 'error_text'}>
+                {record.isMemberOnline === '0' ? '是' : '否'}
+              </span>
+            );
+          },
+        },
+        {
           title: '加油站状态',
           key: 'isBan',
           align: 'center',
