@@ -1,13 +1,16 @@
 import React, { PureComponent } from 'react';
 // import { FormattedMessage, formatMessage } from 'umi/locale';
 // import { Spin, Tag, Menu, Icon, Dropdown, Avatar, Tooltip } from 'antd';
-import { Menu, Icon, Dropdown } from 'antd';
+import { Menu, Icon, Dropdown, Avatar } from 'antd';
 // import moment from 'moment';
 // import groupBy from 'lodash/groupBy';
 // import NoticeIcon from '../NoticeIcon';
 // import HeaderSearch from '../HeaderSearch';
 // import SelectLang from '../SelectLang';
+import { imgHost } from '@/services/mock';
 import styles from './index.less';
+
+const imgUrl = `${imgHost[ENV]}/action/hletong/file/gasDownload?file_id=`;
 
 export default class GlobalHeaderRight extends PureComponent {
   // getNoticeData() {
@@ -139,11 +142,11 @@ export default class GlobalHeaderRight extends PureComponent {
         </NoticeIcon> */}
         <Dropdown overlay={menu}>
           <span className={`${styles.action} ${styles.account}`}>
-            <span
+            <Avatar
               size="small"
               className={styles.avatar}
-              src={currentUser && currentUser.avatar}
-              alt="avatar"
+              src={currentUser && imgUrl + currentUser.iconFileId}
+              alt={currentUser && currentUser.userName}
             />
             {/* <span className={styles.name}>{currentUser.username}</span> */}
           </span>
