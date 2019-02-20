@@ -18,7 +18,7 @@ const defaultFormData = {
   billActualAmt: null,
   gsId: null,
   gsName: null,
-  photo: {
+  billFileId: {
     url: null,
     fileId: null,
     groupId: null,
@@ -41,8 +41,6 @@ export default {
         }
       });
       params.yearMonth = moment(params.yearMonth).format('YYYY-MM');
-      params.billFileId = [params.photo.fileId];
-      delete params.photo;
       const response = yield call(services.invoiceCreate, { ...params });
       switch (response.code) {
         case dict.SUCCESS:
