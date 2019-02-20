@@ -49,7 +49,7 @@ class Page extends PureComponent {
       },
     } = this.props;
     getFieldDecorator('gsId');
-    const photo = getFieldValue('photo') || createInvoice.photo;
+    const billFileId = getFieldValue('billFileId') || createInvoice.billFileId;
     return (
       <Fragment>
         <Form className={styles.financeForm}>
@@ -57,8 +57,8 @@ class Page extends PureComponent {
           <Row>
             <Col lg={24} md={24} sm={24}>
               <FormItem label="发票照片">
-                {getFieldDecorator('photo', {
-                  initialValue: createInvoice.photo,
+                {getFieldDecorator('billFileId', {
+                  initialValue: createInvoice.billFileId,
                   rules: [
                     {
                       required: true,
@@ -71,12 +71,12 @@ class Page extends PureComponent {
                     },
                   ],
                 })(
-                  photo.fileId ? (
+                  billFileId.fileId ? (
                     <ImageBox
-                      url={`${imgUrl}${photo.fileId}`}
+                      url={`${imgUrl}${billFileId.fileId}`}
                       onDelete={() => {
                         setFieldsValue({
-                          photo: {
+                          billFileId: {
                             fileId: null,
                             groupId: null,
                           },
@@ -87,7 +87,7 @@ class Page extends PureComponent {
                     <ImageUpload
                       onSuccess={file => {
                         setFieldsValue({
-                          photo: {
+                          billFileId: {
                             ...file,
                           },
                         });
