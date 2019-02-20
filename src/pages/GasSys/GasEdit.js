@@ -9,7 +9,7 @@ import GasForm from './components/GasForm';
   isGetDetailing: loading.effects['gasEdit/detail'],
 }))
 class Page extends PureComponent {
-  componentWillMount() {
+  componentDidMount() {
     const {
       dispatch,
       match: {

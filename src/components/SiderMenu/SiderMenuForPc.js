@@ -39,17 +39,49 @@ export default class BaseMenu extends PureComponent {
       parMenuEnter: false,
     };
   }
+  // static getDerivedStateFromProps(nextProps){
+  //   console.log(nextProps === this.pr);
+  // }
+  // componentWillUpdate(nextProps) {
+  //   const {
+  //     collapsed,
+  //     onCollapse,
+  //     menuData,
+  //     location: { pathname: nextPathname },
+  //   } = nextProps;
+  //   const {
+  //     location: { pathname },
+  //   } = this.props;
+  //   const selectedKeys = this.getSelectedMenuKeys(nextPathname);
 
-  componentWillUpdate(nextProps) {
+  //   menuData.forEach(item => {
+  //     if (selectedKeys[0] === item.path) {
+  //       if (
+  //         item.children === undefined ||
+  //         item.children.length === 0 ||
+  //         item.hideChildrenInMenu === true
+  //         ) {
+  //           onCollapse(true);
+  //         } else if (pathname !== nextPathname) {
+  //           onCollapse(false);
+  //         } else {
+  //           onCollapse(collapsed);
+  //         }
+  //       }
+  //     });
+  //   }
+
+  componentDidUpdate(prevProps) {
     const {
       collapsed,
       onCollapse,
       menuData,
       location: { pathname: nextPathname },
-    } = nextProps;
+    } = this.props;
+
     const {
       location: { pathname },
-    } = this.props;
+    } = prevProps;
     const selectedKeys = this.getSelectedMenuKeys(nextPathname);
 
     menuData.forEach(item => {
