@@ -142,7 +142,7 @@ class CustomizeComponent extends PureComponent {
                 </a>
                 <a
                   onClick={() => {
-                    gasOilModelList.slice(index, 1);
+                    gasOilModelList.splice(index, 1);
                     setFieldsValue({
                       'gas.gasOilModelList': gasOilModelList,
                     });
