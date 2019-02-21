@@ -182,7 +182,7 @@ class Page extends PureComponent {
           title: '操作',
           key: 'operating',
           align: 'center',
-          width: 200,
+          width: 220,
           render: (text, record) => {
             // const showText =
             //   dict.oilModelDeleted[
