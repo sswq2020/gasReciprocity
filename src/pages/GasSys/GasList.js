@@ -159,6 +159,7 @@ class Page extends PureComponent {
         {
           title: '加油站名称',
           key: 'gsName',
+          width: 150,
           render: (text, record) => <Fragment>{record.gsName}</Fragment>,
         },
         {
@@ -183,11 +184,13 @@ class Page extends PureComponent {
         {
           title: '联系邮箱',
           key: 'gsEmail',
+          width: 200,
           render: (text, record) => <Fragment>{record.gsEmail}</Fragment>,
         },
         {
           title: '加油站地址',
           key: 'gsDetailAddress',
+          width: 500,
           render: (text, record) => (
             <Fragment>
               {record.gsProvinceName}

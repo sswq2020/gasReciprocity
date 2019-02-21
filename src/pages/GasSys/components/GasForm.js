@@ -9,9 +9,9 @@ import TableList from '@/components/TableList';
 import ImageBox from '@/components/ImageBox';
 import ImageUpload from '@/components/ImageUpload';
 import HLModal from '@/components/Modal';
+import PreviewImage from '@/components/PreviewImage';
 import OilSelectForm from './OilSelectForm';
 import BankSelectForm from './BankSelectForm';
-import PreviewImage from '@/components/PreviewImage';
 import styles from './gasForm.less';
 
 const imgUrl = `${imgHost[ENV]}/action/hletong/file/gasDownload?file_id=`;
@@ -623,7 +623,7 @@ class CustomizeComponent extends PureComponent {
               <FormItemHead>银行卡信息：</FormItemHead>
               <FormItem>
                 {getFieldDecorator('gas.bankDto', {
-                  initialValue: bankDto,
+                  initialValue: data.bankDto,
                   // rules: [
                   //   {
                   //     required: true,
