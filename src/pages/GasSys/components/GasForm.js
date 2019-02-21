@@ -10,6 +10,8 @@ import ImageBox from '@/components/ImageBox';
 import ImageUpload from '@/components/ImageUpload';
 import HLModal from '@/components/Modal';
 import OilSelectForm from './OilSelectForm';
+import BankSelectForm from './BankSelectForm';
+import PreviewImage from '@/components/PreviewImage';
 import styles from './gasForm.less';
 
 const imgUrl = `${imgHost[ENV]}/action/hletong/file/gasDownload?file_id=`;
@@ -19,81 +21,9 @@ const formItemWidth = {
   md: 12,
   sm: 24,
 };
+const HLMEMBER = '0'; // 开通E商贸通
 
-// const bankListProps = {
-//   columns: [
-//     {
-//       title: '序号',
-//       key: '#',
-//       width: 60,
-//       fixed: 'left',
-//       render: (text, record, index) => <Fragment>{(page - 1) * 10 + index + 1}</Fragment>,
-//     },
-//     {
-//       title: '开户银行',
-//       key: 'b',
-//       width: 100,
-//       fixed: 'left',
-//       render: (text, record) => {
-//         return <Fragment>{record.b}</Fragment>;
-//       },
-//     },
-//     {
-//       title: '开户支行/分理处',
-//       key: 'no',
-//       render: (text, record) => <Fragment>{record.c}</Fragment>,
-//     },
-//     {
-//       title: '户名',
-//       key: 'name',
-//       render: (text, record) => <Fragment>{record.d}</Fragment>,
-//     },
-//     {
-//       title: '银行卡号',
-//       key: 'tel',
-//       width: 100,
-//       render: (text, record) => <Fragment>{record.e}</Fragment>,
-//     },
-//     {
-//       title: '证件类型',
-//       key: 'contact',
-//       width: 120,
-//       render: (text, record) => <Fragment>{record.f}</Fragment>,
-//     },
-//     {
-//       title: '证件号码',
-//       key: 'contactPhone',
-//       render: (text, record) => <Fragment>{record.g}</Fragment>,
-//     },
-//     {
-//       title: '是否默认',
-//       key: 'contactEmail',
-//       width: 100,
-//       render: (text, record) => <Fragment>{record.h}</Fragment>,
-//     },
-//     {
-//       title: '指定签约席位号',
-//       key: 'add',
-//       render: (text, record) => <Fragment>{record.i}</Fragment>,
-//     },
-//     {
-//       title: '银行账户图片',
-//       key: 'qCode',
-//       width: 150,
-//       render: () => <a>点击查看</a>,
-//     },
-//     {
-//       title: <div style={{ textAlign: 'center' }}>操作</div>,
-//       key: 'operating',
-//       width: 200,
-//       fixed: 'right',
-//       render: () => <div style={{ textAlign: 'center' }}>000</div>,
-//     },
-//   ],
-//   rowKey: 'a',
-//   scroll: { x: 'max-content' },
-//   dataSource: [],
-// };
+let previewImage = null;
 
 @Form.create()
 @connect(({ gasForm }) => ({
@@ -120,6 +50,9 @@ class CustomizeComponent extends PureComponent {
         formData,
         visible,
         isEdit,
+        bankformData,
+        bankVisible,
+        isBankEdit,
         gasIndexOf,
       },
       form: {
@@ -131,10 +64,11 @@ class CustomizeComponent extends PureComponent {
         validateFields,
       },
     } = this.props;
-
     const fileList = getFieldValue('gas.fileList') || data.fileList;
     const gasOilModelList = getFieldValue('gas.gasOilModelList') || data.gasOilModelList;
     const areaList = getFieldValue('gas.areaList') || data.areaList;
+    const bankDto = getFieldValue('gas.bankDto') || data.bankDto;
+    const { isMemberOnline } = data;
     const gasListProps = {
       style: {
         marginTop: -24,
@@ -208,7 +142,7 @@ class CustomizeComponent extends PureComponent {
                 </a>
                 <a
                   onClick={() => {
-                    gasOilModelList.splice(index, 1);
+                    gasOilModelList.slice(index, 1);
                     setFieldsValue({
                       'gas.gasOilModelList': gasOilModelList,
                     });
@@ -223,6 +157,115 @@ class CustomizeComponent extends PureComponent {
       ],
       dataSource: gasOilModelList,
       pagination: false,
+    };
+    const bankListProps = {
+      style: {
+        marginTop: -24,
+      },
+      rowKey: 'bankCode', // 加油站id
+      columns: [
+        {
+          title: '开户银行',
+          key: 'bankType',
+          width: 100,
+          fixed: 'left',
+          render: record => {
+            return <Fragment>{record.bankType}</Fragment>;
+          },
+        },
+        {
+          title: '开户支行/分理处',
+          key: 'bankAddress',
+          render: record => <Fragment>{record.bankAddress}</Fragment>,
+        },
+        {
+          title: '户名',
+          key: 'name',
+          render: record => <Fragment>{record.name}</Fragment>,
+        },
+        {
+          title: '银行卡号',
+          key: 'bankCode',
+          width: 100,
+          render: record => <Fragment>{record.bankCode}</Fragment>,
+        },
+        {
+          title: '证件类型',
+          key: 'certType',
+          width: 120,
+          render: (text, record) => <Fragment>{record.certType}</Fragment>,
+        },
+        {
+          title: '证件号码',
+          key: 'certCode',
+          render: (text, record) => <Fragment>{record.certCode}</Fragment>,
+        },
+        {
+          title: '签约席位号',
+          key: 'assignCode',
+          render: (text, record) => <Fragment>{record.assignCode}</Fragment>,
+        },
+        {
+          title: '银行账户图片',
+          key: 'photo',
+          align: 'center',
+          width: 150,
+          render: (text, record) =>
+            record.bankFile && record.bankFile.fileId ? (
+              <a
+                onClick={() => {
+                  previewImage.open(`${imgUrl}${record.bankFile.fileId}`);
+                }}
+              >
+                查看
+              </a>
+            ) : (
+              <span>暂无</span>
+            ),
+        },
+        {
+          title: <div style={{ textAlign: 'center' }}>操作</div>,
+          key: 'operating',
+          width: 100,
+          align: 'center',
+          render: (text, record, index) => {
+            return (
+              <Fragment>
+                <a
+                  style={{ marginRight: 10 }}
+                  onClick={() => {
+                    dispatch({
+                      type: 'gasForm/overrideStateProps',
+                      payload: {
+                        isBankEdit: true,
+                        bankVisible: true,
+                        bankIndexOf: index,
+                        bankformData: {
+                          ...record,
+                        },
+                      },
+                    });
+                  }}
+                >
+                  编辑
+                </a>
+                <a
+                  onClick={() => {
+                    bankDto.splice(index, 1);
+                    setFieldsValue({
+                      'gas.bankDto': bankDto,
+                    });
+                  }}
+                >
+                  删除
+                </a>
+              </Fragment>
+            );
+          },
+        },
+      ],
+      pagination: false,
+      dataSource: bankDto,
     };
 
     const pics = fileList.map((file, index) => {
@@ -576,8 +619,51 @@ class CustomizeComponent extends PureComponent {
               新增油品信息
             </Button>
           )}
-          {/* <FormItemHead>银行卡信息：</FormItemHead>
-          <TableList {...bankListProps} /> */}
+          {isMemberOnline === HLMEMBER && (
+            <Fragment>
+              <FormItemHead>银行卡信息：</FormItemHead>
+              <FormItem>
+                {getFieldDecorator('gas.bankDto', {
+                  initialValue: data.bankDto,
+                  // rules: [
+                  //   {
+                  //     required: true,
+                  //     validator: (rule, value, callback) => {
+                  //       if (value.length === 0) {
+                  //         callback('请添加银行卡');
+                  //       }
+                  //       callback();
+                  //     },
+                  //   },
+                  // ],
+                })(<input type="hidden" />)}
+                <TableList {...bankListProps} />
+                <PreviewImage
+                  ref={ref => {
+                    previewImage = ref;
+                  }}
+                />
+              </FormItem>
+              {bankDto.length === 0 && (
+                <Button
+                  block
+                  icon="plus"
+                  type="dashed"
+                  style={{ marginBottom: 20 }}
+                  onClick={() => {
+                    dispatch({
+                      type: 'gasForm/openBankForm',
+                      payload: {
+                        isBankEdit: false,
+                      },
+                    });
+                  }}
+                >
+                  新增银行卡
+                </Button>
+              )}
+            </Fragment>
+          )}
         </Form>
         <div className={styles.footer}>
           <Button
@@ -650,6 +736,27 @@ class CustomizeComponent extends PureComponent {
               return { itemCode: r.oilModelId, itemName: r.oilModelName };
             })}
           />
+        </HLModal>
+        <HLModal
+          width={1100}
+          title={`${isBankEdit === false ? '新增' : '编辑'}银行卡信息`}
+          visible={bankVisible}
+          destroyOnClose
+          onOk={fData => {
+            setFieldsValue({
+              'gas.bankDto': [fData],
+            });
+            dispatch({
+              type: 'gasForm/closeBankForm',
+            });
+          }}
+          onClose={() => {
+            dispatch({
+              type: 'gasForm/closeBankForm',
+            });
+          }}
+        >
+          <BankSelectForm data={bankformData} />
         </HLModal>
       </Fragment>
     );

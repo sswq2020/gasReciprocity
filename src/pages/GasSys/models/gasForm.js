@@ -27,6 +27,22 @@ const defaultFormData = {
   oilMemberPrice: null,
 };
 
+const defaultBankCardFormData = {
+  bankType: null, // 开户银行code
+  bankAddress: null, // 开户支行／分理处
+  name: null, // 户名
+  bankCode: null, // 银行账号
+  certType: null, // 证件类型
+  certCode: null, // 证件号码
+  refCode: null, // 加油站id
+  assignCode: null, // 加油站编号=席位号
+  bankFile: {
+    fileId: null,
+    groupId: null,
+  }, // 图片
+  remark: null, // 备注
+};
+
 export default {
   namespace,
   state: {
@@ -39,6 +55,13 @@ export default {
     provinceList: [],
     featureServiceInfoList: [],
     oilModelInfoList: [],
+
+    bankformData: {
+      ...defaultBankCardFormData,
+    },
+    bankIndexOf: null,
+    bankVisible: false,
+    isBankEdit: false,
   },
 
   reducers,
@@ -112,6 +135,26 @@ export default {
           visible: false,
           formData: {
             ...defaultFormData,
+          },
+        },
+      });
+    },
+    *openBankForm({ payload }, { put }) {
+      yield put({
+        type: 'overrideStateProps',
+        payload: {
+          bankVisible: true,
+          ...payload,
+        },
+      });
+    },
+    *closeBankForm(_, { put }) {
+      yield put({
+        type: 'overrideStateProps',
+        payload: {
+          bankVisible: false,
+          bankformData: {
+            ...defaultBankCardFormData,
           },
         },
       });
