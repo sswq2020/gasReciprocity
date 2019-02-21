@@ -28,11 +28,11 @@ const defaultFormData = {
 };
 
 const defaultBankCardFormData = {
-  bankType: null, // 开户银行code
+  bankType: '中国建设银行', // 开户银行code
   bankAddress: null, // 开户支行／分理处
   name: null, // 户名
   bankCode: null, // 银行账号
-  certType: null, // 证件类型
+  certType: '营业执照', // 证件类型
   certCode: null, // 证件号码
   refCode: null, // 加油站id
   assignCode: null, // 加油站编号=席位号
@@ -56,7 +56,7 @@ export default {
     featureServiceInfoList: [],
     oilModelInfoList: [],
 
-    bankformData: {
+    bankFormData: {
       ...defaultBankCardFormData,
     },
     bankIndexOf: null,
@@ -153,19 +153,19 @@ export default {
         type: 'overrideStateProps',
         payload: {
           bankVisible: false,
-          bankformData: {
+          bankFormData: {
             ...defaultBankCardFormData,
           },
         },
       });
     },
     *createBankForm({ payload }, { put, select }) {
-      const { bankformData } = yield select(selectState);
-      bankformData.assignCode = payload;
+      const { bankFormData } = yield select(selectState);
+      bankFormData.assignCode = payload;
       yield put({
         type: 'overrideStateProps',
         payload: {
-          bankformData,
+          bankFormData,
         },
       });
       yield put({
