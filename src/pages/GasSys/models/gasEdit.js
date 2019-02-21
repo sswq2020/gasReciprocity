@@ -26,6 +26,7 @@ const defaultFormData = {
   fileList: [],
   gasFeatureServiceIdList: [], // 特色服务id数组
   gasOilModelList: [], // 油品
+  bankDto: [], // 银行卡
 };
 
 export default {
