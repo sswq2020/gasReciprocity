@@ -159,5 +159,21 @@ export default {
         },
       });
     },
+    *createBankForm({ payload }, { put, select }) {
+      const { bankformData } = yield select(selectState);
+      bankformData.assignCode = payload;
+      yield put({
+        type: 'overrideStateProps',
+        payload: {
+          bankformData,
+        },
+      });
+      yield put({
+        type: 'openBankForm',
+        payload: {
+          isBankEdit: false,
+        },
+      });
+    },
   },
 };

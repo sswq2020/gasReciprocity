@@ -89,6 +89,7 @@ class CustomizeComponent extends PureComponent {
                   />
                 ) : (
                   <ImageUpload
+                    maxSize={5}
                     onSuccess={file => {
                       setFieldsValue({
                         bankFile: {
@@ -122,6 +123,7 @@ class CustomizeComponent extends PureComponent {
                   {
                     required: true,
                     whitespace: true,
+                    max: 50,
                     message: '请输入开户支行/分理处',
                   },
                 ],
@@ -136,6 +138,7 @@ class CustomizeComponent extends PureComponent {
                   {
                     required: true,
                     whitespace: true,
+                    max: 20,
                     message: '请填写户名',
                   },
                 ],
@@ -150,6 +153,7 @@ class CustomizeComponent extends PureComponent {
                   {
                     required: true,
                     whitespace: true,
+                    max: 30,
                     message: '请填写银行账号',
                   },
                 ],
@@ -177,6 +181,7 @@ class CustomizeComponent extends PureComponent {
                   {
                     required: true,
                     whitespace: true,
+                    max: 30,
                     message: '请填写证件号码',
                   },
                 ],
@@ -194,7 +199,7 @@ class CustomizeComponent extends PureComponent {
                     message: '请填写签约席位号',
                   },
                 ],
-              })(<Input placeholder="请输入指定账号签约席位号" autoComplete="off" />)}
+              })(<Input readOnly placeholder="请输入指定账号签约席位号" autoComplete="off" />)}
             </FormItem>
           </Col>
           <Col {...formItemWidth}>

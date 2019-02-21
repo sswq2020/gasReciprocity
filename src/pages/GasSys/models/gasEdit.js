@@ -26,7 +26,7 @@ const defaultFormData = {
   fileList: [],
   gasFeatureServiceIdList: [], // 特色服务id数组
   gasOilModelList: [], // 油品
-  bankDto: [], // 银行卡
+  bankDto: null, // 银行卡
 };
 
 export default {
@@ -49,7 +49,7 @@ export default {
             type: 'overrideStateProps',
             payload: {
               id: payload,
-              formData: gasModelToFormData(response.data),
+              formData: gasModelToFormData(Object.assign({}, { bankDto: null }, response.data)),
             },
           });
           break;

@@ -68,7 +68,7 @@ class CustomizeComponent extends PureComponent {
     const gasOilModelList = getFieldValue('gas.gasOilModelList') || data.gasOilModelList;
     const areaList = getFieldValue('gas.areaList') || data.areaList;
     const bankDto = getFieldValue('gas.bankDto') || data.bankDto;
-    const { isMemberOnline } = data;
+    const { isMemberOnline, gsCode } = data;
     const gasListProps = {
       style: {
         marginTop: -24,
@@ -251,9 +251,8 @@ class CustomizeComponent extends PureComponent {
                 </a>
                 <a
                   onClick={() => {
-                    bankDto.splice(index, 1);
                     setFieldsValue({
-                      'gas.bankDto': bankDto,
+                      'gas.bankDto': null,
                     });
                   }}
                 >
@@ -265,7 +264,7 @@ class CustomizeComponent extends PureComponent {
         },
       ],
       pagination: false,
-      dataSource: bankDto,
+      dataSource: bankDto ? [bankDto] : [],
     };
 
     const pics = fileList.map((file, index) => {
@@ -624,7 +623,7 @@ class CustomizeComponent extends PureComponent {
               <FormItemHead>银行卡信息：</FormItemHead>
               <FormItem>
                 {getFieldDecorator('gas.bankDto', {
-                  initialValue: data.bankDto,
+                  initialValue: bankDto,
                   // rules: [
                   //   {
                   //     required: true,
@@ -644,7 +643,7 @@ class CustomizeComponent extends PureComponent {
                   }}
                 />
               </FormItem>
-              {bankDto.length === 0 && (
+              {bankDto === null && (
                 <Button
                   block
                   icon="plus"
@@ -652,10 +651,8 @@ class CustomizeComponent extends PureComponent {
                   style={{ marginBottom: 20 }}
                   onClick={() => {
                     dispatch({
-                      type: 'gasForm/openBankForm',
-                      payload: {
-                        isBankEdit: false,
-                      },
+                      type: 'gasForm/createBankForm',
+                      payload: gsCode,
                     });
                   }}
                 >
@@ -744,7 +741,7 @@ class CustomizeComponent extends PureComponent {
           destroyOnClose
           onOk={fData => {
             setFieldsValue({
-              'gas.bankDto': [fData],
+              'gas.bankDto': fData,
             });
             dispatch({
               type: 'gasForm/closeBankForm',
