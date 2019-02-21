@@ -50,7 +50,7 @@ class CustomizeComponent extends PureComponent {
         formData,
         visible,
         isEdit,
-        bankformData,
+        bankFormData,
         bankVisible,
         isBankEdit,
         gasIndexOf,
@@ -167,8 +167,7 @@ class CustomizeComponent extends PureComponent {
         {
           title: '开户银行',
           key: 'bankType',
-          width: 100,
-          fixed: 'left',
+          width: 200,
           render: record => {
             return <Fragment>{record.bankType}</Fragment>;
           },
@@ -240,7 +239,7 @@ class CustomizeComponent extends PureComponent {
                         isBankEdit: true,
                         bankVisible: true,
                         bankIndexOf: index,
-                        bankformData: {
+                        bankFormData: {
                           ...record,
                         },
                       },
@@ -583,8 +582,8 @@ class CustomizeComponent extends PureComponent {
             </Col>
           </Row>
           <FormItemHead>油品分类：</FormItemHead>
+          <TableList {...gasListProps} />
           <FormItem>
-            <TableList {...gasListProps} />
             {getFieldDecorator('gas.gasOilModelList', {
               initialValue: data.gasOilModelList,
               rules: [
@@ -621,6 +620,7 @@ class CustomizeComponent extends PureComponent {
           {isMemberOnline === HLMEMBER && (
             <Fragment>
               <FormItemHead>银行卡信息：</FormItemHead>
+              <TableList {...bankListProps} />
               <FormItem>
                 {getFieldDecorator('gas.bankDto', {
                   initialValue: data.bankDto,
@@ -636,7 +636,6 @@ class CustomizeComponent extends PureComponent {
                   //   },
                   // ],
                 })(<Input type="hidden" />)}
-                <TableList {...bankListProps} />
                 <PreviewImage
                   ref={ref => {
                     previewImage = ref;
@@ -753,7 +752,7 @@ class CustomizeComponent extends PureComponent {
             });
           }}
         >
-          <BankSelectForm data={bankformData} />
+          <BankSelectForm data={bankFormData} />
         </HLModal>
       </Fragment>
     );
