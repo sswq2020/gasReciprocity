@@ -635,7 +635,7 @@ class CustomizeComponent extends PureComponent {
                   //     },
                   //   },
                   // ],
-                })(<input type="hidden" />)}
+                })(<Input type="hidden" />)}
                 <TableList {...bankListProps} />
                 <PreviewImage
                   ref={ref => {
