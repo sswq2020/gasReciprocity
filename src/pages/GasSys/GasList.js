@@ -159,6 +159,7 @@ class Page extends PureComponent {
         {
           title: '加油站名称',
           key: 'gsName',
+          width: 150,
           render: (text, record) => <Fragment>{record.gsName}</Fragment>,
         },
         {
