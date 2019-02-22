@@ -206,7 +206,7 @@ class CustomizeComponent extends PureComponent {
         {
           title: '证件类型',
           key: 'certType',
-          width: 100,
+          width: 150,
           align: 'center',
           render: (text, record) => (
             <Fragment>
