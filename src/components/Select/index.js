@@ -13,7 +13,7 @@ class CustomizeComponent extends PureComponent {
     const { data, type, dispatch } = this.props;
 
     if (Array.isArray(data) === false) {
-      dispatch({ type: 'global/getSelectData', payload: type });
+      dispatch({ type: 'global/getDictData', payload: type });
     }
   }
 
@@ -25,7 +25,7 @@ class CustomizeComponent extends PureComponent {
       filter = () => {
         return true;
       },
-      global: { selectList },
+      global: { dictMap },
       loading,
       ...props
     } = this.props;
@@ -34,10 +34,10 @@ class CustomizeComponent extends PureComponent {
     let dataList = [];
     if (Array.isArray(data) === true) {
       dataList = [...data];
-    } else if (selectList[type] !== undefined) {
-      dataList = [...selectList[type]];
+    } else if (dictMap[type] !== undefined) {
+      dataList = [...dictMap[type]];
     }
-    // const dataList = Array.isArray(data) === true ? [...data] : [...selectList[type]];
+    // const dataList = Array.isArray(data) === true ? [...data] : [...dictMap[type]];
 
     // 是否添加 全部 选项
     if (hasAll !== false && hasAll !== undefined) {

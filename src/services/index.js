@@ -156,7 +156,7 @@ export default {
       url: '/action/gs/getGasBaseData',
     });
   },
-  getSelectData(type) {
+  getDictData(type) {
     return request({
       host: BASEURL,
       url: '/action/public/sys/dict/itmes/get',
