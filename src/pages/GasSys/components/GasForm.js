@@ -21,7 +21,7 @@ const formItemWidth = {
   md: 12,
   sm: 24,
 };
-const HLMEMBER = '0'; // 开通E商贸通
+const isMember = '0'; // 开通E商贸通
 
 let previewImage = null;
 
@@ -618,7 +618,7 @@ class CustomizeComponent extends PureComponent {
               新增油品信息
             </Button>
           )}
-          {isMemberOnline === HLMEMBER && (
+          {isMemberOnline === isMember && (
             <Fragment>
               <FormItemHead>银行卡信息：</FormItemHead>
               <TableList {...bankListProps} />
