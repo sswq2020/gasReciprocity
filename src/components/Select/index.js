@@ -25,7 +25,7 @@ class CustomizeComponent extends PureComponent {
       filter = () => {
         return true;
       },
-      global: { dictMap },
+      global: { dictList },
       loading,
       ...props
     } = this.props;
@@ -34,10 +34,10 @@ class CustomizeComponent extends PureComponent {
     let dataList = [];
     if (Array.isArray(data) === true) {
       dataList = [...data];
-    } else if (dictMap[type] !== undefined) {
-      dataList = [...dictMap[type]];
+    } else if (dictList[type] !== undefined) {
+      dataList = [...dictList[type]];
     }
-    // const dataList = Array.isArray(data) === true ? [...data] : [...dictMap[type]];
+    // const dataList = Array.isArray(data) === true ? [...data] : [...dictList[type]];
 
     // 是否添加 全部 选项
     if (hasAll !== false && hasAll !== undefined) {
