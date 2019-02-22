@@ -737,7 +737,7 @@ class CustomizeComponent extends PureComponent {
         >
           <OilSelectForm
             data={formData}
-            dictMap={oilModelInfoList.map(r => {
+            dictList={oilModelInfoList.map(r => {
               return { itemCode: r.id, itemName: r.oilModelName };
             })}
             hasSelect={gasOilModelList.map(r => {

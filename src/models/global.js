@@ -12,6 +12,7 @@ export default {
   state: {
     collapsed: false,
     notices: [],
+    dictList: {},
     dictMap: {},
   },
 
@@ -26,18 +27,41 @@ export default {
     },
 
     *getDictData({ payload }, { put, call, select }) {
-      const { dictMap } = yield select(selectState);
-      console.log(dictMap[payload]);
-      if (Array.isArray(dictMap[payload]) === false || dictMap[payload].length === 0) {
+      const { dictList } = yield select(selectState);
+      if (Array.isArray(dictList[payload]) === false || dictList[payload].length === 0) {
         const response = yield call(services.getDictData, payload);
         if (response.success === true && response.body.length > 0) {
-          const dictTemp = response.body.filter(item => item.entryCode === payload);
+          let list = response.body.filter(item => item.entryCode === payload);
+          list = list.length > 0 ? list[0].items : [];
+
+          const map = {
+            codeMap: {},
+            nameMap: {},
+          };
+
+          list.forEach(row => {
+            map.codeMap[row.itemCode] = row.itemName;
+          });
+
+          list.forEach(row => {
+            map.nameMap[row.itemName] = row.itemCode;
+          });
+
+          yield put({
+            type: 'updateStateProps',
+            payload: {
+              name: 'dictList',
+              value: {
+                [payload]: list,
+              },
+            },
+          });
           yield put({
             type: 'updateStateProps',
             payload: {
               name: 'dictMap',
               value: {
-                [payload]: dictTemp.length > 0 ? dictTemp[0].items : null,
+                [payload]: map,
               },
             },
           });
