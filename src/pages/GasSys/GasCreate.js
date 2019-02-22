@@ -8,10 +8,11 @@ import GasForm from './components/GasForm';
   isLoading: loading.effects['gasCreate/submit'],
 }))
 class Page extends PureComponent {
-  componentDidMount() {
+  componentWillUnmount() {
     const { dispatch } = this.props;
     dispatch({ type: 'gasCreate/resetFormData' });
   }
+
   render() {
     const {
       dispatch,

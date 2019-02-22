@@ -29,9 +29,7 @@ const defaultFormData = {
 export default {
   namespace,
   state: {
-    formData: {
-      ...defaultFormData,
-    },
+    formData: JSON.parse(JSON.stringify(defaultFormData)),
   },
 
   reducers,
@@ -41,7 +39,7 @@ export default {
       yield put({
         type: 'overrideStateProps',
         payload: {
-          formData: { ...defaultFormData },
+          formData: JSON.parse(JSON.stringify(defaultFormData)),
         },
       });
     },
