@@ -36,10 +36,12 @@ const defaultBankCardFormData = {
   certCode: null, // 证件号码
   refCode: null, // 加油站id
   assignCode: null, // 加油站编号=席位号
-  bankFile: {
-    fileId: null,
-    groupId: null,
-  }, // 图片
+  bankFile: [
+    {
+      fileId: null,
+      groupId: null,
+    },
+  ], // 图片
   remark: null, // 备注
 };
 

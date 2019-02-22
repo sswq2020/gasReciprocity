@@ -168,7 +168,8 @@ class CustomizeComponent extends PureComponent {
         {
           title: '开户银行',
           key: 'bankType',
-          width: 200,
+          width: 100,
+          align: 'center',
           render: record => {
             return <Fragment>{record.bankType}</Fragment>;
           },
@@ -176,45 +177,55 @@ class CustomizeComponent extends PureComponent {
         {
           title: '开户支行/分理处',
           key: 'bankAddress',
+          width: 100,
+          align: 'center',
           render: record => <Fragment>{record.bankAddress}</Fragment>,
         },
         {
           title: '户名',
           key: 'name',
+          width: 100,
+          align: 'center',
           render: record => <Fragment>{record.name}</Fragment>,
         },
         {
           title: '银行卡号',
           key: 'bankCode',
           width: 100,
+          align: 'center',
           render: record => <Fragment>{record.bankCode}</Fragment>,
         },
         {
           title: '证件类型',
           key: 'certType',
-          width: 120,
+          width: 100,
+          align: 'center',
           render: (text, record) => <Fragment>{record.certType}</Fragment>,
         },
         {
           title: '证件号码',
           key: 'certCode',
+          width: 100,
+          align: 'center',
           render: (text, record) => <Fragment>{record.certCode}</Fragment>,
         },
         {
           title: '签约席位号',
           key: 'assignCode',
+          width: 100,
+          align: 'center',
           render: (text, record) => <Fragment>{record.assignCode}</Fragment>,
         },
         {
           title: '银行账户图片',
           key: 'photo',
           align: 'center',
-          width: 150,
+          width: 100,
           render: (text, record) =>
-            record.bankFile && record.bankFile.fileId ? (
+            record.bankFile && record.bankFile.length && record.bankFile[0].fileId ? (
               <a
                 onClick={() => {
-                  previewImage.open(`${imgUrl}${record.bankFile.fileId}`);
+                  previewImage.open(`${imgUrl}${record.bankFile[0].fileId}`);
                 }}
               >
                 查看

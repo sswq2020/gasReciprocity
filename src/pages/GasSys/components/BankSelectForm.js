@@ -75,15 +75,17 @@ class CustomizeComponent extends PureComponent {
                   },
                 ],
               })(
-                bankFile.fileId ? (
+                bankFile && bankFile.length && bankFile[0].fileId ? (
                   <ImageBox
-                    url={`${imgUrl}${bankFile.fileId}`}
+                    url={`${imgUrl}${bankFile[0].fileId}`}
                     onDelete={() => {
                       setFieldsValue({
-                        bankFile: {
-                          fileId: null,
-                          groupId: null,
-                        },
+                        bankFile: [
+                          {
+                            fileId: null,
+                            groupId: null,
+                          },
+                        ],
                       });
                     }}
                   />
@@ -92,9 +94,11 @@ class CustomizeComponent extends PureComponent {
                     maxSize={5}
                     onSuccess={file => {
                       setFieldsValue({
-                        bankFile: {
-                          ...file,
-                        },
+                        bankFile: [
+                          {
+                            ...file,
+                          },
+                        ],
                       });
                     }}
                   />
