@@ -35,8 +35,8 @@ export default {
           list = list.length > 0 ? list[0].items : [];
 
           const map = {
-            codeMap: {},
-            nameMap: {},
+            codeToName: {},
+            nameToCode: {},
           };
 
           list.forEach(row => {
