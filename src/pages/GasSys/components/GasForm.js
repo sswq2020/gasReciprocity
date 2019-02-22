@@ -26,14 +26,17 @@ const isMember = '0'; // 开通E商贸通
 let previewImage = null;
 
 @Form.create()
-@connect(({ gasForm }) => ({
+@connect(({ gasForm, global }) => ({
   gasForm,
+  global,
 }))
 class CustomizeComponent extends PureComponent {
   constructor(props) {
     super(props);
     const { dispatch } = this.props;
     dispatch({ type: 'gasForm/getDict' });
+    dispatch({ type: 'global/getDictData', payload: 'cert_type' });
+    dispatch({ type: 'global/getDictData', payload: 'bank_type' });
   }
 
   render() {
@@ -43,6 +46,7 @@ class CustomizeComponent extends PureComponent {
       data,
       hasData,
       loading,
+      global: { dictMap },
       gasForm: {
         provinceList,
         oilModelInfoList,
@@ -171,7 +175,11 @@ class CustomizeComponent extends PureComponent {
           width: 100,
           align: 'center',
           render: record => {
-            return <Fragment>{record.bankType}</Fragment>;
+            return (
+              <Fragment>
+                {dictMap.bank_type && dictMap.bank_type.codeToName[record.bankType]}
+              </Fragment>
+            );
           },
         },
         {
@@ -200,7 +208,11 @@ class CustomizeComponent extends PureComponent {
           key: 'certType',
           width: 100,
           align: 'center',
-          render: (text, record) => <Fragment>{record.certType}</Fragment>,
+          render: (text, record) => (
+            <Fragment>
+              {dictMap.cert_type && dictMap.cert_type.codeToName[record.certType]}
+            </Fragment>
+          ),
         },
         {
           title: '证件号码',

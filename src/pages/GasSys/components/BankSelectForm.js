@@ -43,9 +43,6 @@ const formItemWidth = {
   sm: 24,
 };
 
-const certTypeList = [{ itemCode: '营业执照', itemName: '营业执照' }];
-// const bankTypeList = [{ itemCode: '中国建设银行', itemName: '中国建设银行' }];
-
 @connect(({ gasForm }) => ({
   gasForm,
 }))
@@ -180,7 +177,13 @@ class CustomizeComponent extends PureComponent {
                     message: '请选择证件类型',
                   },
                 ],
-              })(<Select placeholder="请选择" data={certTypeList} />)}
+              })(
+                <Select
+                  placeholder="请选择"
+                  type="cert_type"
+                  filter={row => row.itemCode === '3'}
+                />
+              )}
             </FormItem>
           </Col>
           <Col {...formItemWidth}>
