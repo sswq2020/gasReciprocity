@@ -35,16 +35,16 @@ export default {
           list = list.length > 0 ? list[0].items : [];
 
           const map = {
-            codeMap: {},
-            nameMap: {},
+            codeToName: {},
+            nameToCode: {},
           };
 
           list.forEach(row => {
-            map.codeMap[row.itemCode] = row.itemName;
+            map.codeToName[row.itemCode] = row.itemName;
           });
 
           list.forEach(row => {
-            map.nameMap[row.itemName] = row.itemCode;
+            map.nameToCode[row.itemName] = row.itemCode;
           });
 
           yield put({
