@@ -22,6 +22,9 @@ class CustomizeComponent extends PureComponent {
       data,
       type,
       hasAll,
+      filter = () => {
+        return true;
+      },
       global: { selectList },
       loading,
       ...props
@@ -46,13 +49,17 @@ class CustomizeComponent extends PureComponent {
 
     return (
       <Select {...props}>
-        {dataList.map(row => {
-          return (
-            <Option value={row.itemCode} key={row.itemCode}>
-              {row.itemName}
-            </Option>
-          );
-        })}
+        {dataList
+          .filter(row => {
+            return filter(row);
+          })
+          .map(row => {
+            return (
+              <Option value={row.itemCode} key={row.itemCode}>
+                {row.itemName}
+              </Option>
+            );
+          })}
       </Select>
     );
   }
