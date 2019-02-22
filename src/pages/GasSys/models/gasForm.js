@@ -28,11 +28,11 @@ const defaultFormData = {
 };
 
 const defaultBankCardFormData = {
-  bankType: '中国建设银行', // 开户银行code
+  bankType: '2', // 开户银行code
   bankAddress: null, // 开户支行／分理处
   name: null, // 户名
   bankCode: null, // 银行账号
-  certType: '营业执照', // 证件类型
+  certType: '3', // 证件类型
   certCode: null, // 证件号码
   refCode: null, // 加油站id
   assignCode: null, // 加油站编号=席位号
