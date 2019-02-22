@@ -37,6 +37,14 @@ export default {
   reducers,
 
   effects: {
+    *resetFormData(_, { put }) {
+      yield put({
+        type: 'overrideStateProps',
+        payload: {
+          formData: { ...defaultFormData },
+        },
+      });
+    },
     *submit({ payload }, { call, put }) {
       const { data } = payload;
       const response = yield call(services.gasCreate, formDataTogasModel(data));
