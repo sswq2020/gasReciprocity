@@ -29,14 +29,20 @@ const defaultFormData = {
 export default {
   namespace,
   state: {
-    formData: {
-      ...defaultFormData,
-    },
+    formData: JSON.parse(JSON.stringify(defaultFormData)),
   },
 
   reducers,
 
   effects: {
+    *resetFormData(_, { put }) {
+      yield put({
+        type: 'overrideStateProps',
+        payload: {
+          formData: JSON.parse(JSON.stringify(defaultFormData)),
+        },
+      });
+    },
     *submit({ payload }, { call, put }) {
       const { data } = payload;
       const response = yield call(services.gasCreate, formDataTogasModel(data));

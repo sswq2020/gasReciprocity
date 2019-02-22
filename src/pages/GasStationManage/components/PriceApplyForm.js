@@ -40,7 +40,6 @@ export default class CustomizeComponent extends PureComponent {
 
   componentDidMount() {
     const { data } = this.props;
-    console.log('ok');
     this.setState({
       data,
     });
