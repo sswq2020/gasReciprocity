@@ -44,7 +44,7 @@ const formItemWidth = {
 };
 
 const certTypeList = [{ itemCode: '营业执照', itemName: '营业执照' }];
-const bankTypeList = [{ itemCode: '中国建设银行', itemName: '中国建设银行' }];
+// const bankTypeList = [{ itemCode: '中国建设银行', itemName: '中国建设银行' }];
 
 @connect(({ gasForm }) => ({
   gasForm,
@@ -116,7 +116,13 @@ class CustomizeComponent extends PureComponent {
                     message: '请选择开户银行',
                   },
                 ],
-              })(<Select placeholder="请选择" data={bankTypeList} />)}
+              })(
+                <Select
+                  placeholder="请选择"
+                  type="bank_type"
+                  filter={row => row.itemCode === '2'}
+                />
+              )}
             </FormItem>
           </Col>
           <Col {...formItemWidth}>
