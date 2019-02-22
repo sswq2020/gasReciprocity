@@ -28,7 +28,7 @@ class CustomizeComponent extends PureComponent {
     const {
       data,
       hasSelect,
-      selectList,
+      dictMap,
       form: { getFieldDecorator, setFieldsValue, getFieldValue },
     } = this.props;
 
@@ -51,7 +51,7 @@ class CustomizeComponent extends PureComponent {
     };
 
     const selectData = _.differenceBy(
-      selectList,
+      dictMap,
       hasSelect.filter(item => item.itemCode !== data.oilModelId),
       'itemCode'
     );
@@ -63,7 +63,7 @@ class CustomizeComponent extends PureComponent {
             initialValue: data.oilModelId,
             getValueFromEvent: value => {
               setFieldsValue({
-                'oilSelect.oilModelName': selectList.filter(r => r.itemCode === value)[0].itemName,
+                'oilSelect.oilModelName': dictMap.filter(r => r.itemCode === value)[0].itemName,
               });
               return value;
             },
