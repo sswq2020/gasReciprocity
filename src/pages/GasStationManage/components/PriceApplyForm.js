@@ -1,5 +1,5 @@
 import React, { PureComponent } from 'react';
-import { Form, InputNumber, DatePicker } from 'antd';
+import { Form, Input, InputNumber, DatePicker } from 'antd';
 import moment from 'moment';
 
 const FormItem = Form.Item;
@@ -86,7 +86,10 @@ export default class CustomizeComponent extends PureComponent {
           )}
         </FormItem>
         <FormItem {...formItemLayout} label="会员折扣">
-          {data.oilMemberAgio} %
+          {getFieldDecorator('oilMemberAgio', {
+            initialValue: data.oilMemberAgio,
+          })(<Input readOnly autoComplete="off" style={{ width: 'calc(100% - 20px)' }} />)}{' '}
+          %
         </FormItem>
         <FormItem {...formItemLayout} label="会员价">
           {data.oilMemberPrice}
