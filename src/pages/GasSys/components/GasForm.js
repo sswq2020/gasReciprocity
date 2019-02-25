@@ -366,7 +366,7 @@ class CustomizeComponent extends PureComponent {
                     },
                     {
                       pattern: regexps.IdCard,
-                      message: '前填写正确的身份证号',
+                      message: '请填写正确的身份证号',
                     },
                   ],
                 })(<Input placeholder="请输入管理员身份证号" autoComplete="off" />)}
