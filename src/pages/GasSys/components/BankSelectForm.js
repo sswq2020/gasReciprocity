@@ -123,15 +123,18 @@ class CustomizeComponent extends PureComponent {
             </FormItem>
           </Col>
           <Col {...formItemWidth}>
-            <FormItem {...formItemLayout} label="开户支行:">
+            <FormItem {...formItemLayout} label="开户支行/分理处:">
               {getFieldDecorator('bankAddress', {
                 initialValue: data.bankAddress,
                 rules: [
                   {
                     required: true,
                     whitespace: true,
-                    max: 50,
                     message: '请输入开户支行/分理处',
+                  },
+                  {
+                    max: 50,
+                    message: '最多50个字符',
                   },
                 ],
               })(<Input placeholder="请输入开户支行/分理处" autoComplete="off" />)}
@@ -145,8 +148,11 @@ class CustomizeComponent extends PureComponent {
                   {
                     required: true,
                     whitespace: true,
-                    max: 20,
                     message: '请填写户名',
+                  },
+                  {
+                    max: 20,
+                    message: '最多20个字符',
                   },
                 ],
               })(<Input placeholder="请输入" autoComplete="off" />)}
@@ -160,8 +166,11 @@ class CustomizeComponent extends PureComponent {
                   {
                     required: true,
                     whitespace: true,
-                    max: 30,
                     message: '请填写银行账号',
+                  },
+                  {
+                    max: 30,
+                    message: '最多30个字符',
                   },
                 ],
               })(<Input placeholder="请输入" autoComplete="off" />)}
@@ -194,8 +203,11 @@ class CustomizeComponent extends PureComponent {
                   {
                     required: true,
                     whitespace: true,
-                    max: 30,
                     message: '请填写证件号码',
+                  },
+                  {
+                    max: 30,
+                    message: '最多30个字符',
                   },
                 ],
               })(<Input placeholder="请输入" autoComplete="off" />)}
