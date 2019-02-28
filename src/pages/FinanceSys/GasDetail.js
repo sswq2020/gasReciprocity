@@ -177,28 +177,38 @@ class Page extends PureComponent {
           key: 'oilRetailPrice',
           width: 120,
           align: 'center',
-          render: (text, record) => <Fragment>{record.oilRetailPrice}</Fragment>,
+          render: (text, record) => (
+            <Fragment>
+              {record.oilRetailPrice}
+              元/L
+            </Fragment>
+          ),
         },
         {
           title: '惠龙价',
           key: 'oilMemberPrice',
           width: 120,
           align: 'center',
-          render: (text, record) => <Fragment>{record.oilMemberPrice}</Fragment>,
+          render: (text, record) => (
+            <Fragment>
+              {record.oilMemberPrice}
+              元/L
+            </Fragment>
+          ),
         },
         {
           title: '加油量',
           key: 'fuelVolume',
           width: 120,
           align: 'center',
-          render: (text, record) => <Fragment>{record.fuelVolume}</Fragment>,
+          render: (text, record) => <Fragment>{record.fuelVolume}L</Fragment>,
         },
         {
           title: '加油金额',
           key: 'totalPrice',
           align: 'center',
           width: 100,
-          render: (text, record) => <Fragment>{record.totalPrice}</Fragment>,
+          render: (text, record) => <Fragment>{record.totalPrice}元</Fragment>,
         },
         {
           title: '日期',
