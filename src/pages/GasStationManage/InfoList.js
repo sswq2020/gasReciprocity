@@ -142,14 +142,14 @@ class Page extends PureComponent {
           key: 'oilRetailPrice',
           width: 150,
           align: 'center',
-          render: (text, record) => <Fragment>{record.oilRetailPrice} L/元</Fragment>,
+          render: (text, record) => <Fragment>{record.oilRetailPrice} 元/L</Fragment>,
         },
         {
           title: '惠龙价',
           key: 'oilMemberPrice',
           width: 150,
           align: 'center',
-          render: (text, record) => <Fragment>{record.oilMemberPrice} L/元</Fragment>,
+          render: (text, record) => <Fragment>{record.oilMemberPrice} 元/L</Fragment>,
         },
         {
           title: '加油量',
