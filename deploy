@@ -84,6 +84,13 @@ const oldVersion = jData.version || '0.0.0';
 const splitLine = '==================================';
 const now = moment().format('YYYY-MM-DD_HH-mm-ss');
 
+function analyze() {
+  shell.echo(splitLine);
+  shell.echo('analyze:');
+  shell.echo(splitLine);
+  command('npm run analyze');
+}
+
 function testDeploy(version) {
   shell.echo(splitLine);
   shell.echo('Testing deploy:');
@@ -159,6 +166,11 @@ if (options.tz !== undefined) {
 
 if (options.pz !== undefined) {
   productZipDeploy(oldVersion);
+  return;
+}
+
+if (options.a !== undefined) {
+  analyze();
   return;
 }
 
