@@ -88,7 +88,7 @@ export default class CustomizeComponent extends PureComponent {
         <FormItem {...formItemLayout} label="会员折扣">
           {getFieldDecorator('oilMemberAgio', {
             initialValue: data.oilMemberAgio,
-          })(<Input readOnly autoComplete="off" style={{ width: 'calc(100% - 20px)' }} />)}{' '}
+          })(<Input disabled autoComplete="off" style={{ width: 'calc(100% - 20px)' }} />)}{' '}
           %
         </FormItem>
         <FormItem {...formItemLayout} label="会员价">
