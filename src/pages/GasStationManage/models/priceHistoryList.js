@@ -7,7 +7,7 @@ const namespace = 'priceHistoryList';
 const selectState = state => state[namespace];
 
 const defaultListParams = {
-  id: null, // 主键id
+  gsOilModelId: null, // 主键id
   currentPage: 1,
 };
 
@@ -74,7 +74,7 @@ export default {
       yield put({
         type: 'overrideStateProps',
         payload: {
-          listParams: { ...defaultListParams, id },
+          listParams: { ...defaultListParams, ...{ gsOilModelId: id } },
         },
       });
       yield put({

@@ -389,14 +389,14 @@ export default {
    * @author sswq
    * @description 加油站管理端/调价历史列表
    * */
-  priceHisList(id) {
+  priceHisList(params) {
     return request({
       host: BASEURL,
       url: '/action/gs/gasOilModel/queryGasOilModelHistoryPage',
       params: {
         currentPage: 1,
         pageSize: 5,
-        id,
+        ...params,
       },
     });
   },
