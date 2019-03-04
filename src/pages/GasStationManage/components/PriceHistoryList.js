@@ -17,7 +17,6 @@ class CustomizeComponent extends PureComponent {
         list: { list: listData, itemCount: totalItemCount },
       },
     } = this.props;
-
     const listProps = {
       columns: [
         {
@@ -78,6 +77,7 @@ class CustomizeComponent extends PureComponent {
       pagination: {
         total: totalItemCount,
         current: currentPage,
+        pageSize: 5,
       },
       onChange: pagination => {
         dispatch({
