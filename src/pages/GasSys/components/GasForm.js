@@ -729,6 +729,7 @@ class CustomizeComponent extends PureComponent {
           title={`${isEdit === false ? '新增' : '编辑'}油品信息`}
           visible={visible}
           onOk={fData => {
+            fData.oilSelect = Object.assign({}, formData, fData.oilSelect);
             if (isEdit === false) {
               gasOilModelList.push(fData.oilSelect);
             } else {
