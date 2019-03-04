@@ -4,13 +4,15 @@ import { connect } from 'dva';
 import { Modal } from 'antd';
 import TableList from '@/components/TableList';
 
-@connect(({ priceHistoryList }) => ({
+@connect(({ priceHistoryList, loading }) => ({
   priceHistoryList,
+  getListIsLoading: loading.effects['priceHistoryList/getList'],
 }))
 class CustomizeComponent extends PureComponent {
   render() {
     const {
       dispatch,
+      getListIsLoading,
       priceHistoryList: {
         visible,
         listParams: { currentPage },
@@ -71,6 +73,7 @@ class CustomizeComponent extends PureComponent {
       rowKey: 'id',
       // scroll: { x: 'max-content' },
       dataSource: listData,
+      loading: getListIsLoading,
       style: {
         marginTop: 24,
       },
