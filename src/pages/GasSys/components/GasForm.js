@@ -78,7 +78,7 @@ class CustomizeComponent extends PureComponent {
       style: {
         marginTop: -24,
       },
-      rowKey: 'oilModelId',
+      rowKey: 'id',
       columns: [
         {
           title: '序号',
