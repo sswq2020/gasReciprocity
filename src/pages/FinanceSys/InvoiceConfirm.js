@@ -171,10 +171,10 @@ class Page extends PureComponent {
           align: 'center',
           width: 110,
           render: (text, record) =>
-            record.billFileId && record.billFileId.fileId ? (
+            record.billFileId && record.billFileId.length > 0 ? (
               <a
                 onClick={() => {
-                  previewImage.open(`${imgUrl}${record.billFileId.fileId}`);
+                  previewImage.open(`${imgUrl}${record.billFileId[0].fileId}`);
                 }}
               >
                 查看
