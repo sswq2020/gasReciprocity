@@ -45,12 +45,15 @@ class Page extends PureComponent {
                       {
                         required: true,
                         whitespace: true,
-                        max: 20,
                         message: '请填写名称',
                       },
                       {
                         pattern: regexps.china,
                         message: '输入中文',
+                      },
+                      {
+                        max: 20,
+                        message: '不超过20位',
                       },
                     ],
                   })(<Input placeholder="请输入名称" autoComplete="off" />)}
@@ -64,8 +67,11 @@ class Page extends PureComponent {
                       {
                         required: true,
                         whitespace: true,
-                        max: 20,
                         message: '请填写纳税人识别号',
+                      },
+                      {
+                        max: 20,
+                        message: '不超过20位',
                       },
                     ],
                   })(<Input placeholder="请输入纳税人识别号" autoComplete="off" />)}
@@ -79,8 +85,11 @@ class Page extends PureComponent {
                       {
                         required: true,
                         whitespace: true,
-                        max: 20,
                         message: '请填写地址',
+                      },
+                      {
+                        max: 20,
+                        message: '不超过20位',
                       },
                     ],
                   })(<Input placeholder="请输入地址" autoComplete="off" />)}
@@ -94,8 +103,11 @@ class Page extends PureComponent {
                       {
                         required: true,
                         whitespace: true,
-                        max: 20,
                         message: '请填写电话',
+                      },
+                      {
+                        max: 20,
+                        message: '不超过20位',
                       },
                     ],
                   })(<Input placeholder="请输入电话" autoComplete="off" />)}
@@ -111,6 +123,10 @@ class Page extends PureComponent {
                         whitespace: true,
                         message: '请填写开户行',
                       },
+                      {
+                        max: 20,
+                        message: '不超过20位',
+                      },
                     ],
                   })(<Input placeholder="请输入开户行" autoComplete="off" />)}
                 </FormItem>
@@ -123,8 +139,11 @@ class Page extends PureComponent {
                       {
                         required: true,
                         whitespace: true,
-                        max: 20,
                         message: '请填写账号',
+                      },
+                      {
+                        max: 20,
+                        message: '不超过20位',
                       },
                     ],
                   })(<Input placeholder="请输入账号" autoComplete="off" />)}
@@ -141,8 +160,11 @@ class Page extends PureComponent {
                       {
                         required: true,
                         whitespace: true,
-                        max: 20,
                         message: '请填写收票人',
+                      },
+                      {
+                        max: 20,
+                        message: '不超过20位',
                       },
                     ],
                   })(<Input placeholder="请输入收票人" autoComplete="off" />)}
@@ -174,8 +196,11 @@ class Page extends PureComponent {
                       {
                         required: true,
                         whitespace: true,
-                        max: 50,
                         message: '请填写寄票地址',
+                      },
+                      {
+                        max: 50,
+                        message: '不超过50位',
                       },
                     ],
                   })(<Input placeholder="请输入寄票地址" autoComplete="off" />)}
