@@ -8,6 +8,7 @@ export const hostList = {
   // dev: '//192.168.4.16:25091/hhgs', // 佘慧   13888888888   888888       admin 888888
   dev: '//test.hletong.com/hhgs', // 佘慧   13888888888   888888       admin 888888
   test: '//test.hletong.com/hhgs',
+  ywtest: '//test.hletong.com/hhgs-test',
   pro: '//test.hletong.com',
 };
 
@@ -17,6 +18,7 @@ export const imgHost = {
   // dev: '//192.168.4.16:25091/hhgs', // 佘慧   13888888888   888888       admin 888888
   dev: '//test.hletong.com/hhgs',
   test: '//test.hletong.com/hhgs',
+  ywtest: '//test.hletong.com/hhgs-test',
   pro: '//test.hletong.com',
 };
 

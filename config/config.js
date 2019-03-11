@@ -45,6 +45,36 @@ const plugins = [
 //   ]);
 // }
 
+const getPublicPath = () => {
+  let str = '';
+  switch (process.env.ENV) {
+    case 'test':
+      str = `/hhgs/${version}/`;
+      break;
+    case 'ywtest':
+      str = `/hhgs-test/${version}/`;
+      break;
+    default:
+      str = `/${version}/`;
+  }
+  return str;
+};
+
+const getBase = () => {
+  let str = '';
+  switch (process.env.ENV) {
+    case 'test':
+      str = '/hhgs';
+      break;
+    case 'ywtest':
+      str = '/hhgs-test';
+      break;
+    default:
+      str = '/';
+  }
+  return str;
+};
+
 export default {
   plugins,
   targets: {
@@ -107,7 +137,7 @@ export default {
   hash: true,
   // chainWebpack: webpackPlugin,
   history: 'hash',
-  publicPath: process.env.ENV === 'test' ? `/hhgs/${version}/` : `/${version}/`,
-  base: process.env.ENV === 'test' ? '/hhgs' : '/',
+  publicPath: getPublicPath(), // process.env.ENV === 'test' ? `/hhgs/${version}/` : `/${version}/`,
+  base: getBase(), //process.env.ENV === 'test' ? '/hhgs' : '/',
   outputPath: `./dist/${version}`,
 };

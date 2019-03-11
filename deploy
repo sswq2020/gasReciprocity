@@ -100,7 +100,7 @@ function testDeploy(version) {
   command(`rm ./dist/${version}/index.html`);
   shell.echo('copy to test server');
   shell.echo(splitLine);
-  command('scp -r dist/*  root@10.20.129.28:/home/hhgs-test/dist');
+  command('scp -r dist/*  root@10.20.129.28:/home/hhgs/dist');
   command('rm ./dist -rf');
   shell.echo('Deployed!');
 }
@@ -112,6 +112,35 @@ function testZipDeploy(version) {
   shell.echo('Testing zip deploy:');
   shell.echo(splitLine);
   command('npm run test');
+  command(`cp ./dist/${version}/index.html ./dist/`);
+  command(`rm ./dist/${version}/index.html`);
+  shell.echo(`zip to ${zipName}`);
+  shell.echo(splitLine);
+  command(`zip -m -r -q ${zipName} ./dist`);
+  shell.echo('Deployed!');
+}
+
+function ywtestDeploy(version) {
+  shell.echo(splitLine);
+  shell.echo('Testing deploy:');
+  shell.echo(splitLine);
+  command('npm run ywtest');
+  command(`cp ./dist/${version}/index.html ./dist/`);
+  command(`rm ./dist/${version}/index.html`);
+  shell.echo('copy to test server');
+  shell.echo(splitLine);
+  command('scp -r dist/*  root@10.20.129.28:/home/hhgs-test/dist');
+  command('rm ./dist -rf');
+  shell.echo('Deployed!');
+}
+
+function ywtestZipDeploy(version) {
+  const zipName = `hhgs_test_${now}.zip`;
+
+  shell.echo(splitLine);
+  shell.echo('Testing zip deploy:');
+  shell.echo(splitLine);
+  command('npm run ywtest');
   command(`cp ./dist/${version}/index.html ./dist/`);
   command(`rm ./dist/${version}/index.html`);
   shell.echo(`zip to ${zipName}`);
@@ -163,6 +192,17 @@ if (options.tz !== undefined) {
   testZipDeploy(oldVersion);
   return;
 }
+
+if(options.ywt !== undefined){
+  ywtestDeploy(oldVersion);
+  return;
+}
+
+if(options.ywtz !== undefined){
+  ywtestZipDeploy(oldVersion);
+  return;
+}
+
 
 if (options.pz !== undefined) {
   productZipDeploy(oldVersion);
