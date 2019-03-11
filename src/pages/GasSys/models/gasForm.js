@@ -82,7 +82,7 @@ export default {
           });
           break;
         default:
-          message.warning('相关资源获取失败，请稍后重试！');
+          message.warning(response.mesg);
           break;
       }
     },
