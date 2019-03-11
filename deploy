@@ -100,7 +100,7 @@ function testDeploy(version) {
   command(`rm ./dist/${version}/index.html`);
   shell.echo('copy to test server');
   shell.echo(splitLine);
-  command('scp -r dist/*  root@10.20.129.28:/home/hhgs/dist');
+  command('scp -r dist/*  root@10.20.129.28:/home/hhgs-test/dist');
   command('rm ./dist -rf');
   shell.echo('Deployed!');
 }
