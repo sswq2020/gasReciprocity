@@ -138,6 +138,6 @@ export default {
   // chainWebpack: webpackPlugin,
   history: 'hash',
   publicPath: getPublicPath(), // process.env.ENV === 'test' ? `/hhgs/${version}/` : `/${version}/`,
-  base: getBase(), //process.env.ENV === 'test' ? '/hhgs' : '/',
+  base: getBase(), // process.env.ENV === 'test' ? '/hhgs' : '/',
   outputPath: `./dist/${version}`,
 };
