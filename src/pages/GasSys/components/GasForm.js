@@ -25,6 +25,12 @@ const isMember = '0'; // 开通E商贸通
 
 let previewImage = null;
 
+function showWarning(content) {
+  Modal.warning({
+    title: `${content}`,
+  });
+}
+
 @Form.create()
 @connect(({ gasForm, global }) => ({
   gasForm,
@@ -411,6 +417,7 @@ class CustomizeComponent extends PureComponent {
                       required: true,
                       validator: (rule, value, callback) => {
                         if (value.length === 0) {
+                          showWarning('请上传加油站照片!');
                           callback('请上传加油站照片');
                         }
                         callback();
@@ -615,6 +622,7 @@ class CustomizeComponent extends PureComponent {
                   required: true,
                   validator: (rule, value, callback) => {
                     if (value.length === 0) {
+                      showWarning('请选择油品分类！');
                       callback('请选择油品分类');
                     }
                     callback();
