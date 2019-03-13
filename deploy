@@ -93,7 +93,7 @@ function analyze() {
 
 function testDeploy(version) {
   shell.echo(splitLine);
-  shell.echo('Testing deploy:');
+  shell.echo('TECH_Testing deploy:');
   shell.echo(splitLine);
   command('npm run test');
   command(`cp ./dist/${version}/index.html ./dist/`);
@@ -102,14 +102,14 @@ function testDeploy(version) {
   shell.echo(splitLine);
   command('scp -r dist/*  root@10.20.129.28:/home/hhgs/dist');
   command('rm ./dist -rf');
-  shell.echo('Deployed!');
+  shell.echo('TECH_TEST_ENV Deployed!');
 }
 
 function testZipDeploy(version) {
   const zipName = `hhgs_test_${now}.zip`;
 
   shell.echo(splitLine);
-  shell.echo('Testing zip deploy:');
+  shell.echo('TECH_Testing zip deploy:');
   shell.echo(splitLine);
   command('npm run test');
   command(`cp ./dist/${version}/index.html ./dist/`);
@@ -117,12 +117,12 @@ function testZipDeploy(version) {
   shell.echo(`zip to ${zipName}`);
   shell.echo(splitLine);
   command(`zip -m -r -q ${zipName} ./dist`);
-  shell.echo('Deployed!');
+  shell.echo('TECH_TEST_ZIP_ENV Deployed!');
 }
 
 function ywtestDeploy(version) {
   shell.echo(splitLine);
-  shell.echo('Testing deploy:');
+  shell.echo('YW_Testing deploy:');
   shell.echo(splitLine);
   command('npm run ywtest');
   command(`cp ./dist/${version}/index.html ./dist/`);
@@ -131,14 +131,14 @@ function ywtestDeploy(version) {
   shell.echo(splitLine);
   command('scp -r dist/*  root@10.20.129.28:/home/hhgs-test/dist');
   command('rm ./dist -rf');
-  shell.echo('Deployed!');
+  shell.echo('YW_TEST_ENV Deployed!');
 }
 
 function ywtestZipDeploy(version) {
   const zipName = `hhgs_test_${now}.zip`;
 
   shell.echo(splitLine);
-  shell.echo('Testing zip deploy:');
+  shell.echo('YW_Testing zip deploy:');
   shell.echo(splitLine);
   command('npm run ywtest');
   command(`cp ./dist/${version}/index.html ./dist/`);
@@ -146,7 +146,7 @@ function ywtestZipDeploy(version) {
   shell.echo(`zip to ${zipName}`);
   shell.echo(splitLine);
   command(`zip -m -r -q ${zipName} ./dist`);
-  shell.echo('Deployed!');
+  shell.echo('YW_TEST_ZIP_ENV Deployed!');
 }
 
 function productZipDeploy(version) {
@@ -201,6 +201,12 @@ if(options.ywt !== undefined){
 if(options.ywtz !== undefined){
   ywtestZipDeploy(oldVersion);
   return;
+}
+
+if(options.all !== undefined){
+  testDeploy(oldVersion);
+  ywtestDeploy(oldVersion);
+  return
 }
 
 
