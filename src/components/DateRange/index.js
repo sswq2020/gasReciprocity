@@ -45,7 +45,7 @@ class CustomizeComponent extends PureComponent {
             showTime
             format="YYYY-MM-DD HH:mm:ss"
             value={startValue}
-            placeholder="开始时间"
+            placeholder="开始日期"
             onChange={value => {
               return onStartChange(value);
             }}
@@ -58,7 +58,7 @@ class CustomizeComponent extends PureComponent {
             showTime
             format="YYYY-MM-DD HH:mm:ss"
             value={endValue}
-            placeholder="结束时间"
+            placeholder="结束日期"
             onChange={value => {
               return onEndChange(value);
             }}
