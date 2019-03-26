@@ -85,7 +85,7 @@ class CustomizeComponent extends PureComponent {
       gasStationPop: {
         visible,
         listParams: { currentPage },
-        list: { list: listData, itemCount: totalItemCount },
+        list: { list: listData, itemCount: totalItemCount, pageSize },
         gas,
       },
     } = this.props;
@@ -171,6 +171,7 @@ class CustomizeComponent extends PureComponent {
       pagination: {
         total: totalItemCount,
         current: currentPage,
+        pageSize,
       },
       onChange: pagination => {
         dispatch({

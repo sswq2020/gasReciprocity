@@ -23,6 +23,7 @@ export default {
     list: {
       list: [],
       itemCount: 0,
+      pageSize: 0,
     },
   },
   reducers,
