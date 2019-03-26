@@ -1,7 +1,7 @@
 {
   "private": true,
   "scripts": {
-    "start": "cross-env ENV=dev APP_TYPE=site HOST=10.20.31.163 umi dev",
+    "start": "cross-env ENV=dev APP_TYPE=site umi dev",
     "test": "cross-env ENV=test umi build",
     "ywtest":"cross-env ENV=ywtest umi build",
     "build": "cross-env ENV=pro umi build",
