@@ -22,6 +22,7 @@ const formItemWidth = {
   sm: 24,
 };
 const isMember = '0'; // 开通E商贸通
+const FEATURESERVICEIDLISTLENMAX = 6; // 特色服务最多选6个
 
 let previewImage = null;
 
@@ -603,9 +604,27 @@ class CustomizeComponent extends PureComponent {
                 {getFieldDecorator('gas.gasFeatureServiceIdList', {
                   initialValue: data.gasFeatureServiceIdList,
                 })(
-                  <Select mode="multiple" placeholder="请选择" style={{ width: '100%' }}>
+                  <Select
+                    mode="multiple"
+                    placeholder="请选择,最多可选择6个"
+                    style={{ width: '100%' }}
+                    onChange={value => {
+                      setFieldsValue({
+                        'gas.gasFeatureServiceIdList': value,
+                      });
+                    }}
+                  >
                     {featureServiceInfoList.map(service => (
-                      <Select.Option key={service.id}>{service.fsName}</Select.Option>
+                      <Select.Option
+                        key={service.id}
+                        disabled={
+                          getFieldValue('gas.gasFeatureServiceIdList').length >=
+                            FEATURESERVICEIDLISTLENMAX &&
+                          getFieldValue('gas.gasFeatureServiceIdList').indexOf(service.id) === -1
+                        }
+                      >
+                        {service.fsName}
+                      </Select.Option>
                     ))}
                   </Select>
                 )}
