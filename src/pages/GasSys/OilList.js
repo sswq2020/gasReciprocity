@@ -131,6 +131,12 @@ class Page extends PureComponent {
           render: (text, record) => <Fragment>{record.oilModelName}</Fragment>,
         },
         {
+          title: '油气单位',
+          key: 'oilUnit',
+          width: 200,
+          render: (text, record) => <Fragment>{record.oilUnit}</Fragment>,
+        },        
+        {
           title: '油气分类描述',
           key: 'oilModelDesc',
           // align: 'center',

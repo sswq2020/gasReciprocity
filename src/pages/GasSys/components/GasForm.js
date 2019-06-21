@@ -118,7 +118,7 @@ class CustomizeComponent extends PureComponent {
           title: '会员价',
           align: 'center',
           key: 'oilMemberPrice',
-          render: (text, record) => <Fragment>{record.oilMemberPrice}元</Fragment>,
+          render: (text, record) => <Fragment>{record.oilMemberPrice}元/{record.oilUnit}</Fragment>,
         },
         {
           title: '零售价浮动预警',

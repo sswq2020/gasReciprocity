@@ -1,6 +1,11 @@
 import React, { PureComponent } from 'react';
 import { Form, Input, Radio } from 'antd';
 import dict from '@/utils/dict';
+import MySelect from '@/components/Select';
+
+const oilUnitList = Object.keys(dict.oilModelUnit).map(item => {
+  return { itemCode: item, itemName: item };
+});
 
 const RadioGroup = Radio.Group;
 const { TextArea } = Input;
@@ -49,6 +54,24 @@ export default class CustomizeComponent extends PureComponent {
             />
           )}
         </FormItem>
+        <FormItem {...formItemLayout} label="油气单位">
+          {getFieldDecorator('oil.oilUnit', {
+            initialValue: data.oilUnit,
+            rules: [
+              {
+                required: true,
+                whitespace: true,
+                message: '请填写油气单位',
+              },
+            ],
+          })(
+            <MySelect
+            placeholder="请选择"
+            style={{ width: '100%' }}
+            data={oilUnitList}
+          />
+          )}
+        </FormItem>        
         <FormItem {...formItemLayout} label="油气分类描述">
           {getFieldDecorator('oil.oilModelDesc', {
             initialValue: data.oilModelDesc,

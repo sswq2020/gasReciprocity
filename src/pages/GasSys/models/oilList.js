@@ -14,6 +14,7 @@ const defaultListParams = {
 const defaultFormData = {
   oilModelName: '',
   oilModelDesc: '',
+  oilUnit:'',
   isDefault: dict.oilModelIsNotDefault,
 };
 

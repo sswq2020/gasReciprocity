@@ -100,6 +100,11 @@ dict.errorCode = {
   [dict.RESOURCE_MODIFIED]: '资源已改变',
 };
 
+dict.oilModelUnit = {
+  kg: 'kg',
+  L: 'L',
+};
+
 dict.oilModelIsDefault = 1;
 dict.oilModelIsNotDefault = 0;
 dict.oilModelDefault = {
