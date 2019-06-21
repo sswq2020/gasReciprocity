@@ -151,7 +151,7 @@ const refuelDetailList = {
   'id|+1': 1,
   userName: '@INTEGER(13000000000,18999999999)', // 会员名
   userPlate: '苏L@INTEGER(1000,9999)', // 车牌号
-  oilModelName: '0#', // 油品名称
+  oilModelName: '0#', // 油气名称
   oilRetailPrice: '￥@INTEGER(1000,9999).@INTEGER(10,99)', // 零售价
   oilMemberPrice: '￥@INTEGER(1000,9999).@INTEGER(10,99)', // 惠龙价
   fuelVolume: '@INTEGER(10,100)L', // 加油量
@@ -164,7 +164,7 @@ const refuelDetailList = {
  */
 const priceApplyList = {
   'id|+1': 1,
-  oilModelName: '0#(V)', // 油品名称
+  oilModelName: '0#(V)', // 油气名称
   oilRetailPrice: '@INTEGER(1000,9999).@INTEGER(10,99)', // 零售价
   oilMemberAgio: '@INTEGER(1,2)', // 会员折扣(%)
   oilMemberPrice: '@INTEGER(1000,9999).@INTEGER(10,99)', // 会员价

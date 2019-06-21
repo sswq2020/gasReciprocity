@@ -53,7 +53,7 @@ export default class CustomizeComponent extends PureComponent {
 
     return (
       <Form style={{ marginBottom: -24 }}>
-        <FormItem {...formItemLayout} label="油品名称">
+        <FormItem {...formItemLayout} label="油气名称">
           {data.oilModelName}
         </FormItem>
         <FormItem {...formItemLayout} label="零售价">

@@ -23,7 +23,7 @@ const defaultFormData = {
   gsBusinessTime: '', // 油站营业时间
   fileList: [],
   gasFeatureServiceIdList: [], // 特色服务id数组
-  gasOilModelList: [], // 油品
+  gasOilModelList: [], // 油气
 };
 
 export default {

@@ -58,7 +58,7 @@ class CustomizeComponent extends PureComponent {
 
     return (
       <Form style={{ marginBottom: -24 }}>
-        <FormItem {...formItemLayout} label="油品名称">
+        <FormItem {...formItemLayout} label="油气名称">
           {getFieldDecorator('oilSelect.oilModelId', {
             initialValue: data.oilModelId,
             getValueFromEvent: value => {
@@ -70,10 +70,10 @@ class CustomizeComponent extends PureComponent {
             rules: [
               {
                 required: true,
-                message: '请选择油品名称',
+                message: '请选择油气名称',
               },
             ],
-          })(<Select placeholder="请选择油品名称" autoComplete="off" data={selectData} />)}
+          })(<Select placeholder="请选择油气名称" autoComplete="off" data={selectData} />)}
         </FormItem>
         <FormItem {...formItemLayout} label="零售价">
           {getFieldDecorator('oilSelect.oilRetailPrice', {

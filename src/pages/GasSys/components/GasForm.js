@@ -96,7 +96,7 @@ class CustomizeComponent extends PureComponent {
           render: (text, record, index) => <Fragment>{index + 1}</Fragment>,
         },
         {
-          title: '油品名称',
+          title: '油气名称',
           key: 'oilModelName',
           render: (text, record) => {
             return <Fragment>{record.oilModelName}</Fragment>;
@@ -631,7 +631,7 @@ class CustomizeComponent extends PureComponent {
               </FormItem>
             </Col>
           </Row>
-          <FormItemHead>油品分类：</FormItemHead>
+          <FormItemHead>油气分类：</FormItemHead>
           <TableList {...gasListProps} />
           <FormItem>
             {getFieldDecorator('gas.gasOilModelList', {
@@ -641,8 +641,8 @@ class CustomizeComponent extends PureComponent {
                   required: true,
                   validator: (rule, value, callback) => {
                     if (value.length === 0) {
-                      showWarning('请选择油品分类！');
-                      callback('请选择油品分类');
+                      showWarning('请选择油气分类！');
+                      callback('请选择油气分类');
                     }
                     callback();
                   },
@@ -665,7 +665,7 @@ class CustomizeComponent extends PureComponent {
                 });
               }}
             >
-              新增油品信息
+              新增油气信息
             </Button>
           )}
           {isMemberOnline === isMember && (
@@ -753,7 +753,7 @@ class CustomizeComponent extends PureComponent {
           </Button>
         </div>
         <HLModal
-          title={`${isEdit === false ? '新增' : '编辑'}油品信息`}
+          title={`${isEdit === false ? '新增' : '编辑'}油气信息`}
           visible={visible}
           onOk={fData => {
             fData.oilSelect = Object.assign({}, formData, fData.oilSelect);

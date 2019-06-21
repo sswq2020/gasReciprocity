@@ -22,7 +22,7 @@ class CustomizeComponent extends PureComponent {
     const listProps = {
       columns: [
         {
-          title: '油品名称',
+          title: '油气名称',
           key: 'oilModelName',
           render: (text, record) => <Fragment>{record.oilModelName}</Fragment>,
         },

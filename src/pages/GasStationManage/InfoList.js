@@ -131,7 +131,7 @@ class Page extends PureComponent {
           render: (text, record) => <Fragment>{record.userPlate}</Fragment>,
         },
         {
-          title: '油品名称',
+          title: '油气名称',
           key: 'oilModelName',
           width: 200,
           align: 'center',

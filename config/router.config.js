@@ -58,7 +58,7 @@ export default [
           {
             path: '/gasSys/oil',
             name: 'gasSysOil',
-            title: '油品分类',
+            title: '油气分类',
             component: './GasSys/OilList',
           },
         ],

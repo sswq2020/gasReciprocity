@@ -8,7 +8,7 @@ const namespace = 'priceApply';
 const selectState = state => state[namespace];
 
 const defaultListParams = {
-  oilModelName: null, // 油品名称
+  oilModelName: null, // 油气名称
   currentPage: 1,
 };
 
