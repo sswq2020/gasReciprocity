@@ -103,7 +103,7 @@ class Page extends PureComponent {
             </FormItem>
           </Col>
           <Col {...formItemWidth}>
-            <FormItem label="油气名称">
+            <FormItem label="车牌号">
               {getFieldDecorator('userPlate', {
                 initialValue: userPlate,
               })(<Input placeholder="请选择" style={{ width: '100%' }} />)}
@@ -280,10 +280,6 @@ class Page extends PureComponent {
               总页加汽金额总计￥
               <span style={{ color: 'red', fontSize: '1rem' }}>{gasTotal}</span>
             </div>
-
-
-
-
           </div>
         );
       },

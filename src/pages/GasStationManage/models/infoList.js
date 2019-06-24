@@ -10,6 +10,7 @@ const selectState = state => state[namespace];
 const defaultListParams = {
   queryYears: moment(), // 统一时间戳
   currentPage: 1,
+  userPlate: null,
 };
 
 export default {
@@ -26,6 +27,11 @@ export default {
       fuelVSubTotal: 0,
       total: 0,
       fuelVTotal: 0,
+      /**新增加气***/
+      gasSubtotal:0,
+      gasFuelVSubTotal:0,
+      gasTotal:0,
+      gasFuelVTotal:0
     },
   },
   reducers,
