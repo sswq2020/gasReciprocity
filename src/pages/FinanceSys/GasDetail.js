@@ -265,19 +265,19 @@ class Page extends PureComponent {
             </div>
 
             <div>
-              单页加汽量小计
+              单页加气量小计
               <span style={{ color: 'red', fontSize: '1rem' }}>{gasFuelVSubTotal}</span>kg
             </div>
             <div>
-              单页加汽金额小计￥
+              单页加气金额小计￥
               <span style={{ color: 'red', fontSize: '1rem' }}>{gasSubtotal}</span>
             </div>
             <div>
-              总页加汽量总计
+              总页加气量总计
               <span style={{ color: 'red', fontSize: '1rem' }}>{gasFuelVTotal}</span>kg
             </div>
             <div>
-              总页加汽金额总计￥
+              总页加气金额总计￥
               <span style={{ color: 'red', fontSize: '1rem' }}>{gasTotal}</span>
             </div>
           </div>
