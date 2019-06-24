@@ -145,7 +145,7 @@ const oilLite = {
   deleted: '@PICK([0, 1])',
 };
 /**
- * @sswq 加油站管理/加油明细
+ * @sswq 加油站管理/加注明细
  */
 const refuelDetailList = {
   'id|+1': 1,

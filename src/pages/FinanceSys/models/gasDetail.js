@@ -10,6 +10,7 @@ const selectState = state => state[namespace];
 const defaultListParams = {
   queryYears: moment(),
   gsId: '', // 加油站id
+  userPlate:"", // 车牌号
   currentPage: 1,
 };
 
@@ -28,6 +29,11 @@ export default {
       fuelVSubTotal: 0,
       total: 0,
       fuelVTotal: 0,
+      /**新增加气***/
+      gasSubtotal:0,
+      gasFuelVSubTotal:0,
+      gasTotal:0,
+      gasFuelVTotal:0
     },
   },
   reducers,
@@ -48,7 +54,7 @@ export default {
           });
           break;
         default:
-          message.warning('加油明细列表获取失败，请稍后重试！');
+          message.warning('加注明细列表获取失败，请稍后重试！');
           break;
       }
     },

@@ -356,7 +356,7 @@ export default {
   },
   /**
    * @author sswq
-   * @description 加油站管理端/加油明细查询
+   * @description 加油站管理端/加注明细查询
    * */
   refuelDetailList(params) {
     return request({
@@ -442,7 +442,7 @@ export default {
   },
   /**
    * @author sswq
-   * @description 票务管理/加油明细查询
+   * @description 票务管理/加注明细查询
    * */
   hlRefuelDetailList(params) {
     return request({
