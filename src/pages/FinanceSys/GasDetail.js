@@ -254,7 +254,7 @@ class Page extends PureComponent {
             </div>
               <div>
                 单页加油金额小计￥
-              <span style={{ color: 'red', fontSize: '1.1rem' }}>{subtotal}</span>
+              <span style={{ color: 'red', fontSize: '1.1rem' }}>{oilSubtotal}</span>
               </div>
               <div>
                 总页加油量合计
@@ -262,7 +262,7 @@ class Page extends PureComponent {
             </div>
               <div>
                 总页加油金额合计￥
-              <span style={{ color: 'red', fontSize: '1.1rem' }}>{total}</span>
+              <span style={{ color: 'red', fontSize: '1.1rem' }}>{oilTotal}</span>
               </div>
             </div>
             <div
