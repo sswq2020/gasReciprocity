@@ -25,9 +25,9 @@ export default {
       orderDtoList: [],
       itemCount: 0,
       pageTotal: 0,
-      subtotal: 0,
+      oilSubTotal: 0,
       fuelVSubTotal: 0,
-      total: 0,
+      oilTotal: 0,
       fuelVTotal: 0,
       /**新增加气***/
       gasSubtotal:0,
