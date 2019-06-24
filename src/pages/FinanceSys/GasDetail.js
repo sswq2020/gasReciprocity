@@ -88,7 +88,7 @@ class Page extends PureComponent {
               })(<MonthPicker autoComplete="off" style={{ width: '100%' }} format={dateFormat} />)}
             </FormItem>
           </Col>
-          <Col {...{ lg: 7,md: 12,sm: 24, }}>
+          <Col {...{ lg: 7, md: 12, sm: 24, }}>
             <FormItem label="加油站名称">
               {getFieldDecorator('gsId')(<Input type="hidden" />)}
               <SearCh
@@ -109,7 +109,7 @@ class Page extends PureComponent {
               })(<Input placeholder="请选择" style={{ width: '100%' }} />)}
             </FormItem>
           </Col>
-          <Col {...{ lg: 5,md: 12,sm: 24, }}>
+          <Col {...{ lg: 5, md: 12, sm: 24, }}>
             <Button type="primary" htmlType="submit">
               查询
             </Button>
@@ -239,46 +239,56 @@ class Page extends PureComponent {
       },
       title: () => {
         return (
-          <div
-            style={{
-              display: 'flex',
-              justifyContent: 'space-around',
-              width: '100%',
-              margin: '0 auto',
-            }}
-          >
-            <div>
-              单页加油量小计
+          <div>
+            <div
+              style={{
+                display: 'flex',
+                justifyContent: 'space-around',
+                width: '80%',
+                margin: '0 auto',
+              }}
+            >
+              <div>
+                单页加油量小计
               <span style={{ color: 'red', fontSize: '1.1rem' }}>{fuelVSubTotal}</span>L
             </div>
-            <div>
-              单页加油金额小计￥
+              <div>
+                单页加油金额小计￥
               <span style={{ color: 'red', fontSize: '1.1rem' }}>{subtotal}</span>
-            </div>
-            <div>
-              总页加油量合计
+              </div>
+              <div>
+                总页加油量合计
               <span style={{ color: 'red', fontSize: '1.1rem' }}>{fuelVTotal}</span>L
             </div>
-            <div>
-              总页加油金额合计￥
+              <div>
+                总页加油金额合计￥
               <span style={{ color: 'red', fontSize: '1.1rem' }}>{total}</span>
+              </div>
             </div>
-
-            <div>
-              单页加气量小计
-              <span style={{ color: 'red', fontSize: '1rem' }}>{gasFuelVSubTotal}</span>kg
-            </div>
-            <div>
-              单页加气金额小计￥
-              <span style={{ color: 'red', fontSize: '1rem' }}>{gasSubtotal}</span>
-            </div>
-            <div>
-              总页加气量总计
-              <span style={{ color: 'red', fontSize: '1rem' }}>{gasFuelVTotal}</span>kg
-            </div>
-            <div>
-              总页加气金额总计￥
-              <span style={{ color: 'red', fontSize: '1rem' }}>{gasTotal}</span>
+            <div
+              style={{
+                display: 'flex',
+                justifyContent: 'space-around',
+                width: '80%',
+                margin: '0 auto',
+              }}
+            >
+              <div>
+                单页加气量小计
+                      <span style={{ color: 'red', fontSize: '1rem' }}>{gasFuelVSubTotal}</span>kg
+                    </div>
+              <div>
+                单页加气金额小计￥
+                      <span style={{ color: 'red', fontSize: '1rem' }}>{gasSubtotal}</span>
+              </div>
+              <div>
+                总页加气量总计
+                      <span style={{ color: 'red', fontSize: '1rem' }}>{gasFuelVTotal}</span>kg
+                    </div>
+              <div>
+                总页加气金额总计￥
+                      <span style={{ color: 'red', fontSize: '1rem' }}>{gasTotal}</span>
+              </div>
             </div>
           </div>
         );

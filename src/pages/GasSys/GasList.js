@@ -190,7 +190,7 @@ class Page extends PureComponent {
         {
           title: '加油站地址',
           key: 'gsDetailAddress',
-          width: 500,
+          width: 250,
           render: (text, record) => (
             <Fragment>
               {record.gsProvinceName}
