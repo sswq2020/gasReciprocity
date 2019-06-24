@@ -13,6 +13,7 @@ import PreviewImage from '@/components/PreviewImage';
 import OilSelectForm from './OilSelectForm';
 import BankSelectForm from './BankSelectForm';
 import styles from './gasForm.less';
+import _ from 'lodash';
 
 const imgUrl = `${imgHost[ENV]}/action/hletong/file/gasDownload?file_id=`;
 const FormItem = Form.Item;
@@ -31,6 +32,13 @@ function showWarning(content) {
     title: `${content}`,
   });
 }
+
+function getIndex (arr,obj) {
+  return arr.findIndex(item =>{
+    return item.oilModelName===obj.oilModelName
+  })
+}
+
 
 @Form.create()
 @connect(({ gasForm, global }) => ({
@@ -738,9 +746,17 @@ class CustomizeComponent extends PureComponent {
                   return;
                 }
                 if (hasData === true) {
+                    let params = _.clone(getFieldsValue());
+                    params.gas.gasOilModelList = params.gas.gasOilModelList.map(item =>{
+                      return {
+                        oilUnit: oilModelInfoList[getIndex(oilModelInfoList,item)].oilUnit,
+                        ...item
+                      }
+                    })
+                    console.log(params);
                   onOk(
                     {
-                      ...getFieldsValue(),
+                      ...params,
                     },
                     resetFields
                   );
