@@ -183,7 +183,7 @@ class Page extends PureComponent {
           render: (text, record) => (
             <Fragment>
               {record.oilRetailPrice}
-              元/L
+              元/{record.oilUnit}
             </Fragment>
           ),
         },
@@ -195,7 +195,7 @@ class Page extends PureComponent {
           render: (text, record) => (
             <Fragment>
               {record.oilMemberPrice}
-              元/L
+              元/{record.oilUnit}
             </Fragment>
           ),
         },
@@ -204,7 +204,7 @@ class Page extends PureComponent {
           key: 'fuelVolume',
           width: 120,
           align: 'center',
-          render: (text, record) => <Fragment>{record.fuelVolume}L</Fragment>,
+          render: (text, record) => <Fragment>{record.fuelVolume}{record.oilUnit}</Fragment>,
         },
         {
           title: '加注金额',
@@ -266,7 +266,7 @@ class Page extends PureComponent {
 
             <div>
               单页加汽量小计
-              <span style={{ color: 'red', fontSize: '1rem' }}>{gasFuelVSubTotal}</span>L
+              <span style={{ color: 'red', fontSize: '1rem' }}>{gasFuelVSubTotal}</span>kg
             </div>
             <div>
               单页加汽金额小计￥
@@ -274,7 +274,7 @@ class Page extends PureComponent {
             </div>
             <div>
               总页加汽量总计
-              <span style={{ color: 'red', fontSize: '1rem' }}>{gasFuelVTotal}</span>L
+              <span style={{ color: 'red', fontSize: '1rem' }}>{gasFuelVTotal}</span>kg
             </div>
             <div>
               总页加汽金额总计￥
