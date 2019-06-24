@@ -201,7 +201,7 @@ class Page extends PureComponent {
           ),
         },
         {
-          title: '是否开通E商贸通',
+          title: 'E商贸通',
           key: 'isMemberOnline',
           align: 'center',
           width: 150,
