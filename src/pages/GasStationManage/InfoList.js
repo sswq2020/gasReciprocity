@@ -101,7 +101,7 @@ class Page extends PureComponent {
         list: {
           orderDtoList: listData,
           itemCount: totalItemCount,
-          oilSubTotal,
+          oilSubtotal,
           fuelVSubTotal,
           oilTotal,
           fuelVTotal,
@@ -206,7 +206,7 @@ class Page extends PureComponent {
             </div>
               <div>
                 单页加油金额小计￥
-              <span style={{ color: 'red', fontSize: '1.1rem' }}>{oilSubTotal}</span>
+              <span style={{ color: 'red', fontSize: '1.1rem' }}>{oilSubtotal}</span>
               </div>
               <div>
                 总页加油量合计

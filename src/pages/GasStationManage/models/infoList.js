@@ -23,7 +23,7 @@ export default {
       orderDtoList: [],
       itemCount: 0,
       pageTotal: 0,
-      oilSubTotal: 0,
+      oilSubtotal: 0,
       fuelVSubTotal: 0,
       oilTotal: 0,
       fuelVTotal: 0,
