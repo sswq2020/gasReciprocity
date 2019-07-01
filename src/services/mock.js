@@ -9,7 +9,7 @@ export const hostList = {
   dev: '//test.hletong.com/hhgs', // 佘慧   13888888888   888888       admin 888888
   test: '//test.hletong.com/hhgs',
   ywtest: '//test.hletong.com/hhgs-test',
-  pro: '//test.hletong.com',
+  pro: '//yq.hletong.com',
 };
 
 export const imgHost = {
@@ -19,7 +19,7 @@ export const imgHost = {
   dev: '//test.hletong.com/hhgs',
   test: '//test.hletong.com/hhgs',
   ywtest: '//test.hletong.com/hhgs-test',
-  pro: '//test.hletong.com',
+  pro: '//yq.hletong.com',
 };
 
 // /api/Internshipexp/internshipexpBy
