@@ -13,6 +13,7 @@ import PreviewImage from '@/components/PreviewImage';
 import OilSelectForm from './OilSelectForm';
 import BankSelectForm from './BankSelectForm';
 import styles from './gasForm.less';
+import _ from 'lodash';
 
 const imgUrl = `${imgHost[ENV]}/action/hletong/file/gasDownload?file_id=`;
 const FormItem = Form.Item;
@@ -31,6 +32,13 @@ function showWarning(content) {
     title: `${content}`,
   });
 }
+
+function getIndex (arr,obj) {
+  return arr.findIndex(item =>{
+    return item.oilModelName===obj.oilModelName
+  })
+}
+
 
 @Form.create()
 @connect(({ gasForm, global }) => ({
@@ -96,7 +104,7 @@ class CustomizeComponent extends PureComponent {
           render: (text, record, index) => <Fragment>{index + 1}</Fragment>,
         },
         {
-          title: '油品名称',
+          title: '油气名称',
           key: 'oilModelName',
           render: (text, record) => {
             return <Fragment>{record.oilModelName}</Fragment>;
@@ -118,7 +126,7 @@ class CustomizeComponent extends PureComponent {
           title: '会员价',
           align: 'center',
           key: 'oilMemberPrice',
-          render: (text, record) => <Fragment>{record.oilMemberPrice}元</Fragment>,
+          render: (text, record) => <Fragment>{record.oilMemberPrice}元/{record.oilUnit}</Fragment>,
         },
         {
           title: '零售价浮动预警',
@@ -631,7 +639,7 @@ class CustomizeComponent extends PureComponent {
               </FormItem>
             </Col>
           </Row>
-          <FormItemHead>油品分类：</FormItemHead>
+          <FormItemHead>油气分类：</FormItemHead>
           <TableList {...gasListProps} />
           <FormItem>
             {getFieldDecorator('gas.gasOilModelList', {
@@ -641,8 +649,8 @@ class CustomizeComponent extends PureComponent {
                   required: true,
                   validator: (rule, value, callback) => {
                     if (value.length === 0) {
-                      showWarning('请选择油品分类！');
-                      callback('请选择油品分类');
+                      showWarning('请选择油气分类！');
+                      callback('请选择油气分类');
                     }
                     callback();
                   },
@@ -665,7 +673,7 @@ class CustomizeComponent extends PureComponent {
                 });
               }}
             >
-              新增油品信息
+              新增油气信息
             </Button>
           )}
           {isMemberOnline === isMember && (
@@ -738,9 +746,17 @@ class CustomizeComponent extends PureComponent {
                   return;
                 }
                 if (hasData === true) {
+                    let params = _.clone(getFieldsValue());
+                    params.gas.gasOilModelList = params.gas.gasOilModelList.map(item =>{
+                      return {
+                        oilUnit: oilModelInfoList[getIndex(oilModelInfoList,item)].oilUnit,
+                        ...item
+                      }
+                    })
+                    console.log(params);
                   onOk(
                     {
-                      ...getFieldsValue(),
+                      ...params,
                     },
                     resetFields
                   );
@@ -753,7 +769,7 @@ class CustomizeComponent extends PureComponent {
           </Button>
         </div>
         <HLModal
-          title={`${isEdit === false ? '新增' : '编辑'}油品信息`}
+          title={`${isEdit === false ? '新增' : '编辑'}油气信息`}
           visible={visible}
           onOk={fData => {
             fData.oilSelect = Object.assign({}, formData, fData.oilSelect);

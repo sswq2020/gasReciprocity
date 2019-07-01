@@ -10,6 +10,7 @@ const selectState = state => state[namespace];
 const defaultListParams = {
   queryYears: moment(), // 统一时间戳
   currentPage: 1,
+  userPlate: null,
 };
 
 export default {
@@ -22,10 +23,15 @@ export default {
       orderDtoList: [],
       itemCount: 0,
       pageTotal: 0,
-      subtotal: 0,
+      oilSubTotal: 0,
       fuelVSubTotal: 0,
-      total: 0,
+      oilTotal: 0,
       fuelVTotal: 0,
+      /**新增加气***/
+      gasSubtotal:0,
+      gasFuelVSubTotal:0,
+      gasTotal:0,
+      gasFuelVTotal:0
     },
   },
   reducers,
@@ -46,7 +52,7 @@ export default {
           });
           break;
         default:
-          message.warning('加油明细列表获取失败，请稍后重试！');
+          message.warning('加注明细列表获取失败，请稍后重试！');
           break;
       }
     },

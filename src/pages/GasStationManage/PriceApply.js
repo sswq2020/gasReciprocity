@@ -77,7 +77,7 @@ class Page extends PureComponent {
       <Form onSubmit={this.changeListParams} layout="inline">
         <Row gutter={{ md: 16, lg: 24, xl: 48 }}>
           <Col {...formItemWidth}>
-            <FormItem label="油品名称">
+            <FormItem label="油气名称">
               {getFieldDecorator('oilModelName', {
                 initialValue: null,
               })(<Input placeholder="请选择" style={{ width: '100%' }} />)}
@@ -121,7 +121,7 @@ class Page extends PureComponent {
           ),
         },
         {
-          title: '油品名称',
+          title: '油气名称',
           key: 'oilModelName',
           render: (text, record) => <Fragment>{record.oilModelName}</Fragment>,
         },

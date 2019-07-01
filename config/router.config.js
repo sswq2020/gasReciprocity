@@ -58,7 +58,7 @@ export default [
           {
             path: '/gasSys/oil',
             name: 'gasSysOil',
-            title: '油品分类',
+            title: '油气分类',
             component: './GasSys/OilList',
           },
         ],
@@ -74,7 +74,7 @@ export default [
           {
             path: '/financeSys/gasDetail',
             name: 'gasDetail',
-            title: '加油明细',
+            title: '加注明细',
             component: './financeSys/GasDetail',
           },
           {
@@ -109,7 +109,7 @@ export default [
           {
             path: '/gasStationManage/infoList',
             name: 'gasInfoList',
-            title: '加油明细',
+            title: '加注明细',
             component: './GasStationManage/InfoList',
           },
           {

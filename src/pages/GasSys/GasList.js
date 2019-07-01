@@ -190,7 +190,7 @@ class Page extends PureComponent {
         {
           title: '加油站地址',
           key: 'gsDetailAddress',
-          width: 500,
+          width: 250,
           render: (text, record) => (
             <Fragment>
               {record.gsProvinceName}
@@ -201,7 +201,7 @@ class Page extends PureComponent {
           ),
         },
         {
-          title: '是否开通E商贸通',
+          title: 'E商贸通',
           key: 'isMemberOnline',
           align: 'center',
           width: 150,
@@ -248,22 +248,32 @@ class Page extends PureComponent {
           title: '收款二维码',
           key: 'gsQrCode',
           align: 'center',
-          width: 110,
+          width: 170,
           render: (text, record) => (
-            <a
-              onClick={() => {
-                previewImage.open(`${imgUrl}${record.gsQrCode}`);
-                // previewImage.open(`${imgUrl}C8113431CFA4481F8E9703C21CC88C38`);
-              }}
-            >
-              点击查看
+            <Fragment>
+              <a
+                style={{ marginRight: 10 }}
+                onClick={() => {
+                  previewImage.open(`${imgUrl}${record.gsQrCode}`);
+                  // previewImage.open(`${imgUrl}C8113431CFA4481F8E9703C21CC88C38`);
+                }}
+              >
+                点击查看
             </a>
+              <a
+                onClick={() => {
+                  window.open(`${imgUrl}${record.gsQrCode}`);
+                }}
+              >
+                下载二维码
+            </a>
+            </Fragment>
           ),
         },
         {
           title: <div style={{ textAlign: 'center' }}>操作</div>,
           key: 'operating',
-          width: 200,
+          width: 150,
           fixed: 'right',
           align: 'center',
           render: (text, record) => {
@@ -302,7 +312,7 @@ class Page extends PureComponent {
                 <span
                   className={`${
                     record.isBan === dict.gasIsBan ? 'success_text' : 'error_text'
-                  } cursor_pointer`}
+                    } cursor_pointer`}
                   style={{ marginRight: 10 }}
                   onClick={() => {
                     Modal.confirm({
@@ -323,13 +333,6 @@ class Page extends PureComponent {
                 >
                   {showText}
                 </span>
-                <a
-                  onClick={() => {
-                    window.open(`${imgUrl}${record.gsQrCode}`);
-                  }}
-                >
-                  下载二维码
-                </a>
               </Fragment>
             );
           },

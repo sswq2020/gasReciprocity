@@ -22,7 +22,7 @@ class CustomizeComponent extends PureComponent {
     const listProps = {
       columns: [
         {
-          title: '油品名称',
+          title: '油气名称',
           key: 'oilModelName',
           render: (text, record) => <Fragment>{record.oilModelName}</Fragment>,
         },
@@ -57,7 +57,7 @@ class CustomizeComponent extends PureComponent {
           align: 'center',
           width: 180,
           render: (text, record) => (
-            <Fragment>{moment(new Date(record.effectTime)).format('YYYY-MM-DD')}</Fragment>
+            <Fragment>{moment(new Date(record.effectTime)).format('YYYY-MM-DD hh:mm:ss')}</Fragment>
           ),
         },
         {
@@ -66,7 +66,7 @@ class CustomizeComponent extends PureComponent {
           align: 'center',
           width: 180,
           render: (text, record) => (
-            <Fragment>{moment(new Date(record.editTime)).format('YYYY-MM-DD')}</Fragment>
+            <Fragment>{moment(new Date(record.editTime)).format('YYYY-MM-DD hh:mm:ss')}</Fragment>
           ),
         },
       ],

@@ -9,7 +9,7 @@ export const hostList = {
   dev: '//test.hletong.com/hhgs', // 佘慧   13888888888   888888       admin 888888
   test: '//test.hletong.com/hhgs',
   ywtest: '//test.hletong.com/hhgs-test',
-  pro: '//test.hletong.com',
+  pro: '//yq.hletong.com',
 };
 
 export const imgHost = {
@@ -19,7 +19,7 @@ export const imgHost = {
   dev: '//test.hletong.com/hhgs',
   test: '//test.hletong.com/hhgs',
   ywtest: '//test.hletong.com/hhgs-test',
-  pro: '//test.hletong.com',
+  pro: '//yq.hletong.com',
 };
 
 // /api/Internshipexp/internshipexpBy
@@ -145,13 +145,13 @@ const oilLite = {
   deleted: '@PICK([0, 1])',
 };
 /**
- * @sswq 加油站管理/加油明细
+ * @sswq 加油站管理/加注明细
  */
 const refuelDetailList = {
   'id|+1': 1,
   userName: '@INTEGER(13000000000,18999999999)', // 会员名
   userPlate: '苏L@INTEGER(1000,9999)', // 车牌号
-  oilModelName: '0#', // 油品名称
+  oilModelName: '0#', // 油气名称
   oilRetailPrice: '￥@INTEGER(1000,9999).@INTEGER(10,99)', // 零售价
   oilMemberPrice: '￥@INTEGER(1000,9999).@INTEGER(10,99)', // 惠龙价
   fuelVolume: '@INTEGER(10,100)L', // 加油量
@@ -164,7 +164,7 @@ const refuelDetailList = {
  */
 const priceApplyList = {
   'id|+1': 1,
-  oilModelName: '0#(V)', // 油品名称
+  oilModelName: '0#(V)', // 油气名称
   oilRetailPrice: '@INTEGER(1000,9999).@INTEGER(10,99)', // 零售价
   oilMemberAgio: '@INTEGER(1,2)', // 会员折扣(%)
   oilMemberPrice: '@INTEGER(1000,9999).@INTEGER(10,99)', // 会员价

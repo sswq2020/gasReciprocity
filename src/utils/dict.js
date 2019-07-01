@@ -100,6 +100,11 @@ dict.errorCode = {
   [dict.RESOURCE_MODIFIED]: '资源已改变',
 };
 
+dict.oilModelUnit = {
+  kg: 'kg',
+  L: 'L',
+};
+
 dict.oilModelIsDefault = 1;
 dict.oilModelIsNotDefault = 0;
 dict.oilModelDefault = {
@@ -141,5 +146,13 @@ dict.hhgsBillType = {
   [dict.hhgsBillSpecialType]: '增值税专用发票',
   [dict.hhgsBillNormalType]: '增值税普通发票',
 };
+
+dict.adjustByDiscount = '0';
+dict.adjustByCheap= '1';
+dict.adjustPriceType = {
+   [dict.adjustByDiscount]:"按合同调价",
+   [dict.adjustByCheap]:"给定最低价"
+}
+
 
 export default dict;

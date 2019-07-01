@@ -8,7 +8,7 @@ const namespace = 'priceApply';
 const selectState = state => state[namespace];
 
 const defaultListParams = {
-  oilModelName: null, // 油品名称
+  oilModelName: null, // 油气名称
   currentPage: 1,
 };
 
@@ -18,6 +18,7 @@ const defaultFormData = {
   oilMemberAgio: null,
   oilMemberPrice: null,
   effectTime: null,
+  adjustPriceType: "0" // 0 合同调价 1 给定最低价
 };
 
 export default {
@@ -105,7 +106,8 @@ export default {
     *applyPrice({ payload }, { call, put, select }) {
       const { id } = yield select(selectState);
       const { data } = payload;
-      data.effectTime = moment(data.effectTime).format('YYYY-MM-DD');
+      debugger
+      data.effectTime = moment(data.effectTime).format('YYYY-MM-DD HH:mm:ss');
       const response = yield call(services.priceApplyUpdate, { id, ...data });
       switch (response.code) {
         case dict.SUCCESS:

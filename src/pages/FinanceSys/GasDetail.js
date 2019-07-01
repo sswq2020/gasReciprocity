@@ -10,7 +10,7 @@ const SearCh = Input.Search;
 const { MonthPicker } = DatePicker;
 const FormItem = Form.Item;
 const formItemWidth = {
-  lg: 8,
+  lg: 6,
   md: 12,
   sm: 24,
 };
@@ -72,7 +72,7 @@ class Page extends PureComponent {
     const {
       form: { getFieldDecorator },
       getDetailes: {
-        listParams: { queryYears },
+        listParams: { queryYears, userPlate },
         gas,
       },
     } = this.props;
@@ -88,7 +88,7 @@ class Page extends PureComponent {
               })(<MonthPicker autoComplete="off" style={{ width: '100%' }} format={dateFormat} />)}
             </FormItem>
           </Col>
-          <Col {...formItemWidth}>
+          <Col {...{ lg: 7, md: 12, sm: 24, }}>
             <FormItem label="加油站名称">
               {getFieldDecorator('gsId')(<Input type="hidden" />)}
               <SearCh
@@ -98,10 +98,18 @@ class Page extends PureComponent {
                 onSearch={this.openPop}
                 placeholder="请点击"
                 autoComplete="off"
+                style={{ width: '100%' }}
               />
             </FormItem>
           </Col>
           <Col {...formItemWidth}>
+            <FormItem label="车牌号">
+              {getFieldDecorator('userPlate', {
+                initialValue: userPlate,
+              })(<Input placeholder="请选择" style={{ width: '100%' }} />)}
+            </FormItem>
+          </Col>
+          <Col {...{ lg: 5, md: 12, sm: 24, }}>
             <Button type="primary" htmlType="submit">
               查询
             </Button>
@@ -124,10 +132,14 @@ class Page extends PureComponent {
         list: {
           orderDtoList: listData,
           itemCount: totalItemCount,
-          subtotal,
+          oilSubTotal,
           fuelVSubTotal,
-          total,
+          oilTotal,
           fuelVTotal,
+          gasSubtotal,
+          gasFuelVSubTotal,
+          gasTotal,
+          gasFuelVTotal
         },
       },
     } = this.props;
@@ -137,19 +149,10 @@ class Page extends PureComponent {
           title: '序号',
           key: '#',
           width: 60,
-          fixed: 'left',
           align: 'center',
           render: (text, record, index) => (
             <Fragment>{(currentPage - 1) * 10 + index + 1}</Fragment>
           ),
-        },
-        {
-          title: '会员名',
-          key: 'userName',
-          align: 'center',
-          render: (text, record) => {
-            return <Fragment>{record.userName}</Fragment>;
-          },
         },
         {
           title: '车牌号',
@@ -166,7 +169,7 @@ class Page extends PureComponent {
           render: (text, record) => <Fragment>{record.gsName}</Fragment>,
         },
         {
-          title: '油品名称',
+          title: '油气名称',
           key: 'oilModelName',
           width: 200,
           align: 'center',
@@ -180,31 +183,31 @@ class Page extends PureComponent {
           render: (text, record) => (
             <Fragment>
               {record.oilRetailPrice}
-              元/L
+              元/{record.oilUnit}
             </Fragment>
           ),
         },
         {
-          title: '惠龙价',
+          title: '会员价',
           key: 'oilMemberPrice',
           width: 120,
           align: 'center',
           render: (text, record) => (
             <Fragment>
               {record.oilMemberPrice}
-              元/L
+              元/{record.oilUnit}
             </Fragment>
           ),
         },
         {
-          title: '加油量',
+          title: '加注量',
           key: 'fuelVolume',
           width: 120,
           align: 'center',
-          render: (text, record) => <Fragment>{record.fuelVolume}L</Fragment>,
+          render: (text, record) => <Fragment>{record.fuelVolume}{record.oilUnit}</Fragment>,
         },
         {
-          title: '加油金额',
+          title: '加注金额',
           key: 'totalPrice',
           align: 'center',
           width: 100,
@@ -236,29 +239,56 @@ class Page extends PureComponent {
       },
       title: () => {
         return (
-          <div
-            style={{
-              display: 'flex',
-              justifyContent: 'space-around',
-              width: '80%',
-              margin: '0 auto',
-            }}
-          >
-            <div>
-              当前页加油量小计
-              <span style={{ color: 'red', fontSize: '1.2rem' }}>{fuelVSubTotal}</span>L
+          <div>
+            <div
+              style={{
+                display: 'flex',
+                justifyContent: 'space-around',
+                width: '80%',
+                margin: '0 auto',
+              }}
+            >
+              <div>
+                单页加油量小计
+              <span style={{ color: 'red', fontSize: '1.1rem' }}>{fuelVSubTotal}</span>L
             </div>
-            <div>
-              当前页加油金额小计￥
-              <span style={{ color: 'red', fontSize: '1.2rem' }}>{subtotal}</span>
+              <div>
+                单页加油金额小计￥
+              <span style={{ color: 'red', fontSize: '1.1rem' }}>{oilSubTotal}</span>
+              </div>
+              <div>
+                总页加油量合计
+              <span style={{ color: 'red', fontSize: '1.1rem' }}>{fuelVTotal}</span>L
             </div>
-            <div>
-              总页加油量合计
-              <span style={{ color: 'red', fontSize: '1.2rem' }}>{fuelVTotal}</span>L
+              <div>
+                总页加油金额合计￥
+              <span style={{ color: 'red', fontSize: '1.1rem' }}>{oilTotal}</span>
+              </div>
             </div>
-            <div>
-              总页加油金额合计￥
-              <span style={{ color: 'red', fontSize: '1.2rem' }}>{total}</span>
+            <div
+              style={{
+                display: 'flex',
+                justifyContent: 'space-around',
+                width: '80%',
+                margin: '0 auto',
+              }}
+            >
+              <div>
+                单页加气量小计
+                      <span style={{ color: 'red', fontSize: '1rem' }}>{gasFuelVSubTotal}</span>kg
+                    </div>
+              <div>
+                单页加气金额小计￥
+                      <span style={{ color: 'red', fontSize: '1rem' }}>{gasSubtotal}</span>
+              </div>
+              <div>
+                总页加气量总计
+                      <span style={{ color: 'red', fontSize: '1rem' }}>{gasFuelVTotal}</span>kg
+                    </div>
+              <div>
+                总页加气金额总计￥
+                      <span style={{ color: 'red', fontSize: '1rem' }}>{gasTotal}</span>
+              </div>
             </div>
           </div>
         );

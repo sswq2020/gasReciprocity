@@ -1,6 +1,11 @@
 import React, { PureComponent } from 'react';
 import { Form, Input, Radio } from 'antd';
 import dict from '@/utils/dict';
+import MySelect from '@/components/Select';
+
+const oilUnitList = Object.keys(dict.oilModelUnit).map(item => {
+  return { itemCode: item, itemName: item };
+});
 
 const RadioGroup = Radio.Group;
 const { TextArea } = Input;
@@ -26,14 +31,14 @@ export default class CustomizeComponent extends PureComponent {
     } = this.props;
     return (
       <Form style={{ marginBottom: -24 }}>
-        <FormItem {...formItemLayout} label="油品分类名称">
+        <FormItem {...formItemLayout} label="油气分类名称">
           {getFieldDecorator('oil.oilModelName', {
             initialValue: data.oilModelName,
             rules: [
               {
                 required: true,
                 whitespace: true,
-                message: '请填写油品分类名称',
+                message: '请填写油气分类名称',
               },
               {
                 whitespace: true,
@@ -44,12 +49,30 @@ export default class CustomizeComponent extends PureComponent {
           })(
             <Input
               readOnly={!!data.oilModelName}
-              placeholder="请填写油品分类名称"
+              placeholder="请填写油气分类名称"
               autoComplete="off"
             />
           )}
         </FormItem>
-        <FormItem {...formItemLayout} label="油品分类描述">
+        <FormItem {...formItemLayout} label="油气单位">
+          {getFieldDecorator('oil.oilUnit', {
+            initialValue: data.oilUnit,
+            rules: [
+              {
+                required: true,
+                whitespace: true,
+                message: '请填写油气单位',
+              },
+            ],
+          })(
+            <MySelect
+            placeholder="请选择"
+            style={{ width: '100%' }}
+            data={oilUnitList}
+          />
+          )}
+        </FormItem>        
+        <FormItem {...formItemLayout} label="油气分类描述">
           {getFieldDecorator('oil.oilModelDesc', {
             initialValue: data.oilModelDesc,
             rules: [
@@ -61,7 +84,7 @@ export default class CustomizeComponent extends PureComponent {
           })(
             <TextArea
               autosize={{ minRows: 3, maxRows: 3 }}
-              placeholder="请填写油品分类描述"
+              placeholder="请填写油气分类描述"
               autoComplete="off"
             />
           )}

@@ -14,6 +14,7 @@ const defaultListParams = {
 const defaultFormData = {
   oilModelName: '',
   oilModelDesc: '',
+  oilUnit:'',
   isDefault: dict.oilModelIsNotDefault,
 };
 
@@ -73,7 +74,7 @@ export default {
       const response = yield call(services.oilCreate, data);
       switch (response.code) {
         case dict.SUCCESS:
-          message.success('油品分类创建成功！');
+          message.success('油气分类创建成功！');
           yield put({ type: 'resetListParams' });
           yield put({ type: 'closeForm' });
           break;
@@ -88,7 +89,7 @@ export default {
 
       switch (response.code) {
         case dict.SUCCESS:
-          message.success('油品分类删除成功！');
+          message.success('油气分类删除成功！');
           yield put({ type: 'getList' });
           break;
         default:
@@ -103,7 +104,7 @@ export default {
 
       switch (response.code) {
         case dict.SUCCESS:
-          message.success('油品分类编辑成功！');
+          message.success('油气分类编辑成功！');
           yield put({ type: 'getList' });
           yield put({ type: 'closeForm' });
           break;
@@ -118,7 +119,7 @@ export default {
 
       switch (response.code) {
         case dict.SUCCESS:
-          message.success('油品分类启用成功！');
+          message.success('油气分类启用成功！');
           yield put({ type: 'getList' });
           break;
         default:
@@ -132,7 +133,7 @@ export default {
 
       switch (response.code) {
         case dict.SUCCESS:
-          message.success('油品分类禁用成功！');
+          message.success('油气分类禁用成功！');
           yield put({ type: 'getList' });
           break;
         default:
@@ -146,7 +147,7 @@ export default {
 
       switch (response.code) {
         case dict.SUCCESS:
-          message.success('油品分类设为默认展示成功！');
+          message.success('油气分类设为默认展示成功！');
           yield put({ type: 'getList' });
           break;
         default:

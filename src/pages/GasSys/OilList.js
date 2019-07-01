@@ -80,7 +80,7 @@ class Page extends PureComponent {
       <Form onSubmit={this.changeListParams}>
         <Row gutter={{ md: 16, lg: 24, xl: 48 }}>
           <Col {...formItemWidth}>
-            <FormItem label="油品分类名称">
+            <FormItem label="油气分类名称">
               {getFieldDecorator('oilModelName')(<Input placeholder="请输入" autoComplete="off" />)}
             </FormItem>
           </Col>
@@ -124,14 +124,20 @@ class Page extends PureComponent {
           ),
         },
         {
-          title: '油品分类名称',
+          title: '油气分类名称',
           key: 'oilModelName',
           // align: 'center',
           width: 200,
           render: (text, record) => <Fragment>{record.oilModelName}</Fragment>,
         },
         {
-          title: '油品分类描述',
+          title: '油气单位',
+          key: 'oilUnit',
+          width: 200,
+          render: (text, record) => <Fragment>{record.oilUnit}</Fragment>,
+        },        
+        {
+          title: '油气分类描述',
           key: 'oilModelDesc',
           // align: 'center',
           render: (text, record) => <Fragment>{record.oilModelDesc}</Fragment>,
@@ -313,7 +319,7 @@ class Page extends PureComponent {
         <ListHeaderForm>{this.renderAdvancedForm()}</ListHeaderForm>
         <TableList {...listProps} />
         <HLModal
-          title={`${isEdit === false ? '新建' : '编辑'}油品分类`}
+          title={`${isEdit === false ? '新建' : '编辑'}油气分类`}
           visible={visible}
           confirmLoading={isEdit === false ? createIsLoading : editIsLoading}
           onOk={data => {
