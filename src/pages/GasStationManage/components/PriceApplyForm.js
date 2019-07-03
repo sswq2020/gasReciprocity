@@ -69,7 +69,7 @@ export default class CustomizeComponent extends PureComponent {
           <FormItem {...formItemLayout} label="油气名称">
             {data.oilModelName}
           </FormItem>
-          <FormItem {...formItemLayout} label="零售价">
+          <FormItem {...formItemLayout} label="挂牌零售价">
             {getFieldDecorator('oilRetailPrice', {
               initialValue: data.oilRetailPrice,
               getValueFromEvent: value => {
@@ -84,12 +84,12 @@ export default class CustomizeComponent extends PureComponent {
               rules: [
                 {
                   required: true,
-                  message: '请填写零售价',
+                  message: '请填写挂牌零售价',
                 },
               ],
             })(
               <InputNumber
-                placeholder="请填写零售价"
+                placeholder="请填写挂牌零售价"
                 autoComplete="off"
                 min={0}
                 step={1}
@@ -140,7 +140,7 @@ export default class CustomizeComponent extends PureComponent {
           <FormItem {...formItemLayout} label="油气名称">
             {data.oilModelName}
           </FormItem>
-          <FormItem {...formItemLayout} label="零售价">
+          <FormItem {...formItemLayout} label="挂牌零售价">
             {getFieldDecorator('oilRetailPrice', {
               initialValue: data.oilRetailPrice,
               getValueFromEvent: value => {
@@ -155,12 +155,12 @@ export default class CustomizeComponent extends PureComponent {
               rules: [
                 {
                   required: true,
-                  message: '请填写零售价',
+                  message: '请填写挂牌零售价',
                 },
               ],
             })(
               <InputNumber
-                placeholder="请填写零售价"
+                placeholder="请填写挂牌零售价"
                 autoComplete="off"
                 min={0}
                 step={1}
@@ -180,7 +180,7 @@ export default class CustomizeComponent extends PureComponent {
               ],
             })(
               <InputNumber
-                placeholder="请填写零售价"
+                placeholder="请填写挂牌零售价"
                 autoComplete="off"
                 min={0}
                 step={1}

@@ -75,7 +75,7 @@ class CustomizeComponent extends PureComponent {
             ],
           })(<Select placeholder="请选择油气名称" autoComplete="off" data={selectData} />)}
         </FormItem>
-        <FormItem {...formItemLayout} label="零售价">
+        <FormItem {...formItemLayout} label="挂牌零售价">
           {getFieldDecorator('oilSelect.oilRetailPrice', {
             initialValue: data.oilRetailPrice,
             getValueFromEvent: value => {
@@ -85,12 +85,12 @@ class CustomizeComponent extends PureComponent {
             rules: [
               {
                 required: true,
-                message: '请填写零售价',
+                message: '请填写挂牌零售价',
               },
             ],
           })(
             <InputNumber
-              placeholder="请填写零售价"
+              placeholder="请填写挂牌零售价"
               autoComplete="off"
               min={0}
               step={1}
@@ -99,18 +99,18 @@ class CustomizeComponent extends PureComponent {
             />
           )}
         </FormItem>
-        <FormItem {...formItemLayout} label="零售价浮动预警">
+        <FormItem {...formItemLayout} label="挂牌零售价浮动预警">
           {getFieldDecorator('oilSelect.oilRetailWarn', {
             initialValue: data.oilRetailWarn,
             rules: [
               {
                 required: true,
-                message: '请填写零售价浮动预警',
+                message: '请填写挂牌零售价浮动预警',
               },
             ],
           })(
             <InputNumber
-              placeholder="请填写零售价浮动预警"
+              placeholder="请填写挂牌零售价浮动预警"
               autoComplete="off"
               min={0}
               max={100}

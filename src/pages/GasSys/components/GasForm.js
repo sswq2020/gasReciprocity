@@ -111,7 +111,7 @@ class CustomizeComponent extends PureComponent {
           },
         },
         {
-          title: '零售价',
+          title: '挂牌零售价',
           align: 'center',
           key: 'oilRetailPrice',
           render: (text, record) => <Fragment>{record.oilRetailPrice}元</Fragment>,
@@ -129,7 +129,7 @@ class CustomizeComponent extends PureComponent {
           render: (text, record) => <Fragment>{record.oilMemberPrice}元/{record.oilUnit}</Fragment>,
         },
         {
-          title: '零售价浮动预警',
+          title: '挂牌零售价浮动预警',
           align: 'center',
           key: 'oilRetailWarn',
           render: (text, record) => <Fragment>{record.oilRetailWarn}%</Fragment>,
