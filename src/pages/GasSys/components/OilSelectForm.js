@@ -54,7 +54,7 @@ class CustomizeComponent extends PureComponent {
         }
       } else {
         if (!!nP && !!nA && nP > nA) {
-          mP = nP - nA
+          mP = ((nP * 1000 - nA *1000) / 1000).toFixed(2);
         }
       }
       setFieldsValue({
