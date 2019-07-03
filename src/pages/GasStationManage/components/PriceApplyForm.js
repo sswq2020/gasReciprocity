@@ -1,7 +1,11 @@
 import React, { PureComponent } from 'react';
-import { Form, Input, InputNumber, DatePicker,Radio } from 'antd';
+import { Form, Input, InputNumber, DatePicker, Radio } from 'antd';
+import Select from '@/components/Select';
 import moment from 'moment';
 import dict from '@/utils/dict';
+import { DictToSelect } from '@/utils/utils';
+
+const adjustPriceTypeData = DictToSelect(dict.adjustPriceType);
 
 const FormItem = Form.Item;
 const RadioGroup = Radio.Group;
@@ -18,78 +22,62 @@ const formItemLayout = {
   },
 };
 
-const setMemberPrice = (price, agio) => {
-  let mP = 0;
-  // console.log(price, agio);
-  // console.log(Number(price), Number(agio));
-  const nP = Number(price);
-  const nA = Number(agio);
-  if (!!nP && !!nA) {
-    mP = nP && nA ? ((nP * 100 * nA) / 10000).toFixed(2) : 0;
-  }
-
-  return mP;
-};
-
 export default class CustomizeComponent extends PureComponent {
-  constructor() {
-    super();
-    this.state = {
-      data: {},
-    };
-  }
-
-  componentDidMount() {
-    const { data } = this.props;
-    this.setState({
-      data,
-    });
-  }
-
   render() {
-    const { data } = this.state;
     const {
-      form: { getFieldDecorator, setFieldsValue, getFieldValue},
+      data,
+      form: { getFieldDecorator, setFieldsValue, getFieldValue },
     } = this.props;
-    data.adjustPriceType = data.adjustPriceType || "0";
-    const adjustPriceType = getFieldValue('adjustPriceType') || data.adjustPriceType ;
-    if(adjustPriceType === "0") {
+
+    const setMemberPrice = (price, agio, ISDiscount= true) => {
+      debugger
+      let mP = 0;
+      const nP = Number(price);
+      const nA = Number(agio);
+      if (ISDiscount) {
+        if (!!nP && !!nA) {
+          mP = nP && nA ? ((nP * 100 * nA) / 10000).toFixed(2) : 0;
+        }
+      } else {
+        if (!!nP && !!nA && nP > nA) {
+          mP = ((nP * 1000 - nA *1000) / 1000).toFixed(2);
+        }else {
+          mP = nP;
+        }
+      }
+      debugger
+      return mP
+    };
+
+    getFieldDecorator('oilChangeType', {
+      initialValue: data.oilChangeType,
+    });
+    debugger
+    const oilChangeType = data.oilChangeType;
+    if (oilChangeType === "0") {
       return (
         <Form style={{ marginBottom: -24 }}>
-          <FormItem {...formItemLayout} label="调价模式">
-            {getFieldDecorator('adjustPriceType', {
-              initialValue: data.adjustPriceType,
-            })(
-              <RadioGroup>
-                <Radio value={dict.adjustByDiscount}>按合同调价</Radio>
-                <Radio value={dict.adjustByCheap}>给定最低价</Radio>
-              </RadioGroup>
-            )}
-          </FormItem>
           <FormItem {...formItemLayout} label="油气名称">
             {data.oilModelName}
           </FormItem>
-          <FormItem {...formItemLayout} label="零售价">
+          <FormItem {...formItemLayout} label="挂牌零售价">
             {getFieldDecorator('oilRetailPrice', {
               initialValue: data.oilRetailPrice,
               getValueFromEvent: value => {
-                this.setState({
-                  data: {
-                    ...data,
-                    oilMemberPrice: setMemberPrice(value, data.oilMemberAgio),
-                  },
+                setFieldsValue({
+                  'oilMemberPrice': setMemberPrice(value, data.oilMemberAgio)
                 });
                 return value;
               },
               rules: [
                 {
                   required: true,
-                  message: '请填写零售价',
+                  message: '请填写挂牌零售价',
                 },
               ],
             })(
               <InputNumber
-                placeholder="请填写零售价"
+                placeholder="请填写挂牌零售价"
                 autoComplete="off"
                 min={0}
                 step={1}
@@ -99,13 +87,19 @@ export default class CustomizeComponent extends PureComponent {
             )}
           </FormItem>
           <FormItem {...formItemLayout} label="会员折扣">
-            {getFieldDecorator('oilMemberAgio', {
-              initialValue: data.oilMemberAgio,
-            })(<Input disabled autoComplete="off" style={{ width: 'calc(100% - 20px)' }} />)}{' '}
+            {data.oilMemberAgio}
             %
           </FormItem>
           <FormItem {...formItemLayout} label="会员价">
-            {data.oilMemberPrice}
+            {getFieldDecorator('oilMemberPrice', {
+              initialValue: data.oilMemberPrice,
+            })(
+              <InputNumber
+                style={{ width: '100%' }}
+                readOnly
+                autoComplete="off"
+              />
+            )}
           </FormItem>
           <FormItem {...formItemLayout} label="生效日期">
             {getFieldDecorator('effectTime', {
@@ -127,40 +121,27 @@ export default class CustomizeComponent extends PureComponent {
     } else {
       return (
         <Form style={{ marginBottom: -24 }}>
-          <FormItem {...formItemLayout} label="调价模式">
-            {getFieldDecorator('adjustPriceType', {
-              initialValue: data.adjustPriceType,
-            })(
-              <RadioGroup>
-                <Radio value={dict.adjustByDiscount}>按合同调价</Radio>
-                <Radio value={dict.adjustByCheap}>给定最低价</Radio>
-              </RadioGroup>
-            )}
-          </FormItem>
           <FormItem {...formItemLayout} label="油气名称">
             {data.oilModelName}
           </FormItem>
-          <FormItem {...formItemLayout} label="零售价">
+          <FormItem {...formItemLayout} label="挂牌零售价">
             {getFieldDecorator('oilRetailPrice', {
               initialValue: data.oilRetailPrice,
               getValueFromEvent: value => {
-                this.setState({
-                  data: {
-                    ...data,
-                    oilMemberPrice: setMemberPrice(value, data.oilMemberAgio),
-                  },
+                setFieldsValue({
+                  oilMemberPrice: setMemberPrice(value, data.oilMemberAgio, false),
                 });
                 return value;
               },
               rules: [
                 {
                   required: true,
-                  message: '请填写零售价',
+                  message: '请填写挂牌零售价',
                 },
               ],
             })(
               <InputNumber
-                placeholder="请填写零售价"
+                placeholder="请填写挂牌零售价"
                 autoComplete="off"
                 min={0}
                 step={1}
@@ -169,23 +150,17 @@ export default class CustomizeComponent extends PureComponent {
               />
             )}
           </FormItem>
+          <FormItem {...formItemLayout} label="会员优惠(元)">
+            {data.oilMemberAgio}
+          </FormItem>
           <FormItem {...formItemLayout} label="会员价">
             {getFieldDecorator('oilMemberPrice', {
-              initialValue: data.oilRetailPrice,
-              rules: [
-                {
-                  required: true,
-                  message: '请填写会员价',
-                },
-              ],
+              initialValue: data.oilMemberPrice,
             })(
               <InputNumber
-                placeholder="请填写零售价"
-                autoComplete="off"
-                min={0}
-                step={1}
-                precision={2}
                 style={{ width: '100%' }}
+                disabled
+                autoComplete="off"
               />
             )}
           </FormItem>

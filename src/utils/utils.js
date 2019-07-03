@@ -22,3 +22,12 @@ export const reducers = {
     };
   },
 };
+
+export const DictToSelect = (dictType) => {
+  return Object.keys(dictType).map(key => {
+    return {
+      itemCode: key,
+      itemName: dictType[key],
+    }
+  })
+}
