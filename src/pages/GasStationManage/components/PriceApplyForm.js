@@ -150,7 +150,7 @@ export default class CustomizeComponent extends PureComponent {
               />
             )}
           </FormItem>
-          <FormItem {...formItemLayout} label="会员折扣">
+          <FormItem {...formItemLayout} label="会员优惠(元)">
             {data.oilMemberAgio}
           </FormItem>
           <FormItem {...formItemLayout} label="会员价">
