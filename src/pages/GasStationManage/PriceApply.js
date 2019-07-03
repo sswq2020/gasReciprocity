@@ -7,6 +7,7 @@ import HLModal from '@/components/Modal';
 import ListHeaderForm from '@/components/ListHeaderForm';
 import PriceApplyForm from './components/PriceApplyForm';
 import PriceHistoryList from './components/PriceHistoryList';
+import dict from '@/utils/dict';
 
 const FormItem = Form.Item;
 const formItemWidth = {
@@ -58,12 +59,10 @@ class Page extends PureComponent {
 
   openFormEdit = data => {
     const { dispatch } = this.props;
-    const { id, ...formData } = data;
     dispatch({
       type: 'priceApply/openForm',
       payload: {
-        id,
-        formData,
+        ...data
       },
     });
   };
@@ -123,7 +122,16 @@ class Page extends PureComponent {
         {
           title: '油气名称',
           key: 'oilModelName',
+          width: 150,
           render: (text, record) => <Fragment>{record.oilModelName}</Fragment>,
+        },
+        {
+          title: '调价方式',
+          key: 'oilChangeType',
+          width: 150,
+          render: (text, record) => {
+            return <Fragment>{dict.adjustPriceType[record.oilChangeType]}</Fragment>;
+          },
         },
         {
           title: '挂牌零售价',
@@ -134,10 +142,17 @@ class Page extends PureComponent {
         },
         {
           title: '会员折扣(%)',
-          key: 'memberDiscount',
-          width: 150,
           align: 'center',
-          render: (text, record) => <Fragment>{record.oilMemberAgio} %</Fragment>,
+          width: 150,
+          key: 'oilMemberAgio',
+          render: (text, record) => <Fragment>{ record.oilChangeType==="0" ? record.oilMemberAgio : "/"}</Fragment>,
+        },
+        {
+          title: '会员优惠(元)',
+          align: 'center',
+          width: 150,
+          key: 'oilMemberAgio',
+          render: (text, record) => <Fragment>{record.oilChangeType==="1" ? record.oilMemberAgio : "/"}</Fragment>,
         },
         {
           title: '会员价',

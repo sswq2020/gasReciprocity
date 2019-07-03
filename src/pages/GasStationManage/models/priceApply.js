@@ -13,19 +13,19 @@ const defaultListParams = {
 };
 
 const defaultFormData = {
+  id:null,
   oilModelName: null,
   oilRetailPrice: null,
   oilMemberAgio: null,
   oilMemberPrice: null,
   effectTime: null,
-  adjustPriceType: "0" // 0 合同调价 1 给定最低价
+  oilChangeType: "0" // 0 合同调价 1 给定最低价
 };
 
 export default {
   namespace,
   state: {
     visible: false,
-    id: null,
     formData: {
       ...defaultFormData,
     },
@@ -87,6 +87,14 @@ export default {
       yield put({
         type: 'overrideStateProps',
         payload: {
+          formData: {
+            ...payload,
+          },
+        },
+      });
+      yield put({
+        type: 'overrideStateProps',
+        payload: {
           visible: true,
           ...payload,
         },
@@ -104,11 +112,11 @@ export default {
       });
     },
     *applyPrice({ payload }, { call, put, select }) {
-      const { id } = yield select(selectState);
+      const { formData } = yield select(selectState);
+      const {id,oilMemberAgio,oilModelName} = formData;
       const { data } = payload;
-      debugger
       data.effectTime = moment(data.effectTime).format('YYYY-MM-DD HH:mm:ss');
-      const response = yield call(services.priceApplyUpdate, { id, ...data });
+      const response = yield call(services.priceApplyUpdate, {id,oilMemberAgio,oilModelName,...data });
       switch (response.code) {
         case dict.SUCCESS:
           message.success('调价申请成功！');
