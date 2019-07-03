@@ -138,7 +138,7 @@ class Page extends PureComponent {
           render: (text, record) => <Fragment>{record.oilModelName}</Fragment>,
         },
         {
-          title: '零售价',
+          title: '挂牌零售价',
           key: 'oilRetailPrice',
           width: 120,
           align: 'center',

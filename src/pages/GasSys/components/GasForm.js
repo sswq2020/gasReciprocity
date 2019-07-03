@@ -14,6 +14,7 @@ import OilSelectForm from './OilSelectForm';
 import BankSelectForm from './BankSelectForm';
 import styles from './gasForm.less';
 import _ from 'lodash';
+import dict from '@/utils/dict';
 
 const imgUrl = `${imgHost[ENV]}/action/hletong/file/gasDownload?file_id=`;
 const FormItem = Form.Item;
@@ -111,7 +112,14 @@ class CustomizeComponent extends PureComponent {
           },
         },
         {
-          title: '零售价',
+          title: '调价方式',
+          key: 'oilChangeType',
+          render: (text, record) => {
+            return <Fragment>{dict.adjustPriceType[record.oilChangeType]}</Fragment>;
+          },
+        },
+        {
+          title: '挂牌零售价',
           align: 'center',
           key: 'oilRetailPrice',
           render: (text, record) => <Fragment>{record.oilRetailPrice}元</Fragment>,
@@ -120,19 +128,19 @@ class CustomizeComponent extends PureComponent {
           title: '会员折扣(%)',
           align: 'center',
           key: 'oilMemberAgio',
-          render: (text, record) => <Fragment>{record.oilMemberAgio}%</Fragment>,
+          render: (text, record) => <Fragment>{ record.oilChangeType==="0" ? record.oilMemberAgio : "/"}</Fragment>,
+        },
+        {
+          title: '会员优惠(元)',
+          align: 'center',
+          key: 'oilMemberAgio',
+          render: (text, record) => <Fragment>{record.oilChangeType==="1" ? record.oilMemberAgio : "/"}</Fragment>,
         },
         {
           title: '会员价',
           align: 'center',
           key: 'oilMemberPrice',
           render: (text, record) => <Fragment>{record.oilMemberPrice}元/{record.oilUnit}</Fragment>,
-        },
-        {
-          title: '零售价浮动预警',
-          align: 'center',
-          key: 'oilRetailWarn',
-          render: (text, record) => <Fragment>{record.oilRetailWarn}%</Fragment>,
         },
         {
           title: <div style={{ textAlign: 'center' }}>操作</div>,
