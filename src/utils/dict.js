@@ -149,9 +149,10 @@ dict.hhgsBillType = {
 
 dict.adjustByDiscount = '0';
 dict.adjustByCheap= '1';
+/**调价方式*/
 dict.adjustPriceType = {
-   [dict.adjustByDiscount]:"按合同调价",
-   [dict.adjustByCheap]:"给定最低价"
+   [dict.adjustByDiscount]:"折扣比例",
+   [dict.adjustByCheap]:"折扣金额"
 }
 
 
