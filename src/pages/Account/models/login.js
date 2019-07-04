@@ -46,10 +46,10 @@ export default {
           // );
           break;
         case 420:
-          message.warning('账号或密码错误！');
+          message.warning(response.mesg);
           break;
         default:
-          message.warning('登录失败，请稍后重试！');
+          message.warning(response.mesg);
           break;
       }
     },
@@ -73,7 +73,7 @@ export default {
 
           break;
         default:
-          message.warning('退出登录失败，请稍后重试！');
+          message.warning(response.mesg);
           break;
       }
     },
