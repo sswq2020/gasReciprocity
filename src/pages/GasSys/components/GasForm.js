@@ -84,6 +84,7 @@ class CustomizeComponent extends PureComponent {
         validateFields,
       },
     } = this.props;
+    console.log(oilModelInfoList);
     const fileList = getFieldValue('gas.fileList') || data.fileList;
     const gasOilModelList = getFieldValue('gas.gasOilModelList') || data.gasOilModelList;
     const areaList = getFieldValue('gas.areaList') || data.areaList;
@@ -122,7 +123,7 @@ class CustomizeComponent extends PureComponent {
           title: '挂牌零售价',
           align: 'center',
           key: 'oilRetailPrice',
-          render: (text, record) => <Fragment>{record.oilRetailPrice}元</Fragment>,
+          render: (text, record) => <Fragment>{record.oilRetailPrice}元/{record.oilUnit}</Fragment>,
         },
         {
           title: '会员折扣(%)',
@@ -780,6 +781,12 @@ class CustomizeComponent extends PureComponent {
           title={`${isEdit === false ? '新增' : '编辑'}油气信息`}
           visible={visible}
           onOk={fData => {
+            let Index = oilModelInfoList.findIndex((item)=>{
+              return item.oilModelName === fData.oilSelect.oilModelName
+            })
+            console.log(fData.oilSelect)
+            fData.oilSelect.oilUnit = oilModelInfoList[Index].oilUnit;
+            console.log(fData.oilSelect)
             fData.oilSelect = Object.assign({}, formData, fData.oilSelect);
             if (isEdit === false) {
               gasOilModelList.push(fData.oilSelect);
