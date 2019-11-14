@@ -53,23 +53,40 @@ export default class GlobalHeaderRight extends PureComponent {
       // onNoticeClear,
       theme,
     } = this.props;
-    const menu = (
-      <Menu className={styles.menu} selectedKeys={[]} onClick={onMenuClick}>
-        {/* <Menu.Item key="userCenter">
-          <Icon type="user" />
-          个人中心
-        </Menu.Item>
-        <Menu.Item key="userinfo">
-          <Icon type="setting" />
-          个人设置
-        </Menu.Item>
-        <Menu.Divider /> */}
-        <Menu.Item key="logout">
-          <Icon type="logout" />
-          退出登录
-        </Menu.Item>
-      </Menu>
-    );
+    const { gsQrCode } = currentUser;
+    let menu = null;
+    if (gsQrCode) {
+      menu = (
+        <Menu className={styles.menu} selectedKeys={[]} onClick={onMenuClick}>
+          {/* <Menu.Item key="userCenter">
+            <Icon type="user" />
+            个人中心
+          </Menu.Item>
+          <Menu.Item key="userinfo">
+            <Icon type="setting" />
+            个人设置
+          </Menu.Item>
+          <Menu.Divider /> */}
+          <Menu.Item key="logout">
+            <Icon type="logout" />
+            退出登录
+          </Menu.Item>
+          <Menu.Item key="download">
+            <Icon type="vertical-align-bottom" />
+            下载收款二维码
+          </Menu.Item>
+        </Menu>
+      );
+    }else {
+      menu = (
+        <Menu className={styles.menu} selectedKeys={[]} onClick={onMenuClick}>
+          <Menu.Item key="logout">
+            <Icon type="logout" />
+            退出登录
+          </Menu.Item>
+        </Menu>
+      );
+    }
     // const noticeData = this.getNoticeData();
     let className = styles.right;
     if (theme === 'dark') {

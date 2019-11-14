@@ -11,6 +11,8 @@ import GlobalHeader from '@/components/GlobalHeader';
 import styles from './Header.less';
 
 const { Header } = Layout;
+import { imgHost } from '@/services/mock';
+const imgUrl = `${imgHost[ENV]}/action/hletong/file/gasDownload?file_id=`;
 
 @connect(({ user, global, setting }) => ({
   currentUser: user.currentUser,
@@ -63,13 +65,20 @@ class HeaderView extends PureComponent {
   // };
 
   handleMenuClick = ({ key }) => {
-    const { dispatch } = this.props;
+    debugger
+    const { dispatch,currentUser } = this.props;
+    const {gsQrCode} = currentUser
     switch (key) {
       case 'logout':
         dispatch({
           type: 'user/logout',
         });
         break;
+        case 'download':
+          if(gsQrCode){
+            window.open(`${imgUrl}${gsQrCode}`);
+          }
+          break;
       default:
         break;
     }
