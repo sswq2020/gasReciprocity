@@ -177,14 +177,14 @@ class BasicLayout extends React.PureComponent {
     // undefined 就是不在路由表里面
     // console.log(currRouterData)
     if (!currRouterData) {
-      return '互惠互利加油站';
+      return '油气平台';
     }
     // console.log(formatMessage)
     // const message = formatMessage({
     //   id: currRouterData.locale || currRouterData.name,
     //   defaultMessage: currRouterData.name,
     // });
-    return `${currRouterData.title} - 互惠互利加油站`;
+    return `${currRouterData.title} - 油气平台`;
   };
 
   getLayoutStyle = () => {
